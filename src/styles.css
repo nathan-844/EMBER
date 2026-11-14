@@ -1,0 +1,143 @@
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --surface-warm: #faf8f3;
+  --border: #dde1e6;
+  --border-strong: #c7cdd4;
+  --ink: #16202b;
+  --ink-2: #3c4a59;
+  --muted: #5d7186;
+  --navy: #1d2b3a;
+  --navy-2: #2c3e52;
+  --accent: #c4502a;
+  --accent-soft: #fbeee8;
+  --ok: #2f6b4f;
+  --ok-soft: #e8f2ec;
+  --warn: #9a6a12;
+  --warn-soft: #fbf3e2;
+  --bad: #a3321f;
+  --bad-soft: #fbe9e5;
+  --bar: #5b7f99;
+  --bar-2: #8aa4b8;
+  --radius: 4px;
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--navy-2); }
+a:hover { color: var(--accent); }
+
+button, input, select { font: inherit; color: inherit; }
+
+code, .mono { font-family: var(--mono); font-size: 0.85em; }
+
+.eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 6px;
+}
+
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 7px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--navy-2); }
+.btn-primary { background: var(--navy); border-color: var(--navy); color: #fff; }
+.btn-primary:hover { background: var(--navy-2); }
+
+.badge {
+  display: inline-block;
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.badge-ok { background: var(--ok-soft); color: var(--ok); border-color: #bcd8c7; }
+.badge-warn { background: var(--warn-soft); color: var(--warn); border-color: #ecd5a6; }
+.badge-bad { background: var(--bad-soft); color: var(--bad); border-color: #efc2b8; }
+
+/* ---------- App shell ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  height: 52px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.brand-mark {
+  width: 30px; height: 30px; border-radius: 6px; background: var(--navy);
+  display: grid; place-items: center; color: #f0a35e;
+}
+.brand-name { font-weight: 800; letter-spacing: 0.12em; font-size: 17px; }
+.brand-sub {
+  border-left: 1px solid var(--border); padding-left: 10px;
+  font-size: 8.5px; font-weight: 700; letter-spacing: 0.18em; line-height: 1.35; color: var(--ink-2);
+}
+.nav { display: flex; align-items: stretch; gap: 22px; height: 100%; }
+.nav button {
+  background: none; border: 0; border-bottom: 2px solid transparent;
+  display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600;
+  cursor: pointer; color: var(--ink-2); padding: 0 2px;
+}
+.nav button[aria-current="page"] { border-bottom-color: var(--accent); color: var(--ink); }
+.status-dot { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.status-dot::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
+
+.crumbs {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  padding: 8px 20px; border-bottom: 1px solid var(--border);
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.crumbs span:last-child { text-transform: none; letter-spacing: 0; }
+
+.page { max-width: 1180px; margin: 0 auto; padding: 32px 20px 64px; }
+
+@media (max-width: 720px) {
+  .brand-sub { display: none; }
+  .nav { gap: 12px; }
+  .status-dot { display: none; }
+}
