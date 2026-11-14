@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { INVESTIGATIONS } from "../data/investigations";
 import { BriefDialog } from "../components/BriefDialog";
 import { BaselineDiff } from "../components/BaselineDiff";
@@ -16,6 +16,8 @@ import { DownloadIcon } from "../components/icons";
 import { leadInsight, scenarioLimitations } from "../lib/limitations";
 import { rankInvestigations } from "../lib/ranking";
 import { DEFAULT_SCENARIO, type Scenario } from "../lib/scenario";
+
+const DataExplorer = lazy(() => import("../components/DataExplorer"));
 
 export function ScenarioLab() {
   const [scenario, setScenario] = useState<Scenario>(DEFAULT_SCENARIO);
@@ -57,6 +59,9 @@ export function ScenarioLab() {
           <GravityIllustration scenario={scenario} />
           <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
           <RankedList ranked={ranked} scenario={scenario} />
+          <Suspense fallback={<section className="card"><p className="muted">Loading NASA run tables…</p></section>}>
+            <DataExplorer scenario={scenario} />
+          </Suspense>
           <Limitations items={limits} />
         </div>
       </div>

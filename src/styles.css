@@ -28,6 +28,9 @@
   --track: #e6eaee;
   --sunken: #f4f6f8;
   --psi-line: #b9c7d4;
+  --fuel-solid: #b4482a;
+  --fuel-liquid: #2f6f9f;
+  --fuel-gas: #6b7f3a;
   --radius: 4px;
   --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -66,6 +69,9 @@
   --track: #2b3642;
   --sunken: #131a21;
   --psi-line: #3b5266;
+  --fuel-solid: #f08a6a;
+  --fuel-liquid: #78b4e0;
+  --fuel-gas: #b3c77a;
   color-scheme: dark;
   }
 }
@@ -100,6 +106,9 @@
   --track: #2b3642;
   --sunken: #131a21;
   --psi-line: #3b5266;
+  --fuel-solid: #f08a6a;
+  --fuel-liquid: #78b4e0;
+  --fuel-gas: #b3c77a;
   color-scheme: dark;
 }
 
@@ -421,3 +430,21 @@ details summary { cursor: pointer; font-size: 12.5px; }
 .limits li.key-limit { font-weight: 600; color: var(--ink); }
 .rank-list .group-sep { list-style: none; margin: 14px 0 4px; padding: 10px 12px; border-left: 3px solid var(--warn-line); background: var(--warn-soft); color: var(--ink-2); font-size: 12.5px; }
 .rank-list .group-sep strong { color: var(--warn); }
+
+/* ---------- Data explorer & gap map ---------- */
+.gapmap-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.gapmap { width: 100%; min-width: 520px; height: auto; margin-top: 8px; font-family: var(--font); }
+.gapmap .tick { font-size: 11px; fill: var(--muted); }
+.gapmap .axis-label { font-size: 11.5px; fill: var(--ink-2); }
+.gapmap .grid { stroke: var(--border); }
+.gapmap .strip-label { font-size: 11px; fill: var(--muted); }
+.gapmap .you-label { font-size: 11.5px; font-weight: 700; fill: var(--bad); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; }
+.pt-solid { fill: var(--fuel-solid); stroke: var(--fuel-solid); }
+.pt-liquid { fill: var(--fuel-liquid); stroke: var(--fuel-liquid); }
+.pt-gas { fill: var(--fuel-gas); stroke: var(--fuel-gas); }
+.pt-none { fill: var(--muted); stroke: var(--muted); }
+.pt.assumed, .assumed { fill: var(--surface); stroke-width: 1.6; }
+.pt { fill-opacity: 0.75; }
+.gap-headline { font-size: 15px; font-weight: 600; margin: 4px 0 6px; text-wrap: balance; }
+.gap-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; align-items: center; }
+.gap-legend svg { vertical-align: middle; margin-right: 4px; }

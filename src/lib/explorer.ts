@@ -43,13 +43,16 @@ export type ColumnRole = "condition" | "result" | "bookkeeping" | "setting";
 const BOOKKEEPING = /^(pi|date|gmt|day|year|month|test ?#?|test type|test day\*?|as run test #|sample ?#|sample number|flex number|flex identifier|flex test #|test date|test gmt|local time|cir|session name|actual day|camera ?\d|notes?|comments?|gmt date|gmt ignition|gmt flame off|same test #)$/i;
 const RESULT = /burn length|spread (length|rate)|extinction|weight loss|smoke point|lift-?off|soot|rt\/r0|burn time|flames ignited|self.?ext|cool flame\?|hot ignition|burn ?rate|peak burner|final o2|final co2?|tfp|mean zst|tad \(k\)|zst/i;
 
+/** Header key with whitespace collapsed (NASA headers carry double and trailing spaces). */
+const norm = (h: string) => h.replace(/\s+/g, " ").trim();
+
 /** Columns of one table that EMBER converts into conditions, with their unit factor. */
 function conditionColumns(tableId: string): Map<string, { key: CondKey; factor: number; parser: string }> {
   const out = new Map<string, { key: CondKey; factor: number; parser: string }>();
   for (const p of Object.values(NORMALIZED.profiles)) {
     if (p.table !== tableId) continue;
     for (const [key, c] of Object.entries(p.conditions) as [CondKey, { column: string; factor?: number; parser?: string }][]) {
-      out.set(c.column, { key, factor: c.factor ?? 1, parser: c.parser ?? "parseCell" });
+      out.set(norm(c.column), { key, factor: c.factor ?? 1, parser: c.parser ?? "parseCell" });
     }
   }
   return out;
@@ -192,4 +195,83 @@ export function buildRowsCsv(invs: Investigation[]): string {
     }
   }
   return lines.join("\n") + "\n";
+}
+
+export type GapFuel = "solid" | "liquid" | "gas" | "none";
+
+export interface GapPoint {
+  id: string;
+  name: string;
+  fuel: GapFuel;
+  table: string;
+  oxygenPct: number;
+  /** null when neither the table nor a curated value gives the pressure. */
+  pressurePsi: number | null;
+  /** true when the table has no pressure column and EMBER's curated cabin pressure is used. */
+  pressureAssumed: boolean;
+  /** Source rows that fall on this exact point. */
+  rows: number[];
+}
+
+export interface GapData {
+  points: GapPoint[];
+  /** Rows where both oxygen and pressure list several levels, so the pairing is unknown. */
+  ambiguousRows: number;
+  /** Profiles with an oxygen range written as an approximation rather than read from a table. */
+  curatedOnly: string[];
+}
+
+/**
+ * One point per NASA run-table row (oxygen against pressure, both from the same row where the
+ * table records both), for every profile whose oxygen comes from a run table. These are joint
+ * test conditions, unlike the per-condition min–max ranges used for ranking.
+ */
+export function gapPoints(invs: Investigation[]): GapData {
+  const byKey = new Map<string, GapPoint>();
+  let ambiguousRows = 0;
+  const curatedOnly: string[] = [];
+  for (const inv of invs) {
+    const prof = NORMALIZED.profiles[inv.id] as unknown as
+      | { table: string; conditions: Partial<Record<CondKey, { column: string; factor: number; parser?: string }>> }
+      | undefined;
+    const o2c = prof?.conditions.oxygenPct;
+    if (!prof || !o2c) {
+      if (inv.conditions.oxygenPct) curatedOnly.push(inv.name);
+      continue;
+    }
+    const t = getTable(prof.table);
+    const col = (name: string) => t.header.findIndex((h) => norm(h) === norm(name));
+    const oi = col(o2c.column);
+    const pc = prof.conditions.pressurePsi;
+    const pi = pc ? col(pc.column) : -1;
+    const curatedP = !pc && inv.conditions.pressurePsi ? +((inv.conditions.pressurePsi.min + inv.conditions.pressurePsi.max) / 2).toFixed(2) : null;
+    const fuel: GapFuel = (inv.fuelTypes[0] as GapFuel | undefined) ?? "none";
+    for (const r of t.rows) {
+      const o2 = cellValues(r.cells[oi], o2c.parser).map((v) => +(v * o2c.factor).toPrecision(4)).filter(LIMITS.oxygenPct);
+      if (!o2.length) continue;
+      let pairs: [number, number | null][];
+      if (pc && pi >= 0) {
+        const p = cellValues(r.cells[pi], pc.parser).map((v) => +(v * pc.factor).toPrecision(4)).filter(LIMITS.pressurePsi);
+        if (!p.length) continue;
+        if (o2.length > 1 && p.length > 1) { ambiguousRows++; continue; }
+        pairs = o2.flatMap((o) => p.map((q) => [o, q] as [number, number]));
+      } else {
+        pairs = o2.map((o) => [o, curatedP]);
+      }
+      for (const [o, q] of pairs) {
+        const key = `${inv.id}|${o}|${q}`;
+        const hit = byKey.get(key);
+        if (hit) hit.rows.push(r.sourceRow);
+        else byKey.set(key, { id: inv.id, name: inv.name, fuel, table: prof.table, oxygenPct: o, pressurePsi: q, pressureAssumed: !pc && q != null, rows: [r.sourceRow] });
+      }
+    }
+  }
+  return { points: [...byKey.values()], ambiguousRows, curatedOnly };
+}
+
+/** The solid-material test point closest to a scenario's oxygen level, if any. */
+export function nearestSolid(points: GapPoint[], oxygenPct: number): GapPoint | null {
+  const solid = points.filter((p) => p.fuel === "solid");
+  if (!solid.length) return null;
+  return solid.reduce((best, p) => (Math.abs(p.oxygenPct - oxygenPct) < Math.abs(best.oxygenPct - oxygenPct) ? p : best));
 }

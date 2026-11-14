@@ -73,3 +73,32 @@ describe("full-row CSV", () => {
     expect(csv).not.toContain("�");
   });
 });
+
+describe("gap map points", async () => {
+  const { gapPoints, nearestSolid } = await import("./explorer");
+  const g = gapPoints(INVESTIGATIONS);
+
+  it("draws BASS-II from its run table, with cabin pressure marked as assumed", () => {
+    const b = g.points.filter((p) => p.id === "bass-ii");
+    expect(b.length).toBeGreaterThan(10);
+    expect(b.every((p) => p.pressureAssumed && p.fuel === "solid")).toBe(true);
+  });
+
+  it("has no solid-material point above 22.2% oxygen", () => {
+    const solidMax = Math.max(...g.points.filter((p) => p.fuel === "solid").map((p) => p.oxygenPct));
+    expect(solidMax).toBe(22.2);
+    expect(nearestSolid(g.points, 30)?.name).toBe("BASS-II");
+  });
+
+  it("pairs oxygen and pressure from the same row and skips rows whose pairing is unknown", () => {
+    const cfig = g.points.filter((p) => p.id === "acme-cfi-g");
+    expect(cfig.length).toBeGreaterThan(50);
+    expect(cfig.every((p) => p.pressurePsi != null && !p.pressureAssumed)).toBe(true);
+    expect(g.ambiguousRows).toBe(8); // FLEX-2 lists several O2 and pressure levels per row
+    expect(g.points.some((p) => p.id === "flex-2")).toBe(false);
+  });
+
+  it("names profiles whose oxygen is only a written approximation", () => {
+    expect(g.curatedOnly).toContain("Saffire-III");
+  });
+});
