@@ -1,3 +1,4 @@
+import normalized from "./normalized-conditions.json";
 import type { ConditionEnvelope, Investigation, PsiReference, Range } from "./types";
 
 /*
@@ -344,7 +345,53 @@ const CURATED: Omit<Investigation, "psi">[] = [
   },
 ];
 
-export const INVESTIGATIONS: Investigation[] = CURATED.map((inv) => ({ ...inv, psi: psiRef(inv.id) }));
+type NormalizedCondition = { min: number; max: number; column: string; sourceUnit: string; rowsUsed: number; dropped: number; approx: boolean };
+type NormalizedProfile = {
+  accession: string;
+  table: string;
+  file: string;
+  sha256: string;
+  totalRows: number;
+  conditions: Partial<Record<"oxygenPct" | "pressurePsi" | "airflowMs", NormalizedCondition>>;
+  materials?: string[];
+  flowDirections?: ("opposed" | "concurrent")[];
+};
+export const NORMALIZED = normalized as { method: string; profiles: Record<string, NormalizedProfile> };
+
+/**
+ * Replace curated approximations with ranges read from the NASA PSI run table
+ * wherever the table states the condition with a unit (scripts/normalize-conditions.mjs).
+ * Curated ranges remain only where no table column exists, and stay labelled as such.
+ */
+function withPsiTables(inv: Omit<Investigation, "psi">): Omit<Investigation, "psi"> {
+  const n = NORMALIZED.profiles[inv.id];
+  const conditions: ConditionEnvelope = { ...inv.conditions };
+  for (const key of ["oxygenPct", "pressurePsi", "gravityG", "airflowMs"] as const) {
+    const r = conditions[key];
+    if (r) conditions[key] = { source: "curated", ...r };
+  }
+  if (!n) return { ...inv, conditions };
+  for (const [key, c] of Object.entries(n.conditions) as [keyof typeof n.conditions, NormalizedCondition][]) {
+    conditions[key] = {
+      min: c.min,
+      max: c.max,
+      basis: `NASA ${n.table} run table, column "${c.column}" (${c.sourceUnit}), ${c.rowsUsed} of ${n.totalRows} rows${c.approx ? "; some values marked approximate in the source" : ""}`,
+      source: "psi-table",
+      table: n.table,
+      column: c.column,
+      rowsUsed: c.rowsUsed,
+      totalRows: n.totalRows,
+    };
+  }
+  return {
+    ...inv,
+    conditions,
+    ...(n.materials ? { testedMaterials: n.materials } : {}),
+    ...(n.flowDirections ? { testedFlowDirections: n.flowDirections } : {}),
+  };
+}
+
+export const INVESTIGATIONS: Investigation[] = CURATED.map((inv) => ({ ...withPsiTables(inv), psi: psiRef(inv.id) }));
 
 export function getInvestigation(id: string): Investigation | undefined {
   return INVESTIGATIONS.find((inv) => inv.id === id);

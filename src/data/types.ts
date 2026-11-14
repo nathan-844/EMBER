@@ -2,12 +2,19 @@ export type SafetyQuestion = "prevention" | "detection" | "suppression";
 export type FuelType = "solid" | "liquid" | "gas";
 export type Platform = "ISS" | "Cygnus";
 
-/** A closed numeric interval. All curated ranges are approximate until checked against PSI. */
+/** A closed numeric interval with its provenance. */
 export interface Range {
   min: number;
   max: number;
   /** Where the numbers came from, in plain words. */
   basis: string;
+  /** "psi-table": derived from a stored NASA PSI run table. "curated": a written approximation. */
+  source?: "psi-table" | "curated";
+  /** For psi-table ranges: the table id (e.g. PSI-25-0), column and rows used. */
+  table?: string;
+  column?: string;
+  rowsUsed?: number;
+  totalRows?: number;
 }
 
 export interface ConditionEnvelope {
@@ -42,6 +49,9 @@ export interface Investigation {
   adjacentQuestions: SafetyQuestion[];
   conditions: ConditionEnvelope;
   measurements: string[];
+  /** Materials and flow directions named in the PSI run table, when it records them. */
+  testedMaterials?: string[];
+  testedFlowDirections?: ("opposed" | "concurrent")[];
   psi: PsiReference;
   caveats: string[];
 }
