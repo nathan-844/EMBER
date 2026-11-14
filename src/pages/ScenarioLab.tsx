@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { INVESTIGATIONS } from "../data/investigations";
+import { BaselineDiff } from "../components/BaselineDiff";
 import { CoverageChart } from "../components/CoverageChart";
 import { GravityIllustration } from "../components/GravityIllustration";
 import { InsightCard } from "../components/InsightCard";
@@ -7,6 +8,9 @@ import { Limitations } from "../components/Limitations";
 import { RankedList } from "../components/RankedList";
 import { ScenarioPanel } from "../components/ScenarioPanel";
 import { SummaryStrip } from "../components/SummaryStrip";
+import { buildBrief, downloadText } from "../lib/brief";
+import { compareRankings } from "../lib/compare";
+import { DownloadIcon } from "../components/icons";
 import { leadInsight, scenarioLimitations } from "../lib/limitations";
 import { rankInvestigations } from "../lib/ranking";
 import { DEFAULT_SCENARIO, type Scenario } from "../lib/scenario";
@@ -17,18 +21,30 @@ export function ScenarioLab() {
   const ranked = useMemo(() => rankInvestigations(scenario), [scenario]);
   const limits = useMemo(() => scenarioLimitations(scenario, ranked), [scenario, ranked]);
   const insight = useMemo(() => leadInsight(scenario, ranked), [scenario, ranked]);
+  const shifts = useMemo(() => (baseline ? compareRankings(rankInvestigations(baseline), ranked) : null), [baseline, ranked]);
+  const exportBrief = () =>
+    downloadText(`ember-brief-${scenario.environment}.md`, buildBrief(scenario, ranked, limits));
 
   return (
     <main className="page">
       <header className="hero">
-        <p className="eyebrow">Mission scenario lab</p>
-        <h1>Turn combustion evidence into <span>fire-safety insight.</span></h1>
-        <p className="muted">Define your environment. Examine what NASA's research can tell you.</p>
+        <div>
+          <p className="eyebrow">Mission scenario lab</p>
+          <h1>Turn combustion evidence into <span>fire-safety insight.</span></h1>
+          <p className="muted">Define your environment. Examine what NASA's research can tell you.</p>
+        </div>
+        <button className="btn btn-primary" onClick={exportBrief}><DownloadIcon /> Export evidence brief</button>
       </header>
+      <div className="trust-strip small">
+        <span>{INVESTIGATIONS.length} curated investigation profiles</span>
+        <span>Scores are transparent: 25 question + 75 conditions</span>
+        <a href="#credibility">How far can you trust this? →</a>
+      </div>
       <div className="lab-grid">
         <ScenarioPanel scenario={scenario} onChange={setScenario} onSaveBaseline={() => setBaseline(scenario)} hasBaseline={baseline != null} />
         <div className="lab-main">
           <SummaryStrip scenario={scenario} relevant={ranked.length} total={INVESTIGATIONS.length} />
+          {shifts && <BaselineDiff shifts={shifts} onClear={() => setBaseline(null)} />}
           <InsightCard insight={insight} />
           <GravityIllustration scenario={scenario} />
           <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
