@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildBrief } from "./brief";
+import { buildBrief, buildCsv } from "./brief";
 import { compareRankings } from "./compare";
 import { scenarioLimitations } from "./limitations";
 import { rankInvestigations } from "./ranking";
@@ -37,5 +37,24 @@ describe("baseline comparison", () => {
     const base = rankInvestigations(presetScenario("iss"));
     const now = rankInvestigations({ ...presetScenario("iss"), oxygenPct: 30 });
     expect(compareRankings(base, now).some((x) => x.delta < 0)).toBe(true);
+  });
+});
+
+describe("csv export", () => {
+  it("has one row per ranked investigation and condition, with sources", () => {
+    const s = presetScenario("iss");
+    const ranked = rankInvestigations(s);
+    const lines = buildCsv(s, ranked).trim().split("\n");
+    expect(lines.length).toBe(1 + ranked.length * 5);
+    expect(lines[0]).toMatch(/^rank,investigation/);
+    expect(lines.some((l) => l.includes("psi-table") && l.includes("PSI-25-0"))).toBe(true);
+    expect(lines.some((l) => l.includes(",curated,"))).toBe(true);
+  });
+
+  it("quotes cells containing commas or quotes", () => {
+    const s = presetScenario("iss");
+    const csv = buildCsv(s, rankInvestigations(s));
+    // The run-table basis holds both: NASA PSI-25-0 run table, column "Calibrated ..."
+    expect(csv).toContain('"NASA PSI-25-0 run table, column ""Calibrated');
   });
 });

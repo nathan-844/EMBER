@@ -312,6 +312,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 6px; }
 .sw { display: inline-block; width: 12px; height: 8px; margin-right: 5px; vertical-align: middle; }
 .sw-bar { background: var(--bar); }
+.sw-curated { border: 1.5px dashed var(--muted); background: transparent; }
 .sw-you { width: 2px; height: 10px; background: var(--bad); }
 .sw-hatch { border: 1px solid var(--border-strong); }
 .probe-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
@@ -392,3 +393,24 @@ details summary { cursor: pointer; font-size: 12.5px; }
 .brief-actions { display: flex; gap: 8px; }
 .brief-dialog textarea { display: block; width: 100%; height: min(60vh, 520px); border: 0; padding: 14px 18px; background: var(--sunken); color: var(--ink); font-family: var(--mono); font-size: 12px; resize: vertical; }
 .brief-note { margin: 0; padding: 8px 18px 12px; }
+
+/* Grounded AI analysis */
+.analysis { border-left: 3px solid var(--bar); }
+.analysis code { font-family: var(--mono); font-size: 0.95em; }
+.analysis-body { margin-top: 12px; }
+.analysis-body.is-stale { opacity: 0.55; }
+.verdict { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; padding: 10px 12px; border: 1px solid; border-radius: var(--radius); margin-bottom: 12px; }
+.verdict-accepted { background: var(--ok-soft); color: var(--ok); border-color: var(--ok-line); }
+.verdict-partial { background: var(--warn-soft); color: var(--warn); border-color: var(--warn-line); }
+.verdict-rejected { background: var(--bad-soft); color: var(--bad); border-color: var(--bad-line); }
+.analysis-summary { font-weight: 500; color: var(--ink); margin: 0 0 12px; }
+.claims { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 10px; }
+.claim p { margin: 0 0 6px; color: var(--ink-2); }
+.claim.rejected { color: var(--muted); }
+.claim.rejected summary { cursor: pointer; color: var(--bad); }
+.cites { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; font-size: 12.5px; }
+.cites q { color: var(--ink-2); font-style: italic; overflow-wrap: anywhere; }
+.analysis .consider ul { margin: 0; padding-left: 18px; }
+.badge.kind { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; margin-right: 4px; }
+.implication { margin: 0 0 6px; color: var(--ink-2); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; }

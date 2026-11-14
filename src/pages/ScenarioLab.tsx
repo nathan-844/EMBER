@@ -4,12 +4,13 @@ import { BriefDialog } from "../components/BriefDialog";
 import { BaselineDiff } from "../components/BaselineDiff";
 import { CoverageChart } from "../components/CoverageChart";
 import { GravityIllustration } from "../components/GravityIllustration";
+import { AnalysisCard } from "../components/AnalysisCard";
 import { InsightCard } from "../components/InsightCard";
 import { Limitations } from "../components/Limitations";
 import { RankedList } from "../components/RankedList";
 import { ScenarioPanel } from "../components/ScenarioPanel";
 import { SummaryStrip } from "../components/SummaryStrip";
-import { buildBrief } from "../lib/brief";
+import { buildBrief, buildCsv, downloadText } from "../lib/brief";
 import { compareRankings } from "../lib/compare";
 import { DownloadIcon } from "../components/icons";
 import { leadInsight, scenarioLimitations } from "../lib/limitations";
@@ -34,10 +35,15 @@ export function ScenarioLab() {
           <h1>Turn combustion evidence into <span>fire-safety insight.</span></h1>
           <p className="muted">Define your environment. Examine what NASA's research can tell you.</p>
         </div>
-        <button className="btn btn-primary" onClick={exportBrief}><DownloadIcon /> Export evidence brief</button>
+        <div className="hero-actions">
+          <button className="btn btn-primary" onClick={exportBrief}><DownloadIcon /> Export evidence brief</button>
+          <button className="btn" onClick={() => downloadText(`ember-data-${scenario.environment}.csv`, buildCsv(scenario, ranked), "text/csv")} title="Ranked investigations with each condition range and its NASA source, for modelling">
+            <DownloadIcon /> Data (.csv)
+          </button>
+        </div>
       </header>
       <div className="trust-strip small">
-        <span>{INVESTIGATIONS.length} curated investigation profiles</span>
+        <span>{INVESTIGATIONS.length} investigation profiles · {INVESTIGATIONS.filter((i) => Object.values(i.conditions).some((r) => r?.source === "psi-table")).length} with ranges from NASA run tables</span>
         <span>Scores are transparent: 25 question + 75 conditions</span>
         <a href="#credibility">How far can you trust this? →</a>
       </div>
@@ -47,6 +53,7 @@ export function ScenarioLab() {
           <SummaryStrip scenario={scenario} relevant={ranked.length} total={INVESTIGATIONS.length} />
           {shifts && <BaselineDiff shifts={shifts} onClear={() => setBaseline(null)} />}
           <InsightCard insight={insight} />
+          <AnalysisCard scenario={scenario} />
           <GravityIllustration scenario={scenario} />
           <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
           <RankedList ranked={ranked} scenario={scenario} />
