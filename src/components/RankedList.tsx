@@ -16,7 +16,8 @@ const STATUS_TEXT: Record<ConditionResult["status"], string> = {
 function rangeText(c: ConditionResult): string {
   if (!c.range) return "";
   const tag = c.range.source === "psi-table" ? "PSI run table" : "curated estimate";
-  const nearest = c.nearest != null ? `; nearest ${c.nearest}` : "";
+  // A single tested value is its own nearest value.
+  const nearest = c.nearest != null && c.range.min !== c.range.max ? `; nearest ${c.nearest}` : "";
   return ` (${rangeLabel(c.range)}${nearest}, ${tag}: ${c.range.basis})`;
 }
 
@@ -117,7 +118,7 @@ export function RankedList({ ranked, scenario }: { ranked: RankedInvestigation[]
       </div>
       <p className="small muted">
         Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside a range measured in a NASA table,
-        10 inside a curated estimate, about half that when just outside). When you set a fuel type, studies of that fuel are listed first and other
+        10 inside a curated estimate, two thirds of that when just outside; equal scores list NASA-measured data first). When you set a fuel type, studies of that fuel are listed first and other
         fuels follow as analogue evidence; ranks and ties count within each group. Scores do not estimate fire probability, confidence or safety;
         unknown fields earn no points.
       </p>

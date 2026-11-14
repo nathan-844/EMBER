@@ -25,7 +25,7 @@ export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], li
     "",
     "## Ranked investigations",
     "",
-    "Scores: question 25 + conditions 75 (15 per condition in a NASA-table range, 10 in a curated estimate, about half just outside). With a fuel type set, studies of that fuel are listed before other fuels (analogue evidence); ranks count within each group. Match points select evidence; they are not confidence or probability.",
+    "Scores: question 25 + conditions 75 (15 per condition in a NASA-table range, 10 in a curated estimate, two thirds of that just outside). With a fuel type set, studies of that fuel are listed before other fuels (analogue evidence); ranks count within each group. Match points select evidence; they are not confidence or probability.",
     "",
     "| Rank | Investigation | Score | Relevance | Conditions |",
     "| --- | --- | --- | --- | --- |",

@@ -114,3 +114,17 @@ describe("ranking", () => {
     expect(ranked.find((r) => r.investigation.id === "flex-2")!.rank).toBeGreaterThan(1);
   });
 });
+
+describe("measured data against estimates", () => {
+  it("scores a near miss on a NASA-table range the same as a match inside a curated estimate", async () => {
+    const { NEAR_FRACTION, CONDITION_POINTS, CURATED_FRACTION } = await import("./ranking");
+    expect(Math.round(CONDITION_POINTS * NEAR_FRACTION)).toBe(Math.round(CONDITION_POINTS * CURATED_FRACTION));
+  });
+
+  it("lists Saffire-I and II (measured oxygen) before Saffire-III (estimated oxygen) for ISS detection", () => {
+    const r = rankInvestigations({ ...presetScenario("iss"), question: "detection" });
+    const order = r.map((x) => x.investigation.id);
+    expect(order.indexOf("saffire-i")).toBeLessThan(order.indexOf("saffire-iii"));
+    expect(r.find((x) => x.investigation.id === "saffire-i")!.total).toBeGreaterThanOrEqual(r.find((x) => x.investigation.id === "saffire-iii")!.total);
+  });
+});

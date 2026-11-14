@@ -21,7 +21,9 @@ cannot establish.
   hand-written ranges are labelled *curated* everywhere they appear.
 - **Transparent ranking** – 25 points for addressing the safety question (10 for adjacent
   research) plus up to 15 points per condition (75 max): 15 inside a range measured in a NASA
-  table, 10 inside a curated estimate, about half that just outside a range. Unknown ranges earn
+  table, 10 inside a curated estimate, two thirds of that just
+  outside a range, so a near miss on measured data is worth as much as a match inside an
+  estimate; equal scores list NASA-measured data first. Unknown ranges earn
   nothing. With a fuel type set, fuel is a grouping rather than just points: every study of that
   fuel is listed first and other fuels follow as labelled analogue evidence, because a droplet or
   gas-flame study at the right oxygen is not evidence about how solid cabin materials burn. Ranks

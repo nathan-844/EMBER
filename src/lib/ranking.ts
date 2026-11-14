@@ -35,11 +35,15 @@ export const NEAR_TOLERANCE: Record<Exclude<ConditionKey, "fuel">, number> = {
   gravityG: 0,
   airflowMs: 0.02,
 };
-/** A near value earns 8 of 15 points (rounded share of the condition's weight). */
-export const NEAR_FRACTION = 8 / 15;
+/**
+ * A near value earns two thirds of what a value inside the range earns: 10 of 15 for a NASA
+ * run-table range, 7 of 10 for a curated estimate. So a value just outside measured data is worth
+ * as much as one inside an estimate, and measured data never loses to an estimate by a near miss.
+ */
+export const NEAR_FRACTION = 2 / 3;
 /**
  * A range EMBER estimated (curated) rather than read from a NASA run table earns two thirds of
- * the points: 10 instead of 15 inside it, 5 instead of 8 just outside it.
+ * the points: 10 instead of 15 inside it, 7 instead of 10 just outside it.
  */
 export const CURATED_FRACTION = 2 / 3;
 
@@ -146,13 +150,18 @@ function fuelGroup(r: Omit<Scored, "group">, scenario: Scenario): FuelGroup {
   return r.conditions.find((c) => c.key === "fuel")?.status === "match" ? "same" : "other";
 }
 
+/** Conditions inside or just outside a range read from a NASA run table. */
+const measured = (r: Scored) => r.conditions.filter((c) => (c.status === "match" || c.status === "near") && c.range?.source === "psi-table").length;
+
 /**
  * Order within equal scores (they still share a rank): direct research first, then more
- * matched conditions, then fewer missing ranges, then name. Missing data never wins a tie-break.
+ * conditions backed by NASA run-table data, then more matched conditions, then fewer missing
+ * ranges, then name. Missing or estimated data never wins a tie-break over measured data.
  */
 function tieBreak(a: Scored, b: Scored): number {
   return (
     Number(b.relevance === "direct") - Number(a.relevance === "direct") ||
+    measured(b) - measured(a) ||
     b.matchedCount - a.matchedCount ||
     a.unknownCount - b.unknownCount ||
     a.investigation.name.localeCompare(b.investigation.name)

@@ -5815,7 +5815,7 @@ var NEAR_TOLERANCE = {
   gravityG: 0,
   airflowMs: 0.02
 };
-var NEAR_FRACTION = 8 / 15;
+var NEAR_FRACTION = 2 / 3;
 var CURATED_FRACTION = 2 / 3;
 function inRange(value, range) {
   return value >= range.min && value <= range.max;
@@ -5869,8 +5869,9 @@ function fuelGroup(r, scenario) {
   if (scenario.fuel == null) return "all";
   return r.conditions.find((c) => c.key === "fuel")?.status === "match" ? "same" : "other";
 }
+var measured = (r) => r.conditions.filter((c) => (c.status === "match" || c.status === "near") && c.range?.source === "psi-table").length;
 function tieBreak(a, b) {
-  return Number(b.relevance === "direct") - Number(a.relevance === "direct") || b.matchedCount - a.matchedCount || a.unknownCount - b.unknownCount || a.investigation.name.localeCompare(b.investigation.name);
+  return Number(b.relevance === "direct") - Number(a.relevance === "direct") || measured(b) - measured(a) || b.matchedCount - a.matchedCount || a.unknownCount - b.unknownCount || a.investigation.name.localeCompare(b.investigation.name);
 }
 function rankInvestigations(scenario, pool = INVESTIGATIONS, w = DEFAULT_WEIGHTS) {
   const scored = pool.map((inv) => scoreInvestigation(inv, scenario, w)).filter((r) => r !== null).map((r) => ({ ...r, group: fuelGroup(r, scenario) })).sort((a, b) => GROUP_ORDER[a.group] - GROUP_ORDER[b.group] || b.total - a.total || tieBreak(a, b));
