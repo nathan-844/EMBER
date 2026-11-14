@@ -62,7 +62,7 @@ export interface GroundingReport {
   summary: { text: string; accepted: boolean; problems: string[] };
   claims: CheckedClaim[];
   openQuestions: string[];
-  receipt: { claims: number; acceptedClaims: number; excerpts: number; nasaExcerpts: number; emberExcerpts: number; userExcerpts: number; tableRowExcerpts: number };
+  receipt: { claims: number; acceptedClaims: number; excerpts: number; nasaExcerpts: number; derivedExcerpts: number; emberExcerpts: number; userExcerpts: number; tableRowExcerpts: number };
 }
 
 /** Collapse whitespace, unify quotes and dashes, lowercase: verbatim up to formatting. */
@@ -105,6 +105,9 @@ const isCount = (n: number) => Number.isInteger(n) && n <= 10;
 export const EARTH_REFERENCE = [0, 1, 21, 20.95, 14.7];
 
 const investigationOf = (sourceId: string) => sourceId.split(":")[0];
+/** Internal source ids ("bass-ii:row7", "limitation:joint") must not appear in reader-facing text. */
+const SOURCE_ID = /\b[a-z0-9]+(?:-[a-z0-9]+)*:(?:row\d+|[a-z][a-zA-Z0-9-]*)\b/;
+const leaksId = (text: string) => SOURCE_ID.test(text);
 const isTableRow = (sourceId: string) => /:row\d+$/.test(sourceId);
 
 /**
@@ -141,6 +144,7 @@ export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): Groundin
     const pool = [...basePool, ...citations.flatMap((ct) => numbersIn(byId.get(ct.source)!.text))];
     const loose = numbersIn(`${c.text} ${c.implication ?? ""}`).filter((n) => !isCount(n) && !traces(n, pool));
     if (loose.length) problems.push(`Number${loose.length > 1 ? "s" : ""} ${[...new Set(loose)].join(", ")} not found in the cited sources, scenario or Earth reference values.`);
+    if (leaksId(`${c.text} ${c.implication ?? ""}`)) problems.push("Mentions an internal source id instead of describing the source.");
     return { kind, text: c.text, implication: c.implication ?? "", citations, accepted: problems.length === 0, problems };
   });
 
@@ -150,6 +154,7 @@ export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): Groundin
   const summaryPool = [...basePool, ...summarySources.flatMap((s) => numbersIn(s.text))];
   const summaryLoose = numbersIn(answer.summary.text).filter((n) => !isCount(n) && !traces(n, summaryPool));
   if (summaryLoose.length) summaryProblems.push(`Numbers ${summaryLoose.join(", ")} not found in the summary's sources or scenario.`);
+  if (leaksId(answer.summary.text)) summaryProblems.push("Summary mentions an internal source id.");
 
   const accepted = claims.filter((c) => c.accepted);
   const excerpts = accepted.flatMap((c) => c.citations);
@@ -161,12 +166,13 @@ export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): Groundin
     verdict,
     summary: { text: answer.summary.text, accepted: summaryProblems.length === 0, problems: summaryProblems },
     claims,
-    openQuestions: answer.openQuestions.slice(0, 5),
+    openQuestions: answer.openQuestions.filter((q) => !leaksId(q)).slice(0, 5),
     receipt: {
       claims: claims.length,
       acceptedClaims: accepted.length,
       excerpts: excerpts.length,
       nasaExcerpts: excerpts.filter((e) => e.origin === "nasa").length,
+      derivedExcerpts: excerpts.filter((e) => e.origin === "derived").length,
       emberExcerpts: excerpts.filter((e) => e.origin === "ember").length,
       userExcerpts: excerpts.filter((e) => e.origin === "user").length,
       tableRowExcerpts: excerpts.filter((e) => isTableRow(e.source)).length,

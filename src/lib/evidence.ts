@@ -1,18 +1,19 @@
 import { getPsiRecord } from "../data/psi";
-import { CONDITION_LABELS, rankInvestigations, type RankedInvestigation } from "./ranking";
+import { CONDITION_LABELS, rangeLabel, rankInvestigations, type RankedInvestigation } from "./ranking";
 import { scenarioLimitations } from "./limitations";
 import { oxygenPartialPressure, type Scenario } from "./scenario";
 
 /**
  * One quotable piece of evidence. `origin` says who wrote the text:
- * "nasa"   – text copied from the NASA PSI record or computed from a PSI run table
+ * "nasa"   – text copied from the NASA PSI record, or a NASA run-table row
+ * "derived"– EMBER's computation from a NASA run table (converted ranges, materials lists)
  * "ember"  – EMBER's own curated summaries, caveats and limitations
  * "user"   – the scenario the user entered
  */
 export interface EvidenceSource {
   id: string;
   label: string;
-  origin: "nasa" | "ember" | "user";
+  origin: "nasa" | "derived" | "ember" | "user";
   text: string;
 }
 
@@ -54,15 +55,15 @@ function profileSources(r: RankedInvestigation): EvidenceSource[] {
     out.push({
       id: `${inv.id}:${c.key}`,
       label: `${inv.name} ${CONDITION_LABELS[c.key].toLowerCase()} range`,
-      origin: range.source === "psi-table" ? "nasa" : "ember",
-      text: `${inv.name} ${CONDITION_LABELS[c.key].toLowerCase()} range ${range.min}–${range.max} ${UNIT[c.key]}. Basis: ${range.basis}.`,
+      origin: range.source === "psi-table" ? "derived" : "ember",
+      text: `${inv.name} ${CONDITION_LABELS[c.key].toLowerCase()} ${range.source === "psi-table" ? "range" : "curated estimate"} ${rangeLabel(range)} ${UNIT[c.key]}. Basis: ${range.basis}.`,
     });
   }
   if (inv.testedMaterials?.length || inv.testedFlowDirections?.length) {
     out.push({
       id: `${inv.id}:tested`,
       label: `${inv.name} materials and flow directions`,
-      origin: "nasa",
+      origin: "derived",
       text: `PSI run table for ${inv.name} lists materials: ${inv.testedMaterials?.join(", ") || "not recorded"}; flow directions: ${inv.testedFlowDirections?.join(", ") || "not recorded"}.`,
     });
   }

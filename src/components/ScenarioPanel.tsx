@@ -1,5 +1,5 @@
 import type { FuelType, SafetyQuestion } from "../data/types";
-import { PRESETS, presetScenario, type EnvironmentId, type Scenario } from "../lib/scenario";
+import { MATERIAL_OPTIONS, PRESETS, presetScenario, type EnvironmentId, type Scenario } from "../lib/scenario";
 import { SlidersIcon } from "./icons";
 
 type NumericKey = "oxygenPct" | "pressurePsi" | "gravityG" | "airflowMs";
@@ -110,11 +110,7 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
           <label className="field-label" htmlFor="material">Material</label>
           <select id="material" value={scenario.material ?? ""} onChange={(e) => set("material", e.target.value || null)}>
             <option value="">Unspecified</option>
-            <option>Cotton-fiberglass fabric</option>
-            <option>Nomex</option>
-            <option>PMMA</option>
-            <option>Ultem</option>
-            <option>Silicone</option>
+            {MATERIAL_OPTIONS.map((m) => <option key={m}>{m}</option>)}
           </select>
         </div>
         <div>

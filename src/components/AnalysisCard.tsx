@@ -23,11 +23,11 @@ type Status = {
   server: boolean;
 };
 
-const ORIGIN_LABEL = { nasa: "NASA", ember: "EMBER", user: "Scenario" } as const;
+const ORIGIN_LABEL = { nasa: "NASA", derived: "NASA data · EMBER-computed", ember: "EMBER", user: "Scenario" } as const;
 
 /** Recorded answers for the unedited presets, loaded only when there is no live model. */
 async function recordedFor(scenario: Scenario): Promise<Result | null> {
-  const data = (await import("../data/recorded-analyses.json")).default as { entries: Record<string, Result> };
+  const data = (await import("../data/recorded-analyses.json")).default as unknown as { entries: Record<string, Result> };
   const hit = data.entries[scenarioKey(scenario)];
   return hit ? { ...hit, recorded: true } : null;
 }
@@ -95,7 +95,7 @@ export function AnalysisCard({ scenario }: { scenario: Scenario }) {
       <p className="small muted">
         {status?.enabled ? `${status.provider} (${status.model})` : "Google Gemini"} reads a server-built package of NASA PSI
         text, run-table ranges, the NASA table rows nearest your scenario and EMBER's limitations. EMBER rejects any claim
-        whose excerpt is not found word for word in the source it cites, or whose numbers do not appear in those sources,
+        whose excerpt is not found word for word in the source it cites (NASA text or EMBER’s own summaries, labelled), or whose numbers do not appear in those sources,
         your scenario or Earth reference values, and asks the model once to correct what failed. This makes the basis
         auditable; it does not prove the reasoning is right.
       </p>
@@ -123,7 +123,7 @@ export function AnalysisCard({ scenario }: { scenario: Scenario }) {
             </strong>
             <span className="small">
               {report.receipt.acceptedClaims} of {report.receipt.claims} claims kept · {report.receipt.excerpts} verified excerpts:{" "}
-              {report.receipt.nasaExcerpts} NASA ({report.receipt.tableRowExcerpts ?? 0} from run-table rows), {report.receipt.emberExcerpts} EMBER, {report.receipt.userExcerpts} scenario
+              {report.receipt.nasaExcerpts} NASA text ({report.receipt.tableRowExcerpts ?? 0} run-table rows), {report.receipt.derivedExcerpts ?? 0} EMBER-computed from NASA tables, {report.receipt.emberExcerpts} EMBER, {report.receipt.userExcerpts} scenario
             </span>
             <span className="small">
               {result?.recorded ? "Recorded" : result?.cached ? "Cached live answer" : "Live"} · {result?.model}

@@ -23,8 +23,8 @@ describe("evidence package", () => {
     expect(pkg.ranked[0].id).toBe("bass-ii");
   });
 
-  it("labels run-table ranges as NASA and curated ranges as EMBER", () => {
-    expect(src("bass-ii:oxygenPct").origin).toBe("nasa");
+  it("labels run-table ranges as EMBER-computed NASA data and curated ranges as EMBER", () => {
+    expect(src("bass-ii:oxygenPct").origin).toBe("derived");
     expect(src("bass-ii:gravityG").origin).toBe("ember");
   });
 });
@@ -37,7 +37,8 @@ describe("grounding check", () => {
     const r = checkAnswer(answer([{ text: "BASS-II ran from 13.6 to 22.2% oxygen.", citations: [{ source: o2.id, excerpt }] }]), pkg);
     expect(r.claims[0].problems).toEqual([]);
     expect(r.verdict).toBe("accepted");
-    expect(r.receipt.nasaExcerpts).toBe(1);
+    expect(r.receipt.derivedExcerpts).toBe(1);
+    expect(r.receipt.nasaExcerpts).toBe(0);
   });
 
   it("rejects a paraphrased excerpt", () => {
@@ -131,5 +132,13 @@ describe("claim kinds", () => {
     const bad = checkAnswer(answer([{ text: "Nothing.", citations: [] }]), pkg);
     expect(better(bad, good)).toBe(good);
     expect(better(good, bad)).toBe(good);
+  });
+
+  it("rejects claims and summaries that show internal source ids", () => {
+    const r = checkAnswer(answer([{ text: "As bass-ii:row7 shows, BASS-II has a run table.", citations: [cite(o2)] }]), pkg);
+    expect(r.claims[0].problems.join(" ")).toMatch(/internal source id/);
+    const a = answer([{ text: "BASS-II has a run table.", citations: [cite(o2)] }]);
+    a.summary.text = "It rests on source ids limitation:joint and bass-ii:summary.";
+    expect(checkAnswer(a, pkg).summary.accepted).toBe(false);
   });
 });

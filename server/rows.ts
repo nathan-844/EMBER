@@ -34,7 +34,8 @@ export function cellValues(raw: string | undefined, parser = "parseCell"): numbe
 /** Render a row as "Header: value; ..." with blank cells skipped, capped for prompt size. */
 function rowText(header: string[], cells: string[], cap = 420): string {
   const parts = header
-    .map((h, i) => [h.replace(/\s+/g, " ").trim(), (cells[i] ?? "").replace(/\s+/g, " ").trim()] as const)
+    // NASA's Saffire-II file writes the micro sign as "?" ("?-g Burn Length"); show what it means.
+    .map((h, i) => [h.replace(/\s+/g, " ").trim().replace(/^\?-g/, "µ-g (written ?-g in the NASA file)"), (cells[i] ?? "").replace(/\s+/g, " ").trim()] as const)
     .filter(([h, v]) => h && v)
     .map(([h, v]) => `${h}: ${v}`);
   const text = parts.join("; ");

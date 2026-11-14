@@ -18,6 +18,9 @@ export interface Scenario {
   includeAdjacent: boolean;
 }
 
+/** The materials the scenario panel offers; the server accepts nothing else. */
+export const MATERIAL_OPTIONS = ["Cotton-fiberglass fabric", "Nomex", "PMMA", "Ultem", "Silicone"] as const;
+
 export interface EnvironmentPreset {
   id: EnvironmentId;
   label: string;

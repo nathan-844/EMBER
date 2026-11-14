@@ -20,13 +20,13 @@ if (!apiKey) throw new Error("Set GEMINI_API_KEY in .env.local");
 const cfg = { apiKey, models: parseModelList(env.GEMINI_MODEL || process.env.GEMINI_MODEL) };
 
 const questions: SafetyQuestion[] = ["prevention", "detection", "suppression"];
-const jobs = PRESETS.filter((p) => p.id !== "custom").flatMap((p) =>
-  (p.id === "iss" || p.id === "lunar-habitat" ? questions : (["prevention"] as SafetyQuestion[])).map((q) => ({ ...presetScenario(p.id), question: q })),
-);
+const jobs = PRESETS.filter((p) => p.id !== "custom").flatMap((p) => questions.map((q) => ({ ...presetScenario(p.id), question: q })));
 
 const path = "src/data/recorded-analyses.json";
 const store = JSON.parse(readFileSync(path, "utf8")) as { recordedOn: string | null; entries: Record<string, AnalysisResponse> };
-const only = process.argv.slice(2);
+// --fresh drops every earlier recording first, so nothing checked under older evidence survives.
+if (process.argv.includes("--fresh")) store.entries = {};
+const only = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 const log: string[] = [];
 
 for (const s of jobs) {
