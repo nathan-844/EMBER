@@ -4,6 +4,7 @@ import normalized from "../src/data/normalized-conditions.json";
 import { TABLES } from "../src/data/tables";
 import type { EvidenceSource } from "../src/lib/evidence";
 import type { Scenario } from "../src/lib/scenario";
+import { cellValues } from "../src/lib/cells";
 
 type Key = "oxygenPct" | "pressurePsi" | "airflowMs";
 type Cond = { min: number; max: number; column: string; factor: number; parser: string };
@@ -16,20 +17,7 @@ function table(id: string) {
   return t;
 }
 
-/** Same rules as scripts/normalize-conditions.mjs: unit-stated scalars, lists and "a - b" ranges. */
-export function cellValues(raw: string | undefined, parser = "parseCell"): number[] {
-  const text = String(raw ?? "").trim();
-  if (!text) return [];
-  if (parser === "pctO2InText") return [...text.matchAll(/(\d+(?:\.\d+)?)\s*%\s*O2/gi)].map((m) => Number(m[1]));
-  const parts = text.replace(/~/g, "").split(/;|\bor\b|,|\bto\b|(?<=\d)\s+-\s+(?=\d)/).map((s) => s.trim()).filter(Boolean);
-  const out: number[] = [];
-  for (const p of parts) {
-    const m = /^(\d*\.?\d+)\s*(atm|bar|mmhg|cm\/s|%|mm|cm)?$/i.exec(p);
-    if (!m) return [];
-    out.push(Number(m[1]));
-  }
-  return out;
-}
+export { cellValues } from "../src/lib/cells";
 
 /** Render a row as "Header: value; ..." with blank cells skipped, capped for prompt size. */
 function rowText(header: string[], cells: string[], cap = 420): string {

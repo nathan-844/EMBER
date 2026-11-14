@@ -4276,13 +4276,7 @@ var TABLES = {
   "PSI-159-1": PSI_159_1_default
 };
 
-// server/rows.ts
-var PROFILES = normalized_conditions_default.profiles;
-function table(id) {
-  const t = TABLES[id];
-  if (!t) throw new Error(`Run table ${id} is not indexed; run npm run data:normalize`);
-  return t;
-}
+// src/lib/cells.ts
 function cellValues(raw, parser = "parseCell") {
   const text = String(raw ?? "").trim();
   if (!text) return [];
@@ -4295,6 +4289,14 @@ function cellValues(raw, parser = "parseCell") {
     out.push(Number(m[1]));
   }
   return out;
+}
+
+// server/rows.ts
+var PROFILES = normalized_conditions_default.profiles;
+function table(id) {
+  const t = TABLES[id];
+  if (!t) throw new Error(`Run table ${id} is not indexed; run npm run data:normalize`);
+  return t;
 }
 function rowText(header, cells, cap = 420) {
   const parts = header.map((h, i) => [h.replace(/\s+/g, " ").trim().replace(/^\?-g/, "\xB5-g (written ?-g in the NASA file)"), (cells[i] ?? "").replace(/\s+/g, " ").trim()]).filter(([h, v]) => h && v).map(([h, v]) => `${h}: ${v}`);
