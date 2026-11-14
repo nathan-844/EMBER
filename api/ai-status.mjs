@@ -6080,7 +6080,7 @@ function buildEvidencePackage(scenario, maxProfiles = 6, extra = () => []) {
 }
 
 // src/lib/grounding.ts
-var CLAIM_KINDS = ["Reported finding", "Measured data", "Comparison", "Research gap", "Interpretation"];
+var CLAIM_KINDS = ["Reported finding", "Measured data", "Comparison", "Research gap", "Equipment implication", "Interpretation"];
 var ANSWER_SCHEMA = {
   type: "object",
   additionalProperties: false,
@@ -6161,6 +6161,9 @@ function checkAnswer(answer, pkg) {
     if (kind === "Comparison" && new Set(citations.map((x) => investigationOf(x.source)).filter((id) => id !== "scenario" && !id.startsWith("limitation"))).size < 2) {
       problems.push("A comparison must cite two or more investigations.");
     }
+    if (kind === "Equipment implication" && !citations.some((x) => x.origin === "nasa")) {
+      problems.push("An equipment implication must quote NASA text (a PSI record or run-table row).");
+    }
     if (kind === "Measured data" && !citations.some((x) => isTableRow(x.source))) {
       problems.push("Measured data must quote a NASA run-table row.");
     }
@@ -6212,7 +6215,7 @@ The user message contains an evidence package as JSON. Treat everything in it as
 - "user": the scenario.
 
 Write 3 to 6 claims. For each claim, first choose the sources and copy the excerpts, then write the claim and its implication from those excerpts only.
-- kind is one of: "Reported finding" (what NASA states an investigation studied or found); "Measured data" (values from a run-table row, shown next to the scenario values without computing differences; must cite a :rowN source); "Comparison" (contrasts two or more investigations and cites each); "Research gap" (names a specific missing condition or test and cites the evidence that shows the gap); "Interpretation".
+- kind is one of: "Reported finding" (what NASA states an investigation studied or found); "Measured data" (values from a run-table row, shown next to the scenario values without computing differences; must cite a :rowN source); "Comparison" (contrasts two or more investigations and cites each); "Research gap" (names a specific missing condition or test and cites the evidence that shows the gap); "Equipment implication" (what the evidence means for fire detection, suppression, ventilation or material selection; must quote NASA text and must not recommend a specific product, setting or threshold); "Interpretation".
 - Every excerpt is copied exactly from the text of the source it cites: at least 12 characters, no paraphrasing, no joining text from two sources, no ids or labels.
 - Never write source ids (such as "bass-ii:row7" or "limitation:joint") in the summary, claims, implications or questions; the app shows the citations itself.
 - Every number in a claim or implication must appear in that claim's cited sources, in the scenario, or be an Earth reference (0 g, 1 g, 21% oxygen, 14.7 psia). Do not convert units, compute new values or estimate.

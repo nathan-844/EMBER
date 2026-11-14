@@ -45,6 +45,13 @@ cannot establish.
   to the nearest solid-material run stated. Tables without a pressure column use the curated cabin
   pressure (hollow marks); rows that list several levels without pairing them are left out and
   counted.
+- **What this research informs** – links investigations to next-generation detection,
+  suppression, ventilation and material or atmosphere decisions (e.g. BASS-II's models for
+  detection and suppression design, BASS's ISS-type inert extinguishing agent, FLEX's CO₂/He/SF₆
+  suppressants, SAME smoke particle sizes, BRE burning in NASA's candidate exploration
+  atmospheres). Each link quotes the NASA PSI record word for word (tested) and says whether NASA
+  states the use or it is EMBER's reading, plus what is not covered. *Evidence on the way* lists
+  SoFIE, FM2 and LUCI and flags the ones that would close a gap in your scenario.
 - **Data explorer for modellers** – for each ranked investigation, which ranked conditions and
   settings varied between runs, which results were recorded (burn length, spread rate,
   extinction diameter, weight-loss rate…), what was held fixed in every run, and the rows
@@ -91,8 +98,9 @@ reaches the browser. For each request the server:
    ignored): NASA PSI objectives and publications, run-table ranges, the 3 NASA run-table rows
    nearest the scenario for each top investigation (`server/rows.ts`), and EMBER's limitations;
 2. asks Gemini (`gemini-3.1-flash-lite` → `gemini-3.5-flash` → `gemini-3.8-flash`, 45 s each, overridable
-   with `GEMINI_MODEL`; busy, rate-limited or retired models fall through) for JSON claims of five
-   kinds: Reported finding, Measured data, Comparison, Research gap, Interpretation;
+   with `GEMINI_MODEL`; busy, rate-limited or retired models fall through) for JSON claims of six
+   kinds: Reported finding, Measured data, Comparison, Research gap, Equipment implication (must
+   quote NASA text), Interpretation;
 3. checks every claim (`src/lib/grounding.ts`): each excerpt must appear word for word in the
    source it cites; every number in the claim and its implication must appear in those sources,
    the scenario or the Earth reference values (0 g, 1 g, 21% O₂, 14.7 psia); a Comparison must cite

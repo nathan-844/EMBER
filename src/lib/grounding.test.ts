@@ -142,3 +142,14 @@ describe("claim kinds", () => {
     expect(checkAnswer(a, pkg).summary.accepted).toBe(false);
   });
 });
+
+describe("equipment implications", () => {
+  it("must quote NASA text", () => {
+    const obj = pkg.sources.find((s) => s.id.endsWith(":objectives"))!;
+    const ok = checkAnswer(answer([{ kind: "Equipment implication", text: "This informs detector design.", citations: [{ source: obj.id, excerpt: obj.text.slice(0, 40) }] }]), pkg);
+    expect(ok.claims[0].problems).toEqual([]);
+    const ember = pkg.sources.find((s) => s.origin === "ember")!;
+    const bad = checkAnswer(answer([{ kind: "Equipment implication", text: "This informs detector design.", citations: [{ source: ember.id, excerpt: ember.text.slice(0, 40) }] }]), pkg);
+    expect(bad.claims[0].problems.join(" ")).toMatch(/must quote NASA text/);
+  });
+});

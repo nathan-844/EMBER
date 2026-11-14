@@ -1,6 +1,6 @@
 import type { EvidencePackage, EvidenceSource } from "./evidence";
 
-export const CLAIM_KINDS = ["Reported finding", "Measured data", "Comparison", "Research gap", "Interpretation"] as const;
+export const CLAIM_KINDS = ["Reported finding", "Measured data", "Comparison", "Research gap", "Equipment implication", "Interpretation"] as const;
 export type ClaimKind = (typeof CLAIM_KINDS)[number];
 
 /** Shape the model must return (requested with a JSON schema, then re-checked here). */
@@ -137,6 +137,9 @@ export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): Groundin
     const kind = (CLAIM_KINDS as readonly string[]).includes(c.kind) ? c.kind : "Interpretation";
     if (kind === "Comparison" && new Set(citations.map((x) => investigationOf(x.source)).filter((id) => id !== "scenario" && !id.startsWith("limitation"))).size < 2) {
       problems.push("A comparison must cite two or more investigations.");
+    }
+    if (kind === "Equipment implication" && !citations.some((x) => x.origin === "nasa")) {
+      problems.push("An equipment implication must quote NASA text (a PSI record or run-table row).");
     }
     if (kind === "Measured data" && !citations.some((x) => isTableRow(x.source))) {
       problems.push("Measured data must quote a NASA run-table row.");
