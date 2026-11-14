@@ -11,6 +11,10 @@ export interface Scenario {
   gravityG: number | null;
   airflowMs: number | null;
   fuel: FuelType | null;
+  /** Descriptive only: no profile has normalized material, thickness or flow-direction data yet. */
+  material: string | null;
+  thicknessMm: number | null;
+  flowDirection: "opposed" | "concurrent" | "quiescent" | null;
   includeAdjacent: boolean;
 }
 
@@ -73,6 +77,9 @@ export function presetScenario(id: EnvironmentId, previous?: Scenario): Scenario
     question: previous?.question ?? "prevention",
     fuel: previous?.fuel ?? "solid",
     includeAdjacent: previous?.includeAdjacent ?? true,
+    material: previous?.material ?? null,
+    thicknessMm: previous?.thicknessMm ?? null,
+    flowDirection: previous?.flowDirection ?? null,
     ...preset.values,
   };
 }
