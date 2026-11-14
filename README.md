@@ -52,6 +52,13 @@ cannot establish.
   atmospheres). Each link quotes the NASA PSI record word for word (tested) and says whether NASA
   states the use or it is EMBER's reading, plus what is not covered. *Evidence on the way* lists
   SoFIE, FM2 and LUCI and flags the ones that would close a gap in your scenario.
+- **Fire safety on Earth** – six NASA-stated ground uses of the same research (smoke detectors for
+  submarines and labs; mines, aircraft and submarines; less harmful suppressants; wildfire and
+  building-fire models; cone-calorimeter material testing), each quoted from the PSI record's
+  Earth-benefits text and tested. It says that no PSI combustion record covers fine water mist.
+- **Ventilation in elevated oxygen** – NASA's BRE record reports flames that kept burning with no
+  airflow in elevated-oxygen atmospheres but went out in 21% O₂; EMBER raises this for any
+  scenario above 21.5% O₂ (NASA calls the result preliminary).
 - **Data explorer for modellers** – for each ranked investigation, which ranked conditions and
   settings varied between runs, which results were recorded (burn length, spread rate,
   extinction diameter, weight-loss rate…), what was held fixed in every run, and the rows
@@ -155,6 +162,11 @@ repository: investigation records (titles, objectives, hardware, publications) a
 tables attached to each investigation, stored unmodified in `src/data/tables` with their SHA-256.
 Check each record's licence before reusing its data. Context on partial-gravity flammability comes
 from NASA Glenn's [FM2 page](https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/).
+Earth applications quote each record's "Research Impacts/Earth Benefits" text. Upcoming studies
+cite NASA's [SoFIE page](https://science.nasa.gov/biological-physical/investigations/sofie/) and the
+[Flame in Freefall challenge](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/)
+(LUCI and FM2); partial-gravity wording also follows NASA's
+[Physical Sciences on the Moon](https://science.nasa.gov/lunar-science/focus-areas/physical-sciences/).
 EMBER is a Space Apps research prototype and is not affiliated with or endorsed by NASA.
 
 ## How AI was used
@@ -163,5 +175,11 @@ EMBER is a Space Apps research prototype and is not affiliated with or endorsed 
   against the cited source text by `src/lib/grounding.ts`; nothing the model writes is shown
   unchecked, and recorded answers are labelled as recorded.
 - **Building EMBER:** the team used AI coding assistants (Anthropic's Claude, through Claude Code)
-  to help write and review code, tests and documentation. Commits made with an assistant carry a
-  `Co-Authored-By` line. The team chose the challenge, scope and scientific framing and reviewed the work.
+  to help write and review code, tests and documentation. Some commits made with an assistant
+  carry a `Co-Authored-By` line; not all do, so the commit history is not a complete record of
+  where an assistant helped. The team chose the challenge, scope and scientific framing and reviewed the work.
+
+## License
+
+Code: MIT (see `LICENSE`). NASA PSI data in `src/data` is NASA's; check each record's terms before
+reuse.

@@ -2,9 +2,9 @@
   "recordedAt": "2026-11-14",
   "node": "v22.23.4",
   "tests": {
-    "passed": 264,
+    "passed": 274,
     "failed": 0,
-    "total": 264,
+    "total": 274,
     "files": 16,
     "names": [
       {
@@ -449,6 +449,11 @@
       },
       {
         "file": "data/applications.test.ts",
+        "title": "equipment links ventilation-shutdown-high-o2 quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
         "title": "equipment links screening-test quotes its NASA PSI record word for word",
         "status": "passed"
       },
@@ -499,6 +504,11 @@
       },
       {
         "file": "data/applications.test.ts",
+        "title": "equipment links ventilation-shutdown-high-o2 points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
         "title": "equipment links screening-test points at real profiles, one of which owns the quote",
         "status": "passed"
       },
@@ -530,6 +540,36 @@
       {
         "file": "data/applications.test.ts",
         "title": "upcoming studies cite a public page for every study",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-smoke-detectors quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-instruments quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-confined-spaces quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-suppressants quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-wildfire-models quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-cone-calorimeter quotes NASA's Earth-benefits text word for word",
         "status": "passed"
       },
       {
@@ -1148,6 +1188,16 @@
         "status": "passed"
       },
       {
+        "file": "lib/limitations.test.ts",
+        "title": "ventilation in elevated oxygen warns for the 30% lunar habitat, citing BRE",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "ventilation in elevated oxygen does not warn for cabin air",
+        "status": "passed"
+      },
+      {
         "file": "lib/ranking.test.ts",
         "title": "scoring caps conditions at 75 and total at 100",
         "status": "passed"
@@ -1338,6 +1388,6 @@
       "src/data/table-manifest.json",
       "src/data/normalized-conditions.json"
     ],
-    "value": "3dfbf6540b6b2b6a87f243b854848eff210793862116cabb638abc85e00aedad"
+    "value": "5f0de9fa8c5a345edc085dbf4b1adec72be5da6b38739f8fb88eea8a5e92e385"
   }
 }
