@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { INVESTIGATIONS } from "../data/investigations";
+import { CoverageChart } from "../components/CoverageChart";
 import { RankedList } from "../components/RankedList";
 import { ScenarioPanel } from "../components/ScenarioPanel";
 import { SummaryStrip } from "../components/SummaryStrip";
@@ -22,6 +23,7 @@ export function ScenarioLab() {
         <ScenarioPanel scenario={scenario} onChange={setScenario} onSaveBaseline={() => setBaseline(scenario)} hasBaseline={baseline != null} />
         <div className="lab-main">
           <SummaryStrip scenario={scenario} relevant={ranked.length} total={INVESTIGATIONS.length} />
+          <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
           <RankedList ranked={ranked} />
         </div>
       </div>

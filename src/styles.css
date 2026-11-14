@@ -211,3 +211,20 @@ code, .mono { font-family: var(--mono); font-size: 0.85em; }
   .rank-row { grid-template-columns: 30px 1fr; }
   .rank-score { grid-column: 2; }
 }
+
+/* ---------- Coverage chart ---------- */
+.coverage { width: 100%; height: auto; margin-top: 8px; font-family: var(--font); }
+.coverage .tick { font-size: 11px; fill: var(--muted); }
+.coverage .row-label { font-size: 12px; fill: var(--ink); }
+.coverage .row-note { font-size: 10.5px; fill: var(--muted); }
+.small-seg { grid-template-columns: repeat(3, auto); }
+.small-seg button { padding: 5px 10px; font-size: 11px; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 6px; }
+.sw { display: inline-block; width: 12px; height: 8px; margin-right: 5px; vertical-align: middle; }
+.sw-bar { background: var(--bar); }
+.sw-you { width: 2px; height: 10px; background: var(--bad); }
+.sw-hatch { border: 1px solid var(--border-strong); }
+.probe-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+.chip { border: 1px solid var(--border-strong); background: var(--surface); border-radius: 3px; padding: 3px 9px; font-size: 11px; cursor: pointer; }
+.chip.on { background: #e9eef3; border-color: var(--navy-2); }
+.warn-note { color: var(--warn); margin: 10px 0 0; }
