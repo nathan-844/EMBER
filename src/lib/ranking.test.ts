@@ -82,4 +82,10 @@ describe("ranking", () => {
   it("every curated profile has a unique id", () => {
     expect(new Set(INVESTIGATIONS.map((i) => i.id)).size).toBe(INVESTIGATIONS.length);
   });
+
+  it("never ranks a different fuel type as tied with the leader (lunar habitat, solid fuel)", () => {
+    const ranked = rankInvestigations(presetScenario("lunar-habitat"));
+    for (const r of ranked.filter((x) => x.rank === 1)) expect(r.investigation.fuelTypes).toContain("solid");
+    expect(ranked.find((r) => r.investigation.id === "flex-2")!.rank).toBeGreaterThan(1);
+  });
 });

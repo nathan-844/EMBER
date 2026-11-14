@@ -21,7 +21,8 @@ cannot establish.
   hand-written ranges are labelled *curated* everywhere they appear.
 - **Transparent ranking** – 25 points for addressing the safety question (10 for adjacent
   research) plus 15 points per matching condition (75 max). Unknown ranges earn nothing and
-  ties share a rank. Every score can be expanded to see why.
+  equal scores share a rank only when the fuel match is also the same, so a droplet study never
+  ties for first on a solid-fuel scenario. Every score can be expanded to see why.
 - **Honest headline** – the insight card states how many of your conditions the top profile
   matches and names the ones it does not (gravity first). It never claims coverage from a
   single matching condition.

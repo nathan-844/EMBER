@@ -112,7 +112,7 @@ export function RankedList({ ranked, scenario }: { ranked: RankedInvestigation[]
       </div>
       <p className="small muted">
         Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside its recorded range, 8 when just outside it).
-        They do not estimate fire probability, confidence or safety. Tied scores share a rank; unknown fields earn no points.
+        They do not estimate fire probability, confidence or safety. Equal scores share a rank only when the fuel match is the same; unknown fields earn no points.
       </p>
       <RobustnessBar scenario={scenario} />
       {ranked.length === 0 ? (

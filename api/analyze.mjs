@@ -5838,9 +5838,10 @@ function tieBreak(a, b) {
 }
 function rankInvestigations(scenario, pool = INVESTIGATIONS, w = DEFAULT_WEIGHTS) {
   const scored = pool.map((inv) => scoreInvestigation(inv, scenario, w)).filter((r) => r !== null).sort((a, b) => b.total - a.total || tieBreak(a, b));
+  const same = (a, b) => a.total === b.total && fuelMatches(a) === fuelMatches(b);
   return scored.map((r) => {
-    const rank = scored.findIndex((o) => o.total === r.total) + 1;
-    const tied = scored.filter((o) => o.total === r.total).length > 1;
+    const rank = scored.findIndex((o) => same(o, r)) + 1;
+    const tied = scored.filter((o) => same(o, r)).length > 1;
     return { ...r, rank, tied };
   });
 }

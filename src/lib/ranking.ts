@@ -144,9 +144,12 @@ export function rankInvestigations(scenario: Scenario, pool: Investigation[] = I
     .filter((r): r is NonNullable<typeof r> => r !== null)
     .sort((a, b) => b.total - a.total || tieBreak(a, b));
 
+  // Equal scores share a rank only with the same fuel match: a droplet or gas study never
+  // ties for first with a matching-fuel study.
+  const same = (a: (typeof scored)[number], b: (typeof scored)[number]) => a.total === b.total && fuelMatches(a) === fuelMatches(b);
   return scored.map((r) => {
-    const rank = scored.findIndex((o) => o.total === r.total) + 1;
-    const tied = scored.filter((o) => o.total === r.total).length > 1;
+    const rank = scored.findIndex((o) => same(o, r)) + 1;
+    const tied = scored.filter((o) => same(o, r)).length > 1;
     return { ...r, rank, tied };
   });
 }
