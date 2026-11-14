@@ -9,3 +9,4 @@ media/raw/
 .vercel
 .env*
 !.env.example
+tsconfig.tsbuildinfo

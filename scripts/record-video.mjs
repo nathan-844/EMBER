@@ -78,14 +78,14 @@ await page.selectOption("#env", "lunar-habitat");
 await smooth(".insight", "center");
 await wait(2000);
 
-mark("…and says plainly what is missing: here, gravity, oxygen and pressure");
+mark("Key finding: no solid-material test in NASA’s data goes above 22.2% oxygen");
 await wait(2800);
 
-mark("Ranges come from 21 NASA run tables: 2,001 real test rows");
+mark("Ranges come from 14 NASA run tables: 1,527 real test rows");
 await smooth(".coverage", "center");
 await wait(2600);
 
-mark("Gemini writes the analysis. EMBER rejects any quote or number not found in NASA’s sources");
+mark("Gemini writes the analysis. EMBER rejects any quote or number not found in the sources it cites");
 // Jump (not glide) back up to the analysis card: a long smooth scroll upward passes through the hero.
 await page.evaluate(() => {
   const a = document.querySelector(".analysis");

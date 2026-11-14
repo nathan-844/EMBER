@@ -22,7 +22,8 @@ const LEVEL_CLASS: Record<Level, string> = {
 
 const verified = INVESTIGATIONS.filter((i) => i.psi.verifiedOn).length;
 const TABLES = tableManifest as { tables: { id: string; rows: number }[] };
-const tableRows = TABLES.tables.reduce((n, t) => n + t.rows, 0);
+const usedTables = new Set(INVESTIGATIONS.flatMap((i) => Object.values(i.conditions)).filter((r) => r?.source === "psi-table").map((r) => r!.table));
+const tableRows = TABLES.tables.filter((t) => usedTables.has(t.id)).reduce((n, t) => n + t.rows, 0);
 const tableRanges = INVESTIGATIONS.flatMap((i) => Object.values(i.conditions)).filter((r) => r?.source === "psi-table").length;
 const tableProfiles = INVESTIGATIONS.filter((i) => Object.values(i.conditions).some((r) => r?.source === "psi-table")).length;
 const normalized = profilesWithNormalizedConditions();
@@ -43,7 +44,7 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   },
   {
     name: "Input pedigree", q: "Where did every input come from?", level: verified === INVESTIGATIONS.length ? "Partial" : "Limited",
-    shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record, synced ${PSI_SNAPSHOT.fetchedOn}. ${tableProfiles} profiles take ${tableRanges} oxygen, pressure or airflow ranges straight from ${TABLES.tables.length} stored NASA PSI run tables (${tableRows} source rows, SHA-256 per file); the remaining ranges are labelled curated.`,
+    shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record, synced ${PSI_SNAPSHOT.fetchedOn}. ${tableProfiles} profiles take ${tableRanges} oxygen, pressure or airflow ranges from ${usedTables.size} of ${TABLES.tables.length} stored NASA PSI run tables (${tableRows.toLocaleString("en-US")} source rows; SHA-256 per file); the remaining ranges are labelled curated.`,
     missing: "Gravity, fuel type and the remaining curated ranges are not read from tables. Ranges are marginal min–max envelopes, not joint test points.",
   },
   {

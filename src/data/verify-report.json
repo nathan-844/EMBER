@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-14",
   "node": "v22.19.0",
   "tests": {
-    "passed": 188,
+    "passed": 219,
     "failed": 0,
-    "total": 188,
-    "files": 11,
+    "total": 219,
+    "files": 14,
     "names": [
       {
         "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
@@ -149,7 +149,7 @@
       },
       {
         "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
-        "title": "scenario parsing caps free-text material length",
+        "title": "scenario parsing accepts only the listed materials",
         "status": "passed"
       },
       {
@@ -175,6 +175,61 @@
       {
         "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "retry and table rows keeps the first answer if the retry is worse",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection serves recorded presets instantly even with a live key",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection answers a repeated scenario from the cache without a second model call",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection merges identical requests that arrive together into one model call",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection limits live calls per visitor, then recovers after the window",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection does not count cached or recorded answers against the limit",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection stops at the daily cap across all visitors",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection does not cache rejected answers",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection reports the limits on the status endpoint",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "quota protection ignores unknown paths",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
+        "title": "visitor id is stable, short and does not contain the address",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/bundle.test.ts",
+        "title": "Vercel function bundles api/*.mjs match the current server source (run npm run build:api if this fails)",
         "status": "passed"
       },
       {
@@ -265,6 +320,91 @@
       {
         "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson sends the thinking level when set, and drops it once if the model rejects it",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson skips a model whose daily quota is used up until Google's retry time",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson fails fast with a clear message when every model is cooling down",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/prevention still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/detection still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/suppression still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/prevention still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/detection still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/suppression still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/prevention still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/detection still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/suppression still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/prevention still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/detection still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/suppression still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/prevention still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/detection still passes the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/suppression still passes the grounding check",
         "status": "passed"
       },
       {
@@ -644,7 +784,7 @@
       },
       {
         "file": "lib/grounding.test.ts",
-        "title": "evidence package labels run-table ranges as NASA and curated ranges as EMBER",
+        "title": "evidence package labels run-table ranges as EMBER-computed NASA data and curated ranges as EMBER",
         "status": "passed"
       },
       {
@@ -679,7 +819,7 @@
       },
       {
         "file": "lib/grounding.test.ts",
-        "title": "grounding check rejects the whole answer when the summary has an untraceable number",
+        "title": "grounding check withholds only the summary when it has an untraceable number",
         "status": "passed"
       },
       {
@@ -728,6 +868,11 @@
         "status": "passed"
       },
       {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds rejects claims and summaries that show internal source ids",
+        "status": "passed"
+      },
+      {
         "file": "lib/limitations.test.ts",
         "title": "limitations flags partial gravity for a lunar habitat",
         "status": "passed"
@@ -744,7 +889,17 @@
       },
       {
         "file": "lib/limitations.test.ts",
-        "title": "limitations flags elevated oxygen nobody covers",
+        "title": "limitations flags elevated oxygen nobody covers when the fuel is unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations states the Moon-base finding: no solid-material test reaches 30% oxygen",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations cites NASA for the partial-gravity caveat and does not claim the 0 g/1 g bound fails",
         "status": "passed"
       },
       {
@@ -958,6 +1113,6 @@
       "src/data/table-manifest.json",
       "src/data/normalized-conditions.json"
     ],
-    "value": "df62fd28d69055d9f5d9e1d93d0b98ad0339b95db41e76cbadc82357baeda350"
+    "value": "3dfbf6540b6b2b6a87f243b854848eff210793862116cabb638abc85e00aedad"
   }
 }

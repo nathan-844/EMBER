@@ -3,6 +3,9 @@
 EMBER is a research prototype for the 2026 NASA Space Apps challenge
 **Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data**.
 
+**Live demo: https://ember-fire-safety.vercel.app** (presets replay recorded AI answers instantly;
+edit any value for a live, rate-limited Gemini analysis).
+
 It ranks NASA microgravity combustion investigations (BASS, Saffire, FLEX, ACME, SAME, …)
 against a crew-environment scenario and is explicit about what the evidence can and
 cannot establish.
@@ -13,7 +16,8 @@ cannot establish.
   spacesuit) or set oxygen, pressure, gravity, airflow and fuel yourself. Any input can be
   left *unspecified*.
 - **Ranges from NASA run tables** – oxygen, pressure and airflow ranges for 14 profiles are read
-  from 21 NASA PSI experimental tables (2,001 source rows, SHA-256 per file). The few remaining
+  from 14 of the 21 stored NASA PSI experimental tables (1,527 source rows used; every stored file
+  has its SHA-256). The few remaining
   hand-written ranges are labelled *curated* everywhere they appear.
 - **Transparent ranking** – 25 points for addressing the safety question (10 for adjacent
   research) plus 15 points per matching condition (75 max). Unknown ranges earn nothing and
@@ -23,7 +27,10 @@ cannot establish.
   single matching condition.
 - **Robustness probes** – each scenario is re-ranked under small input changes, single-input
   removals and four alternative point schemes, and the app reports whether the top match holds.
-- **Grounded AI analysis (optional)** – Claude writes a short synthesis from a server-built
+- **Key finding by fuel type** – for a Moon-base atmosphere (30% O₂) the app states that no
+  solid-material test in the data goes above 22.2% oxygen; only droplet and gas-flame studies reach
+  30%.
+- **Grounded AI analysis (optional)** – Google Gemini writes a short synthesis from a server-built
   evidence package. EMBER treats the model as an untrusted author: a claim is kept only if every
   excerpt appears word for word in the source it cites and every number appears in those sources
   or your scenario. Rejected claims are shown with the reason, and a receipt counts how many
@@ -68,7 +75,7 @@ reaches the browser. For each request the server:
 1. rebuilds the ranking and an evidence package from the scenario alone (browser-sent evidence is
    ignored): NASA PSI objectives and publications, run-table ranges, the 3 NASA run-table rows
    nearest the scenario for each top investigation (`server/rows.ts`), and EMBER's limitations;
-2. asks Gemini (`gemini-3.5-flash` → `gemini-3.8-flash` → `gemini-3.1-flash-lite`, 45 s each, overridable
+2. asks Gemini (`gemini-3.1-flash-lite` → `gemini-3.5-flash` → `gemini-3.8-flash`, 45 s each, overridable
    with `GEMINI_MODEL`; busy, rate-limited or retired models fall through) for JSON claims of five
    kinds: Reported finding, Measured data, Comparison, Research gap, Interpretation;
 3. checks every claim (`src/lib/grounding.ts`): each excerpt must appear word for word in the
@@ -117,3 +124,21 @@ made on 2026-11-02, because PSI's per-investigation API returned HTTP 500 that d
 EMBER does not predict flammability, flame spread, extinction or fire risk, and the AI analysis
 is told not to either. Match points select evidence; they are not confidence or probability. It is not a NASA product and not a
 safety certification.
+
+## Data credits
+
+All experimental data comes from NASA's [Physical Science Informatics (PSI)](https://psi.nasa.gov/physci/repo/)
+repository: investigation records (titles, objectives, hardware, publications) and the experimental
+tables attached to each investigation, stored unmodified in `src/data/tables` with their SHA-256.
+Check each record's licence before reusing its data. Context on partial-gravity flammability comes
+from NASA Glenn's [FM2 page](https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/).
+EMBER is a Space Apps research prototype and is not affiliated with or endorsed by NASA.
+
+## How AI was used
+
+- **In the product:** Google Gemini writes the optional evidence synthesis. Every claim is checked
+  against the cited source text by `src/lib/grounding.ts`; nothing the model writes is shown
+  unchecked, and recorded answers are labelled as recorded.
+- **Building EMBER:** the team used AI coding assistants (Anthropic's Claude, through Claude Code)
+  to help write and review code, tests and documentation. Commits made with an assistant carry a
+  `Co-Authored-By` line. The team chose the challenge, scope and scientific framing and reviewed the work.

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { INVESTIGATIONS } from "../data/investigations";
 import type { ConditionEnvelope } from "../data/types";
+import { rangeLabel } from "../lib/ranking";
 import type { Scenario } from "../lib/scenario";
 
 type Dim = "oxygenPct" | "pressurePsi" | "airflowMs";
 
 const DIMS: Record<Dim, { label: string; unit: string; max: number; ticks: number[]; probes: number[] }> = {
   oxygenPct: { label: "Ambient O₂", unit: "%", max: 100, ticks: [0, 20, 40, 60, 80, 100], probes: [21, 30, 40, 85] },
-  pressurePsi: { label: "Pressure", unit: "psia", max: 50, ticks: [0, 10, 20, 30, 40, 50], probes: [4.3, 8.2, 10.2, 14.7] },
+  pressurePsi: { label: "Pressure", unit: "psia", max: 80, ticks: [0, 20, 40, 60, 80], probes: [4.3, 8.2, 10.2, 14.7] },
   airflowMs: { label: "Airflow", unit: "m/s", max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], probes: [0, 0.05, 0.2, 0.5] },
 };
 
@@ -22,6 +23,10 @@ export function CoverageChart({ scenario, onProbe }: Props) {
   const W = 640, labelW = 110, plotW = W - labelW - 20, rowH = 34, top = 10;
   const H = top + rows.length * rowH + 30;
   const x = (v: number) => labelW + (Math.min(v, d.max) / d.max) * plotW;
+  const noteText = (r: { min: number; max: number; source?: string; table?: string }) =>
+    `${rangeLabel(r)} ${d.unit}${r.max > d.max ? " →" : ""}${r.source === "psi-table" ? ` · ${r.table}` : " · curated"}`;
+  /** Does the range label fit after the bar? About 6.6 px per character at the note size. */
+  const noteFits = (r: { min: number; max: number; source?: string; table?: string }) => x(r.max) + 6 + noteText(r).length * 6.6 <= W - 4;
 
   return (
     <section className="card">
@@ -39,6 +44,7 @@ export function CoverageChart({ scenario, onProbe }: Props) {
       {rows.length === 0 ? (
         <p className="muted">No profile has a normalized {d.label.toLowerCase()} range.</p>
       ) : (
+        <div className="coverage-scroll">
         <svg viewBox={`0 0 ${W} ${H}`} className="coverage" role="img" aria-label={`${d.label} coverage by investigation`}>
           <defs>
             <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -68,8 +74,8 @@ export function CoverageChart({ scenario, onProbe }: Props) {
                 >
                   <title>{`${inv.name}: ${r.min}–${r.max} ${d.unit}. ${r.basis}`}</title>
                 </rect>
-                <text x={Math.min(x(r.max), labelW + plotW) + 6} y={y + 13} className="row-note">
-                  {r.min}–{r.max} {d.unit}{r.max > d.max ? " →" : ""}{r.source === "psi-table" ? ` · ${r.table}` : " · curated"}
+                <text x={noteFits(r) ? x(r.max) + 6 : W - 4} textAnchor={noteFits(r) ? "start" : "end"} y={y + 13} className="row-note">
+                  {noteText(r)}
                 </text>
               </g>
             );
@@ -81,6 +87,7 @@ export function CoverageChart({ scenario, onProbe }: Props) {
             </g>
           )}
         </svg>
+        </div>
       )}
       <div className="legend small muted">
         <span><i className="sw sw-bar" /> From a NASA PSI run table</span>
