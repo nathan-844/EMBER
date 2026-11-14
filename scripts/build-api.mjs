@@ -31,7 +31,9 @@ for (const [name, contents] of Object.entries(entries)) {
   const code = result.outputFiles[0].text;
   const file = `api/${name}.mjs`;
   if (check) {
-    if (!existsSync(file) || readFileSync(file, "utf8") !== code) {
+    // Compare ignoring line endings: Git on Windows may check the bundles out with CRLF.
+    const lf = (t) => t.split(String.fromCharCode(13, 10)).join(String.fromCharCode(10));
+    if (!existsSync(file) || lf(readFileSync(file, "utf8")) !== lf(code)) {
       console.log(`${file} is out of date: run npm run build:api`);
       stale++;
     }
