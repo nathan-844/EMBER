@@ -472,3 +472,7 @@ details summary { cursor: pointer; font-size: 12.5px; }
 .badge-psi.in-rank { border-color: var(--navy-2); font-weight: 700; }
 .upcoming.relevant { border-left: 3px solid var(--ok); padding-left: 10px; }
 .equip-upcoming-h { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+/* Headings that keep a smaller look at a corrected outline level */
+h2.h3-size { font-size: 16px; margin: 0 0 8px; }
+h3.h4-size { font-size: 14px; margin: 0 0 6px; }

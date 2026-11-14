@@ -49,7 +49,7 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   },
   {
     name: "Results uncertainty", q: "Is uncertainty in the results represented?", level: "Limited",
-    shown: "Unknown inputs earn zero and are flagged; ties share a rank; adjacent research is labelled separately.",
+    shown: "Unknown inputs earn zero and are flagged; equal scores share a rank within a fuel group; other fuels and adjacent research are labelled separately.",
     missing: "Measurement uncertainty from the experiments is not propagated.",
   },
   {
@@ -87,13 +87,13 @@ export function Credibility() {
         <div className="card stat"><p className="big">{report.tests.passed}/{report.tests.total}</p><p className="small muted">Automated checks passed · recorded {report.recordedAt || "never"}</p></div>
         <div className="card stat"><p className="big">{INVESTIGATIONS.length}</p><p className="small muted">Curated investigation profiles</p></div>
         <div className="card stat"><p className="big">{verified}/{INVESTIGATIONS.length}</p><p className="small muted">Profiles linked to a NASA PSI record · synced {PSI_SNAPSHOT.fetchedOn}</p></div>
-        <div className="card stat"><p className="big">{normalized}</p><p className="small muted">Profiles with normalized O₂, pressure or airflow ranges</p></div>
+        <div className="card stat"><p className="big">{normalized}</p><p className="small muted">Profiles with O₂, pressure or airflow ranges ({tableProfiles} from NASA run tables, the rest curated estimates)</p></div>
       </div>
 
       <section className="card verify">
         <div>
           <p className="eyebrow">Verify it yourself</p>
-          <h3>Reproduce from the repository</h3>
+          <h2 className="h3-size">Reproduce from the repository</h2>
           <pre><code>npm ci && npm run verify:report</code></pre>
           <pre><code>npm run sync:psi</code></pre>
           <p className="small muted">
@@ -113,7 +113,7 @@ export function Credibility() {
       <div className="factor-grid">
         {FACTORS.map((f) => (
           <article className="card factor" key={f.name}>
-            <div className="factor-head"><h4>{f.name}</h4><span className={`badge ${LEVEL_CLASS[f.level]}`}>{f.level}</span></div>
+            <div className="factor-head"><h3 className="h4-size">{f.name}</h3><span className={`badge ${LEVEL_CLASS[f.level]}`}>{f.level}</span></div>
             <p className="q">{f.q}</p>
             <p><strong>Shown:</strong> {f.shown}</p>
             <p><strong>Missing:</strong> {f.missing}</p>
@@ -124,14 +124,14 @@ export function Credibility() {
       <p className="eyebrow section-gap">FAIR data self-check</p>
       <h2 className="h2">Findable, accessible, interoperable, reusable.</h2>
       <div className="factor-grid">
-        <article className="card factor"><h4>Findable</h4><p>{verified} of {INVESTIGATIONS.length} profiles carry a NASA PSI accession and link to its record. PSI does not publish DOIs for investigation records.</p></article>
-        <article className="card factor"><h4>Accessible</h4><p>All curated data is plain TypeScript in the repository; no account or API key is needed.</p></article>
-        <article className="card factor"><h4>Interoperable</h4><p>Units are fixed per field (vol %, psia, g, m/s). Cross-study harmonization is not done.</p></article>
-        <article className="card factor"><h4>Reusable</h4><p>Every range states its basis. Licensing of the original PSI data must be checked per record before reuse.</p></article>
+        <article className="card factor"><h3 className="h4-size">Findable</h3><p>{verified} of {INVESTIGATIONS.length} profiles carry a NASA PSI accession and link to its record. PSI does not publish DOIs for investigation records.</p></article>
+        <article className="card factor"><h3 className="h4-size">Accessible</h3><p>All curated data is plain TypeScript in the repository; no account or API key is needed.</p></article>
+        <article className="card factor"><h3 className="h4-size">Interoperable</h3><p>Units are fixed per field (vol %, psia, g, m/s). Cross-study harmonization is not done.</p></article>
+        <article className="card factor"><h3 className="h4-size">Reusable</h3><p>Every range states its basis. Licensing of the original PSI data must be checked per record before reuse.</p></article>
       </div>
 
       <section className="card warm section-gap">
-        <h3>What EMBER does not claim</h3>
+        <h2 className="h3-size">What EMBER does not claim</h2>
         <ul className="limits">
           <li>It does not predict flammability, spread rate, extinction or fire risk.</li>
           <li>Match points select evidence. They are not confidence or probability.</li>

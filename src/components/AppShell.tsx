@@ -30,10 +30,10 @@ export function AppShell({ route, onNavigate, recordCount, children }: Props) {
           <a className="status-dot" href="https://psi.nasa.gov/physci/repo/" target="_blank" rel="noreferrer" title="Records stored from the NASA PSI repository">NASA PSI · synced {PSI_SNAPSHOT.fetchedOn}</a>
         </nav>
       </header>
-      <div className="crumbs">
+      <nav className="crumbs" aria-label="Breadcrumb">
         <span>NASA PSI evidence / Human space exploration</span>
         <span>Research prototype · {recordCount} investigation profiles</span>
-      </div>
+      </nav>
       {children}
     </>
   );

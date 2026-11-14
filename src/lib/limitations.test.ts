@@ -110,3 +110,14 @@ describe("ventilation in elevated oxygen", () => {
     expect(ids(presetScenario("iss"))).not.toContain("ventilation-high-o2");
   });
 });
+
+describe("gap wording", () => {
+  it("does not repeat a single tested value as its own nearest value, or give a 'nearest' for microgravity", () => {
+    for (const id of ["iss", "mars-habitat"] as const) {
+      const s = { ...presetScenario(id), question: "detection" as const };
+      const body = leadInsight(s, rankInvestigations(s))!.body;
+      expect(body).not.toMatch(/0\.3 m\/s; nearest 0\.3/);
+      expect(body).not.toMatch(/nearest 0\.001 g/);
+    }
+  });
+});

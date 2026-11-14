@@ -166,8 +166,11 @@ function gapText(c: RankedInvestigation["conditions"][number]): string {
   if (c.range) {
     const u = UNIT[c.key] ?? "";
     const what = c.range.source === "psi-table" ? "tested" : "curated estimate";
+    if (c.key === "gravityG" && c.range.max <= 0.001) return `${label} (microgravity only)`;
     const near = c.status === "near" ? ", just outside" : "";
-    return `${label} (${what} ${rangeLabel(c.range, u)}${near}; nearest ${c.nearest}${u})`;
+    // A single tested value is its own nearest value; only show "nearest" for a real range.
+    const nearest = c.range.min !== c.range.max && c.nearest != null ? `; nearest ${c.nearest}${u}` : "";
+    return `${label} (${what} ${rangeLabel(c.range, u)}${near}${nearest})`;
   }
   return label;
 }
