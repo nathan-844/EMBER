@@ -48,30 +48,42 @@ export function inRange(value: number, range: Range): boolean {
   return value >= range.min && value <= range.max;
 }
 
-function scoreCondition(inv: Investigation, scenario: Scenario, key: ConditionKey): ConditionResult {
+/** Point scheme. The default is the disclosed 25 + 5 × 15 scheme; alternatives exist only to probe sensitivity. */
+export interface Weights {
+  question: { direct: number; adjacent: number };
+  conditions: Record<ConditionKey, number>;
+}
+
+export const DEFAULT_WEIGHTS: Weights = {
+  question: QUESTION_POINTS,
+  conditions: { oxygenPct: CONDITION_POINTS, pressurePsi: CONDITION_POINTS, gravityG: CONDITION_POINTS, airflowMs: CONDITION_POINTS, fuel: CONDITION_POINTS },
+};
+
+function scoreCondition(inv: Investigation, scenario: Scenario, key: ConditionKey, w: Weights = DEFAULT_WEIGHTS): ConditionResult {
+  const pts = w.conditions[key];
   if (key === "fuel") {
     if (scenario.fuel == null) return { key, status: "unspecified", points: 0, range: null };
     if (inv.fuelTypes.length === 0) return { key, status: "unknown", points: 0, range: null };
     const ok = inv.fuelTypes.includes(scenario.fuel);
-    return { key, status: ok ? "match" : "outside", points: ok ? CONDITION_POINTS : 0, range: null };
+    return { key, status: ok ? "match" : "outside", points: ok ? pts : 0, range: null };
   }
   const value = scenario[key];
   const range = inv.conditions[key as keyof ConditionEnvelope];
   if (value == null) return { key, status: "unspecified", points: 0, range };
   if (range == null) return { key, status: "unknown", points: 0, range: null };
   const ok = inRange(value, range);
-  return { key, status: ok ? "match" : "outside", points: ok ? CONDITION_POINTS : 0, range };
+  return { key, status: ok ? "match" : "outside", points: ok ? pts : 0, range };
 }
 
-export function scoreInvestigation(inv: Investigation, scenario: Scenario): Omit<RankedInvestigation, "rank" | "tied"> | null {
+export function scoreInvestigation(inv: Investigation, scenario: Scenario, w: Weights = DEFAULT_WEIGHTS): Omit<RankedInvestigation, "rank" | "tied"> | null {
   let relevance: "direct" | "adjacent";
   if (inv.questions.includes(scenario.question)) relevance = "direct";
   else if (scenario.includeAdjacent && inv.adjacentQuestions.includes(scenario.question)) relevance = "adjacent";
   else return null;
 
-  const conditions = CONDITION_KEYS.map((k) => scoreCondition(inv, scenario, k));
+  const conditions = CONDITION_KEYS.map((k) => scoreCondition(inv, scenario, k, w));
   const conditionPoints = conditions.reduce((sum, c) => sum + c.points, 0);
-  const questionPoints = QUESTION_POINTS[relevance];
+  const questionPoints = w.question[relevance];
   return {
     investigation: inv,
     relevance,
@@ -85,9 +97,9 @@ export function scoreInvestigation(inv: Investigation, scenario: Scenario): Omit
 }
 
 /** Rank investigations for a scenario. Equal scores share a rank (competition ranking). */
-export function rankInvestigations(scenario: Scenario, pool: Investigation[] = INVESTIGATIONS): RankedInvestigation[] {
+export function rankInvestigations(scenario: Scenario, pool: Investigation[] = INVESTIGATIONS, w: Weights = DEFAULT_WEIGHTS): RankedInvestigation[] {
   const scored = pool
-    .map((inv) => scoreInvestigation(inv, scenario))
+    .map((inv) => scoreInvestigation(inv, scenario, w))
     .filter((r): r is NonNullable<typeof r> => r !== null)
     .sort((a, b) => b.total - a.total || a.investigation.name.localeCompare(b.investigation.name));
 

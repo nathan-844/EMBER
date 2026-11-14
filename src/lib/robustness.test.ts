@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { probeRobustness } from "./robustness";
+import { probeRobustness, WEIGHT_SCHEMES } from "./robustness";
 import { presetScenario, PRESETS } from "./scenario";
 
 describe("robustness probes", () => {
@@ -32,5 +32,17 @@ describe("robustness probes", () => {
   it("never perturbs below zero", () => {
     const r = probeRobustness({ ...presetScenario("iss"), airflowMs: 0 });
     expect(r.changesTotal).toBeGreaterThan(0);
+  });
+
+  it("re-ranks under every alternative point scheme", () => {
+    const r = probeRobustness(presetScenario("iss"));
+    expect(r.weightProbes).toHaveLength(WEIGHT_SCHEMES.length);
+    expect(r.weightsHeld).toBe(r.weightProbes.filter((p) => p.unchanged).length);
+  });
+
+  it("keeps a lead that matches every condition under all schemes", () => {
+    const r = probeRobustness(presetScenario("iss"));
+    expect(r.lead).toBe("bass-ii");
+    expect(r.weightsHeld).toBe(WEIGHT_SCHEMES.length);
   });
 });

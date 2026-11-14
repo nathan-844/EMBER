@@ -15,7 +15,8 @@ export function RobustnessBar({ scenario }: { scenario: Scenario }) {
         <span className="eyebrow">Ranking robustness</span>
         <span>
           Top match <strong>{leadName}</strong> unchanged under {report.changesHeld} of {report.changesTotal} small input changes ·{" "}
-          {report.removalsHeld} of {report.removalsTotal} input removals
+          {report.removalsHeld} of {report.removalsTotal} input removals ·{" "}
+          {report.weightsHeld} of {report.weightProbes.length} alternative point schemes
         </span>
         {report.dependsOn.length > 0 && (
           <span><strong>Lead depends on:</strong> {report.dependsOn.map((k) => CONDITION_LABELS[k]).join(", ")}</span>
@@ -33,10 +34,17 @@ export function RobustnessBar({ scenario }: { scenario: Scenario }) {
                 <td className={p.unchanged ? "ok" : "bad"}>{p.unchanged ? "Held" : "Changed"}</td>
               </tr>
             ))}
+            {report.weightProbes.map((p) => (
+              <tr key={p.id}>
+                <td>Weights: {p.label}</td>
+                <td>{p.leadAfter ? getInvestigation(p.leadAfter)?.name : "—"}</td>
+                <td className={p.unchanged ? "ok" : "bad"}>{p.unchanged ? "Held" : "Changed"}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
-      <p className="small muted">Probes test the ranking rule near your inputs, not the underlying experiments.</p>
+      <p className="small muted">Probes test the ranking rule near your inputs and under other plausible point schemes, not the underlying experiments. The default weights were chosen, not fitted to expert rankings.</p>
     </div>
   );
 }
