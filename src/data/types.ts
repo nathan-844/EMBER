@@ -17,10 +17,12 @@ export interface ConditionEnvelope {
   airflowMs: Range | null;
 }
 
-/** Pointer to the authoritative NASA PSI record. Null until someone verifies it on psi.nasa.gov. */
+/**
+ * Pointer to the authoritative NASA PSI investigation record.
+ * verifiedOn is the date the accession was matched against the PSI repository.
+ */
 export interface PsiReference {
   accession: string | null;
-  doi: string | null;
   url: string | null;
   verifiedOn: string | null;
 }

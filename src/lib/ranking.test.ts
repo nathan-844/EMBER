@@ -11,7 +11,7 @@ function profile(over: Partial<Investigation>): Investigation {
     id: "x", name: "X", fullName: "X", platform: "ISS", hardware: "", summary: "",
     fuelTypes: ["solid"], questions: ["prevention"], adjacentQuestions: [],
     conditions: { oxygenPct: null, pressurePsi: null, gravityG: null, airflowMs: null },
-    measurements: [], psi: { accession: null, doi: null, url: null, verifiedOn: null }, caveats: [],
+    measurements: [], psi: { accession: null, url: null, verifiedOn: null }, caveats: [],
     ...over,
   };
 }

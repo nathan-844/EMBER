@@ -9,11 +9,45 @@ import type { ConditionEnvelope, Investigation, PsiReference, Range } from "./ty
  * in where the nominal value is widely documented, and every range is marked
  * approximate. Unknown ranges stay null and earn no match points.
  *
- * PSI accession numbers and DOIs are left null on purpose. Fill them in from
- * https://psi.nasa.gov after checking each record, and set verifiedOn.
+ * Each profile is linked to its NASA Physical Science Informatics (PSI)
+ * investigation record. Accessions were matched by acronym against the PSI
+ * repository search on the verifiedOn date; `npm run sync:psi` refreshes the
+ * stored snapshot (src/data/psi-snapshot.json) and the tests check every link.
+ * PSI does not publish DOIs for investigation records.
  */
 
-const UNVERIFIED: PsiReference = { accession: null, doi: null, url: null, verifiedOn: null };
+const PSI_VERIFIED_ON = "2026-11-14";
+
+/** Profile id → PSI accession. DAFT and DAFT-2 share one PSI record. */
+export const PSI_ACCESSIONS: Record<string, string> = {
+  "acme-flame-design": "PSI-10",
+  "acme-bre": "PSI-20",
+  "acme-cld": "PSI-21",
+  "acme-efield": "PSI-22",
+  "acme-s-flame": "PSI-23",
+  "bass-ii": "PSI-25",
+  bass: "PSI-26",
+  cfi: "PSI-39",
+  daft: "PSI-47",
+  "daft-2": "PSI-47",
+  "flex-2": "PSI-68",
+  flex: "PSI-69",
+  "saffire-i": "PSI-98",
+  "saffire-ii": "PSI-99",
+  "saffire-iii": "PSI-100",
+  "same-r": "PSI-101",
+  same: "PSI-102",
+  spice: "PSI-107",
+  slice: "PSI-106",
+  "acme-cfi-g": "PSI-159",
+};
+
+function psiRef(id: string): PsiReference {
+  const accession = PSI_ACCESSIONS[id] ?? null;
+  return accession
+    ? { accession, url: `https://psi.nasa.gov/physci/repo/data/investigations/${accession}`, verifiedOn: PSI_VERIFIED_ON }
+    : { accession: null, url: null, verifiedOn: null };
+}
 
 const MICROGRAVITY: Range = {
   min: 0,
@@ -31,11 +65,8 @@ const unknownExceptGravity: ConditionEnvelope = {
   airflowMs: null,
 };
 
-const base = { psi: UNVERIFIED };
-
-export const INVESTIGATIONS: Investigation[] = [
+const CURATED: Omit<Investigation, "psi">[] = [
   {
-    ...base,
     id: "bass-ii",
     name: "BASS-II",
     fullName: "Burning and Suppression of Solids II",
@@ -55,7 +86,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Duct-scale samples; spacecraft-scale fire growth was studied separately in Saffire."],
   },
   {
-    ...base,
     id: "bass",
     name: "BASS",
     fullName: "Burning and Suppression of Solids",
@@ -74,8 +104,7 @@ export const INVESTIGATIONS: Investigation[] = [
     measurements: ["Video of flame spread", "Extinguishment by nitrogen jet"],
     caveats: [],
   },
-  ...(["I", "II", "III"] as const).map((n): Investigation => ({
-    ...base,
+  ...(["I", "II", "III"] as const).map((n): Omit<Investigation, "psi"> => ({
     id: `saffire-${n.toLowerCase()}`,
     name: `Saffire-${n}`,
     fullName: `Spacecraft Fire Safety Demonstration ${n}`,
@@ -98,7 +127,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Run in cabin air only; no elevated-oxygen exploration atmosphere."],
   })),
   {
-    ...base,
     id: "flex",
     name: "FLEX",
     fullName: "Flame Extinguishment Experiment",
@@ -113,7 +141,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Fuel droplets, not cabin materials."],
   },
   {
-    ...base,
     id: "flex-2",
     name: "FLEX-2",
     fullName: "Flame Extinguishment Experiment 2",
@@ -128,7 +155,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
   {
-    ...base,
     id: "cfi",
     name: "CFI",
     fullName: "Cool Flames Investigation",
@@ -143,7 +169,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Cool flames can continue after visible flame extinction."],
   },
   {
-    ...base,
     id: "acme-bre",
     name: "BRE",
     fullName: "Burning Rate Emulator",
@@ -159,7 +184,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Gaseous emulator of solid burning, not a real material sample."],
   },
   {
-    ...base,
     id: "acme-cfi-g",
     name: "CFI-G",
     fullName: "Cool Flames Investigation with Gases",
@@ -175,7 +199,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Up to 85% O₂ burner oxidizer is not a cabin atmosphere."],
   },
   {
-    ...base,
     id: "acme-efield",
     name: "E-FIELD Flames",
     fullName: "Electric-Field Effects on Laminar Diffusion Flames",
@@ -191,7 +214,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Electric-field effects are not lunar-gravity measurements."],
   },
   {
-    ...base,
     id: "acme-cld",
     name: "CLD Flame",
     fullName: "Coflow Laminar Diffusion Flame",
@@ -207,7 +229,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
   {
-    ...base,
     id: "acme-flame-design",
     name: "Flame Design",
     fullName: "Flame Design",
@@ -223,7 +244,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
   {
-    ...base,
     id: "acme-s-flame",
     name: "s-Flame",
     fullName: "Structure and Response of Spherical Diffusion Flames",
@@ -239,7 +259,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
   {
-    ...base,
     id: "spice",
     name: "SPICE",
     fullName: "Smoke Point In Co-flow Experiment",
@@ -254,7 +273,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
   {
-    ...base,
     id: "slice",
     name: "SLICE",
     fullName: "Structure & Liftoff In Combustion Experiment",
@@ -269,7 +287,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
   {
-    ...base,
     id: "same",
     name: "SAME",
     fullName: "Smoke and Aerosol Measurement Experiment",
@@ -284,7 +301,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Smoke from heated (pyrolyzing) materials, not flaming combustion."],
   },
   {
-    ...base,
     id: "same-r",
     name: "SAME-R",
     fullName: "Smoke and Aerosol Measurement Experiment – Reflight",
@@ -299,7 +315,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
   {
-    ...base,
     id: "daft",
     name: "DAFT",
     fullName: "Dust and Aerosol Measurement Feasibility Test",
@@ -314,7 +329,6 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: ["Dust background, not combustion; relevant to false alarms."],
   },
   {
-    ...base,
     id: "daft-2",
     name: "DAFT-2",
     fullName: "Dust and Aerosol Measurement Feasibility Test 2",
@@ -329,6 +343,8 @@ export const INVESTIGATIONS: Investigation[] = [
     caveats: [],
   },
 ];
+
+export const INVESTIGATIONS: Investigation[] = CURATED.map((inv) => ({ ...inv, psi: psiRef(inv.id) }));
 
 export function getInvestigation(id: string): Investigation | undefined {
   return INVESTIGATIONS.find((inv) => inv.id === id);
