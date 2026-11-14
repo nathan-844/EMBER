@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { INVESTIGATIONS } from "../data/investigations";
+import { BriefDialog } from "../components/BriefDialog";
 import { BaselineDiff } from "../components/BaselineDiff";
 import { CoverageChart } from "../components/CoverageChart";
 import { GravityIllustration } from "../components/GravityIllustration";
@@ -8,7 +9,7 @@ import { Limitations } from "../components/Limitations";
 import { RankedList } from "../components/RankedList";
 import { ScenarioPanel } from "../components/ScenarioPanel";
 import { SummaryStrip } from "../components/SummaryStrip";
-import { buildBrief, downloadText } from "../lib/brief";
+import { buildBrief } from "../lib/brief";
 import { compareRankings } from "../lib/compare";
 import { DownloadIcon } from "../components/icons";
 import { leadInsight, scenarioLimitations } from "../lib/limitations";
@@ -22,8 +23,8 @@ export function ScenarioLab() {
   const limits = useMemo(() => scenarioLimitations(scenario, ranked), [scenario, ranked]);
   const insight = useMemo(() => leadInsight(scenario, ranked), [scenario, ranked]);
   const shifts = useMemo(() => (baseline ? compareRankings(rankInvestigations(baseline), ranked) : null), [baseline, ranked]);
-  const exportBrief = () =>
-    downloadText(`ember-brief-${scenario.environment}.md`, buildBrief(scenario, ranked, limits));
+  const [brief, setBrief] = useState<string | null>(null);
+  const exportBrief = () => setBrief(buildBrief(scenario, ranked, limits));
 
   return (
     <main className="page">
@@ -52,6 +53,7 @@ export function ScenarioLab() {
           <Limitations items={limits} />
         </div>
       </div>
+      {brief && <BriefDialog text={brief} filename={`ember-brief-${scenario.environment}.md`} onClose={() => setBrief(null)} />}
     </main>
   );
 }
