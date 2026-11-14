@@ -40,6 +40,17 @@ cannot establish.
   or your scenario. Rejected claims are shown with the reason, and a receipt counts how many
   excerpts are NASA text versus EMBER's own summaries.
 - **Parameter coverage** – shows where curated condition ranges exist against your scenario.
+- **Gap map of joint test conditions** – every NASA run-table row drawn as oxygen against pressure
+  from the same row, shaped and coloured by fuel type, with your scenario marked and the distance
+  to the nearest solid-material run stated. Tables without a pressure column use the curated cabin
+  pressure (hollow marks); rows that list several levels without pairing them are left out and
+  counted.
+- **Data explorer for modellers** – for each ranked investigation, which ranked conditions and
+  settings varied between runs, which results were recorded (burn length, spread rate,
+  extinction diameter, weight-loss rate…), what was held fixed in every run, and the rows
+  themselves. A tidy CSV export gives every filled cell with its NASA table, SHA-256, source row,
+  the value as NASA wrote it, the parsed numbers and, for ranked conditions, the value in EMBER's
+  unit. Column roles are judged from NASA's headers.
 - **Limitations** – scenario-specific statements of what the evidence cannot establish
   (partial gravity, oxygen outside tested ranges, joint-condition coverage, …).
 - **Baseline comparison**, **Markdown evidence-brief export** and a **CSV data export** (each
