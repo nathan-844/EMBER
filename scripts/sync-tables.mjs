@@ -12,6 +12,22 @@ const OUT = "src/data/tables";
 // Keep in step with PSI_ACCESSIONS in src/data/investigations.ts.
 const ACCESSIONS = [10, 20, 21, 22, 23, 25, 26, 39, 47, 68, 69, 98, 99, 100, 101, 102, 106, 107, 159].map((n) => `PSI-${n}`);
 
+/**
+ * NASA files are mostly UTF-8, but some (e.g. FLEX, PSI-69) are Windows-1252, where 0x96 is an
+ * en dash. Decode strictly as UTF-8 and fall back to Windows-1252 rather than emit U+FFFD.
+ * The stored bytes and their SHA-256 are never changed.
+ */
+export function decode(bytes) {
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  } catch {
+    // Node's "windows-1252" decoder can behave as Latin-1, leaving 0x80–0x9F as C1 control
+    // characters, so map that range explicitly (e.g. 0x96 → "–").
+    const CP1252 = "€\u0081‚ƒ„…†‡ˆ‰Š‹Œ\u008DŽ\u008F\u0090‘’“”•–—˜™š›œ\u009DžŸ";
+    return Array.from(bytes, (b) => (b >= 0x80 && b <= 0x9f ? CP1252[b - 0x80] : String.fromCharCode(b))).join("");
+  }
+}
+
 /** RFC 4180 CSV parser that keeps embedded newlines and escaped quotes. */
 export function parseCsv(text) {
   const rows = [];
@@ -41,7 +57,7 @@ const fromIdx = process.argv.indexOf("--from");
 const fromDir = fromIdx > 0 ? process.argv[fromIdx + 1] : null;
 
 function store(id, accession, file, version, bytes, origin) {
-  const [header = [], ...body] = parseCsv(bytes.toString("utf8").replace(/^﻿/, ""));
+  const [header = [], ...body] = parseCsv(decode(bytes).replace(/^﻿/, ""));
   const rows = body.map((cells, i) => ({ sourceRow: i + 2, cells })).filter((r) => r.cells.some((c) => c.trim()));
   writeFileSync(`${OUT}/${id}.json`, JSON.stringify({ header, rows }));
   tables.push({

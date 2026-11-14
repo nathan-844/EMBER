@@ -12,7 +12,7 @@
     "typecheck": "tsc -b",
     "verify:report": "node scripts/verify-report.mjs",
     "sync:psi": "node --use-env-proxy scripts/sync-psi.mjs",
-    "sync:tables": "node --use-env-proxy scripts/sync-tables.mjs && node scripts/index-tables.mjs",
+    "sync:tables": "node scripts/sync-tables.mjs && node scripts/index-tables.mjs",
     "data:normalize": "node scripts/normalize-conditions.mjs && node scripts/index-tables.mjs",
     "record:demo": "tsx scripts/record-demo.ts",
     "video:record": "node scripts/record-video.mjs",

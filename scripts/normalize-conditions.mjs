@@ -53,7 +53,8 @@ const MAPPINGS = {
   "acme-flame-design": { table: "PSI-10-0", oxygenPct: { column: "XO2 (init)", factor: 100, unit: "mole fraction" }, pressurePsi: { column: "pinit (atm)", factor: ATM, unit: "atm" } },
   "acme-bre": { table: "PSI-20-0", oxygenPct: { column: "Oxygen Conc (percent)", factor: 1, unit: "vol %" } },
   "acme-s-flame": { table: "PSI-23-0", oxygenPct: { column: "Atmosphere*", factor: 1, unit: "% O2 in text", parse: pctO2InText } },
-  "bass-ii": { table: "PSI-25-0", oxygenPct: { column: "Calibrated  initial O2 % by vol ", factor: 1, unit: "vol %" } },
+  "bass-ii": { table: "PSI-25-0", oxygenPct: { column: "Calibrated  initial O2 % by vol ", factor: 1, unit: "vol %" }, materialColumn: "Fuel Sample Material" },
+  bass: { table: "PSI-26-0", materialColumn: "Fuel Sample Material" },
   cfi: { table: "PSI-39-0", oxygenPct: { column: "Oxygen", factor: 100, unit: "mole fraction" }, pressurePsi: { column: "Pressure", factor: ATM, unit: "atm" } },
   "flex-2": {
     table: "PSI-68-0",
@@ -77,9 +78,11 @@ const MATERIALS = [
   ["PMMA", /pmma/i],
   ["Silicone", /silicone/i],
   ["Ultem", /ultem/i],
+  ["Wax (candle)", /wax|candle/i],
 ];
 
-const round = (v) => Math.round(v * 100) / 100;
+// Airflow keeps 4 decimals (m/s) so 0.1 cm/s stays 0.001, not 0; other conditions keep 2.
+const round = (v, key) => (key === "airflowMs" ? Math.round(v * 10000) / 10000 : Math.round(v * 100) / 100);
 const profiles = {};
 
 for (const [id, map] of Object.entries(MAPPINGS)) {
@@ -108,8 +111,8 @@ for (const [id, map] of Object.entries(MAPPINGS)) {
     }
     if (!values.length) continue;
     out.conditions[key] = {
-      min: round(Math.min(...values)),
-      max: round(Math.max(...values)),
+      min: round(Math.min(...values), key),
+      max: round(Math.max(...values), key),
       column: m.column.trim(),
       sourceUnit: m.unit,
       factor: m.factor,
@@ -125,8 +128,6 @@ for (const [id, map] of Object.entries(MAPPINGS)) {
     const names = new Set();
     for (const r of table.rows) for (const [name, re] of MATERIALS) if (re.test(r.cells[i] ?? "")) names.add(name);
     out.materials = [...names].sort();
-  } else if (id === "bass-ii") {
-    out.materials = table.rows.some((r) => /pmma/i.test(r.cells[col("Fuel Sample Material")])) ? ["PMMA"] : [];
   }
   if (map.directionColumn) {
     const i = col(map.directionColumn);

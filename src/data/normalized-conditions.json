@@ -92,7 +92,25 @@
         }
       },
       "materials": [
-        "PMMA"
+        "Cotton-fiberglass fabric",
+        "Nomex",
+        "PMMA",
+        "Wax (candle)"
+      ]
+    },
+    "bass": {
+      "accession": "PSI-26",
+      "table": "PSI-26-0",
+      "file": "PSI-26_Experimental table_BASS.csv",
+      "sha256": "ccfc3c54d948b64a1c5d2596a63c7c8019e51df0c91a1d62f039f48fa28c300f",
+      "totalRows": 122,
+      "conditions": {},
+      "materials": [
+        "Cotton-fiberglass fabric",
+        "Nomex",
+        "PMMA",
+        "Ultem",
+        "Wax (candle)"
       ]
     },
     "cfi": {
@@ -156,7 +174,7 @@
           "approx": false
         },
         "airflowMs": {
-          "min": 0,
+          "min": 0.001,
           "max": 0.05,
           "column": "Flow Velocity (cm/s)",
           "sourceUnit": "cm/s",
@@ -314,7 +332,7 @@
       "conditions": {
         "airflowMs": {
           "min": 0,
-          "max": 0.08,
+          "max": 0.081,
           "column": "Inlet velocity (cm/s)",
           "sourceUnit": "cm/s",
           "factor": 0.01,
@@ -353,8 +371,8 @@
       "totalRows": 469,
       "conditions": {
         "airflowMs": {
-          "min": 0.01,
-          "max": 0.85,
+          "min": 0.0066,
+          "max": 0.8528,
           "column": "Air Rate (cm/s)",
           "sourceUnit": "cm/s",
           "factor": 0.01,
