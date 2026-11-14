@@ -5933,9 +5933,9 @@ function presetScenario(id, previous) {
     question: previous?.question ?? "prevention",
     fuel: previous?.fuel ?? "solid",
     includeAdjacent: previous?.includeAdjacent ?? true,
-    material: previous?.material ?? null,
-    thicknessMm: previous?.thicknessMm ?? null,
-    flowDirection: previous?.flowDirection ?? null,
+    material: null,
+    thicknessMm: null,
+    flowDirection: null,
     ...preset.values
   };
 }
@@ -6384,11 +6384,24 @@ function createApi(cfg) {
     body,
     headers: { "Cache-Control": "no-store", ...headers }
   });
-  async function bump(key, limit, ttlS) {
-    const count = (await store.get(key) ?? 0) + 1;
-    if (count > limit) return { ok: false, count: count - 1 };
-    await store.set(key, count, { ttl: ttlS });
-    return { ok: true, count };
+  let counterQueue = Promise.resolve();
+  const local = /* @__PURE__ */ new Map();
+  function bump(key, limit, ttlS) {
+    const run = async () => {
+      const mine = local.get(key);
+      const stored = await store.get(key) ?? 0;
+      const count = Math.max(stored, mine && mine.until > now() ? mine.count : 0) + 1;
+      if (count > limit) return { ok: false, count: count - 1 };
+      local.set(key, { count, until: now() + ttlS * 1e3 });
+      if (local.size > 1e4) {
+        for (const [k, e] of local) if (e.until <= now()) local.delete(k);
+      }
+      await store.set(key, count, { ttl: ttlS });
+      return { ok: true, count };
+    };
+    const result = counterQueue.then(run, run);
+    counterQueue = result.catch(() => void 0);
+    return result;
   }
   async function handle2(req) {
     if (req.path === "/api/ai-status") {

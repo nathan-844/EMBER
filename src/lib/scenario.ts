@@ -73,6 +73,11 @@ export const PRESETS: EnvironmentPreset[] = [
 
 export const EARTH_SEA_LEVEL = { oxygenPct: 20.95, pressurePsi: 14.7 } as const;
 
+/**
+ * A preset's scenario. Switching keeps the safety question, fuel and analogue setting, but
+ * clears material, thickness and flow direction: presets don't set them, and carrying them
+ * over made a freshly chosen preset count as edited (a live analysis, not its recorded answer).
+ */
 export function presetScenario(id: EnvironmentId, previous?: Scenario): Scenario {
   const preset = PRESETS.find((p) => p.id === id) ?? PRESETS[1];
   return {
@@ -80,9 +85,9 @@ export function presetScenario(id: EnvironmentId, previous?: Scenario): Scenario
     question: previous?.question ?? "prevention",
     fuel: previous?.fuel ?? "solid",
     includeAdjacent: previous?.includeAdjacent ?? true,
-    material: previous?.material ?? null,
-    thicknessMm: previous?.thicknessMm ?? null,
-    flowDirection: previous?.flowDirection ?? null,
+    material: null,
+    thicknessMm: null,
+    flowDirection: null,
     ...preset.values,
   };
 }

@@ -21,6 +21,13 @@ describe("scenario presets", () => {
     expect(next.fuel).toBe("liquid");
   });
 
+  it("clears material, thickness and flow direction when switching environment", () => {
+    const prev = { ...presetScenario("lunar-habitat"), material: "Nomex", thicknessMm: 5, flowDirection: "opposed" as const };
+    const next = presetScenario("iss", prev);
+    expect([next.material, next.thicknessMm, next.flowDirection]).toEqual([null, null, null]);
+    expect(next).toEqual(presetScenario("iss"));
+  });
+
   it("every preset has a unique id", () => {
     expect(new Set(PRESETS.map((p) => p.id)).size).toBe(PRESETS.length);
   });

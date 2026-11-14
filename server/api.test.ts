@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildEvidencePackage } from "../src/lib/evidence";
 import { presetScenario } from "../src/lib/scenario";
-import { createApi, memoryStore, visitorId } from "./api";
+import { createApi, memoryStore, visitorId, type KV } from "./api";
 import { resetCooldowns } from "./gemini";
 
 beforeEach(() => resetCooldowns());
@@ -19,15 +19,25 @@ function goodAnswer() {
 const reply = (obj: unknown) =>
   new Response(JSON.stringify({ candidates: [{ finishReason: "STOP", content: { parts: [{ text: JSON.stringify(obj) }] } }] }), { status: 200 });
 
-function setup(opts: { perVisitorLimit?: number; dailyLimit?: number; delayMs?: number; answer?: unknown } = {}) {
+/** A store whose reads and writes take time, like the Vercel Runtime Cache over the network. */
+function slowStore(inner: KV, ms: number): KV {
+  const wait = () => new Promise((r) => setTimeout(r, ms));
+  return {
+    get: async (k) => { await wait(); return inner.get(k); },
+    set: async (k, v, o) => { await wait(); return inner.set(k, v, o); },
+  };
+}
+
+function setup(opts: { perVisitorLimit?: number; dailyLimit?: number; delayMs?: number; answer?: unknown; storeMs?: number } = {}) {
   let t = Date.UTC(2026, 10, 14, 12, 0, 0);
   const now = () => t;
   const fetchImpl = vi.fn(async () => {
     if (opts.delayMs) await new Promise((r) => setTimeout(r, opts.delayMs));
     return reply(opts.answer ?? goodAnswer());
   }) as unknown as typeof fetch & ReturnType<typeof vi.fn>;
+  const store = opts.storeMs ? slowStore(memoryStore(now), opts.storeMs) : memoryStore(now);
   const api = createApi({
-    apiKey: "k", models: ["m"], fetchImpl, store: memoryStore(now), now,
+    apiKey: "k", models: ["m"], fetchImpl, store, now,
     perVisitorLimit: opts.perVisitorLimit ?? 3, perVisitorWindowS: 600, dailyLimit: opts.dailyLimit ?? 100,
   });
   const call = (scenario: unknown, visitor = "v1") => api.handle({ method: "POST", path: "/api/analyze", body: JSON.stringify(scenario), visitor });
@@ -75,6 +85,20 @@ describe("quota protection", () => {
     expect((await call(live(19.5), "v2"))!.status).toBe(200);
     advance(601);
     expect((await call(live(19), "v1"))!.status).toBe(200);
+  });
+
+  it("holds the per-visitor limit when live requests arrive at the same time", async () => {
+    const { call, fetchImpl } = setup({ perVisitorLimit: 3, storeMs: 5 });
+    const outs = await Promise.all([20, 20.5, 21.1, 21.25, 21.75, 22, 22.5, 23].map((o2) => call(live(o2))));
+    expect(outs.filter((o) => o!.status === 200)).toHaveLength(3);
+    expect(outs.filter((o) => o!.status === 429)).toHaveLength(5);
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
+  });
+
+  it("holds the daily cap when live requests from many visitors arrive at the same time", async () => {
+    const { call } = setup({ dailyLimit: 2, perVisitorLimit: 100, storeMs: 5 });
+    const outs = await Promise.all([20, 20.5, 21.1, 21.25, 21.75].map((o2, i) => call(live(o2), `v${i}`)));
+    expect(outs.filter((o) => o!.status === 200)).toHaveLength(2);
   });
 
   it("does not count cached or recorded answers against the limit", async () => {

@@ -71,12 +71,28 @@ export function createApi(cfg: ApiConfig) {
     headers: { "Cache-Control": "no-store", ...headers },
   });
 
-  /** Fixed-window counter. Not atomic across instances; good enough to stop a runaway client. */
-  async function bump(key: string, limit: number, ttlS: number): Promise<{ ok: boolean; count: number }> {
-    const count = (((await store.get(key)) as number | undefined) ?? 0) + 1;
-    if (count > limit) return { ok: false, count: count - 1 };
-    await store.set(key, count, { ttl: ttlS });
-    return { ok: true, count };
+  // Counter updates run one at a time on this instance: without that, simultaneous requests all
+  // read the same count before any of them writes it back, and every one gets through.
+  // `local` remembers this instance's own counts, so a store read that lags a write cannot
+  // undercount. Across instances the store is still read-then-write (no atomic increment).
+  let counterQueue: Promise<unknown> = Promise.resolve();
+  const local = new Map<string, { count: number; until: number }>();
+
+  /** Fixed-window counter, serialized per instance. */
+  function bump(key: string, limit: number, ttlS: number): Promise<{ ok: boolean; count: number }> {
+    const run = async () => {
+      const mine = local.get(key);
+      const stored = ((await store.get(key)) as number | undefined) ?? 0;
+      const count = Math.max(stored, mine && mine.until > now() ? mine.count : 0) + 1;
+      if (count > limit) return { ok: false, count: count - 1 };
+      local.set(key, { count, until: now() + ttlS * 1000 });
+      if (local.size > 10_000) for (const [k, e] of local) if (e.until <= now()) local.delete(k);
+      await store.set(key, count, { ttl: ttlS });
+      return { ok: true, count };
+    };
+    const result = counterQueue.then(run, run);
+    counterQueue = result.catch(() => undefined);
+    return result;
   }
 
   async function handle(req: ApiRequest): Promise<ApiResponse | null> {
