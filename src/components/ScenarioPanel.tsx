@@ -67,7 +67,13 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
               <input
                 id={s.key} type="number" className="num" min={s.min} max={s.max} step={s.step}
                 value={value ?? ""} placeholder="—"
-                onChange={(e) => set(s.key, e.target.value === "" ? null : Number(e.target.value))}
+                onChange={(e) => {
+                  if (e.target.value === "") return set(s.key, null);
+                  const v = Number(e.target.value);
+                  // Never negative or above the maximum; the lower bound is enforced on blur so "0.5" can be typed.
+                  if (Number.isFinite(v)) set(s.key, Math.min(Math.max(v, 0), s.max));
+                }}
+                onBlur={() => { if (value != null && value < s.min) set(s.key, s.min); }}
               />
             </div>
             <div className="slider-scale">
@@ -114,10 +120,13 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
         <div>
           <label className="field-label" htmlFor="thick">Thickness · mm</label>
           <input id="thick" type="number" min={0} step={0.1} placeholder="Unknown" value={scenario.thicknessMm ?? ""}
-            onChange={(e) => set("thicknessMm", e.target.value === "" ? null : Number(e.target.value))} />
+            onChange={(e) => {
+              const v = Number(e.target.value);
+              set("thicknessMm", e.target.value === "" || !Number.isFinite(v) ? null : Math.min(Math.max(v, 0), 1000));
+            }} />
         </div>
       </div>
-      <p className="hint">Material, thickness and flow direction are recorded for the brief but do not change ranking: no profile has normalized data for them yet.</p>
+      <p className="hint">Material, thickness and flow direction do not change ranking. Where a PSI run table records materials or flow direction (BASS-II, Saffire), the limitations list says whether yours was tested.</p>
 
       <label className="check">
         <input type="checkbox" checked={scenario.includeAdjacent} onChange={(e) => set("includeAdjacent", e.target.checked)} />

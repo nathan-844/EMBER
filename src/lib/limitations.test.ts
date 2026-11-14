@@ -39,4 +39,44 @@ describe("lead insight", () => {
     const r = rankInvestigations(s);
     expect(leadInsight(s, r)!.investigation).toBe(r[0].investigation.name);
   });
+
+  it("never claims coverage from one matching condition on the Moon", () => {
+    const s = presetScenario("lunar-habitat");
+    const r = rankInvestigations(s);
+    const insight = leadInsight(s, r)!;
+    expect(insight.title).not.toMatch(/covers your/);
+    if (r[0].conditions.find((c) => c.key === "gravityG")?.status === "outside") {
+      expect(insight.title.toLowerCase()).toContain("gravity");
+      expect(insight.gaps[0]).toMatch(/^gravity/);
+      expect(insight.consideration).toMatch(/partial-gravity/);
+    }
+  });
+
+  it("reports full coverage only when every specified condition matches", () => {
+    const s = presetScenario("iss");
+    const r = rankInvestigations(s);
+    const insight = leadInsight(s, r)!;
+    expect(insight.fullCoverage).toBe(r[0].matchedCount === r[0].specifiedCount);
+    expect(insight.fullCoverage).toBe(insight.gaps.length === 0);
+  });
+});
+
+describe("tested materials", () => {
+  it("notes when a material appears in a PSI run table", () => {
+    const s = { ...presetScenario("iss"), material: "Nomex" };
+    expect(ids(s)).toContain("material-tested");
+  });
+
+  it("notes when no run table lists the material", () => {
+    const s = { ...presetScenario("iss"), material: "Ultem" };
+    expect(ids(s)).toContain("material-untested");
+  });
+
+  it("does not say 'covers all' about a single specified condition", () => {
+    const s = presetScenario("custom");
+    const i = leadInsight(s, rankInvestigations(s))!;
+    expect(i.title).not.toMatch(/covers all 1/);
+    expect(i.title).toMatch(/only condition you specified/);
+    expect(i.body).toMatch(/Left unspecified/);
+  });
 });
