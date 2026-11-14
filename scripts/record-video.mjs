@@ -45,6 +45,11 @@ const browser = await chromium.launch();
   await page.locator(".analysis").screenshot({ path: join(out, "shot-ai.png") });
   await page.locator(".insight").screenshot({ path: join(out, "shot-insight.png") });
   await page.locator(".coverage").first().screenshot({ path: join(out, "shot-coverage.png") });
+  await page.waitForSelector("#gapmap-title");
+  await page.locator('section[aria-labelledby="gapmap-title"]').screenshot({ path: join(out, "shot-gapmap.png") });
+  await page.locator('section[aria-labelledby="explorer-title"]').screenshot({ path: join(out, "shot-explorer.png") });
+  await page.locator('section[aria-labelledby="equipment-title"]').screenshot({ path: join(out, "shot-equipment.png") });
+  await page.locator('section[aria-labelledby="earth-title"]').screenshot({ path: join(out, "shot-earth.png") });
   await page.goto(base + "/#credibility");
   await page.waitForSelector("h1");
   await page.screenshot({ path: join(out, "shot-credibility.png") });
@@ -58,6 +63,11 @@ const t0 = Date.now();
 const marks = [];
 const mark = (text) => marks.push({ at: (Date.now() - t0) / 1000, text });
 const wait = (ms) => page.waitForTimeout(ms);
+// Jump (not glide) to a section: long smooth scrolls pass through unrelated content.
+const jump = async (selector, extra = 0) => {
+  await page.locator(selector).first().evaluate((el, x) => window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - 70 + x, behavior: "instant" }), extra);
+  await wait(250);
+};
 const smooth = async (selector, block = "start") => {
   await page.locator(selector).first().evaluate((el, b) => el.scrollIntoView({ behavior: "smooth", block: b }), block);
   await wait(900);
@@ -69,44 +79,47 @@ await page.addStyleTag({ content: "html{scroll-behavior:smooth}" });
 const start = (Date.now() - t0) / 1000;
 
 mark("A Moon base may breathe 30% oxygen at 10.2 psi. Does NASA’s fire data cover it?");
-await wait(3200);
+await wait(3000);
 
 mark("EMBER ranks 20 NASA combustion investigations against your habitat");
 await page.selectOption("#env", "iss");
-await wait(1100);
+await wait(900);
 await page.selectOption("#env", "lunar-habitat");
 await smooth(".insight", "center");
-await wait(2000);
+await wait(1700);
 
 mark("Key finding: no solid-material test in NASA’s data goes above 22.2% oxygen");
-await wait(2800);
+await page.waitForSelector("#gapmap-title");
+// Scrolled past the card's intro so the chart's low-pressure band (the solid samples) sits above the caption.
+await jump('section[aria-labelledby="gapmap-title"]', 150);
+await wait(3000);
 
-mark("Ranges come from 14 NASA run tables: 1,527 real test rows");
-await smooth(".coverage", "center");
-await wait(2600);
+mark("Every NASA test row is one click from a modeller’s CSV");
+await jump('section[aria-labelledby="explorer-title"]');
+await wait(2700);
 
 mark("Gemini writes the analysis. EMBER rejects any quote or number not found in the sources it cites");
-// Jump (not glide) back up to the analysis card: a long smooth scroll upward passes through the hero.
-await page.evaluate(() => {
-  const a = document.querySelector(".analysis");
-  if (a) window.scrollTo({ top: window.scrollY + a.getBoundingClientRect().top - 70, behavior: "instant" });
-});
-await wait(700);
+await jump(".analysis");
+await wait(500);
 await page.locator(".analysis button.btn-primary").click({ noWaitAfter: true });
 await page.waitForSelector(".verdict");
-// Put the verdict and the first verified claims in view, then drift down through the quotes.
 await page.evaluate(() => {
   const v = document.querySelector(".verdict");
   if (v) window.scrollTo({ top: window.scrollY + v.getBoundingClientRect().top - 90, behavior: "smooth" });
 });
-await wait(2200);
-await page.evaluate(() => window.scrollBy({ top: 240, behavior: "smooth" }));
-await wait(2600);
+await wait(2000);
+await page.evaluate(() => window.scrollBy({ top: 220, behavior: "smooth" }));
+await wait(2000);
 
-mark("Every ranking is stress-tested, every limit stated");
-await smooth(".robust", "center");
-await page.locator(".robust-head").click();
-await wait(2600);
+mark("It shows what the research informs: detection, suppression, ventilation");
+await jump('section[aria-labelledby="equipment-title"]');
+await wait(1200);
+await page.evaluate(() => window.scrollBy({ top: 260, behavior: "smooth" }));
+await wait(2000);
+
+mark("…and where it helps on Earth: mines, aircraft, submarines");
+await jump('section[aria-labelledby="earth-title"]');
+await wait(2800);
 
 mark("Open NASA data, checked AI, honest limits");
 await page.setContent(`<!doctype html><html><body style="margin:0;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;background:#121A24;color:#F5F2EB;font-family:'Segoe UI',Arial,sans-serif">
@@ -114,7 +127,7 @@ await page.setContent(`<!doctype html><html><body style="margin:0;height:100vh;d
   <div style="font-size:120px;font-weight:800;letter-spacing:-2px">EMBER</div>
   <div style="font-size:30px;color:#BCC8D6">Fire-safety evidence for crews beyond Earth</div>
 </body></html>`);
-await wait(3000);
+await wait(2400);
 const end = (Date.now() - t0) / 1000;
 
 const video = page.video();
