@@ -448,3 +448,15 @@ details summary { cursor: pointer; font-size: 12.5px; }
 .gap-headline { font-size: 15px; font-weight: 600; margin: 4px 0 6px; text-wrap: balance; }
 .gap-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; align-items: center; }
 .gap-legend svg { vertical-align: middle; margin-right: 4px; }
+.explorer-pick { display: flex; gap: 10px 14px; align-items: end; flex-wrap: wrap; margin: 10px 0 4px; }
+.explorer-pick .field-label { width: 100%; margin: 0; }
+.explorer-pick select { flex: 1 1 260px; max-width: 100%; border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 7px 9px; background: var(--surface); font-size: 12.5px; }
+.explorer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 8px 0; }
+.explorer-h { font-size: 12px; margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+.col-list { list-style: none; margin: 0; padding: 0; font-size: 12px; display: flex; flex-direction: column; gap: 6px; }
+.col-list li { overflow-wrap: anywhere; }
+.table-scroll { overflow: auto; max-height: 420px; border: 1px solid var(--border); border-radius: var(--radius); margin-top: 8px; }
+.run-table { border-collapse: collapse; font-size: 11.5px; font-variant-numeric: tabular-nums; }
+.run-table th, .run-table td { padding: 4px 8px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+.run-table th { position: sticky; top: 0; background: var(--sunken); font-weight: 600; color: var(--ink-2); }
+@media (max-width: 760px) { .explorer-grid { grid-template-columns: 1fr; } }

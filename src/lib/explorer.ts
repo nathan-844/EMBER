@@ -70,7 +70,9 @@ export function columnRole(header: string, conditions: Map<string, unknown>): Co
 export function unitOf(header: string): string | null {
   const h = header.replace(/\s+/g, " ").trim();
   const paren = /\(([^()]+)\)\s*\*?$/.exec(h);
-  if (paren) return paren[1].trim();
+  // "(Note 1)" is a footnote marker, not a unit.
+  // A unit has a letter or symbol; "(1000 250 50 10)" lists settings.
+  if (paren && !/^note\b/i.test(paren[1].trim()) && /[a-zA-Z%°/µ]/.test(paren[1])) return paren[1].trim();
   const semi = /;\s*([^;]+)$/.exec(h);
   if (semi && semi[1].length <= 16) return semi[1].trim();
   return null;

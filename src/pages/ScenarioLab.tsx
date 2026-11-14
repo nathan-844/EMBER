@@ -60,7 +60,7 @@ export function ScenarioLab() {
           <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
           <RankedList ranked={ranked} scenario={scenario} />
           <Suspense fallback={<section className="card"><p className="muted">Loading NASA run tables…</p></section>}>
-            <DataExplorer scenario={scenario} />
+            <DataExplorer scenario={scenario} ranked={ranked} />
           </Suspense>
           <Limitations items={limits} />
         </div>

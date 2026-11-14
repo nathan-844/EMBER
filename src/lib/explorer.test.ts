@@ -14,6 +14,8 @@ describe("run tables", () => {
     expect(unitOf("Air Flow (cm/s)")).toBe("cm/s");
     expect(unitOf("Ambient pressure; mmHg")).toBe("mmHg");
     expect(unitOf("Material")).toBeNull();
+    expect(unitOf("Percent O2 (Note 1)")).toBeNull();
+    expect(unitOf("Radiometer gain (1000 250 50 10)")).toBeNull();
   });
 });
 
