@@ -37,6 +37,17 @@ export const NEAR_TOLERANCE: Record<Exclude<ConditionKey, "fuel">, number> = {
 };
 /** A near value earns 8 of 15 points (rounded share of the condition's weight). */
 export const NEAR_FRACTION = 8 / 15;
+/**
+ * A range EMBER estimated (curated) rather than read from a NASA run table earns two thirds of
+ * the points: 10 instead of 15 inside it, 5 instead of 8 just outside it.
+ */
+export const CURATED_FRACTION = 2 / 3;
+
+/**
+ * Fuel group. With a fuel type set, studies of that fuel ("same") are listed before studies of
+ * other or no fuel ("other"), which are analogue evidence. With no fuel set, all are "all".
+ */
+export type FuelGroup = "same" | "other" | "all";
 
 export interface ConditionResult {
   key: ConditionKey;
@@ -50,6 +61,8 @@ export interface ConditionResult {
 
 export interface RankedInvestigation {
   investigation: Investigation;
+  /** Ranks and ties are counted within a fuel group; "same" is always listed first. */
+  group: FuelGroup;
   rank: number;
   tied: boolean;
   total: number;
@@ -67,7 +80,10 @@ export function inRange(value: number, range: Range): boolean {
   return value >= range.min && value <= range.max;
 }
 
-/** Point scheme. The default is the disclosed 25 + 5 × 15 scheme; alternatives exist only to probe sensitivity. */
+/**
+ * Point scheme. The default is the disclosed 25 + 5 × 15 scheme (curated ranges earn two thirds);
+ * alternatives exist only to probe sensitivity.
+ */
 export interface Weights {
   question: { direct: number; adjacent: number };
   conditions: Record<ConditionKey, number>;
@@ -90,14 +106,15 @@ function scoreCondition(inv: Investigation, scenario: Scenario, key: ConditionKe
   const range = inv.conditions[key as keyof ConditionEnvelope];
   if (value == null) return { key, status: "unspecified", points: 0, range };
   if (range == null) return { key, status: "unknown", points: 0, range: null };
-  if (inRange(value, range)) return { key, status: "match", points: pts, range };
+  const full = range.source === "psi-table" ? pts : Math.round(pts * CURATED_FRACTION);
+  if (inRange(value, range)) return { key, status: "match", points: full, range };
   const nearest = value < range.min ? range.min : range.max;
   const distance = +Math.abs(value - nearest).toFixed(4);
   const near = distance <= NEAR_TOLERANCE[key as Exclude<ConditionKey, "fuel">];
-  return { key, status: near ? "near" : "outside", points: near ? Math.round(pts * NEAR_FRACTION) : 0, range, nearest, distance };
+  return { key, status: near ? "near" : "outside", points: near ? Math.round(full * NEAR_FRACTION) : 0, range, nearest, distance };
 }
 
-export function scoreInvestigation(inv: Investigation, scenario: Scenario, w: Weights = DEFAULT_WEIGHTS): Omit<RankedInvestigation, "rank" | "tied"> | null {
+export function scoreInvestigation(inv: Investigation, scenario: Scenario, w: Weights = DEFAULT_WEIGHTS): Omit<RankedInvestigation, "rank" | "tied" | "group"> | null {
   let relevance: "direct" | "adjacent";
   if (inv.questions.includes(scenario.question)) relevance = "direct";
   else if (scenario.includeAdjacent && inv.adjacentQuestions.includes(scenario.question)) relevance = "adjacent";
@@ -120,16 +137,21 @@ export function scoreInvestigation(inv: Investigation, scenario: Scenario, w: We
   };
 }
 
-const fuelMatches = (r: Omit<RankedInvestigation, "rank" | "tied">) => r.conditions.find((c) => c.key === "fuel")?.status === "match";
+type Scored = Omit<RankedInvestigation, "rank" | "tied">;
+
+const GROUP_ORDER: Record<FuelGroup, number> = { same: 0, all: 0, other: 1 };
+
+function fuelGroup(r: Omit<Scored, "group">, scenario: Scenario): FuelGroup {
+  if (scenario.fuel == null) return "all";
+  return r.conditions.find((c) => c.key === "fuel")?.status === "match" ? "same" : "other";
+}
 
 /**
- * Order within equal scores (they still share a rank): matching fuel first, then direct
- * research, then more matched conditions, then fewer missing ranges, then name. Missing
- * data never wins a tie-break.
+ * Order within equal scores (they still share a rank): direct research first, then more
+ * matched conditions, then fewer missing ranges, then name. Missing data never wins a tie-break.
  */
-function tieBreak(a: Omit<RankedInvestigation, "rank" | "tied">, b: Omit<RankedInvestigation, "rank" | "tied">): number {
+function tieBreak(a: Scored, b: Scored): number {
   return (
-    Number(fuelMatches(b)) - Number(fuelMatches(a)) ||
     Number(b.relevance === "direct") - Number(a.relevance === "direct") ||
     b.matchedCount - a.matchedCount ||
     a.unknownCount - b.unknownCount ||
@@ -137,16 +159,23 @@ function tieBreak(a: Omit<RankedInvestigation, "rank" | "tied">, b: Omit<RankedI
   );
 }
 
-/** Rank investigations for a scenario. Equal scores share a rank (competition ranking). */
+/**
+ * Rank investigations for a scenario.
+ *
+ * Fuel type is a grouping, not just points: with a fuel set, every study of that fuel is listed
+ * before any study of another fuel, whatever their scores. A droplet or gas-flame study at the
+ * right oxygen is analogue evidence for a solid-material fire, not a better match than a
+ * solid-material study at the wrong oxygen. (This extends the earlier rule that equal scores share
+ * a rank only with the same fuel match.) Within a group, equal scores share a rank.
+ */
 export function rankInvestigations(scenario: Scenario, pool: Investigation[] = INVESTIGATIONS, w: Weights = DEFAULT_WEIGHTS): RankedInvestigation[] {
-  const scored = pool
+  const scored: Scored[] = pool
     .map((inv) => scoreInvestigation(inv, scenario, w))
     .filter((r): r is NonNullable<typeof r> => r !== null)
-    .sort((a, b) => b.total - a.total || tieBreak(a, b));
+    .map((r) => ({ ...r, group: fuelGroup(r, scenario) }))
+    .sort((a, b) => GROUP_ORDER[a.group] - GROUP_ORDER[b.group] || b.total - a.total || tieBreak(a, b));
 
-  // Equal scores share a rank only with the same fuel match: a droplet or gas study never
-  // ties for first with a matching-fuel study.
-  const same = (a: (typeof scored)[number], b: (typeof scored)[number]) => a.total === b.total && fuelMatches(a) === fuelMatches(b);
+  const same = (a: Scored, b: Scored) => a.total === b.total && a.group === b.group;
   return scored.map((r) => {
     const rank = scored.findIndex((o) => same(o, r)) + 1;
     const tied = scored.filter((o) => same(o, r)).length > 1;

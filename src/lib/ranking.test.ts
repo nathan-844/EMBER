@@ -20,10 +20,10 @@ describe("scoring", () => {
   it("caps conditions at 75 and total at 100", () => {
     const inv = profile({
       conditions: {
-        oxygenPct: { min: 0, max: 100, basis: "" },
-        pressurePsi: { min: 0, max: 30, basis: "" },
-        gravityG: { min: 0, max: 1, basis: "" },
-        airflowMs: { min: 0, max: 1, basis: "" },
+        oxygenPct: { min: 0, max: 100, basis: "", source: "psi-table" },
+        pressurePsi: { min: 0, max: 30, basis: "", source: "psi-table" },
+        gravityG: { min: 0, max: 1, basis: "", source: "psi-table" },
+        airflowMs: { min: 0, max: 1, basis: "", source: "psi-table" },
       },
     });
     const r = scoreInvestigation(inv, lunar)!;
@@ -62,9 +62,34 @@ describe("ranking", () => {
     expect(rankLabel(ranked[0])).toBe("T01");
   });
 
-  it("is sorted by descending total", () => {
+  it("lists every same-fuel study first, then sorts by descending total within each group", () => {
     const ranked = rankInvestigations(lunar);
-    for (let i = 1; i < ranked.length; i++) expect(ranked[i - 1].total).toBeGreaterThanOrEqual(ranked[i].total);
+    const firstOther = ranked.findIndex((r) => r.group === "other");
+    expect(firstOther).toBeGreaterThan(0);
+    expect(ranked.slice(firstOther).every((r) => r.group === "other")).toBe(true);
+    for (let i = 1; i < ranked.length; i++) {
+      if (ranked[i - 1].group === ranked[i].group) expect(ranked[i - 1].total).toBeGreaterThanOrEqual(ranked[i].total);
+    }
+  });
+
+  it("puts a same-fuel study ahead of a higher-scoring other-fuel study", () => {
+    // 30% O2 at 10.2 psi: FLEX-2 (droplets) matches more conditions than Saffire, but is analogue evidence.
+    const ranked = rankInvestigations(lunar);
+    const flex2 = ranked.findIndex((r) => r.investigation.id === "flex-2");
+    const lastSolid = Math.max(...ranked.map((r, i) => (r.investigation.fuelTypes.includes("solid") ? i : -1)));
+    expect(flex2).toBeGreaterThan(lastSolid);
+  });
+
+  it("uses one group when no fuel is set", () => {
+    expect(new Set(rankInvestigations({ ...lunar, fuel: null }).map((r) => r.group))).toEqual(new Set(["all"]));
+  });
+
+  it("gives a curated estimate two thirds of a measured range's points", () => {
+    const base = { oxygenPct: null, pressurePsi: null, gravityG: null, airflowMs: { min: 0, max: 1, basis: "" } };
+    const curated = scoreInvestigation(profile({ conditions: { ...base, airflowMs: { ...base.airflowMs, source: "curated" as const } } }), lunar)!;
+    const measured = scoreInvestigation(profile({ conditions: { ...base, airflowMs: { ...base.airflowMs, source: "psi-table" as const } } }), lunar)!;
+    expect(curated.conditions.find((c) => c.key === "airflowMs")!.points).toBe(10);
+    expect(measured.conditions.find((c) => c.key === "airflowMs")!.points).toBe(15);
   });
 
   it("leads with a solid-fuel flammability study for a lunar prevention scenario", () => {

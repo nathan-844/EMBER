@@ -20,9 +20,12 @@ cannot establish.
   has its SHA-256). The few remaining
   hand-written ranges are labelled *curated* everywhere they appear.
 - **Transparent ranking** – 25 points for addressing the safety question (10 for adjacent
-  research) plus 15 points per matching condition (75 max). Unknown ranges earn nothing and
-  equal scores share a rank only when the fuel match is also the same, so a droplet study never
-  ties for first on a solid-fuel scenario. Every score can be expanded to see why.
+  research) plus up to 15 points per condition (75 max): 15 inside a range measured in a NASA
+  table, 10 inside a curated estimate, about half that just outside a range. Unknown ranges earn
+  nothing. With a fuel type set, fuel is a grouping rather than just points: every study of that
+  fuel is listed first and other fuels follow as labelled analogue evidence, because a droplet or
+  gas-flame study at the right oxygen is not evidence about how solid cabin materials burn. Ranks
+  and ties count within each group. Every score can be expanded to see why.
 - **Honest headline** – the insight card states how many of your conditions the top profile
   matches and names the ones it does not (gravity first). It never claims coverage from a
   single matching condition.

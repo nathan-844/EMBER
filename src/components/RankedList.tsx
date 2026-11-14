@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { CONDITION_LABELS, MAX_CONDITION_POINTS, rangeLabel, rankLabel, type ConditionResult, type RankedInvestigation } from "../lib/ranking";
 import { getPsiRecord } from "../data/psi";
 import type { Scenario } from "../lib/scenario";
@@ -98,6 +98,11 @@ function Row({ r }: { r: RankedInvestigation }) {
   );
 }
 
+function otherFuelWords(scenario: Scenario): string {
+  const words = { solid: "solid materials", liquid: "fuel droplets", gas: "gas flames" } as const;
+  return (Object.keys(words) as (keyof typeof words)[]).filter((f) => f !== scenario.fuel).map((f) => words[f]).join(" or ");
+}
+
 export function RankedList({ ranked, scenario }: { ranked: RankedInvestigation[]; scenario: Scenario }) {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? ranked : ranked.slice(0, 5);
@@ -111,14 +116,29 @@ export function RankedList({ ranked, scenario }: { ranked: RankedInvestigation[]
         <span className="badge">Live matching</span>
       </div>
       <p className="small muted">
-        Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside its recorded range, 8 when just outside it).
-        They do not estimate fire probability, confidence or safety. Equal scores share a rank only when the fuel match is the same; unknown fields earn no points.
+        Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside a range measured in a NASA table,
+        10 inside a curated estimate, about half that when just outside). When you set a fuel type, studies of that fuel are listed first and other
+        fuels follow as analogue evidence; ranks and ties count within each group. Scores do not estimate fire probability, confidence or safety;
+        unknown fields earn no points.
       </p>
       <RobustnessBar scenario={scenario} />
       {ranked.length === 0 ? (
         <p className="muted">No profile addresses this question. Try including adjacent research.</p>
       ) : (
-        <ol className="rank-list">{visible.map((r) => <Row key={r.investigation.id} r={r} />)}</ol>
+        <ol className="rank-list">
+          {visible.map((r, i) => (
+            <Fragment key={r.investigation.id}>
+              {r.group === "other" && visible[i - 1]?.group !== "other" && (
+                <li className="group-sep" aria-label="Analogue evidence">
+                  <strong>Other fuels: analogue evidence.</strong> These studies burned {otherFuelWords(scenario)}, not{" "}
+                  {scenario.fuel === "solid" ? "solid materials" : scenario.fuel === "liquid" ? "liquid fuel" : "gas"}. They can show how a
+                  condition affects a flame, but they are not direct evidence for your fuel, whatever their score.
+                </li>
+              )}
+              <Row r={r} />
+            </Fragment>
+          ))}
+        </ol>
       )}
       {ranked.length > 5 && (
         <button className="link-btn center" onClick={() => setShowAll(!showAll)}>

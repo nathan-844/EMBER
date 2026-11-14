@@ -25,13 +25,13 @@ export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], li
     "",
     "## Ranked investigations",
     "",
-    "Scores: question 25 + conditions 75 (15 per condition). Match points select evidence; they are not confidence or probability.",
+    "Scores: question 25 + conditions 75 (15 per condition in a NASA-table range, 10 in a curated estimate, about half just outside). With a fuel type set, studies of that fuel are listed before other fuels (analogue evidence); ranks count within each group. Match points select evidence; they are not confidence or probability.",
     "",
     "| Rank | Investigation | Score | Relevance | Conditions |",
     "| --- | --- | --- | --- | --- |",
     ...ranked.map((r) => {
       const conds = r.conditions.map((c) => `${CONDITION_LABELS[c.key]}: ${c.status}`).join("; ");
-      return `| ${r.tied ? "T" : ""}${r.rank} | ${r.investigation.name} (${r.investigation.fullName}) | ${r.total}/100 | ${r.relevance} | ${conds} |`;
+      return `| ${r.tied ? "T" : ""}${r.rank} | ${r.investigation.name} (${r.investigation.fullName}) | ${r.total}/100 | ${r.relevance}${r.group === "other" ? ", other fuel (analogue)" : ""} | ${conds} |`;
     }),
     "",
     "## What this evidence cannot establish",

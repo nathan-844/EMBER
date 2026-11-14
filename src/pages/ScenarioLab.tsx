@@ -44,7 +44,7 @@ export function ScenarioLab() {
       </header>
       <div className="trust-strip small">
         <span>{INVESTIGATIONS.length} investigation profiles · {INVESTIGATIONS.filter((i) => Object.values(i.conditions).some((r) => r?.source === "psi-table")).length} with ranges from NASA run tables</span>
-        <span>Scores are transparent: 25 question + 75 conditions</span>
+        <span>Scores are transparent: 25 question + 75 conditions, same fuel listed first</span>
         <a href="#credibility">How far can you trust this? →</a>
       </div>
       <div className="lab-grid">

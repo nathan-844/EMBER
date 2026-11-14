@@ -1984,10 +1984,14 @@ var recorded_analyses_default = {
     },
     '["lunar-habitat","suppression",30,10.2,0.166,0.05,"solid",null,null,null,true]': {
       model: "gemini-3.1-flash-lite",
-      generatedAt: "2026-11-14T20:32:36.203Z",
-      ms: 4142,
+      generatedAt: "2026-11-14T21:42:29.120Z",
+      ms: 47893,
       attempts: 1,
       tried: [
+        {
+          model: "gemini-3.5-flash",
+          status: 504
+        },
         {
           model: "gemini-3.1-flash-lite",
           status: 200
@@ -1996,36 +2000,42 @@ var recorded_analyses_default = {
       report: {
         verdict: "accepted",
         summary: {
-          text: "NASA microgravity combustion investigations provide data on solid-fuel flame spread and droplet combustion, but these experiments do not cover the 30% oxygen concentration or the 0.166 g lunar gravity environment specified in your scenario. The available evidence is limited to microgravity (0 g) and near-Earth oxygen levels (up to 22.2% for solid fuels).",
+          text: "NASA microgravity combustion investigations provide data on solid-fuel flame spread and extinction, but current solid-material tests are limited to 22.2% oxygen and 0 g, leaving the 30% oxygen and 0.166 g lunar-habitat scenario unexplored.",
           accepted: true,
           problems: []
         },
         claims: [
           {
             kind: "Measured data",
-            text: "In the BASS-II investigation, the highest calibrated initial oxygen concentration tested for solid fuels was 22.2 vol %.",
-            implication: "The 30 vol % oxygen environment in your scenario exceeds the range of solid-fuel combustion data currently available in the PSI records.",
+            text: "BASS-II solid-fuel tests reached a maximum oxygen concentration of 22.2 vol %, while FLEX liquid-droplet tests have reached 0.3 mole fraction (30 vol %) oxygen.",
+            implication: "Solid-material combustion data at the 30 vol % oxygen level required for the lunar-habitat scenario is currently unavailable in the PSI database.",
             citations: [
               {
                 source: "bass-ii:row2",
                 label: "BASS-II \xB7 NASA PSI-25-0 row 2",
                 origin: "nasa",
                 excerpt: "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                source: "flex:row42",
+                label: "FLEX \xB7 NASA PSI-69-0 row 42",
+                origin: "nasa",
+                excerpt: "O initial ambient composition; mole fraction: 0.3"
               }
             ],
             accepted: true,
             problems: []
           },
           {
-            kind: "Measured data",
-            text: "The FLEX-2 investigation tested liquid fuel droplets at oxygen mole fractions up to 0.3.",
-            implication: "While this matches your 30% oxygen level, these results are specific to liquid fuel droplets and cannot be applied to solid-material fire suppression.",
+            kind: "Reported finding",
+            text: "BASS-II investigated the ignition, flame growth, flame spread, and extinction limits for solid fuels in low-velocity forced flows in microgravity.",
+            implication: "These results provide a baseline for understanding solid-fuel combustion in microgravity, but they do not account for the influence of 0.166 g on these processes.",
             citations: [
               {
-                source: "flex-2:row2",
-                label: "FLEX-2 \xB7 NASA PSI-68-0 row 2",
+                source: "bass-ii:objectives",
+                label: "PSI-25 objectives (NASA PSI)",
                 origin: "nasa",
-                excerpt: "Oxygen Mole Fraction: 0.17; 0.21;0.25; 0.3"
+                excerpt: "Study the ignition, flame growth, flame spread, and extinction limits for solid fuels burning in low-velocity forced flows in microgravity."
               }
             ],
             accepted: true,
@@ -2033,41 +2043,35 @@ var recorded_analyses_default = {
           },
           {
             kind: "Research gap",
-            text: "There is a lack of experimental data for solid materials at oxygen concentrations above 22.2% and for any combustion processes at 0.166 g.",
-            implication: "Engineers cannot rely on existing microgravity solid-fuel data to characterize fire behavior or suppression effectiveness in a 30% oxygen, lunar-gravity environment.",
+            text: "There is a lack of experimental data for combustion in partial-gravity environments such as 0.166 g.",
+            implication: "Engineers cannot assume that microgravity or 1 g test results provide a conservative bound for fire behavior in a lunar-habitat environment.",
             citations: [
-              {
-                source: "limitation:o2-fuel-gap",
-                label: "EMBER limitation",
-                origin: "ember",
-                excerpt: "No solid-material test in the PSI data goes above 22.2% oxygen"
-              },
               {
                 source: "limitation:partial-gravity",
                 label: "EMBER limitation",
                 origin: "ember",
-                excerpt: "PSI holds no partial-gravity combustion data yet."
+                excerpt: "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
               }
             ],
             accepted: true,
             problems: []
           },
           {
-            kind: "Measured data",
-            text: "The Saffire-I and Saffire-II investigations conducted large-scale solid-material tests at an airflow of 20 cm/s.",
-            implication: "The airflow in your scenario (5 cm/s) is lower than the airflow used in these specific large-scale spacecraft fire experiments.",
+            kind: "Interpretation",
+            text: "BASS-II tested specific materials including cotton-fiberglass fabric, Nomex, PMMA, and wax.",
+            implication: "Because material identity is unspecified in the scenario, results from these specific materials cannot be directly applied to the habitat's materials.",
             citations: [
               {
-                source: "saffire-i:row2",
-                label: "Saffire-I \xB7 NASA PSI-98-0 row 2",
-                origin: "nasa",
-                excerpt: "Air Flow (cm/s): 20"
+                source: "bass-ii:tested",
+                label: "BASS-II materials and flow directions",
+                origin: "derived",
+                excerpt: "PSI run table for BASS-II lists materials: Cotton-fiberglass fabric, Nomex, PMMA, Wax (candle)"
               },
               {
-                source: "saffire-ii:row3",
-                label: "Saffire-II \xB7 NASA PSI-99-0 row 3",
-                origin: "nasa",
-                excerpt: "Air Flow (cm/s): 20 cm/s"
+                source: "limitation:material",
+                label: "EMBER limitation",
+                origin: "ember",
+                excerpt: "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
               }
             ],
             accepted: true,
@@ -2075,20 +2079,20 @@ var recorded_analyses_default = {
           }
         ],
         openQuestions: [
-          "How does the 0.166 g lunar gravity environment alter the flame spread rate compared to the 0 g data recorded in BASS-II and Saffire?",
-          "What is the effect of 30% oxygen on the extinction limits of solid materials, given that current solid-fuel data is limited to 22.2% oxygen?",
-          "How do the specific material properties (e.g., thickness, composition) of the unspecified fuel in your scenario influence fire growth compared to the tested SIBAL fabric or PMMA?",
-          "Does the 5 cm/s airflow in your scenario promote or inhibit flame spread compared to the 20 cm/s airflow used in Saffire experiments?"
+          "How does 0.166 g gravity affect the extinction limits of solid materials compared to 0 g?",
+          "What is the flame spread rate of the specific habitat materials at 30% oxygen and 10.2 psia?",
+          "Does the 0.05 m/s airflow velocity in the scenario fall within the extinction regime for the habitat's specific fuel geometry?",
+          "How do the thermal properties of the habitat's unspecified fuel thickness influence flame spread at 30% oxygen?"
         ],
         receipt: {
           claims: 4,
           acceptedClaims: 4,
           excerpts: 6,
-          nasaExcerpts: 4,
-          derivedExcerpts: 0,
+          nasaExcerpts: 3,
+          derivedExcerpts: 1,
           emberExcerpts: 2,
           userExcerpts: 0,
-          tableRowExcerpts: 4
+          tableRowExcerpts: 2
         }
       },
       ranked: [
@@ -2096,7 +2100,7 @@ var recorded_analyses_default = {
           id: "bass-ii",
           name: "BASS-II",
           rank: 1,
-          total: 55,
+          total: 50,
           relevance: "direct",
           matched: 2,
           specified: 5
@@ -2105,33 +2109,15 @@ var recorded_analyses_default = {
           id: "bass",
           name: "BASS",
           rank: 1,
-          total: 55,
+          total: 50,
           relevance: "direct",
           matched: 2,
-          specified: 5
-        },
-        {
-          id: "flex",
-          name: "FLEX",
-          rank: 1,
-          total: 55,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
-          id: "flex-2",
-          name: "FLEX-2",
-          rank: 1,
-          total: 55,
-          relevance: "adjacent",
-          matched: 3,
           specified: 5
         },
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 5,
+          rank: 3,
           total: 25,
           relevance: "adjacent",
           matched: 1,
@@ -2140,10 +2126,28 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 5,
+          rank: 3,
           total: 25,
           relevance: "adjacent",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "saffire-iii",
+          name: "Saffire-III",
+          rank: 3,
+          total: 25,
+          relevance: "adjacent",
+          matched: 1,
+          specified: 5
+        },
+        {
+          id: "flex",
+          name: "FLEX",
+          rank: 6,
+          total: 55,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ]
@@ -5786,6 +5790,7 @@ var NEAR_TOLERANCE = {
   airflowMs: 0.02
 };
 var NEAR_FRACTION = 8 / 15;
+var CURATED_FRACTION = 2 / 3;
 function inRange(value, range) {
   return value >= range.min && value <= range.max;
 }
@@ -5805,11 +5810,12 @@ function scoreCondition(inv, scenario, key, w = DEFAULT_WEIGHTS) {
   const range = inv.conditions[key];
   if (value == null) return { key, status: "unspecified", points: 0, range };
   if (range == null) return { key, status: "unknown", points: 0, range: null };
-  if (inRange(value, range)) return { key, status: "match", points: pts, range };
+  const full = range.source === "psi-table" ? pts : Math.round(pts * CURATED_FRACTION);
+  if (inRange(value, range)) return { key, status: "match", points: full, range };
   const nearest = value < range.min ? range.min : range.max;
   const distance = +Math.abs(value - nearest).toFixed(4);
   const near = distance <= NEAR_TOLERANCE[key];
-  return { key, status: near ? "near" : "outside", points: near ? Math.round(pts * NEAR_FRACTION) : 0, range, nearest, distance };
+  return { key, status: near ? "near" : "outside", points: near ? Math.round(full * NEAR_FRACTION) : 0, range, nearest, distance };
 }
 function scoreInvestigation(inv, scenario, w = DEFAULT_WEIGHTS) {
   let relevance;
@@ -5832,13 +5838,17 @@ function scoreInvestigation(inv, scenario, w = DEFAULT_WEIGHTS) {
     unknownCount: conditions.filter((c) => c.status === "unknown").length
   };
 }
-var fuelMatches = (r) => r.conditions.find((c) => c.key === "fuel")?.status === "match";
+var GROUP_ORDER = { same: 0, all: 0, other: 1 };
+function fuelGroup(r, scenario) {
+  if (scenario.fuel == null) return "all";
+  return r.conditions.find((c) => c.key === "fuel")?.status === "match" ? "same" : "other";
+}
 function tieBreak(a, b) {
-  return Number(fuelMatches(b)) - Number(fuelMatches(a)) || Number(b.relevance === "direct") - Number(a.relevance === "direct") || b.matchedCount - a.matchedCount || a.unknownCount - b.unknownCount || a.investigation.name.localeCompare(b.investigation.name);
+  return Number(b.relevance === "direct") - Number(a.relevance === "direct") || b.matchedCount - a.matchedCount || a.unknownCount - b.unknownCount || a.investigation.name.localeCompare(b.investigation.name);
 }
 function rankInvestigations(scenario, pool = INVESTIGATIONS, w = DEFAULT_WEIGHTS) {
-  const scored = pool.map((inv) => scoreInvestigation(inv, scenario, w)).filter((r) => r !== null).sort((a, b) => b.total - a.total || tieBreak(a, b));
-  const same = (a, b) => a.total === b.total && fuelMatches(a) === fuelMatches(b);
+  const scored = pool.map((inv) => scoreInvestigation(inv, scenario, w)).filter((r) => r !== null).map((r) => ({ ...r, group: fuelGroup(r, scenario) })).sort((a, b) => GROUP_ORDER[a.group] - GROUP_ORDER[b.group] || b.total - a.total || tieBreak(a, b));
+  const same = (a, b) => a.total === b.total && a.group === b.group;
   return scored.map((r) => {
     const rank = scored.findIndex((o) => same(o, r)) + 1;
     const tied = scored.filter((o) => same(o, r)).length > 1;
