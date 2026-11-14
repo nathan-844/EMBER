@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppShell, type Route } from "./components/AppShell";
 import { INVESTIGATIONS } from "./data/investigations";
+import { Credibility } from "./pages/Credibility";
 import { ScenarioLab } from "./pages/ScenarioLab";
 
 function readRoute(): Route {
@@ -23,7 +24,7 @@ export function App() {
 
   return (
     <AppShell route={route} onNavigate={navigate} recordCount={INVESTIGATIONS.length}>
-      {route === "lab" ? <ScenarioLab /> : <main className="page">Credibility</main>}
+      {route === "lab" ? <ScenarioLab /> : <Credibility />}
     </AppShell>
   );
 }

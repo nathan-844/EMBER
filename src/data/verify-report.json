@@ -1,0 +1,190 @@
+{
+  "recordedAt": "2026-11-14",
+  "node": "v22.23.4",
+  "tests": {
+    "passed": 34,
+    "failed": 0,
+    "total": 34,
+    "files": 4,
+    "names": [
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations flags partial gravity for a lunar habitat",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations does not flag partial gravity in orbit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations always warns that overlapping ranges are not joint coverage",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations flags elevated oxygen nobody covers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations drops the material caveat once material is set",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight is null when nothing ranks",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight names the lead investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring caps conditions at 75 and total at 100",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring unknown profile ranges earn no points",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring unspecified inputs earn no points for anyone",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring excludes investigations that do not address the question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring adjacent research scores lower and can be switched off",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking ties share a rank",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking is sorted by descending total",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking leads with a solid-fuel flammability study for a lunar prevention scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking detection questions surface SAME and SAME-R",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking every curated profile has a unique id",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes runs two changes per specified numeric input and one removal per specified input",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes runs no probes for an empty custom scenario without fuel",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes held counts never exceed totals for every preset and question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes dependencies are exactly the removals that moved the lead",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes never perturbs below zero",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets lunar habitat follows the challenge atmosphere",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets custom preset leaves every condition unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets keeps question and fuel when switching environment",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets every preset has a unique id",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure is 3.06 psia for 30% at 10.2 psi",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure is null when an input is unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure 30% O2 is more than a 40% increase over Earth air",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0 g is microgravity",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0.166 g is partial",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0.38 g is partial",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 1 g is earth",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime null g is unspecified",
+        "status": "passed"
+      }
+    ]
+  },
+  "dataFingerprint": {
+    "algorithm": "sha256",
+    "files": [
+      "src/data/investigations.ts",
+      "src/data/types.ts"
+    ],
+    "value": "c83cd6f052df2622e7ad93a067de8a79f0ffa39b3a4f59758fac6249c2848f5c"
+  }
+}
