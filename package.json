@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc -b",
-    "verify:report": "node scripts/verify-report.mjs"
+    "verify:report": "node scripts/verify-report.mjs",
+    "sync:psi": "node --use-env-proxy scripts/sync-psi.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",
