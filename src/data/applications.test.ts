@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EQUIPMENT_LINKS, UPCOMING } from "./applications";
+import { EARTH_LINKS, EQUIPMENT_LINKS, UPCOMING } from "./applications";
 import { getInvestigation } from "./investigations";
 import { getPsiRecord } from "./psi";
 import { equipmentGroups, upcomingFor } from "../lib/equipment";
@@ -12,7 +12,7 @@ describe("equipment links", () => {
   it.each(EQUIPMENT_LINKS.map((l) => [l.id, l] as const))("%s quotes its NASA PSI record word for word", (_id, l) => {
     const rec = getPsiRecord(l.quote.accession);
     expect(rec, l.quote.accession).toBeDefined();
-    expect(squash(rec!.objectives)).toContain(squash(l.quote.text));
+    expect(squash(rec![l.quote.field ?? "objectives"])).toContain(squash(l.quote.text));
   });
 
   it.each(EQUIPMENT_LINKS.map((l) => [l.id, l] as const))("%s points at real profiles, one of which owns the quote", (_id, l) => {
@@ -43,5 +43,13 @@ describe("upcoming studies", () => {
 
   it("cite a public page for every study", () => {
     for (const u of UPCOMING) expect(u.quote.url).toMatch(/^https:\/\//);
+  });
+});
+
+describe("Earth applications", () => {
+  it.each(EARTH_LINKS.map((l) => [l.id, l] as const))("%s quotes NASA's Earth-benefits text word for word", (_id, l) => {
+    const rec = getPsiRecord(l.quote.accession);
+    expect(squash(rec!.earthBenefits)).toContain(squash(l.quote.text));
+    expect(l.investigations.map((id) => getInvestigation(id)!.psi.accession)).toContain(l.quote.accession);
   });
 });

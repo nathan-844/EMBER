@@ -81,6 +81,16 @@ export function scenarioLimitations(scenario: Scenario, ranked: RankedInvestigat
     out.push({ id: "earth-gravity", text: "PSI results are low-gravity data; buoyant 1 g flames behave differently and are better covered by ground test standards." });
   }
 
+  // NASA's BRE record: flames kept burning without airflow in elevated-oxygen atmospheres, while
+  // ventilation shutdown is a standard step in putting out spacecraft fires.
+  if (scenario.oxygenPct != null && scenario.oxygenPct > 21.5 && (scenario.question === "suppression" || scenario.question === "prevention")) {
+    out.push({
+      id: "ventilation-high-o2",
+      text: `Turning off ventilation may not put out a fire at ${scenario.oxygenPct}% oxygen. NASA's BRE record reports flames that kept burning without airflow in elevated-oxygen atmospheres, while the same flames self-extinguished in 21% oxygen; NASA calls these results preliminary, and BRE used a gas burner that emulates solids.`,
+      source: { label: "NASA PSI-20 (BRE) research impacts", href: "https://psi.nasa.gov/physci/repo/data/investigations/PSI-20" },
+    });
+  }
+
   const lead = ranked[0];
   if (lead) {
     const o2 = lead.conditions.find((c) => c.key === "oxygenPct");

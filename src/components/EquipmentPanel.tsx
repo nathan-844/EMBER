@@ -48,7 +48,7 @@ export function EquipmentPanel({ scenario, ranked }: { scenario: Scenario; ranke
                 </div>
                 <blockquote className="equip-quote">
                   “{l.quote.text}”
-                  <cite>NASA {l.quote.accession} objectives</cite>
+                  <cite>NASA {l.quote.accession} {l.quote.field === "earthBenefits" ? "research impacts" : "objectives"}</cite>
                 </blockquote>
                 <p className="small muted"><strong>Not covered:</strong> {l.caveat}</p>
               </li>

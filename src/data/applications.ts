@@ -15,8 +15,8 @@ export interface EquipmentLink {
   investigations: string[];
   /** EMBER's plain statement of the equipment or control decision this evidence informs. */
   informs: string;
-  /** Verbatim from the NASA PSI record's objectives. */
-  quote: { accession: string; text: string };
+  /** Verbatim from the NASA PSI record: its objectives (default) or its Earth-benefits text. */
+  quote: { accession: string; text: string; field?: "objectives" | "earthBenefits" };
   /** True when the link is EMBER's reading rather than something NASA's text states. */
   interpretation: boolean;
   /** What the evidence does not cover for this decision. */
@@ -112,6 +112,15 @@ export const EQUIPMENT_LINKS: EquipmentLink[] = [
     caveat: "Flow speeds of a small duct; cabin ventilation patterns were not modelled.",
   },
   {
+    id: "ventilation-shutdown-high-o2",
+    area: "ventilation",
+    investigations: ["acme-bre"],
+    informs: "Ventilation shutdown may not put out a fire in an elevated-oxygen habitat",
+    quote: { accession: "PSI-20", field: "earthBenefits", text: "The ongoing combustion without air flow was notably seen in elevated-oxygen atmospheres which are being considered for use in future spacecraft, whereas such flames in a normal atmosphere of 21% oxygen self-extinguished in a short time." },
+    interpretation: false,
+    caveat: "NASA calls BRE's results preliminary; a gas burner emulating solids, in microgravity.",
+  },
+  {
     id: "screening-test",
     area: "materials",
     investigations: ["bass", "bass-ii", "saffire-i", "saffire-ii", "saffire-iii"],
@@ -176,5 +185,52 @@ export const UPCOMING: UpcomingStudy[] = [
       text: "We expect such data will be added in the future, for example from the Lunar-g Combustion Investigation (LUCI) and the Flammability of Materials on the Moon (FM2) experiment.",
       ...CHALLENGE,
     },
+  },
+];
+
+/** NASA-stated uses of the PSI data for fire safety on Earth (challenge objective 4). */
+export interface EarthLink {
+  id: string;
+  use: string;
+  investigations: string[];
+  quote: { accession: string; text: string; field: "earthBenefits" };
+}
+
+export const EARTH_LINKS: EarthLink[] = [
+  {
+    id: "earth-smoke-detectors",
+    use: "Smoke detectors for submarines and underwater laboratories",
+    investigations: ["same", "same-r"],
+    quote: { accession: "PSI-102", field: "earthBenefits", text: "The smoke detectors developed from the results of SAME can also be useful in other extreme environments on Earth, such as submarines or underwater laboratories." },
+  },
+  {
+    id: "earth-instruments",
+    use: "Smoke-measuring instruments for hard-to-reach places",
+    investigations: ["daft", "daft-2"],
+    quote: { accession: "PSI-47", field: "earthBenefits", text: "Additionally, the successful adaptation of the TSI P-Trak for microgravity can inform the design of instruments for use in other challenging Earth environments, such as submarines or underwater laboratories where accurate detection of smoke can save lives." },
+  },
+  {
+    id: "earth-confined-spaces",
+    use: "Fire safety in mines, airplanes and submarines",
+    investigations: ["saffire-i", "saffire-ii", "saffire-iii"],
+    quote: { accession: "PSI-99", field: "earthBenefits", text: "Studying fire in small, sealed environments such as the Cygnus cargo supply vehicle benefits fire safety and prevention efforts on Earth, including inside mines, airplanes, or submarines." },
+  },
+  {
+    id: "earth-suppressants",
+    use: "More efficient, less harmful fire suppression systems",
+    investigations: ["flex"],
+    quote: { accession: "PSI-69", field: "earthBenefits", text: "The mission's findings on the effectiveness of various fire suppressants, including CO2, He, and SF6, in microgravity can lead to the development of more efficient and less harmful fire suppression systems, reducing the risk of toxic byproducts during fire events." },
+  },
+  {
+    id: "earth-wildfire-models",
+    use: "Models of wildfires and building fires",
+    investigations: ["bass-ii"],
+    quote: { accession: "PSI-25", field: "earthBenefits", text: "These models can then be used to more accurately study flames on Earth, such as in wildfires, building fires, energy recapture from waste recycling, and other combustion problems." },
+  },
+  {
+    id: "earth-cone-calorimeter",
+    use: "Performance-based material flammability testing (cone calorimeter)",
+    investigations: ["bass", "acme-bre"],
+    quote: { accession: "PSI-26", field: "earthBenefits", text: "These results are used in first order models and predictions of heat release in spacecraft fires and as a means to extend heat release data from tests like the NASA cone calorimeter test (NASA–STD–6001 Test 2) to a performance-based material selection process." },
   },
 ];

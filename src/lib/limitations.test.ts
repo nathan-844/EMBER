@@ -97,3 +97,16 @@ describe("tested materials", () => {
     expect(i.body).toMatch(/Left unspecified/);
   });
 });
+
+describe("ventilation in elevated oxygen", () => {
+  it("warns for the 30% lunar habitat, citing BRE", () => {
+    const s = presetScenario("lunar-habitat");
+    const l = scenarioLimitations(s, rankInvestigations(s)).find((x) => x.id === "ventilation-high-o2");
+    expect(l?.text).toMatch(/BRE/);
+    expect(l?.source?.href).toMatch(/PSI-20$/);
+  });
+
+  it("does not warn for cabin air", () => {
+    expect(ids(presetScenario("iss"))).not.toContain("ventilation-high-o2");
+  });
+});
