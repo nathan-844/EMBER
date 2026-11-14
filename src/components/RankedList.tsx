@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { CONDITION_LABELS, MAX_CONDITION_POINTS, rankLabel, type ConditionResult, type RankedInvestigation } from "../lib/ranking";
+import type { Scenario } from "../lib/scenario";
 import { ExternalIcon } from "./icons";
+import { RobustnessBar } from "./RobustnessBar";
 
 const STATUS_TEXT: Record<ConditionResult["status"], string> = {
   match: "inside profile range",
@@ -55,7 +57,7 @@ function Row({ r }: { r: RankedInvestigation }) {
   );
 }
 
-export function RankedList({ ranked }: { ranked: RankedInvestigation[] }) {
+export function RankedList({ ranked, scenario }: { ranked: RankedInvestigation[]; scenario: Scenario }) {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? ranked : ranked.slice(0, 5);
   return (
@@ -71,6 +73,7 @@ export function RankedList({ ranked }: { ranked: RankedInvestigation[] }) {
         Scores separate the safety question (25 points) from condition matching (75 points, 15 per condition).
         They do not estimate fire probability, confidence or safety. Tied scores share a rank; unknown fields earn no points.
       </p>
+      <RobustnessBar scenario={scenario} />
       {ranked.length === 0 ? (
         <p className="muted">No profile addresses this question. Try including adjacent research.</p>
       ) : (

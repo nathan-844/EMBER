@@ -30,7 +30,7 @@ export function ScenarioLab() {
           <SummaryStrip scenario={scenario} relevant={ranked.length} total={INVESTIGATIONS.length} />
           <InsightCard insight={insight} />
           <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
-          <RankedList ranked={ranked} />
+          <RankedList ranked={ranked} scenario={scenario} />
           <Limitations items={limits} />
         </div>
       </div>
