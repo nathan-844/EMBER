@@ -44,7 +44,7 @@ export function CoverageChart({ scenario, onProbe }: Props) {
       {rows.length === 0 ? (
         <p className="muted">No profile has a normalized {d.label.toLowerCase()} range.</p>
       ) : (
-        <div className="coverage-scroll">
+        <div className="coverage-scroll" tabIndex={0} aria-label="Coverage chart (scrolls sideways on small screens)">
         <svg viewBox={`0 0 ${W} ${H}`} className="coverage" role="img" aria-label={`${d.label} coverage by investigation`}>
           <defs>
             <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">

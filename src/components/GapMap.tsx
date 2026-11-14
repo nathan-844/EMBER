@@ -57,7 +57,7 @@ export function GapMap({ scenario }: { scenario: Scenario }) {
         not the per-condition ranges used for ranking. {plotted.length + noPressure.length} distinct points from{" "}
         {new Set(data.points.map((q) => q.table)).size} tables.
       </p>
-      <div className="gapmap-scroll">
+      <div className="gapmap-scroll" tabIndex={0} aria-label="Gap map (scrolls sideways on small screens)">
         <svg viewBox={`0 0 ${W} ${H}`} className="gapmap" role="img" aria-label={`Oxygen against pressure for NASA test runs by fuel type. ${headline}`}>
           {X.ticks.map((t) => (
             <g key={`x${t}`}>

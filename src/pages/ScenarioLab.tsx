@@ -3,6 +3,7 @@ import { INVESTIGATIONS } from "../data/investigations";
 import { BriefDialog } from "../components/BriefDialog";
 import { BaselineDiff } from "../components/BaselineDiff";
 import { CoverageChart } from "../components/CoverageChart";
+import { EquipmentPanel } from "../components/EquipmentPanel";
 import { GravityIllustration } from "../components/GravityIllustration";
 import { AnalysisCard } from "../components/AnalysisCard";
 import { InsightCard } from "../components/InsightCard";
@@ -59,6 +60,7 @@ export function ScenarioLab() {
           <GravityIllustration scenario={scenario} />
           <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
           <RankedList ranked={ranked} scenario={scenario} />
+          <EquipmentPanel scenario={scenario} ranked={ranked} />
           <Suspense fallback={<section className="card"><p className="muted">Loading NASA run tables…</p></section>}>
             <DataExplorer scenario={scenario} ranked={ranked} />
           </Suspense>

@@ -171,7 +171,7 @@ export const UPCOMING: UpcomingStudy[] = [
     id: "luci",
     name: "LUCI · Lunar-g Combustion Investigation",
     closes: "partial-gravity",
-    what: "Combustion at lunar gravity, bounding the gap between microgravity and 1 g results.",
+    what: "Combustion data at lunar gravity, which PSI does not hold yet.",
     quote: {
       text: "We expect such data will be added in the future, for example from the Lunar-g Combustion Investigation (LUCI) and the Flammability of Materials on the Moon (FM2) experiment.",
       ...CHALLENGE,

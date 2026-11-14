@@ -460,3 +460,15 @@ details summary { cursor: pointer; font-size: 12.5px; }
 .run-table th, .run-table td { padding: 4px 8px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
 .run-table th { position: sticky; top: 0; background: var(--sunken); font-weight: 600; color: var(--ink-2); }
 @media (max-width: 760px) { .explorer-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Equipment & controls ---------- */
+.equip-group { border-top: 1px solid var(--border); padding: 10px 0 4px; }
+.equip-group summary { cursor: pointer; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; list-style-position: inside; }
+.equip-area { font-weight: 700; font-size: 13.5px; }
+.equip-list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.equip-informs { margin: 0 0 6px; font-size: 13px; }
+.equip-quote { margin: 8px 0 4px; padding: 6px 12px; border-left: 3px solid var(--psi-line); background: var(--sunken); font-size: 12.5px; font-style: italic; color: var(--ink-2); }
+.equip-quote cite { display: block; margin-top: 4px; font-style: normal; font-size: 11px; color: var(--muted); }
+.badge-psi.in-rank { border-color: var(--navy-2); font-weight: 700; }
+.upcoming.relevant { border-left: 3px solid var(--ok); padding-left: 10px; }
+.equip-upcoming-h { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--border); }
