@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppShell, type Route } from "./components/AppShell";
+import { INVESTIGATIONS } from "./data/investigations";
+import { ScenarioLab } from "./pages/ScenarioLab";
 
 function readRoute(): Route {
   return window.location.hash === "#credibility" ? "credibility" : "lab";
@@ -20,8 +22,8 @@ export function App() {
   };
 
   return (
-    <AppShell route={route} onNavigate={navigate} recordCount={0}>
-      <main className="page">{route === "lab" ? "Scenario lab" : "Credibility"}</main>
+    <AppShell route={route} onNavigate={navigate} recordCount={INVESTIGATIONS.length}>
+      {route === "lab" ? <ScenarioLab /> : <main className="page">Credibility</main>}
     </AppShell>
   );
 }
