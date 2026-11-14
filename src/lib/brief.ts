@@ -40,8 +40,9 @@ export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], li
     "",
     "## Sources",
     "",
-    "- Profiles curated from the 2026 NASA Space Apps \"Flame in Freefall\" challenge description and public NASA mission summaries.",
-    "- Verify each investigation against its NASA Physical Science Informatics record: https://psi.nasa.gov",
+    "- NASA Physical Science Informatics (PSI) investigation records:",
+    ...ranked.map((r) => `  - ${r.investigation.name}: ${r.investigation.psi.accession ?? "not linked"}${r.investigation.psi.url ? ` — ${r.investigation.psi.url}` : ""}`),
+    "- Condition ranges are curated approximations; confirm them in the PSI run tables before relying on them.",
     "",
   ];
   return lines.join("\n");

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CONDITION_LABELS, MAX_CONDITION_POINTS, rankLabel, type ConditionResult, type RankedInvestigation } from "../lib/ranking";
+import { getPsiRecord } from "../data/psi";
 import type { Scenario } from "../lib/scenario";
 import { ExternalIcon } from "./icons";
 import { RobustnessBar } from "./RobustnessBar";
@@ -14,6 +15,27 @@ const STATUS_TEXT: Record<ConditionResult["status"], string> = {
 function rangeText(c: ConditionResult): string {
   if (!c.range) return "";
   return ` (${c.range.min}–${c.range.max}; ${c.range.basis})`;
+}
+
+function PsiRecordPanel({ accession }: { accession: string | null }) {
+  const rec = getPsiRecord(accession);
+  if (!rec) return null;
+  const objectives = rec.objectives.length > 420 ? rec.objectives.slice(0, 420).trimEnd() + "…" : rec.objectives;
+  return (
+    <div className="psi-record">
+      <p className="eyebrow">NASA PSI record · {rec.accession}</p>
+      <p className="psi-title"><a href={rec.url} target="_blank" rel="noreferrer">{rec.title} <ExternalIcon /></a></p>
+      <dl>
+        {rec.subResearchArea && <><dt>Area</dt><dd>{rec.researchArea} · {rec.subResearchArea}</dd></>}
+        {rec.flightPlatform && <><dt>Platform</dt><dd>{rec.flightPlatform}</dd></>}
+        {rec.hardware && <><dt>Hardware</dt><dd>{rec.hardware}</dd></>}
+        {(rec.startDate || rec.endDate) && <><dt>Investigation</dt><dd>{rec.startDate ?? "?"} to {rec.endDate ?? "?"}</dd></>}
+        {rec.publicReleaseDate && <><dt>Public release</dt><dd>{rec.publicReleaseDate}</dd></>}
+        {rec.publications.length > 0 && <><dt>Publications</dt><dd>{rec.publications.length} listed in PSI</dd></>}
+      </dl>
+      {objectives && <p className="psi-obj"><strong>Objectives (PSI):</strong> {objectives}</p>}
+    </div>
+  );
 }
 
 function Row({ r }: { r: RankedInvestigation }) {
@@ -32,7 +54,13 @@ function Row({ r }: { r: RankedInvestigation }) {
         <div className="tags">
           <span className={`badge ${r.relevance === "direct" ? "badge-ok" : ""}`}>{r.relevance === "direct" ? "Direct" : "Adjacent"}</span>
           <span className="small muted">{inv.hardware}</span>
-          {!inv.psi.accession && <span className="badge badge-warn" title="Accession not yet verified on psi.nasa.gov">PSI record unverified</span>}
+          {inv.psi.accession ? (
+            <a className="badge badge-psi" href={inv.psi.url!} target="_blank" rel="noreferrer" title={`NASA PSI record, matched ${inv.psi.verifiedOn}`}>
+              NASA PSI · {inv.psi.accession} <ExternalIcon />
+            </a>
+          ) : (
+            <span className="badge badge-warn">PSI record unverified</span>
+          )}
         </div>
       </div>
       <div className="rank-score">
@@ -45,13 +73,16 @@ function Row({ r }: { r: RankedInvestigation }) {
         {outsideO2 && <p className="warn-text">Selected oxygen is outside this profile's normalized envelope</p>}
       </div>
       {open && (
-        <ul className="explain">
-          {r.conditions.map((c) => (
-            <li key={c.key} className={`st-${c.status}`}>
-              <strong>{CONDITION_LABELS[c.key]}</strong>: {STATUS_TEXT[c.status]}{rangeText(c)} — {c.points} pts
-            </li>
-          ))}
-        </ul>
+        <div className="explain">
+          <ul>
+            {r.conditions.map((c) => (
+              <li key={c.key} className={`st-${c.status}`}>
+                <strong>{CONDITION_LABELS[c.key]}</strong>: {STATUS_TEXT[c.status]}{rangeText(c)} — {c.points} pts
+              </li>
+            ))}
+          </ul>
+          <PsiRecordPanel accession={inv.psi.accession} />
+        </div>
       )}
     </li>
   );

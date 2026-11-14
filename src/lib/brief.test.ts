@@ -18,6 +18,10 @@ describe("evidence brief", () => {
     for (const r of ranked) expect(md).toContain(r.investigation.name);
   });
 
+  it("cites the PSI record of every ranked investigation", () => {
+    for (const r of ranked) expect(md).toContain(r.investigation.psi.url!);
+  });
+
   it("states it is not a safety certification", () => {
     expect(md).toMatch(/not a safety certification/);
   });

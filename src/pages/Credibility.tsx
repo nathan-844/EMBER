@@ -1,4 +1,5 @@
 import { INVESTIGATIONS } from "../data/investigations";
+import { PSI_SNAPSHOT } from "../data/psi";
 import rawReport from "../data/verify-report.json";
 import { profilesWithNormalizedConditions } from "../lib/ranking";
 
@@ -36,9 +37,9 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
     missing: "Relevance weights have not been compared with expert rankings.",
   },
   {
-    name: "Input pedigree", q: "Where did every input come from?", level: verified ? "Partial" : "Limited",
-    shown: `${INVESTIGATIONS.length} curated profiles; every numeric range carries a written basis.`,
-    missing: `${INVESTIGATIONS.length - verified} of ${INVESTIGATIONS.length} profiles are not yet linked to a verified PSI accession.`,
+    name: "Input pedigree", q: "Where did every input come from?", level: verified === INVESTIGATIONS.length ? "Partial" : "Limited",
+    shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record (accession, title, dates, hardware, objectives), synced ${PSI_SNAPSHOT.fetchedOn}. Every numeric range carries a written basis.`,
+    missing: "Condition ranges are curated approximations, not yet read from the PSI run tables.",
   },
   {
     name: "Results uncertainty", q: "Is uncertainty in the results represented?", level: "Limited",
@@ -79,7 +80,7 @@ export function Credibility() {
       <div className="stats">
         <div className="card stat"><p className="big">{report.tests.passed}/{report.tests.total}</p><p className="small muted">Automated checks passed · recorded {report.recordedAt || "never"}</p></div>
         <div className="card stat"><p className="big">{INVESTIGATIONS.length}</p><p className="small muted">Curated investigation profiles</p></div>
-        <div className="card stat"><p className="big">{verified}/{INVESTIGATIONS.length}</p><p className="small muted">Profiles linked to a verified PSI record</p></div>
+        <div className="card stat"><p className="big">{verified}/{INVESTIGATIONS.length}</p><p className="small muted">Profiles linked to a NASA PSI record · synced {PSI_SNAPSHOT.fetchedOn}</p></div>
         <div className="card stat"><p className="big">{normalized}</p><p className="small muted">Profiles with normalized O₂, pressure or airflow ranges</p></div>
       </div>
 
@@ -88,6 +89,11 @@ export function Credibility() {
           <p className="eyebrow">Verify it yourself</p>
           <h3>Reproduce from the repository</h3>
           <pre><code>npm ci && npm run verify:report</code></pre>
+          <pre><code>npm run sync:psi</code></pre>
+          <p className="small muted">
+            Re-fetches {PSI_SNAPSHOT.records.length} Combustion Science records (of {PSI_SNAPSHOT.totalInvestigations} PSI investigations) from <code>{PSI_SNAPSHOT.source}</code>.
+            Stored response SHA-256: <code>{PSI_SNAPSHOT.responseSha256}</code>
+          </p>
           <p className="small muted">
             Re-runs every test, recomputes the data fingerprint and rewrites <code>src/data/verify-report.json</code>.
             Recorded fingerprint: <code>{report.dataFingerprint.value || "none"}</code>
@@ -112,7 +118,7 @@ export function Credibility() {
       <p className="eyebrow section-gap">FAIR data self-check</p>
       <h2 className="h2">Findable, accessible, interoperable, reusable.</h2>
       <div className="factor-grid">
-        <article className="card factor"><h4>Findable</h4><p>{verified} of {INVESTIGATIONS.length} profiles carry a verified PSI accession; the rest are marked unverified in the app.</p></article>
+        <article className="card factor"><h4>Findable</h4><p>{verified} of {INVESTIGATIONS.length} profiles carry a NASA PSI accession and link to its record. PSI does not publish DOIs for investigation records.</p></article>
         <article className="card factor"><h4>Accessible</h4><p>All curated data is plain TypeScript in the repository; no account or API key is needed.</p></article>
         <article className="card factor"><h4>Interoperable</h4><p>Units are fixed per field (vol %, psia, g, m/s). Cross-study harmonization is not done.</p></article>
         <article className="card factor"><h4>Reusable</h4><p>Every range states its basis. Licensing of the original PSI data must be checked per record before reuse.</p></article>

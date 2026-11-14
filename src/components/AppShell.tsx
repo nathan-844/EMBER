@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { PSI_SNAPSHOT } from "../data/psi";
 import { FlameIcon, ShieldIcon, SlidersIcon } from "./icons";
 
 export type Route = "lab" | "credibility";
@@ -26,7 +27,7 @@ export function AppShell({ route, onNavigate, recordCount, children }: Props) {
           <button aria-current={route === "credibility" ? "page" : undefined} onClick={() => onNavigate("credibility")}>
             <ShieldIcon /> Credibility
           </button>
-          <span className="status-dot">Local evidence</span>
+          <a className="status-dot" href="https://psi.nasa.gov/physci/repo/" target="_blank" rel="noreferrer" title="Records stored from the NASA PSI repository">NASA PSI · synced {PSI_SNAPSHOT.fetchedOn}</a>
         </nav>
       </header>
       <div className="crumbs">

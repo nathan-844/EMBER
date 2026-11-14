@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-14",
   "node": "v22.23.4",
   "tests": {
-    "passed": 62,
+    "passed": 106,
     "failed": 0,
-    "total": 62,
-    "files": 6,
+    "total": 106,
+    "files": 7,
     "names": [
       {
         "file": "data/investigations.test.ts",
@@ -123,6 +123,221 @@
         "status": "passed"
       },
       {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links every curated profile is linked to a PSI accession",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS-II links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-I links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-II links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-III links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX-2 links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BRE links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI-G links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links E-FIELD Flames links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CLD Flame links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Flame Design links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links s-Flame links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SPICE links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SLICE links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME-R links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT-2 links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS-II matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-I matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-II matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-III matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX-2 matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BRE matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI-G matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links E-FIELD Flames matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CLD Flame matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Flame Design matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links s-Flame matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SPICE matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SLICE matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME-R matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT-2 matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links no accession is reused except the shared DAFT / DAFT-2 record",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links the snapshot records where and when it was fetched",
+        "status": "passed"
+      },
+      {
         "file": "lib/brief.test.ts",
         "title": "evidence brief includes the computed O2 partial pressure",
         "status": "passed"
@@ -130,6 +345,11 @@
       {
         "file": "lib/brief.test.ts",
         "title": "evidence brief lists every ranked investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief cites the PSI record of every ranked investigation",
         "status": "passed"
       },
       {
@@ -325,6 +545,6 @@
       "src/data/investigations.ts",
       "src/data/types.ts"
     ],
-    "value": "c83cd6f052df2622e7ad93a067de8a79f0ffa39b3a4f59758fac6249c2848f5c"
+    "value": "ae9b7c78ed7268a10e93dafea073054951272289f302a0b92d0d3087e80f949a"
   }
 }

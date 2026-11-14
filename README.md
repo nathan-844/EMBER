@@ -36,16 +36,20 @@ npm run dev
 | `npm run dev` | Start the Vite dev server |
 | `npm test` | Run the test suite |
 | `npm run build` | Type-check and build for production |
+| `npm run sync:psi` | Refresh the NASA PSI record snapshot (needs access to psi.nasa.gov) |
 | `npm run verify:report` | Run tests and record `src/data/verify-report.json` for the credibility page |
 
 ## Data status
 
-Profiles in `src/data/investigations.ts` are curated from the challenge description and
-public NASA mission summaries. Numeric ranges are sparse and approximate on purpose, and
-each one states its basis. **No profile is yet linked to a verified NASA PSI accession.**
-To link one, look the investigation up on <https://psi.nasa.gov>, fill in `psi.accession`,
-`psi.doi`, `psi.url` and `psi.verifiedOn`, and replace approximate ranges with values from
-the PSI run tables. Then run `npm run verify:report`.
+All 20 profiles in `src/data/investigations.ts` are linked to their NASA Physical Science
+Informatics (PSI) investigation records (BASS-II → PSI-25, Saffire-I → PSI-98, FLEX → PSI-69,
+…). `npm run sync:psi` fetches the Combustion Science records from the PSI repository search
+and stores them in `src/data/psi-snapshot.json` (accession, title, dates, hardware,
+objectives, publications) with the date and a SHA-256 of the response. Tests check that every
+link resolves to a Combustion Science record with a matching acronym.
+
+Numeric condition ranges are still curated approximations, each with a stated basis; the
+next step is to replace them with values from the PSI run tables.
 
 ## Not claimed
 
