@@ -1,12 +1,272 @@
 {
   "recordedAt": "2026-11-14",
-  "node": "v22.23.4",
+  "node": "v22.19.0",
   "tests": {
-    "passed": 106,
+    "passed": 188,
     "failed": 0,
-    "total": 106,
-    "files": 7,
+    "total": 188,
+    "files": 11,
     "names": [
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "status endpoint reports off without a key",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "status endpoint reports Gemini and the first model with a key, without leaking the key",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint passes other routes through",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint returns 503 without a key and never calls Gemini",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint replays a recorded answer for an unedited preset without a key, labelled as recorded",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint only accepts POST",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint rejects a bad scenario: \"not json\"",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint rejects a bad scenario: {\"environment\":\"iss\",\"question\":\"prevention\",\"fuel\":\"solid\",\"includeAdjacent\":true,\"material\":null,\"thicknessMm\":null,\"flowDirection\":null,\"oxygenPct\":-1,\"pressurePsi\":14.7,\"gravityG\":0,\"airflowMs\":0.1}",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint rejects a bad scenario: {\"environment\":\"iss\",\"question\":\"arson\",\"fuel\":\"solid\",\"includeAdjacent\":true,\"material\":null,\"thicknessMm\":null,\"flowDirection\":null,\"oxygenPct\":21,\"pressurePsi\":14.7,\"gravityG\":0,\"airflowMs\":0.1}",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint rejects an oversized body",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint builds the evidence package on the server and returns a checked report",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint ignores evidence the browser tries to inject",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint drops ungrounded claims from a real-looking answer",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint shows nothing when Gemini returns malformed JSON",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint shows nothing when the JSON has the wrong shape",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint surfaces quota errors with the models tried",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint reports a rejected key as a gateway error without echoing the key",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint sends question-specific evidence for prevention",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint sends question-specific evidence for detection",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "analyze endpoint sends question-specific evidence for suppression",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "answer shape guard accepts the expected shape and rejects near-misses",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing accepts the iss preset",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing accepts the lunar-habitat preset",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing accepts the lunar-rover preset",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing accepts the mars-habitat preset",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing accepts the spacesuit preset",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing accepts the custom preset",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing accepts unspecified (null) conditions",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing caps free-text material length",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "scenario parsing rejects NaN, strings and unknown enums",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "retry and table rows includes the nearest NASA run-table rows in the package",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "retry and table rows does not retry an answer that passes every check",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "retry and table rows retries once with the checker's findings and keeps the better answer",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
+        "title": "retry and table rows keeps the first answer if the retry is worse",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "model list parses a comma-separated chain and falls back to defaults",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson sends the key in a header, never in the URL, and asks for JSON",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson falls through to the next model on HTTP 404",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson falls through to the next model on HTTP 429",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson falls through to the next model on HTTP 500",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson falls through to the next model on HTTP 503",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson reports every model tried when all fail",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson stops immediately on a rejected key",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson stops on 403 without trying other models",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson does not retry a malformed request (400)",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson treats a truncated answer as a failure and tries the next model",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson refuses safety-stopped answers",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson refuses blocked prompts",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson skips thought parts and joins text parts",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson treats an empty answer as a failure",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson handles network errors and timeouts",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson handles a non-JSON error body",
+        "status": "passed"
+      },
+      {
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
+        "title": "generateJson sends the thinking level when set, and drops it once if the model rejects it",
+        "status": "passed"
+      },
       {
         "file": "data/investigations.test.ts",
         "title": "curated data audit BASS-II has valid ranges with a stated basis",
@@ -368,6 +628,106 @@
         "status": "passed"
       },
       {
+        "file": "lib/brief.test.ts",
+        "title": "csv export has one row per ranked investigation and condition, with sources",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "csv export quotes cells containing commas or quotes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "evidence package is built from the scenario and includes NASA text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "evidence package labels run-table ranges as NASA and curated ranges as EMBER",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check accepts a verbatim excerpt with traceable numbers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects a paraphrased excerpt",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects an invented number",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check allows numbers from the scenario and rounding of source numbers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects citations to sources outside the package",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check marks the answer partial when only some claims pass",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects the whole answer when the summary has an untraceable number",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check normalizes typographic quotes, dashes and spacing only",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "server scenario parsing accepts a preset scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "server scenario parsing rejects out-of-range or unknown values",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds requires a comparison to cite two investigations",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds requires measured data to quote a table row",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds checks numbers in the implication too",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds allows Earth reference values",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds treats an unknown kind as an interpretation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds prefers the report with more kept claims",
+        "status": "passed"
+      },
+      {
         "file": "lib/limitations.test.ts",
         "title": "limitations flags partial gravity for a lunar habitat",
         "status": "passed"
@@ -400,6 +760,31 @@
       {
         "file": "lib/limitations.test.ts",
         "title": "lead insight names the lead investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight never claims coverage from one matching condition on the Moon",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight reports full coverage only when every specified condition matches",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials notes when a material appears in a PSI run table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials notes when no run table lists the material",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials does not say 'covers all' about a single specified condition",
         "status": "passed"
       },
       {
@@ -453,6 +838,21 @@
         "status": "passed"
       },
       {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses are keyed only by unedited presets, so a replay always matches what the user sees",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses only store answers that passed the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses changes the key when any ranking input changes",
+        "status": "passed"
+      },
+      {
         "file": "lib/robustness.test.ts",
         "title": "robustness probes runs two changes per specified numeric input and one removal per specified input",
         "status": "passed"
@@ -475,6 +875,16 @@
       {
         "file": "lib/robustness.test.ts",
         "title": "robustness probes never perturbs below zero",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes re-ranks under every alternative point scheme",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes keeps a lead that matches every condition under all schemes",
         "status": "passed"
       },
       {
@@ -543,8 +953,11 @@
     "algorithm": "sha256",
     "files": [
       "src/data/investigations.ts",
-      "src/data/types.ts"
+      "src/data/types.ts",
+      "src/data/psi-snapshot.json",
+      "src/data/table-manifest.json",
+      "src/data/normalized-conditions.json"
     ],
-    "value": "ae9b7c78ed7268a10e93dafea073054951272289f302a0b92d0d3087e80f949a"
+    "value": "df62fd28d69055d9f5d9e1d93d0b98ad0339b95db41e76cbadc82357baeda350"
   }
 }
