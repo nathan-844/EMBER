@@ -2,11 +2,151 @@
   "recordedAt": "2026-11-14",
   "node": "v22.23.4",
   "tests": {
-    "passed": 34,
+    "passed": 62,
     "failed": 0,
-    "total": 34,
-    "files": 4,
+    "total": 62,
+    "files": 6,
     "names": [
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit BASS-II has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit BASS has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Saffire-I has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Saffire-II has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Saffire-III has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit FLEX has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit FLEX-2 has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit CFI has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit BRE has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit CFI-G has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit E-FIELD Flames has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit CLD Flame has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Flame Design has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit s-Flame has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SPICE has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SLICE has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SAME has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SAME-R has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit DAFT has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit DAFT-2 has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit a verified PSI record always has an accession and a date",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit does not list a question as both direct and adjacent",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit PSI urls point at psi.nasa.gov",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief includes the computed O2 partial pressure",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief lists every ranked investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief states it is not a safety certification",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "baseline comparison is empty when nothing changed",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "baseline comparison reports score shifts when oxygen changes",
+        "status": "passed"
+      },
       {
         "file": "lib/limitations.test.ts",
         "title": "limitations flags partial gravity for a lunar habitat",
