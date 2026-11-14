@@ -17,6 +17,8 @@ export interface PsiRecord {
   keywords: string[];
   relatedInvestigations: string[];
   objectives: string;
+  /** NASA's "Research Impacts/Earth Benefits" text. */
+  earthBenefits: string;
   publications: string[];
 }
 

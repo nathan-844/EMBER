@@ -40,6 +40,7 @@ const records = body.hits.hits
     keywords: split(s.Keywords),
     relatedInvestigations: split(s["Related Investigations"]),
     objectives: (s.Objectives ?? "").trim(),
+    earthBenefits: (s["Research Impacts/Earth Benefits"] ?? "").trim(),
     publications: split(s["Publication Title"]),
   }))
   .sort((a, b) => Number(a.accession.split("-")[1]) - Number(b.accession.split("-")[1]));
