@@ -253,3 +253,13 @@ code, .mono { font-family: var(--mono); font-size: 0.85em; }
 .probe-table th { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
 .probe-table .ok { color: var(--ok); }
 .probe-table .bad { color: var(--bad); font-weight: 600; }
+
+/* ---------- Gravity illustration ---------- */
+.illus { padding-top: 0; overflow: hidden; }
+.sim-banner { margin: 0 -22px 14px; background: var(--navy); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 22px; }
+.illus-grid { display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 12px; margin: 10px 0; }
+.illus-cell { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; display: flex; gap: 12px; align-items: center; font-size: 12px; }
+.illus-cell p { margin: 4px 0 0; color: var(--ink-2); }
+.illus-cell.you { flex-direction: column; align-items: flex-start; justify-content: center; background: var(--warn-soft); border: 1px dashed #e0b96d; color: var(--warn); }
+.illus-cell.you p { color: var(--ink-2); }
+@media (max-width: 760px) { .illus-grid { grid-template-columns: 1fr; } }

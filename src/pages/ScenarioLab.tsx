@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { INVESTIGATIONS } from "../data/investigations";
 import { CoverageChart } from "../components/CoverageChart";
+import { GravityIllustration } from "../components/GravityIllustration";
 import { InsightCard } from "../components/InsightCard";
 import { Limitations } from "../components/Limitations";
 import { RankedList } from "../components/RankedList";
@@ -29,6 +30,7 @@ export function ScenarioLab() {
         <div className="lab-main">
           <SummaryStrip scenario={scenario} relevant={ranked.length} total={INVESTIGATIONS.length} />
           <InsightCard insight={insight} />
+          <GravityIllustration scenario={scenario} />
           <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
           <RankedList ranked={ranked} scenario={scenario} />
           <Limitations items={limits} />
