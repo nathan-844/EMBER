@@ -1,6 +1,7 @@
 import { INVESTIGATIONS } from "../data/investigations";
 import { PSI_SNAPSHOT } from "../data/psi";
 import rawReport from "../data/verify-report.json";
+import tableManifest from "../data/table-manifest.json";
 import { profilesWithNormalizedConditions } from "../lib/ranking";
 
 interface VerifyReport {
@@ -20,6 +21,10 @@ const LEVEL_CLASS: Record<Level, string> = {
 };
 
 const verified = INVESTIGATIONS.filter((i) => i.psi.verifiedOn).length;
+const TABLES = tableManifest as { tables: { id: string; rows: number }[] };
+const tableRows = TABLES.tables.reduce((n, t) => n + t.rows, 0);
+const tableRanges = INVESTIGATIONS.flatMap((i) => Object.values(i.conditions)).filter((r) => r?.source === "psi-table").length;
+const tableProfiles = INVESTIGATIONS.filter((i) => Object.values(i.conditions).some((r) => r?.source === "psi-table")).length;
 const normalized = profilesWithNormalizedConditions();
 const testsLine = report.tests.total
   ? `${report.tests.passed} of ${report.tests.total} automated checks passed, recorded ${report.recordedAt} on Node ${report.node.replace(/^v/, "")}`
@@ -34,12 +39,12 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   {
     name: "Validation", q: "Does it agree with the real world for its intended use?", level: "Not established",
     shown: "EMBER ranks evidence; it does not predict fire behavior, so there is no physical output to validate.",
-    missing: "Relevance weights have not been compared with expert rankings.",
+    missing: "Relevance weights have not been compared with expert rankings; the weight-scheme probe shows when the lead depends on them.",
   },
   {
     name: "Input pedigree", q: "Where did every input come from?", level: verified === INVESTIGATIONS.length ? "Partial" : "Limited",
-    shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record (accession, title, dates, hardware, objectives), synced ${PSI_SNAPSHOT.fetchedOn}. Every numeric range carries a written basis.`,
-    missing: "Condition ranges are curated approximations, not yet read from the PSI run tables.",
+    shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record, synced ${PSI_SNAPSHOT.fetchedOn}. ${tableProfiles} profiles take ${tableRanges} oxygen, pressure or airflow ranges straight from ${TABLES.tables.length} stored NASA PSI run tables (${tableRows} source rows, SHA-256 per file); the remaining ranges are labelled curated.`,
+    missing: "Gravity, fuel type and the remaining curated ranges are not read from tables. Ranges are marginal min–max envelopes, not joint test points.",
   },
   {
     name: "Results uncertainty", q: "Is uncertainty in the results represented?", level: "Limited",
@@ -48,7 +53,7 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   },
   {
     name: "Results robustness", q: "How sensitive are results to the inputs?", level: "Evidence shown",
-    shown: "Every scenario runs small input changes and single-input removals and reports whether the lead holds.",
+    shown: "Every scenario runs small input changes, single-input removals and four alternative point schemes, and reports whether the lead holds.",
     missing: "Probes test the ranking rule near your inputs, not the underlying experiments.",
   },
   {

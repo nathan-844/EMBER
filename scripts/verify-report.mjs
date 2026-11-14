@@ -9,13 +9,19 @@ import { join } from "node:path";
 const dir = mkdtempSync(join(tmpdir(), "ember-"));
 const out = join(dir, "vitest.json");
 try {
-  execFileSync("npx", ["vitest", "run", "--reporter=json", `--outputFile=${out}`], { stdio: "inherit" });
+  execFileSync("npx", ["vitest", "run", "--reporter=json", `--outputFile=${out}`], { stdio: "inherit", shell: process.platform === "win32" });
 } catch {
   // Failures are recorded in the report rather than aborting.
 }
 const result = JSON.parse(readFileSync(out, "utf8"));
 
-const dataFiles = ["src/data/investigations.ts", "src/data/types.ts"];
+const dataFiles = [
+  "src/data/investigations.ts",
+  "src/data/types.ts",
+  "src/data/psi-snapshot.json",
+  "src/data/table-manifest.json",
+  "src/data/normalized-conditions.json",
+];
 const fingerprint = createHash("sha256");
 for (const f of dataFiles) fingerprint.update(readFileSync(f, "utf8").replace(/\r\n/g, "\n"));
 

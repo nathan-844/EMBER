@@ -22,7 +22,7 @@ export function SummaryStrip({ scenario, relevant, total }: Props) {
       <div>
         <p className="eyebrow">Question-relevant profiles</p>
         <p className="big">{relevant} <small>of {total}</small></p>
-        <p className="small muted">Curated metadata matching</p>
+        <p className="small muted">Safety-question metadata</p>
       </div>
       <div>
         <p className="eyebrow">Gravity transfer</p>

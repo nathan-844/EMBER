@@ -14,7 +14,8 @@ const STATUS_TEXT: Record<ConditionResult["status"], string> = {
 
 function rangeText(c: ConditionResult): string {
   if (!c.range) return "";
-  return ` (${c.range.min}–${c.range.max}; ${c.range.basis})`;
+  const tag = c.range.source === "psi-table" ? "PSI run table" : "curated approximation";
+  return ` (${c.range.min}–${c.range.max}, ${tag}: ${c.range.basis})`;
 }
 
 function PsiRecordPanel({ accession }: { accession: string | null }) {
@@ -81,6 +82,13 @@ function Row({ r }: { r: RankedInvestigation }) {
               </li>
             ))}
           </ul>
+          {(inv.testedMaterials?.length || inv.testedFlowDirections?.length) ? (
+            <p className="small muted">
+              Recorded in the PSI run table (not scored):
+              {inv.testedMaterials?.length ? ` materials ${inv.testedMaterials.join(", ")}.` : ""}
+              {inv.testedFlowDirections?.length ? ` Flow direction ${inv.testedFlowDirections.join(" and ")}.` : ""}
+            </p>
+          ) : null}
           <PsiRecordPanel accession={inv.psi.accession} />
         </div>
       )}

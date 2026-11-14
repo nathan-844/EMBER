@@ -7,8 +7,8 @@ type Dim = "oxygenPct" | "pressurePsi" | "airflowMs";
 
 const DIMS: Record<Dim, { label: string; unit: string; max: number; ticks: number[]; probes: number[] }> = {
   oxygenPct: { label: "Ambient O₂", unit: "%", max: 100, ticks: [0, 20, 40, 60, 80, 100], probes: [21, 30, 40, 85] },
-  pressurePsi: { label: "Pressure", unit: "psia", max: 16, ticks: [0, 4, 8, 12, 16], probes: [4.3, 8.2, 10.2, 14.7] },
-  airflowMs: { label: "Airflow", unit: "m/s", max: 0.6, ticks: [0, 0.2, 0.4, 0.6], probes: [0, 0.05, 0.2, 0.5] },
+  pressurePsi: { label: "Pressure", unit: "psia", max: 50, ticks: [0, 10, 20, 30, 40, 50], probes: [4.3, 8.2, 10.2, 14.7] },
+  airflowMs: { label: "Airflow", unit: "m/s", max: 1, ticks: [0, 0.25, 0.5, 0.75, 1], probes: [0, 0.05, 0.2, 0.5] },
 };
 
 type Props = { scenario: Scenario; onProbe: (key: Dim, value: number) => void };
@@ -59,10 +59,18 @@ export function CoverageChart({ scenario, onProbe }: Props) {
             return (
               <g key={inv.id}>
                 <text x={0} y={y + 13} className="row-label">{inv.name}</text>
-                <rect x={x(r.min)} y={y} width={w} height={18} rx={2} fill={i % 2 ? "var(--bar-2)" : "var(--bar)"}>
+                <rect
+                  x={x(r.min)} y={y} width={w} height={18} rx={2}
+                  fill={r.source === "psi-table" ? (i % 2 ? "var(--bar-2)" : "var(--bar)") : "transparent"}
+                  stroke={r.source === "psi-table" ? "none" : "var(--muted)"}
+                  strokeDasharray={r.source === "psi-table" ? undefined : "4 3"}
+                  strokeWidth={1.5}
+                >
                   <title>{`${inv.name}: ${r.min}–${r.max} ${d.unit}. ${r.basis}`}</title>
                 </rect>
-                <text x={x(r.max) + 6} y={y + 13} className="row-note">{r.min}–{r.max} {d.unit}</text>
+                <text x={Math.min(x(r.max), labelW + plotW) + 6} y={y + 13} className="row-note">
+                  {r.min}–{r.max} {d.unit}{r.max > d.max ? " →" : ""}{r.source === "psi-table" ? ` · ${r.table}` : " · curated"}
+                </text>
               </g>
             );
           })}
@@ -75,7 +83,8 @@ export function CoverageChart({ scenario, onProbe }: Props) {
         </svg>
       )}
       <div className="legend small muted">
-        <span><i className="sw sw-bar" /> Curated envelope (approximate)</span>
+        <span><i className="sw sw-bar" /> From a NASA PSI run table</span>
+        <span><i className="sw sw-curated" /> Curated approximation (no table column)</span>
         <span><i className="sw sw-you" /> Your scenario</span>
         <span><i className="sw sw-hatch" /> Unassessed coverage</span>
       </div>
@@ -86,7 +95,7 @@ export function CoverageChart({ scenario, onProbe }: Props) {
         ))}
       </div>
       <p className="small warn-note">
-        Envelopes are curated scalar ranges, not confirmed commanded test matrices. They do not establish continuous or joint-condition coverage.
+        Solid bars are min–max of the values recorded in each NASA PSI run table; hover a bar for the table, column and row count. Dashed bars are written approximations where no table records the condition. Neither establishes continuous or joint-condition coverage.
       </p>
     </section>
   );
