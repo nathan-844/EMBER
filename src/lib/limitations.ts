@@ -1,9 +1,62 @@
-import { CONDITION_LABELS, type RankedInvestigation } from "./ranking";
+import { INVESTIGATIONS } from "../data/investigations";
+import type { FuelType, Investigation } from "../data/types";
+import { CONDITION_LABELS, rangeLabel, type RankedInvestigation } from "./ranking";
 import { gravityRegime, type Scenario } from "./scenario";
 
 export interface Limitation {
   id: string;
   text: string;
+  /** Optional source the statement relies on. */
+  source?: { label: string; href: string };
+}
+
+/** NASA's FM2 page: materials may burn at lower oxygen concentrations in lunar gravity than on Earth. */
+export const FM2_SOURCE = {
+  label: "NASA Glenn · Flammability of Materials on the Moon (FM2)",
+  href: "https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/",
+};
+export const CHALLENGE_SOURCE = {
+  label: "Space Apps 2026 · Flame in Freefall",
+  href: "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/",
+};
+
+const FUEL_WORD: Record<FuelType, string> = { solid: "solid-material", liquid: "liquid-fuel", gas: "gas-flame" };
+
+export interface OxygenGap {
+  fuel: FuelType;
+  /** Highest oxygen any test of this fuel type reached, and which profiles. */
+  maxForFuel: number;
+  sameFuel: Investigation[];
+  /** Profiles of other fuel types whose oxygen range reaches the scenario. */
+  otherFuel: Investigation[];
+}
+
+/**
+ * The fuel-aware oxygen check across ALL profiles (not just the ranked ones): does any test
+ * with the scenario's fuel type reach its oxygen level? For a 30% Moon-base atmosphere with
+ * solid materials the answer is no, which is the most important thing the data says.
+ */
+export function oxygenGapForFuel(scenario: Scenario, pool: Investigation[] = INVESTIGATIONS): OxygenGap | null {
+  if (scenario.oxygenPct == null || scenario.fuel == null) return null;
+  const fuel = scenario.fuel;
+  const withO2 = pool.filter((i) => i.conditions.oxygenPct);
+  const sameFuel = withO2.filter((i) => i.fuelTypes.includes(fuel));
+  if (!sameFuel.length) return null;
+  const maxForFuel = Math.max(...sameFuel.map((i) => i.conditions.oxygenPct!.max));
+  if (scenario.oxygenPct <= maxForFuel) return null;
+  const otherFuel = withO2.filter((i) => !i.fuelTypes.includes(fuel) && i.conditions.oxygenPct!.max >= scenario.oxygenPct!);
+  return { fuel, maxForFuel, sameFuel: sameFuel.sort((a, b) => b.conditions.oxygenPct!.max - a.conditions.oxygenPct!.max), otherFuel };
+}
+
+export function oxygenGapText(g: OxygenGap, oxygenPct: number): string {
+  const same = g.sameFuel
+    .slice(0, 4)
+    .map((i) => `${i.name} ${rangeLabel(i.conditions.oxygenPct!, "%")}${i.conditions.oxygenPct!.source === "psi-table" ? "" : " (curated estimate)"}`)
+    .join(", ");
+  const others = g.otherFuel.length
+    ? ` The profiles that reach ${oxygenPct}% burned ${[...new Set(g.otherFuel.flatMap((i) => i.fuelTypes))].filter((f) => f !== g.fuel).map((f) => (f === "liquid" ? "fuel droplets" : f === "gas" ? "gas flames" : "solids")).join(" or ")} (${g.otherFuel.map((i) => `${i.name} ${rangeLabel(i.conditions.oxygenPct!, "%")}`).join(", ")}), not ${g.fuel} fuel.`
+    : "";
+  return `No ${FUEL_WORD[g.fuel]} test in the PSI data goes above ${g.maxForFuel}% oxygen (${same}); your scenario is ${oxygenPct}%.${others}`;
 }
 
 /**
@@ -14,11 +67,15 @@ export function scenarioLimitations(scenario: Scenario, ranked: RankedInvestigat
   const out: Limitation[] = [];
   const regime = gravityRegime(scenario.gravityG);
 
+  const gap = oxygenGapForFuel(scenario);
+  if (gap) out.push({ id: "o2-fuel-gap", text: oxygenGapText(gap, scenario.oxygenPct!) });
+
   if (regime === "partial") {
     out.push({
       id: "partial-gravity",
       text:
-        "No partial-gravity measurements are in the ranked PSI profiles. Transferring microgravity results to lunar or Martian gravity is not automatically conservative: some materials may burn at lower oxygen concentrations in partial gravity than in either microgravity or 1 g.",
+        "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative: NASA’s FM2 team notes that materials may burn at lower oxygen concentrations in lunar gravity than on Earth. LUCI and FM2 are expected to add partial-gravity data.",
+      source: FM2_SOURCE,
     });
   } else if (regime === "earth") {
     out.push({ id: "earth-gravity", text: "PSI results are low-gravity data; buoyant 1 g flames behave differently and are better covered by ground test standards." });
@@ -27,15 +84,15 @@ export function scenarioLimitations(scenario: Scenario, ranked: RankedInvestigat
   const lead = ranked[0];
   if (lead) {
     const o2 = lead.conditions.find((c) => c.key === "oxygenPct");
-    if (o2?.status === "outside" && o2.range) {
+    if ((o2?.status === "outside" || o2?.status === "near") && o2.range) {
       out.push({
         id: "lead-o2-outside",
-        text: `Selected oxygen is outside the ${o2.range.min}–${o2.range.max}% range recorded for ${lead.investigation.name} (${o2.range.source === "psi-table" ? "from the PSI run table" : "curated approximation"}). Results outside the tested range are extrapolation.`,
+        text: `Selected oxygen is outside the ${rangeLabel(o2.range, "%")} ${o2.range.source === "psi-table" ? "recorded in the PSI run table" : "curated estimate"} for ${lead.investigation.name}; the nearest ${o2.range.source === "psi-table" ? "tested" : "estimated"} value is ${o2.nearest}%. Results outside a tested range are extrapolation.`,
       });
     }
   }
 
-  if (scenario.oxygenPct != null && scenario.oxygenPct > 21.5) {
+  if (!gap && scenario.oxygenPct != null && scenario.oxygenPct > 21.5) {
     const anyCover = ranked.some((r) => r.conditions.find((c) => c.key === "oxygenPct")?.status === "match");
     if (!anyCover) {
       out.push({ id: "elevated-o2", text: `No ranked profile has a recorded oxygen range that includes ${scenario.oxygenPct}%. This elevated-oxygen atmosphere is outside every tested envelope.` });
@@ -84,6 +141,9 @@ export interface Insight {
   gaps: string[];
   /** True when the lead covers every specified condition. */
   fullCoverage: boolean;
+  /** The most important finding for this scenario, when there is one (e.g. the oxygen gap by fuel). */
+  keyFinding?: string;
+  sources?: { label: string; href: string }[];
 }
 
 const listOr = (xs: string[]) => (xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} or ${xs[xs.length - 1]}`);
@@ -93,7 +153,12 @@ const UNIT: Record<string, string> = { oxygenPct: "%", pressurePsi: " psia", gra
 function gapText(c: RankedInvestigation["conditions"][number]): string {
   const label = CONDITION_LABELS[c.key].toLowerCase();
   if (c.status === "unknown") return `${label} (no recorded range)`;
-  if (c.range) return `${label} (tested ${c.range.min}–${c.range.max}${UNIT[c.key] ?? ""})`;
+  if (c.range) {
+    const u = UNIT[c.key] ?? "";
+    const what = c.range.source === "psi-table" ? "tested" : "curated estimate";
+    const near = c.status === "near" ? ", just outside" : "";
+    return `${label} (${what} ${rangeLabel(c.range, u)}${near}; nearest ${c.nearest}${u})`;
+  }
   return label;
 }
 
@@ -135,7 +200,7 @@ export function leadInsight(scenario: Scenario, ranked: RankedInvestigation[]): 
   if (air?.status === "match" && regime === "microgravity") {
     physics = "In microgravity, forced flow replaces buoyancy as the oxygen supply, so flame spread and extinction are flow-sensitive.";
   } else if (gravityGap && regime === "partial") {
-    physics = `These are low-gravity results. At ${scenario.gravityG} g buoyancy returns in part, and partial-gravity flammability is not bracketed by microgravity and 1 g results.`;
+    physics = `These are low-gravity results. At ${scenario.gravityG} g buoyancy returns in part. Microgravity and 1 g results may bound this, but NASA’s FM2 work suggests materials may burn at lower oxygen concentrations in lunar gravity than on Earth.`;
   } else {
     physics = "The ranking is by recorded test conditions, not by predicted fire behavior.";
   }
@@ -147,5 +212,15 @@ export function leadInsight(scenario: Scenario, ranked: RankedInvestigation[]): 
       : "Review the unmatched conditions before using these results for design decisions.";
 
   const unspecLine = unspecified.length ? `Left unspecified (not checked): ${unspecified.join(", ")}. ` : "";
-  return { investigation: inv.name, title, body: `${matchedText}${gapLine}${unspecLine}${physics}`, consideration, gaps, fullCoverage };
+  const gap = oxygenGapForFuel(scenario);
+  return {
+    investigation: inv.name,
+    title,
+    body: `${matchedText}${gapLine}${unspecLine}${physics}`,
+    consideration,
+    gaps,
+    fullCoverage,
+    keyFinding: gap ? oxygenGapText(gap, scenario.oxygenPct!) : undefined,
+    sources: gravityGap && regime === "partial" ? [FM2_SOURCE, CHALLENGE_SOURCE] : undefined,
+  };
 }

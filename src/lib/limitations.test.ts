@@ -18,8 +18,24 @@ describe("limitations", () => {
     expect(ids(presetScenario("custom"))).toContain("joint");
   });
 
-  it("flags elevated oxygen nobody covers", () => {
-    expect(ids(presetScenario("spacesuit"))).toContain("elevated-o2");
+  it("flags elevated oxygen nobody covers when the fuel is unspecified", () => {
+    expect(ids({ ...presetScenario("spacesuit"), fuel: null })).toContain("elevated-o2");
+  });
+
+  it("states the Moon-base finding: no solid-material test reaches 30% oxygen", () => {
+    const s = presetScenario("lunar-habitat");
+    const gap = scenarioLimitations(s, rankInvestigations(s)).find((l) => l.id === "o2-fuel-gap");
+    expect(gap?.text).toMatch(/No solid-material test in the PSI data goes above 22.2% oxygen/);
+    expect(gap?.text).toMatch(/fuel droplets|gas flames/);
+    expect(leadInsight(s, rankInvestigations(s))!.keyFinding).toBe(gap?.text);
+  });
+
+  it("cites NASA for the partial-gravity caveat and does not claim the 0 g/1 g bound fails", () => {
+    const s = presetScenario("lunar-habitat");
+    const pg = scenarioLimitations(s, rankInvestigations(s)).find((l) => l.id === "partial-gravity")!;
+    expect(pg.source?.href).toMatch(/nasa.gov/);
+    expect(pg.text).toMatch(/may bound/);
+    expect(pg.text).not.toMatch(/not bracketed/);
   });
 
   it("drops the material caveat once material is set", () => {
@@ -68,7 +84,8 @@ describe("tested materials", () => {
   });
 
   it("notes when no run table lists the material", () => {
-    const s = { ...presetScenario("iss"), material: "Ultem" };
+    // Detection studies (Saffire, SAME) never ran Ultem; BASS did, but it is not ranked here.
+    const s = { ...presetScenario("iss"), question: "detection" as const, includeAdjacent: false, material: "Ultem" };
     expect(ids(s)).toContain("material-untested");
   });
 

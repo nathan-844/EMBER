@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CONDITION_LABELS, MAX_CONDITION_POINTS, rankLabel, type ConditionResult, type RankedInvestigation } from "../lib/ranking";
+import { CONDITION_LABELS, MAX_CONDITION_POINTS, rangeLabel, rankLabel, type ConditionResult, type RankedInvestigation } from "../lib/ranking";
 import { getPsiRecord } from "../data/psi";
 import type { Scenario } from "../lib/scenario";
 import { ExternalIcon } from "./icons";
@@ -7,6 +7,7 @@ import { RobustnessBar } from "./RobustnessBar";
 
 const STATUS_TEXT: Record<ConditionResult["status"], string> = {
   match: "inside profile range",
+  near: "just outside profile range",
   outside: "outside profile range",
   unknown: "profile has no normalized range",
   unspecified: "you left this unspecified",
@@ -14,8 +15,9 @@ const STATUS_TEXT: Record<ConditionResult["status"], string> = {
 
 function rangeText(c: ConditionResult): string {
   if (!c.range) return "";
-  const tag = c.range.source === "psi-table" ? "PSI run table" : "curated approximation";
-  return ` (${c.range.min}–${c.range.max}, ${tag}: ${c.range.basis})`;
+  const tag = c.range.source === "psi-table" ? "PSI run table" : "curated estimate";
+  const nearest = c.nearest != null ? `; nearest ${c.nearest}` : "";
+  return ` (${rangeLabel(c.range)}${nearest}, ${tag}: ${c.range.basis})`;
 }
 
 function PsiRecordPanel({ accession }: { accession: string | null }) {
@@ -109,7 +111,7 @@ export function RankedList({ ranked, scenario }: { ranked: RankedInvestigation[]
         <span className="badge">Live matching</span>
       </div>
       <p className="small muted">
-        Scores separate the safety question (25 points) from condition matching (75 points, 15 per condition).
+        Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside its recorded range, 8 when just outside it).
         They do not estimate fire probability, confidence or safety. Tied scores share a rank; unknown fields earn no points.
       </p>
       <RobustnessBar scenario={scenario} />
