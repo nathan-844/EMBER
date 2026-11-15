@@ -24,9 +24,20 @@ const dataFiles = [
   "src/data/atlas/atlas.json",
   "src/data/findings.json",
   "src/data/atlas/audit.json",
+  "src/data/ntrs-manifest.json",
 ];
 const fingerprint = createHash("sha256");
 for (const f of dataFiles) fingerprint.update(readFileSync(f, "utf8").replace(/\r\n/g, "\n"));
+
+// The verification scoreboard: tests plus source checks (scripts/scoreboard.ts), re-run where they need no network.
+const scoreboard = [
+  {
+    id: "tests", label: "Automated tests passing", how: "rerun",
+    checked: result.numTotalTests, passed: result.numPassedTests,
+    method: "The full Vitest suite: ranking rules, data checks, quote checks, the AI claim checker and the server.",
+  },
+  ...JSON.parse(execFileSync("npx", ["tsx", "scripts/scoreboard.ts"], { encoding: "utf8", shell: process.platform === "win32" })),
+];
 
 const report = {
   recordedAt: new Date().toISOString().slice(0, 10),
@@ -41,6 +52,7 @@ const report = {
     ),
   },
   dataFingerprint: { algorithm: "sha256", files: dataFiles, value: fingerprint.digest("hex") },
+  scoreboard,
 };
 
 writeFileSync("src/data/verify-report.json", JSON.stringify(report, null, 2) + "\n");

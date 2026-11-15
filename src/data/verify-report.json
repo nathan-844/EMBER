@@ -1,11 +1,11 @@
 {
   "recordedAt": "2026-11-15",
-  "node": "v22.19.0",
+  "node": "v22.23.4",
   "tests": {
-    "passed": 425,
+    "passed": 440,
     "failed": 0,
-    "total": 425,
-    "files": 22,
+    "total": 440,
+    "files": 24,
     "names": [
       {
         "file": "server/analyze.test.ts",
@@ -120,6 +120,16 @@
       {
         "file": "server/analyze.test.ts",
         "title": "scenario parsing accepts the lunar-habitat preset",
+        "status": "passed"
+      },
+      {
+        "file": "server/analyze.test.ts",
+        "title": "scenario parsing accepts the lunar-exploration preset",
+        "status": "passed"
+      },
+      {
+        "file": "server/analyze.test.ts",
+        "title": "scenario parsing accepts the artemis-surface-habitat preset",
         "status": "passed"
       },
       {
@@ -1013,6 +1023,36 @@
         "status": "passed"
       },
       {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes were each found in the NASA PDF, unchanged since (npm run sync:ntrs)",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes record the SHA-256 of every PDF checked",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes have unique ids and cite a known source",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes put equipment results beside an existing equipment link",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes show partial-gravity evidence only for partial gravity, by level",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes back every exploration-atmosphere preset with a checked quote that states its values",
+        "status": "passed"
+      },
+      {
         "file": "data/ntrs-saffire.test.ts",
         "title": "Saffire IV-VI from NTRS 20240002981 keeps Table 1 of the paper exactly (sample, material, kPa, mol % O2, free volume)",
         "status": "passed"
@@ -1255,6 +1295,16 @@
       {
         "file": "data/psi.test.ts",
         "title": "ground analysis records are exactly the PSI combustion records EMBER does not profile, and each links to a profiled flight study",
+        "status": "passed"
+      },
+      {
+        "file": "data/verify-report.test.ts",
+        "title": "verification scoreboard lists the tests and every source check, each with a method",
+        "status": "passed"
+      },
+      {
+        "file": "data/verify-report.test.ts",
+        "title": "verification scoreboard agrees with the recorded test run",
         "status": "passed"
       },
       {
@@ -1794,6 +1844,11 @@
       },
       {
         "file": "lib/recorded.test.ts",
+        "title": "recorded analyses only list presets as awaiting recording while they have none",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
         "title": "recorded analyses changes the key when any ranking input changes",
         "status": "passed"
       },
@@ -1830,6 +1885,26 @@
       {
         "file": "lib/robustness.test.ts",
         "title": "robustness probes keeps a lead that matches every condition under all schemes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights tries all 128 corners plus the defaults and keeps the default rank inside the range",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights finds ranks that hold and ranks that move",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights widens or keeps the range as the swing grows, and is a single rank with no swing",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights says plainly whether a rank holds",
         "status": "passed"
       },
       {
@@ -2144,8 +2219,67 @@
       "src/data/normalized-conditions.json",
       "src/data/atlas/atlas.json",
       "src/data/findings.json",
-      "src/data/atlas/audit.json"
+      "src/data/atlas/audit.json",
+      "src/data/ntrs-manifest.json"
     ],
-    "value": "24412b78d4c768feae41633d74a17f0c4530d939bde91df7b0218234b5ff16b9"
-  }
+    "value": "b0b80ec289ddeb504913268c43dde7386f226364b791d6c79eea4299c32cbd61"
+  },
+  "scoreboard": [
+    {
+      "id": "tests",
+      "label": "Automated tests passing",
+      "how": "rerun",
+      "checked": 440,
+      "passed": 440,
+      "method": "The full Vitest suite: ranking rules, data checks, quote checks, the AI claim checker and the server."
+    },
+    {
+      "id": "psi-quotes",
+      "label": "NASA PSI quotes found word for word",
+      "how": "rerun",
+      "checked": 17,
+      "passed": 17,
+      "method": "Each equipment and Earth-use quote is searched for in the stored PSI record it cites."
+    },
+    {
+      "id": "ntrs-quotes",
+      "label": "NTRS report quotes found in the PDF",
+      "how": "recorded",
+      "checked": 22,
+      "passed": 22,
+      "method": "npm run sync:ntrs found each quote in the text of its PDF (14 PDFs, SHA-256 and page recorded) on 2026-11-15; the stored quote hash is re-checked here."
+    },
+    {
+      "id": "psi-links",
+      "label": "Profiles linked to a real PSI record",
+      "how": "rerun",
+      "checked": 20,
+      "passed": 20,
+      "method": "Each profile's accession is looked up in the stored PSI snapshot."
+    },
+    {
+      "id": "recorded-claims",
+      "label": "Recorded AI claims whose verdict reproduces",
+      "how": "rerun",
+      "checked": 307,
+      "passed": 307,
+      "method": "Every claim in 74 recorded answers is checked again with today's evidence and checker; 295 were accepted when recorded, the rest are shown as rejected."
+    },
+    {
+      "id": "table-hashes",
+      "label": "NASA run tables with a recorded SHA-256",
+      "how": "recorded",
+      "checked": 21,
+      "passed": 21,
+      "method": "npm run sync:tables downloads each PSI table again and refuses a file whose SHA-256 differs."
+    },
+    {
+      "id": "saffire",
+      "label": "Saffire IV–VI values checked against the paper",
+      "how": "manual",
+      "checked": 45,
+      "passed": 45,
+      "method": "5 runs × 9 values from Tables 1 and 2 of NTRS 20240002981, checked by hand on 2026-11-15 (PDF SHA-256 recorded)."
+    }
+  ]
 }

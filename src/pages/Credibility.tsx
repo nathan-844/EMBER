@@ -13,6 +13,7 @@ interface VerifyReport {
   node: string;
   tests: { passed: number; failed: number; total: number; files: number; names: { file: string; title: string; status: string }[] };
   dataFingerprint: { algorithm: string; files: string[]; value: string };
+  scoreboard?: { id: string; label: string; how: "rerun" | "recorded" | "manual"; checked: number; passed: number; method: string }[];
 }
 const report = rawReport as VerifyReport;
 
@@ -34,6 +35,49 @@ const normalized = profilesWithNormalizedConditions();
 const testsLine = report.tests.total
   ? `${report.tests.passed} of ${report.tests.total} automated checks passed, recorded ${report.recordedAt} on Node ${report.node.replace(/^v/, "")}`
   : "No test report recorded yet (run npm run verify:report)";
+
+const BOARD = report.scoreboard ?? [];
+const AUTOMATED = BOARD.filter((r) => r.how !== "manual");
+const BOARD_PASSED = AUTOMATED.reduce((n, r) => n + r.passed, 0);
+const BOARD_CHECKED = AUTOMATED.reduce((n, r) => n + r.checked, 0);
+const HOW_LABEL = { rerun: "Re-run on every report", recorded: "Recorded by a sync run", manual: "Checked by hand" } as const;
+
+function Scoreboard() {
+  if (!BOARD.length) return null;
+  return (
+    <section className="card scoreboard section-gap" aria-labelledby="board-title">
+      <div className="board-head">
+        <div>
+          <p className="eyebrow">Verification scoreboard · recorded {report.recordedAt}</p>
+          <h2 className="h3-size" id="board-title">Every check, with totals</h2>
+        </div>
+        <p className="board-total"><strong>{BOARD_PASSED.toLocaleString("en-US")}</strong> of {BOARD_CHECKED.toLocaleString("en-US")} automated checks pass</p>
+      </div>
+      <div className="table-wrap">
+        <table className="board">
+          <thead><tr><th>Check</th><th>Result</th><th>How</th><th>What is checked</th></tr></thead>
+          <tbody>
+            {BOARD.map((r) => (
+              <tr key={r.id}>
+                <td>{r.label}</td>
+                <td className="num"><span className={`badge ${r.passed === r.checked ? "badge-ok" : "badge-bad"}`}>{r.passed.toLocaleString("en-US")}/{r.checked.toLocaleString("en-US")}</span></td>
+                <td className="small muted">{HOW_LABEL[r.how]}</td>
+                <td className="small">{r.method}</td>
+              </tr>
+            ))}
+            <tr className="not-run">
+              <td>AI answer accuracy benchmark</td>
+              <td className="num"><span className="badge badge-warn">Not run</span></td>
+              <td className="small muted">Needs a live Gemini key</td>
+              <td className="small">Would score live answers to fixed questions against hand-written expected findings. The checks above confirm each claim's quotes and numbers come from its sources; they do not grade whether the reasoning is right.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="small muted">The total counts automated checks only; hand checks are listed but not added in. Run <code>npm run verify:report</code> to re-run them and rewrite this table.</p>
+    </section>
+  );
+}
 
 const FACTORS: { name: string; q: string; level: Level; shown: string; missing: string }[] = [
   {
@@ -94,7 +138,9 @@ export function Credibility() {
         <div className="card stat"><p className="big">{normalized}</p><p className="small muted">Profiles with O₂, pressure or airflow ranges ({tableProfiles} from NASA run tables, the rest curated estimates)</p></div>
       </div>
 
-      <section className="card verify">
+      <Scoreboard />
+
+      <section className="card verify section-gap">
         <div>
           <p className="eyebrow">Verify it yourself</p>
           <h2 className="h3-size">Reproduce from the repository</h2>
