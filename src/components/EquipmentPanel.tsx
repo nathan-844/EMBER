@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { AREA_LABEL } from "../data/applications";
 import { getInvestigation } from "../data/investigations";
+import { equipmentResults } from "../data/ntrs-evidence";
+import { NtrsQuoteBlock } from "./PartialGravityPanel";
 import { equipmentGroups, upcomingFor } from "../lib/equipment";
 import type { RankedInvestigation } from "../lib/ranking";
 import type { Scenario } from "../lib/scenario";
@@ -17,8 +19,9 @@ export function EquipmentPanel({ scenario, ranked }: { scenario: Scenario; ranke
       <h3 id="equipment-title">What this research informs</h3>
       <p className="small muted">
         Each link quotes the investigation's NASA PSI record word for word. "Stated by NASA" means NASA's text names the use;
-        "EMBER's reading" means the link is our interpretation of what the study measured. Studies in your current ranking are
-        highlighted.
+        "EMBER's reading" means the link is our interpretation of what the study measured. Where NASA has published a result,
+        it is quoted below the objective from the NASA Technical Reports Server, checked against the PDF. Studies in your current
+        ranking are highlighted.
       </p>
 
       {groups.map((g) => (
@@ -50,6 +53,12 @@ export function EquipmentPanel({ scenario, ranked }: { scenario: Scenario; ranke
                   “{l.quote.text}”
                   <cite>NASA {l.quote.accession} {l.quote.field === "earthBenefits" ? "research impacts" : "objectives"}</cite>
                 </blockquote>
+                {equipmentResults(l.id).map((q) => (
+                  <div key={q.id} className="equip-result">
+                    <p className="small"><span className="badge badge-ok">Published result</span></p>
+                    <NtrsQuoteBlock q={q} />
+                  </div>
+                ))}
                 <p className="small muted"><strong>Not covered:</strong> {l.caveat}</p>
               </li>
             ))}
