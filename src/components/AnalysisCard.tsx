@@ -69,7 +69,7 @@ export function AnalysisReport({ analysis }: { analysis: Analysis }) {
         <div className={`analysis-body ${stale ? "is-stale" : ""}`}>
           <div className={`verdict verdict-${report.verdict}`}>
             <strong>
-              {report.verdict === "accepted" ? "All claims passed the grounding check" : report.verdict === "partial" ? "Some claims were rejected" : "Answer rejected"}
+              {report.verdict === "accepted" ? "All claims passed the source check" : report.verdict === "partial" ? "Some claims were rejected" : "Answer rejected"}
             </strong>
             <span className="small">
               {report.receipt.acceptedClaims} of {report.receipt.claims} claims kept · {report.receipt.excerpts} verified excerpts:{" "}

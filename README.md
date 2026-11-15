@@ -19,6 +19,10 @@ cannot establish.
   from 14 of the 21 stored NASA PSI experimental tables (1,527 source rows used; every stored file
   has its SHA-256). The few remaining
   hand-written ranges are labelled *curated* everywhere they appear.
+- **BRE as a solid emulator** – NASA built BRE to emulate burning solids, and it is the only PSI
+  data at NASA's candidate exploration atmospheres (its PSI-20 objectives name 10.2 psia at 26.5% O₂
+  and 8.2 psia at 34%). For a solid-fuel scenario it earns two thirds of the fuel points and is listed
+  with the solid studies, labelled as an emulator, so it leads the Moon-habitat case.
 - **Transparent ranking** – 25 points for addressing the safety question (10 for adjacent
   research) plus up to 15 points per condition (75 max): 15 inside a range measured in a NASA
   table, 10 inside a curated estimate, two thirds of that just
@@ -42,8 +46,11 @@ cannot establish.
 - **Grounded AI analysis (optional)** – Google Gemini writes a short synthesis from a server-built
   evidence package. EMBER treats the model as an untrusted author: a claim is kept only if every
   excerpt appears word for word in the source it cites and every number appears in those sources
-  or your scenario. Rejected claims are shown with the reason, and a receipt counts how many
-  excerpts are NASA text versus EMBER's own summaries.
+  or your scenario. Findings, measured data, comparisons and equipment implications must quote NASA
+  text, not only EMBER's summaries, and any claim stating a safety conclusion (that something will
+  not burn, is safe, or needs no detection, suppression or ventilation) is rejected however good its
+  quotes. This checks sources and wording, not reasoning. Rejected claims are shown with the reason,
+  and a receipt counts how many excerpts are NASA text versus EMBER's own summaries.
 - **Ask EMBER** – type a question about your scenario, or pick a suggested one, and the answer goes
   through the same evidence package and the same check. The question is treated as a question, never as
   instructions; numbers typed only in a question are not accepted (set them in the scenario instead).

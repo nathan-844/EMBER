@@ -147,7 +147,7 @@ export function ScenarioLab() {
             </Tile>
 
             <article className="tile tile-2x2 tile-ask" aria-labelledby="ask-tile">
-              <p className="tile-eyebrow">Ask EMBER · AI with every claim checked</p>
+              <p className="tile-eyebrow">Ask EMBER · AI with every quote and number checked</p>
               <h3 className="tile-title" id="ask-tile">Ask a question about this scenario</h3>
               <AskForm analysis={analysis} compact onSubmit={() => setOpen("ai")} />
               <div className="ask-foot">
@@ -157,7 +157,7 @@ export function ScenarioLab() {
                     {analysis.result.report ? ` · ${analysis.result.report.receipt.acceptedClaims} of ${analysis.result.report.receipt.claims} claims kept, ${VERDICT_TEXT[analysis.result.report.verdict]}` : ""}
                   </button>
                 ) : (
-                  <p className="tile-text muted">Each answer quotes its NASA sources word for word. Claims that fail the check are shown as rejected, with the reason.</p>
+                  <p className="tile-text muted">Every quote must appear word for word in its source and every number must trace to it; findings must quote NASA, and safety conclusions are refused. This checks the sources, not the reasoning. Claims that fail are shown as rejected, with the reason.</p>
                 )}
               </div>
             </article>

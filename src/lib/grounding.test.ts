@@ -104,7 +104,31 @@ describe("claim kinds", () => {
     const one = checkAnswer(answer([{ kind: "Comparison", text: "BASS-II differs.", citations: [cite(o2)] }]), pkg);
     expect(one.claims[0].problems.join(" ")).toMatch(/two or more investigations/);
     const two = checkAnswer(answer([{ kind: "Comparison", text: "BASS-II and Saffire-II differ.", citations: [cite(o2), cite(sf)] }]), pkg);
-    expect(two.claims[0].accepted).toBe(true);
+    // Two investigations, but only EMBER-computed ranges: a comparison must also quote NASA.
+    expect(two.claims[0].problems.join(" ")).toMatch(/must quote NASA text/);
+    const sfObj = src("saffire-ii:objectives");
+    const three = checkAnswer(answer([{ kind: "Comparison", text: "BASS-II and Saffire-II differ.", citations: [cite(o2), cite(sfObj)] }]), pkg);
+    expect(three.claims[0].accepted).toBe(true);
+  });
+
+  it("rejects safety conclusions even with valid quotes (judge's fabricated claims)", () => {
+    const obj = src("bass-ii:objectives");
+    for (const text of [
+      "Cabin materials will not burn in lunar gravity, so no extinguisher is needed.",
+      "BASS-II showed solids are fire-safe at 30% oxygen.",
+      "Detectors are not needed for PMMA.",
+    ]) {
+      const r = checkAnswer(answer([{ kind: "Interpretation", text, citations: [cite(obj)] }]), pkg);
+      expect(r.claims[0].accepted, text).toBe(false);
+      expect(r.claims[0].problems.join(" ")).toMatch(/safety conclusion/);
+    }
+  });
+
+  it("allows ordinary fire-safety wording", () => {
+    const obj = src("bass-ii:objectives");
+    for (const text of ["BASS-II studied flame spread to support spacecraft fire safety.", "Materials may burn at lower oxygen in partial gravity."]) {
+      expect(checkAnswer(answer([{ kind: "Interpretation", text, citations: [cite(obj)] }]), pkg).claims[0].accepted, text).toBe(true);
+    }
   });
 
   it("requires measured data to quote a table row", () => {

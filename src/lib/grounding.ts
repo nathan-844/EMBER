@@ -119,6 +119,26 @@ const isTableRow = (sourceId: string) => /:row\d+$/.test(sourceId);
  * - a Comparison cites two or more investigations, and Measured data quotes a NASA table row.
  * This makes the basis auditable; it does not prove the claim follows from the excerpt.
  */
+/**
+ * Conclusions EMBER never draws, whatever the excerpts say: that something is safe, will not burn
+ * or ignite, or that detection, suppression or ventilation equipment is not needed. A claim with
+ * valid quotes can still assert one of these, so the wording itself is checked.
+ */
+const SAFETY_CONCLUSION = [
+  /\b(?:will|would|cannot|can ?not|can't|won't|does not|do not|did not|is not|are not|never)\s+(?:\w+\s+){0,2}(?:burn|ignite|catch fire|combust|spread)\b/i,
+  /\bno\s+(?:extinguisher|suppression|suppressant|detection|detector|ventilation|fire protection)\b[^.]{0,40}\b(?:needed|necessary|required)\b/i,
+  /\b(?:extinguishers?|suppression|detectors?|detection|ventilation)\s+(?:is|are)\s+(?:not|un)\s*(?:needed|necessary|required)\b/i,
+  /\b(?:non-?flammable|nonflammable|fire-?proof|flame-?proof|fire-?safe|inherently safe|completely safe|perfectly safe|guaranteed?|certif(?:y|ied|ies))\b/i,
+  /\b(?:is|are|will be|would be)\s+safe\b/i,
+];
+
+export function safetyConclusion(text: string): boolean {
+  return SAFETY_CONCLUSION.some((re) => re.test(text));
+}
+
+/** Kinds that report what NASA found or measured: they must quote NASA's own text. */
+const NEEDS_NASA = new Set(["Reported finding", "Measured data", "Comparison", "Equipment implication"]);
+
 export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): GroundingReport {
   const byId = new Map(pkg.sources.map((s) => [s.id, s]));
   const basePool = [...numbersIn(byId.get("scenario")?.text ?? ""), ...EARTH_REFERENCE];
@@ -138,8 +158,11 @@ export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): Groundin
     if (kind === "Comparison" && new Set(citations.map((x) => investigationOf(x.source)).filter((id) => id !== "scenario" && !id.startsWith("limitation"))).size < 2) {
       problems.push("A comparison must cite two or more investigations.");
     }
-    if (kind === "Equipment implication" && !citations.some((x) => x.origin === "nasa")) {
-      problems.push("An equipment implication must quote NASA text (a PSI record or run-table row).");
+    if (NEEDS_NASA.has(kind) && !citations.some((x) => x.origin === "nasa")) {
+      problems.push(`A ${kind.toLowerCase()} must quote NASA text (a PSI record or run-table row), not only EMBER's own summaries.`);
+    }
+    if (safetyConclusion(`${c.text} ${c.implication ?? ""}`)) {
+      problems.push("States a safety conclusion (that something will not burn, is safe, or needs no detection, suppression or ventilation). EMBER never draws one.");
     }
     if (kind === "Measured data" && !citations.some((x) => isTableRow(x.source))) {
       problems.push("Measured data must quote a NASA run-table row.");
@@ -158,6 +181,7 @@ export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): Groundin
   const summaryLoose = numbersIn(answer.summary.text).filter((n) => !isCount(n) && !traces(n, summaryPool));
   if (summaryLoose.length) summaryProblems.push(`Numbers ${summaryLoose.join(", ")} not found in the summary's sources or scenario.`);
   if (leaksId(answer.summary.text)) summaryProblems.push("Summary mentions an internal source id.");
+  if (safetyConclusion(answer.summary.text)) summaryProblems.push("Summary states a safety conclusion, which EMBER never draws.");
 
   const accepted = claims.filter((c) => c.accepted);
   const excerpts = accepted.flatMap((c) => c.citations);

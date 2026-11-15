@@ -12,7 +12,7 @@ function goodAnswer() {
   const o2 = pkg.sources.find((s) => s.id === "bass-ii:oxygenPct")!;
   return {
     summary: { text: "BASS-II is the closest recorded match.", sources: ["bass-ii:ranking"] },
-    claims: [{ kind: "Reported finding", text: "BASS-II recorded oxygen from 13.6 to 22.2%.", implication: "", citations: [{ source: o2.id, excerpt: o2.text.slice(0, 45) }] }],
+    claims: [{ kind: "Interpretation", text: "BASS-II recorded oxygen from 13.6 to 22.2%.", implication: "", citations: [{ source: o2.id, excerpt: o2.text.slice(0, 45) }] }],
     openQuestions: [],
   };
 }

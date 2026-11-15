@@ -20,6 +20,8 @@ Write 3 to 6 claims. For each claim, first choose the sources and copy the excer
 - Prefer NASA sources. Include at least one Measured data claim when :rowN sources exist, and at least one Research gap claim.
 - Objectives describe what was planned, not results. Do not present them as findings.
 - Never predict flammability, flame spread, extinction or fire risk, and never give probabilities, thresholds, approvals or procedures. Implications are research considerations, not engineering instructions.
+- Never state a safety conclusion: that a material will not burn or ignite, that something is safe, fire-safe or non-flammable, or that detection, suppression or ventilation is not needed. The checker rejects any claim that does.
+- A "Reported finding", "Measured data", "Comparison" or "Equipment implication" must quote at least one "nasa" source. Do not restate EMBER's ranking or summaries as a finding; use "Interpretation" or "Research gap" for those.
 - Distinguish microgravity from partial gravity, burner oxidizer from cabin air (CFI-G), gas emulators from solid materials (BRE), and marginal ranges from joint test conditions.
 
 The summary is one or two sentences and lists the source ids it rests on. openQuestions lists up to 4 specific questions the evidence cannot answer.`;

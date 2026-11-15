@@ -17,7 +17,8 @@
     "record:demo": "tsx scripts/record-demo.ts",
     "video:record": "node scripts/record-video.mjs",
     "preview:demo": "vite preview --mode demo --port 4173 --strictPort",
-    "build:api": "node scripts/build-api.mjs"
+    "build:api": "node scripts/build-api.mjs",
+    "recheck:recorded": "tsx scripts/recheck-recorded.ts"
   },
   "dependencies": {
     "@vercel/functions": "^3.3.0",
