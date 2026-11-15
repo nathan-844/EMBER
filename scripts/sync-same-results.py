@@ -7,10 +7,17 @@ it from PSI, records its SHA-256, and stores the sheet "Reduced data sheet" as s
 PSI-101-1.json in the same form as the CSV run tables (header plus rows of cells as written).
 Numbers are written at the precision the workbook stores them.
 
-Usage: python3 scripts/sync-same-results.py [--from FILE]   (needs openpyxl; network for PSI)
+Usage: python3 scripts/sync-same-results.py [--from FILE]
+       (needs the package pinned in scripts/requirements.txt; network access to psi.nasa.gov
+       unless --from names a local copy of the workbook)
 Then: npm run data:all
+
+The sheet's results are Excel formulas. This script reads the values Excel last calculated and
+saved with the file ("cached values"); it does not recalculate them. A formula cell with no cached
+value would silently look blank, so the script counts formula cells and stops if any lacks one.
 """
 import hashlib
+import io
 import json
 import sys
 import urllib.parse
@@ -48,25 +55,39 @@ def cell(v) -> str:
 
 def main() -> None:
     src = sys.argv[sys.argv.index("--from") + 1] if "--from" in sys.argv else None
-    data = open(src, "rb").read() if src else download()
+    if src:
+        with open(src, "rb") as f:
+            data = f.read()
+    else:
+        data = download()
     sha = hashlib.sha256(data).hexdigest()
-    tmp = "/tmp/same-results.xlsx" if not src else src
-    if not src:
-        open(tmp, "wb").write(data)
-    wb = openpyxl.load_workbook(tmp, read_only=True, data_only=True)
-    ws = wb[SHEET]
-    rows = list(ws.iter_rows(values_only=True))
+    # Read from memory: no temporary file, so the script behaves the same on every platform.
+    values = openpyxl.load_workbook(io.BytesIO(data), read_only=True, data_only=True)[SHEET]
+    formulas = openpyxl.load_workbook(io.BytesIO(data), read_only=True, data_only=False)[SHEET]
+    rows = list(values.iter_rows(values_only=True))
+    formula_rows = list(formulas.iter_rows(values_only=True))
     header = [cell(h).strip() for h in rows[HEADER_ROW - 1]]
     while header and not header[-1]:
         header.pop()
     out = []
+    formula_cells = 0
+    uncached = []
     for n, r in enumerate(rows[HEADER_ROW:], start=HEADER_ROW + 1):
-        cells = [cell(v) for v in r[: len(header)]]
-        if r[0] in (1, 2):  # flight 1 = SAME, 2 = SAME-R; blank lines and notes are skipped
-            out.append({"sourceRow": n, "cells": cells})
-    json.dump({"header": header, "rows": out}, open(f"src/data/tables/{TABLE_ID}.json", "w"))
+        if r[0] not in (1, 2):  # flight 1 = SAME, 2 = SAME-R; blank lines and notes are skipped
+            continue
+        out.append({"sourceRow": n, "cells": [cell(v) for v in r[: len(header)]]})
+        for c, f in enumerate(formula_rows[n - 1][: len(header)]):
+            if isinstance(f, str) and f.startswith("="):
+                formula_cells += 1
+                if r[c] is None:
+                    uncached.append(f"row {n}, column {header[c]!r}")
+    if uncached:
+        sys.exit("Formula cells with no value saved by Excel (open and re-save the workbook, or report it): " + "; ".join(uncached[:10]))
+    with open(f"src/data/tables/{TABLE_ID}.json", "w", encoding="utf-8", newline="\n") as f:
+        json.dump({"header": header, "rows": out}, f)
 
-    manifest = json.load(open("src/data/table-manifest.json"))
+    with open("src/data/table-manifest.json", encoding="utf-8") as f:
+        manifest = json.load(f)
     entry = {
         "id": TABLE_ID,
         "accession": ACCESSION,
@@ -78,12 +99,15 @@ def main() -> None:
         "columns": header,
         "url": f"{BASE}/physci/repo/data/investigations/{ACCESSION}",
         "origin": f"Live PSI download of the workbook; sheet \"{SHEET}\", rows with flight 1 (SAME) or 2 (SAME-R)",
+        "formulaCells": formula_cells,
+        "values": "values Excel last calculated and saved in the file; not recalculated",
     }
     manifest["tables"] = [t for t in manifest["tables"] if t["id"] != TABLE_ID] + [entry]
     manifest["tables"].sort(key=lambda t: (int(t["accession"].split("-")[1]), t["id"]))
-    json.dump(manifest, open("src/data/table-manifest.json", "w"), indent=2, ensure_ascii=False)
-    open("src/data/table-manifest.json", "a").write("\n")
-    print(f"{TABLE_ID}: {len(out)} rows from {SHEET!r}, SHA-256 {sha[:12]}")
+    with open("src/data/table-manifest.json", "w", encoding="utf-8", newline="\n") as f:
+        json.dump(manifest, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    print(f"{TABLE_ID}: {len(out)} rows from {SHEET!r}, {formula_cells} formula cells all with saved values, SHA-256 {sha[:12]}")
 
 
 if __name__ == "__main__":

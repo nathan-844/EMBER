@@ -11,28 +11,41 @@ export interface CompactRow {
   investigation: string;
   kind: RowKind;
   kindReason?: string;
+  /** Reviewed experiment id; rows sharing it observe the same run. Absent: the row is its own experiment. */
+  experiment?: string;
   fuel: FuelClass | null;
   material: string;
-  /** Ambient oxygen (%): the single value, or the top of a listed range. Null when not recorded. */
+  /** Ambient oxygen (%) when the cell gives one value. Null when not recorded or when it gives several (see o2Span). */
   o2: number | null;
+  /** Lowest and highest value when the cell gives a range, a start-to-end drift or a list. Never one exact value. */
+  o2Span?: [number, number];
   psi: number | null;
+  psiSpan?: [number, number];
   flowCms: number | null;
+  flowSpan?: [number, number];
   outcome: Outcome;
   flags: string[];
   cells: [string, string][];
 }
 
-const top = (q?: { v: number | null; values?: number[] }) => (typeof q?.v === "number" ? q.v : q?.values?.length ? Math.max(...q.values) : null);
-const r2 = (v: number | null) => (v === null ? null : Number(v.toFixed(2)));
+type Q = { v: number | null; values?: number[] } | undefined;
+/** The single value, at full precision: rounding is for display only and never decides a match. */
+const one = (q: Q) => (typeof q?.v === "number" ? q.v : null);
+const span = (q: Q): [number, number] | undefined => (q?.values?.length ? [Math.min(...q.values), Math.max(...q.values)] : undefined);
 
 export function compactAtlas(atlas: Atlas): CompactRow[] {
   return atlas.rows.map((r) => {
     const c = citedRow(r);
     const valueFlags = [r.o2Pct, r.o2PctEnd, r.burnerO2Pct, r.pressurePsi, r.flowCms, ...Object.values(r.measures), ...Object.values(r.diluent ?? {})].flatMap((q) => q?.flags ?? []);
+    const o2Span = span(r.o2Pct), psiSpan = span(r.pressurePsi), flowSpan = span(r.flowCms);
     return {
       id: r.id, source: c.source, url: c.url, investigation: r.investigation, kind: r.rowKind,
       ...(r.rowKindReason ? { kindReason: r.rowKindReason } : {}),
-      fuel: r.fuelClass, material: c.material, o2: r2(top(r.o2Pct)), psi: r2(top(r.pressurePsi)), flowCms: r2(top(r.flowCms)),
+      ...(r.experiment ? { experiment: r.experiment.id } : {}),
+      fuel: r.fuelClass, material: c.material,
+      o2: one(r.o2Pct), ...(o2Span ? { o2Span } : {}),
+      psi: one(r.pressurePsi), ...(psiSpan ? { psiSpan } : {}),
+      flowCms: one(r.flowCms), ...(flowSpan ? { flowSpan } : {}),
       outcome: r.outcome.value, flags: [...new Set([...r.flags, ...valueFlags])].sort(), cells: c.cells,
     };
   });

@@ -1,11 +1,21 @@
 {
   "recordedAt": "2026-11-15",
   "node": "v22.23.4",
+  "code": {
+    "parentCommit": "e08de4d2c12d73e73fdb84de18fe147ac5366246",
+    "sourceTreeSha256": "2ec5eb2fd24c4572c1d33262970f0a65e0491b1daca6dbf6ce1e512c241c93cd",
+    "files": 218,
+    "uncommittedChanges": 49
+  },
+  "dataSnapshot": {
+    "id": "3942bb12dee7",
+    "sha256": "3942bb12dee72693dd611ae22399bc732390fc09b10b621aaed2dc3e5f356d2b"
+  },
   "tests": {
-    "passed": 466,
+    "passed": 513,
     "failed": 0,
-    "total": 466,
-    "files": 27,
+    "total": 513,
+    "files": 28,
     "names": [
       {
         "file": "server/analyze.test.ts",
@@ -743,6 +753,851 @@
         "status": "passed"
       },
       {
+        "file": "components/GuidedTour.test.ts",
+        "title": "guided tour points every step at something the lab renders",
+        "status": "passed"
+      },
+      {
+        "file": "components/GuidedTour.test.ts",
+        "title": "guided tour keeps each step short",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief includes the computed O2 partial pressure",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief lists every ranked investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief cites the PSI record of every ranked investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief states it is not a safety certification",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "baseline comparison is empty when nothing changed",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "baseline comparison reports score shifts when oxygen changes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "csv export has one row per ranked investigation and condition, with sources",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "csv export quotes cells containing commas or quotes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts manifest, recounted source rows: every stored NASA row, plus the NTRS samples",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts manifest, recounted observations and experiments are different numbers, and each is right",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts manifest, recounted test-row breakdowns",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts manifest, recounted findings are listed, not summed: their samples overlap",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts manifest, recounted carries a snapshot id that is the hash of the data files it names",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "exports name their snapshot the evidence brief states the snapshot id and its full hash",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "exports name their snapshot every line of the scenario CSV carries the snapshot id",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs README.md: /every NASA source row \\(([\\d,]+) from (\\d+) PSI tables/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs README.md: /([\\d,]+) test rows that\\s+observe ([\\d,]+) distinct experiments/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs README.md: /(\\d+) data-quality issues EMBER found/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs README.md: /measured findings\\*\\* - (\\w+) results/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/FEATURES.md: /in one schema: ([\\d,]+) records\\. ([\\d,]+) are test rows, which\\s+observe ([\\d,]+) distinct experiments/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/FEATURES.md: /(\\d+) are supplement rows/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/FEATURES.md: /The rest are (\\d+)\\s+session summaries, (\\d+) test-matrix rows and (\\d+) asides/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/FEATURES.md: /(\\d+) issues in (\\d+) of the (\\d+) tables: (\\d+) likely errors/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/FEATURES.md: /and (\\d+) quirks/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/FEATURES.md: /from \\d+ of the (\\d+) stored NASA PSI/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/DATA.md: /([\\d,]+) PSI rows plus the (\\d+) Saffire IV–VI samples from the NTRS paper, ([\\d,]+) records/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/DATA.md: /\\*\\*([\\d,]+) test rows\\*\\* are observations of \\*\\*([\\d,]+) distinct experiments\\*\\*/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/DATA.md: /The other ([\\d,]+) test rows are taken as one experiment each/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/DATA.md: /\\*\\*(\\d+) supplement rows\\*\\*/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/DATA.md: /\\*\\*(\\d+) session rows\\*\\*, \\*\\*(\\d+) matrix rows\\*\\* and \\*\\*(\\d+) asides\\*\\*/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/ATLAS-DATA-CARD.md: /([\\d,]+) records: ([\\d,]+) test rows, (\\d+) supplement rows[^,]*, (\\d+) per-day session summaries, (\\d+) test-matrix rows and (\\d+) non-test lines/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/ATLAS-DATA-CARD.md: /observe ([\\d,]+) distinct experiments: SAME and SAME-R measured (\\d+) runs a second time/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/ATLAS-DATA-CARD.md: /Test rows by fuel: ([\\d,]+) gas, (\\d+) solid, (\\d+) liquid\\. (\\d+) test rows have a recorded outcome/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/ATLAS-DATA-CARD.md: /Only (\\d+) of (\\d+) solid-material test rows record pressure/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/ATLAS-DATA-CARD.md: /`audit\\.json` \\| (\\d+) data-quality issues/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/ATLAS-DATA-CARD.md: /combustion science: (\\d+) tables from (\\d+) investigation records/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/counts.test.ts",
+        "title": "counts quoted in the docs docs/ATLAS-DATA-CARD.md: /([\\d,]+) PSI rows in all/",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "scaledDistance is 1 at the edge of the window and 0 on the scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "scaledDistance is null when a needed value is missing, and uses oxygen alone when the scenario has no pressure",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests separates joint matches from oxygen-only matches",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests returns null without an oxygen level",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests lunar habitat: the only solid tests near 30% O₂ and 10.2 psi are the Saffire IV–VI paper samples",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests ISS: no PSI solid test records pressure, so solids are oxygen-only matches there",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "rows that record a range, not one value places a range by its farthest end, so it is near only when the whole range is",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "rows that record a range, not one value never reduces a real range to one number in the browser copy",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "rows that record a range, not one value matches on unrounded values: a test just outside the window stays outside",
+        "status": "passed"
+      },
+      {
+        "file": "lib/evidence.test.ts",
+        "title": "measured findings as AI evidence offers the findings that draw on the ranked investigations, with the generated claim as text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/evidence.test.ts",
+        "title": "measured findings as AI evidence puts them in the package for a lunar habitat with liquid fuel",
+        "status": "passed"
+      },
+      {
+        "file": "lib/evidence.test.ts",
+        "title": "measured findings as AI evidence lets the checker accept an exact quote of a finding and reject a changed number",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "run tables every investigation profile has at least one stored NASA table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "run tables reads units from NASA headers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed Saffire-I held thickness, sample size, air flow and igniter fixed and varied flow direction",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed Saffire-II exposes microgravity and 1 g results as result columns",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed drops physically impossible condition values, as the ranked ranges do",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed treats a list of levels repeated in every row as a test matrix, not a fixed value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed keeps run ids and dates out of the varied list",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed treats FLEX's lone dashes as 'no measurement' rather than as a value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "full-row CSV has one line per filled cell with the source table and row",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "full-row CSV converts ranked condition columns into the app's unit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "full-row CSV keeps the cell exactly as NASA wrote it",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points draws BASS-II from its run table, with cabin pressure marked as assumed",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points has no solid-material point above 22.2% oxygen",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points pairs oxygen and pressure from the same row and skips rows whose pairing is unknown",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points names profiles whose oxygen is only a written approximation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units flags BASS-II's 40.4% final oxygen reading as an outlier, without changing it",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units flags BRE's 3400% typo as outside physical limits",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units marks BASS-II fan and air displays as uncalibrated, with no harmonised value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units converts FLEX pressure from mmHg to psia",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "evidence package is built from the scenario and includes NASA text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "evidence package labels run-table ranges as EMBER-computed NASA data and curated ranges as EMBER",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check accepts a verbatim excerpt with traceable numbers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects a paraphrased excerpt",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects an invented number",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check allows numbers from the scenario and rounding of source numbers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects citations to sources outside the package",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check marks the answer partial when only some claims pass",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check withholds only the summary when it has an untraceable number",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check normalizes typographic quotes, dashes and spacing only",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "server scenario parsing accepts a preset scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "server scenario parsing rejects out-of-range or unknown values",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds requires a comparison to cite two investigations",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds rejects safety conclusions even with valid quotes (judge's fabricated claims)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds allows ordinary fire-safety wording",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds requires measured data to quote a table row",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds checks numbers in the implication too",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds allows Earth reference values",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds treats an unknown kind as an interpretation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds prefers the report with more kept claims",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds rejects claims and summaries that show internal source ids",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "equipment implications must quote NASA text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/landing.test.ts",
+        "title": "landing page facts reads the solid-material oxygen ceiling from the NASA run tables",
+        "status": "passed"
+      },
+      {
+        "file": "lib/landing.test.ts",
+        "title": "landing page facts finds droplet and gas-flame tables that reach a 30% oxygen atmosphere",
+        "status": "passed"
+      },
+      {
+        "file": "lib/landing.test.ts",
+        "title": "landing page facts shows a rejected claim that is really in the recorded answers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations flags partial gravity for a lunar habitat",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations does not flag partial gravity in orbit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations always warns that overlapping ranges are not joint coverage",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations flags elevated oxygen nobody covers when the fuel is unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations states the Moon-base finding: no solid-material test reaches 30% oxygen",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations adds the published Saffire V-VI runs (NTRS) after the PSI statement, labelled and unscored",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations does not mention Saffire for droplet or gas-flame fuels",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations cites NASA for the partial-gravity caveat and does not claim the 0 g/1 g bound fails",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations drops the material caveat once material is set",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight is null when nothing ranks",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight names the lead investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight never claims coverage from one matching condition on the Moon",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight reports full coverage only when every specified condition matches",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials notes when a material appears in a PSI run table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials notes when no run table lists the material",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials does not say 'covers all' about a single specified condition",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "ventilation in elevated oxygen warns for the 30% lunar habitat, citing BRE",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "ventilation in elevated oxygen does not warn for cabin air",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "gap wording does not repeat a single tested value as its own nearest value, or give a 'nearest' for microgravity",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "challenge highlights states CFI-G's 85% burner oxygen from the NASA inverse-flame table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "challenge highlights names E-FIELD as the closest partial-gravity analogue, citing the challenge",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "empty scenario asks for a condition instead of saying nothing matches",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring caps conditions at 75 and total at 100",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring unknown profile ranges earn no points",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring unspecified inputs earn no points for anyone",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring excludes investigations that do not address the question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring adjacent research scores lower and can be switched off",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking ties share a rank",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking lists every same-fuel study first, then sorts by descending total within each group",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking puts a same-fuel study ahead of a higher-scoring other-fuel study",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking uses one group when no fuel is set",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking gives a curated estimate two thirds of a measured range's points",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking leads with a solid-fuel study or a declared solid emulator for a lunar prevention scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking ranks BRE, the only PSI data at the 30% / 10.2 psia exploration atmosphere, first for the Moon habitat",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking gives different leads for cabin air, the Moon habitat and a 100% O2 spacesuit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking detection questions surface SAME and SAME-R",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking every curated profile has a unique id",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking never ranks a different fuel type as tied with the leader (lunar habitat, solid fuel)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "measured data against estimates scores a near miss on a NASA-table range the same as a match inside a curated estimate",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "measured data against estimates lists Saffire-I and II (measured oxygen) before Saffire-III (estimated oxygen) for ISS detection",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "Ask EMBER questions tidies whitespace and control characters, and treats blank as no question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "Ask EMBER questions rejects non-strings, very short and over-long questions",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "Ask EMBER questions keys a question apart from the plain analysis, ignoring case",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses are keyed only by unedited presets, so a replay always matches what the user sees",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses only store answers that passed the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses cover the whole analysis and every suggested question on each preset's opening screen",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses only list presets as awaiting recording while they have none",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses changes the key when any ranking input changes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes runs two changes per specified numeric input and one removal per specified input",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes runs no probes for an empty custom scenario without fuel",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes held counts never exceed totals for every preset and question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes dependencies are exactly the removals that moved the lead",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes never perturbs below zero",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes re-ranks under every alternative point scheme",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes keeps a lead that matches every condition under all schemes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights tries all 128 corners plus the defaults and keeps the default rank inside the range",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights finds ranks that hold and ranks that move",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights widens or keeps the range as the swing grows, and is a single rank with no swing",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "rank stability under ±20% weights says plainly whether a rank holds",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets lunar habitat follows the challenge atmosphere",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets custom preset leaves every condition unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets keeps question and fuel when switching environment",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets clears material, thickness and flow direction when switching environment",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets every preset has a unique id",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure is 3.06 psia for 30% at 10.2 psi",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure is null when an input is unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure 30% O2 is more than a 40% increase over Earth air",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0 g is microgravity",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0.166 g is partial",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0.38 g is partial",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 1 g is earth",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime null g is unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure against Earth puts the lunar-base atmosphere at Earth's partial pressure with 43% more oxygen fraction",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure against Earth says when a richer atmosphere still has less oxygen pressure, or more",
+        "status": "passed"
+      },
+      {
         "file": "data/applications.test.ts",
         "title": "equipment links detect-suppress-models quotes its NASA PSI record word for word",
         "status": "passed"
@@ -1393,691 +2248,6 @@
         "status": "passed"
       },
       {
-        "file": "components/GuidedTour.test.ts",
-        "title": "guided tour points every step at something the lab renders",
-        "status": "passed"
-      },
-      {
-        "file": "components/GuidedTour.test.ts",
-        "title": "guided tour keeps each step short",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief includes the computed O2 partial pressure",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief lists every ranked investigation",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief cites the PSI record of every ranked investigation",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief states it is not a safety certification",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "baseline comparison is empty when nothing changed",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "baseline comparison reports score shifts when oxygen changes",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "csv export has one row per ranked investigation and condition, with sources",
-        "status": "passed"
-      },
-      {
-        "file": "lib/brief.test.ts",
-        "title": "csv export quotes cells containing commas or quotes",
-        "status": "passed"
-      },
-      {
-        "file": "lib/coverage.test.ts",
-        "title": "scaledDistance is 1 at the edge of the window and 0 on the scenario",
-        "status": "passed"
-      },
-      {
-        "file": "lib/coverage.test.ts",
-        "title": "scaledDistance is null when a needed value is missing, and uses oxygen alone when the scenario has no pressure",
-        "status": "passed"
-      },
-      {
-        "file": "lib/coverage.test.ts",
-        "title": "nearbyTests separates joint matches from oxygen-only matches",
-        "status": "passed"
-      },
-      {
-        "file": "lib/coverage.test.ts",
-        "title": "nearbyTests returns null without an oxygen level",
-        "status": "passed"
-      },
-      {
-        "file": "lib/coverage.test.ts",
-        "title": "nearbyTests lunar habitat: the only solid tests near 30% O₂ and 10.2 psi are the Saffire IV–VI paper samples",
-        "status": "passed"
-      },
-      {
-        "file": "lib/coverage.test.ts",
-        "title": "nearbyTests ISS: no PSI solid test records pressure, so solids are oxygen-only matches there",
-        "status": "passed"
-      },
-      {
-        "file": "lib/evidence.test.ts",
-        "title": "measured findings as AI evidence offers the findings that draw on the ranked investigations, with the generated claim as text",
-        "status": "passed"
-      },
-      {
-        "file": "lib/evidence.test.ts",
-        "title": "measured findings as AI evidence puts them in the package for a lunar habitat with liquid fuel",
-        "status": "passed"
-      },
-      {
-        "file": "lib/evidence.test.ts",
-        "title": "measured findings as AI evidence lets the checker accept an exact quote of a finding and reject a changed number",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "run tables every investigation profile has at least one stored NASA table",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "run tables reads units from NASA headers",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed Saffire-I held thickness, sample size, air flow and igniter fixed and varied flow direction",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed Saffire-II exposes microgravity and 1 g results as result columns",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed drops physically impossible condition values, as the ranked ranges do",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed treats a list of levels repeated in every row as a test matrix, not a fixed value",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed keeps run ids and dates out of the varied list",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed treats FLEX's lone dashes as 'no measurement' rather than as a value",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "full-row CSV has one line per filled cell with the source table and row",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "full-row CSV converts ranked condition columns into the app's unit",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "full-row CSV keeps the cell exactly as NASA wrote it",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points draws BASS-II from its run table, with cabin pressure marked as assumed",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points has no solid-material point above 22.2% oxygen",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points pairs oxygen and pressure from the same row and skips rows whose pairing is unknown",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points names profiles whose oxygen is only a written approximation",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units flags BASS-II's 40.4% final oxygen reading as an outlier, without changing it",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units flags BRE's 3400% typo as outside physical limits",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units marks BASS-II fan and air displays as uncalibrated, with no harmonised value",
-        "status": "passed"
-      },
-      {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units converts FLEX pressure from mmHg to psia",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "evidence package is built from the scenario and includes NASA text",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "evidence package labels run-table ranges as EMBER-computed NASA data and curated ranges as EMBER",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check accepts a verbatim excerpt with traceable numbers",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check rejects a paraphrased excerpt",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check rejects an invented number",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check allows numbers from the scenario and rounding of source numbers",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check rejects citations to sources outside the package",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check marks the answer partial when only some claims pass",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check withholds only the summary when it has an untraceable number",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check normalizes typographic quotes, dashes and spacing only",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "server scenario parsing accepts a preset scenario",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "server scenario parsing rejects out-of-range or unknown values",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds requires a comparison to cite two investigations",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds rejects safety conclusions even with valid quotes (judge's fabricated claims)",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds allows ordinary fire-safety wording",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds requires measured data to quote a table row",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds checks numbers in the implication too",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds allows Earth reference values",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds treats an unknown kind as an interpretation",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds prefers the report with more kept claims",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds rejects claims and summaries that show internal source ids",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "equipment implications must quote NASA text",
-        "status": "passed"
-      },
-      {
-        "file": "lib/landing.test.ts",
-        "title": "landing page facts reads the solid-material oxygen ceiling from the NASA run tables",
-        "status": "passed"
-      },
-      {
-        "file": "lib/landing.test.ts",
-        "title": "landing page facts finds droplet and gas-flame tables that reach a 30% oxygen atmosphere",
-        "status": "passed"
-      },
-      {
-        "file": "lib/landing.test.ts",
-        "title": "landing page facts shows a rejected claim that is really in the recorded answers",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations flags partial gravity for a lunar habitat",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations does not flag partial gravity in orbit",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations always warns that overlapping ranges are not joint coverage",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations flags elevated oxygen nobody covers when the fuel is unspecified",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations states the Moon-base finding: no solid-material test reaches 30% oxygen",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations adds the published Saffire V-VI runs (NTRS) after the PSI statement, labelled and unscored",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations does not mention Saffire for droplet or gas-flame fuels",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations cites NASA for the partial-gravity caveat and does not claim the 0 g/1 g bound fails",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations drops the material caveat once material is set",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight is null when nothing ranks",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight names the lead investigation",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight never claims coverage from one matching condition on the Moon",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight reports full coverage only when every specified condition matches",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "tested materials notes when a material appears in a PSI run table",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "tested materials notes when no run table lists the material",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "tested materials does not say 'covers all' about a single specified condition",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "ventilation in elevated oxygen warns for the 30% lunar habitat, citing BRE",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "ventilation in elevated oxygen does not warn for cabin air",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "gap wording does not repeat a single tested value as its own nearest value, or give a 'nearest' for microgravity",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "challenge highlights states CFI-G's 85% burner oxygen from the NASA inverse-flame table",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "challenge highlights names E-FIELD as the closest partial-gravity analogue, citing the challenge",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "empty scenario asks for a condition instead of saying nothing matches",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring caps conditions at 75 and total at 100",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring unknown profile ranges earn no points",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring unspecified inputs earn no points for anyone",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring excludes investigations that do not address the question",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring adjacent research scores lower and can be switched off",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking ties share a rank",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking lists every same-fuel study first, then sorts by descending total within each group",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking puts a same-fuel study ahead of a higher-scoring other-fuel study",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking uses one group when no fuel is set",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking gives a curated estimate two thirds of a measured range's points",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking leads with a solid-fuel study or a declared solid emulator for a lunar prevention scenario",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking ranks BRE, the only PSI data at the 30% / 10.2 psia exploration atmosphere, first for the Moon habitat",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking gives different leads for cabin air, the Moon habitat and a 100% O2 spacesuit",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking detection questions surface SAME and SAME-R",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking every curated profile has a unique id",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking never ranks a different fuel type as tied with the leader (lunar habitat, solid fuel)",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "measured data against estimates scores a near miss on a NASA-table range the same as a match inside a curated estimate",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "measured data against estimates lists Saffire-I and II (measured oxygen) before Saffire-III (estimated oxygen) for ISS detection",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "Ask EMBER questions tidies whitespace and control characters, and treats blank as no question",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "Ask EMBER questions rejects non-strings, very short and over-long questions",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "Ask EMBER questions keys a question apart from the plain analysis, ignoring case",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses are keyed only by unedited presets, so a replay always matches what the user sees",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses only store answers that passed the grounding check",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses cover the whole analysis and every suggested question on each preset's opening screen",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses only list presets as awaiting recording while they have none",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses changes the key when any ranking input changes",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes runs two changes per specified numeric input and one removal per specified input",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes runs no probes for an empty custom scenario without fuel",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes held counts never exceed totals for every preset and question",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes dependencies are exactly the removals that moved the lead",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes never perturbs below zero",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes re-ranks under every alternative point scheme",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes keeps a lead that matches every condition under all schemes",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "rank stability under ±20% weights tries all 128 corners plus the defaults and keeps the default rank inside the range",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "rank stability under ±20% weights finds ranks that hold and ranks that move",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "rank stability under ±20% weights widens or keeps the range as the swing grows, and is a single rank with no swing",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "rank stability under ±20% weights says plainly whether a rank holds",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets lunar habitat follows the challenge atmosphere",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets custom preset leaves every condition unspecified",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets keeps question and fuel when switching environment",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets clears material, thickness and flow direction when switching environment",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets every preset has a unique id",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure is 3.06 psia for 30% at 10.2 psi",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure is null when an input is unspecified",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure 30% O2 is more than a 40% increase over Earth air",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 0 g is microgravity",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 0.166 g is partial",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 0.38 g is partial",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 1 g is earth",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime null g is unspecified",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure against Earth puts the lunar-base atmosphere at Earth's partial pressure with 43% more oxygen fraction",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure against Earth says when a richer atmosphere still has less oxygen pressure, or more",
-        "status": "passed"
-      },
-      {
         "file": "lib/atlas/atlas.test.ts",
         "title": "atlas coverage has one record per stored NASA row, plus each NTRS Saffire run",
         "status": "passed"
@@ -2243,6 +2413,61 @@
         "status": "passed"
       },
       {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements counts test rows and experiments separately",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements SAME: 45 test rows observe 29 runs; SAME-R: 109 observe 67",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements never gives two fresh rows, or two aged rows, of one table the same run identity",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements gives every aged row a fresh row of the same run in the same table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements keeps SAME-R workbook rows as supplements of tests in the run table, and reports the two runs that do not line up",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements does not count SAME's 8-line matrix as tests",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is tells a list, a range and a start-to-end drift apart, from how NASA wrote the cell",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is gives a shape to every multi-valued quantity and to nothing else",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is says how a number was obtained when it was not simply read",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is says why a key condition is absent: an empty cell, or a table with no such column",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is reads a zero particle diameter as missing only where the row has no particle count to compute it from",
+        "status": "passed"
+      },
+      {
         "file": "lib/findings/findings.test.ts",
         "title": "stats median",
         "status": "passed"
@@ -2336,6 +2561,26 @@
         "file": "lib/findings/findings.test.ts",
         "title": "uncertainty states how sure every finding is, and how that was worked out",
         "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "F8 pairing by run identity accounts for every run that has an aged measurement: paired, or left out with its id and reason",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "F8 pairing by run identity pairs only rows of one run: same flight, material, inlet velocity and heater setting",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "F8 pairing by run identity refuses a run whose identity is ambiguous or whose two rows disagree, instead of guessing",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "F8 pairing by run identity reports the two flights separately and uses the median of per-run ratios",
+        "status": "passed"
       }
     ]
   },
@@ -2352,15 +2597,15 @@
       "src/data/atlas/audit.json",
       "src/data/ntrs-manifest.json"
     ],
-    "value": "bc5d7c5ed7f974bb4b8e8d0e7512d245f6d4760b855a4540282b8f3120e87ff2"
+    "value": "34fb2e904908d3539d9928c816dfc11076b36252ca7283e4b4e2d94ba8301a6b"
   },
   "scoreboard": [
     {
       "id": "tests",
       "label": "Automated tests passing",
       "how": "rerun",
-      "checked": 466,
-      "passed": 466,
+      "checked": 513,
+      "passed": 513,
       "method": "The full Vitest suite: ranking rules, data checks, quote checks, the AI claim checker and the server."
     },
     {

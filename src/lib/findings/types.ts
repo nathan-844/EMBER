@@ -15,12 +15,14 @@ export interface Finding {
   claim: string;
   /** Every number the claim uses, by name. */
   numbers: Record<string, number | string>;
-  /** Tests the finding counts. */
+  /** Tests the finding counts (or runs, when `unit` says so). */
   n: number;
+  /** What `n` counts when it is not test rows, e.g. "runs, each measured twice". */
+  unit?: string;
   /** Atlas row ids the numbers were computed from. */
   rows: string[];
   /** Rows looked at but not used, with the reason. */
-  excluded: { reason: string; count: number }[];
+  excluded: { reason: string; count: number; /** The rows or pairs left out, when the finding lists them one by one. */ ids?: string[] }[];
   /** How the numbers were computed, step by step, in plain words. */
   method: string;
   /** What else differs between the compared tests, or could explain the result. */

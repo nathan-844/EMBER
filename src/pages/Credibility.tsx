@@ -10,6 +10,8 @@ import { profilesWithNormalizedConditions } from "../lib/ranking";
 
 interface VerifyReport {
   recordedAt: string;
+  code?: { parentCommit: string; sourceTreeSha256: string; files: number; uncommittedChanges: number } | null;
+  dataSnapshot?: { id: string; sha256: string };
   node: string;
   tests: { passed: number; failed: number; total: number; files: number; names: { file: string; title: string; status: string }[] };
   dataFingerprint: { algorithm: string; files: string[]; value: string };
@@ -80,6 +82,11 @@ function Scoreboard() {
         </table>
       </div>
       <p className="small muted">The total counts automated checks only; hand checks are listed but not added in. Run <code>npm run verify:report</code> to re-run them and rewrite this table.</p>
+      <p className="small muted">
+        These results belong to data snapshot <code>{report.dataSnapshot?.id ?? "not recorded"}</code>
+        {report.code ? <> and source tree <code>{report.code.sourceTreeSha256.slice(0, 12)}</code> (built on commit <code>{report.code.parentCommit.slice(0, 7)}</code>)</> : null}.
+        They show that the software does what its tests specify. They are not a review of NASA’s measurements or of the scientific reading of them.
+      </p>
     </section>
   );
 }

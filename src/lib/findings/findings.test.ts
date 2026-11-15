@@ -6,6 +6,7 @@ import { buildAtlas } from "../atlas/build";
 import { COMPUTE, computeFindings } from ".";
 import { citedRows } from "./rows";
 import { groundExtent } from "./saffire";
+import { agePairs } from "./same";
 import { bootstrapCI, median, ranks, signTestP, spearman, wilson } from "./stats";
 import type { Finding } from "./types";
 
@@ -209,5 +210,54 @@ describe("uncertainty", () => {
     const f1 = file.findings.find((f) => f.id === "F1")!;
     expect(f1.numbers.groupsIntervalBelowZero as number).toBeLessThanOrEqual(f1.numbers.groupsFallingOxygenMoreFuelLeft as number);
     expect(file.findings.find((f) => f.id === "F3")!.uncertainty.text).toMatch(/sign test/);
+  });
+});
+
+describe("F8 pairing by run identity", () => {
+  const book = atlas.rows.filter((r) => r.source.kind === "psi" && r.source.table === "PSI-101-1");
+  const { pairs, excluded } = agePairs(atlas.rows);
+
+  it("accounts for every run that has an aged measurement: paired, or left out with its id and reason", () => {
+    const agedRuns = new Set(book.filter((r) => r.experiment?.role === "aged").map((r) => r.experiment!.id));
+    const out = excluded.flatMap((e) => e.ids);
+    expect(pairs.length + out.length).toBe(agedRuns.size);
+    expect(new Set([...pairs.map((p) => p.id), ...out])).toEqual(agedRuns);
+    for (const e of excluded) expect(e.ids).toHaveLength(e.count);
+    expect(out.sort()).toEqual(["same-r:kapton:75", "same-r:kapton:85", "same:dbp:36", "same:dbp:38", "same:dbp:39", "same:dbp:40", "same:dbp:42", "same:dbp:43", "same:dbp:44", "same:dbp:45"]);
+    expect(byId("F8").excluded).toEqual(excluded);
+  });
+
+  it("pairs only rows of one run: same flight, material, inlet velocity and heater setting", () => {
+    for (const p of pairs) {
+      expect(p.fresh.experiment!.id).toBe(p.aged.experiment!.id);
+      expect([p.fresh.experiment!.role, p.aged.experiment!.role]).toEqual(["run", "aged"]);
+      expect(p.aged.investigation).toBe(p.fresh.investigation);
+      expect(p.aged.material.raw.trim()).toBe(p.fresh.material.raw.trim());
+      expect(p.aged.flowCms?.v).toBe(p.fresh.flowCms?.v);
+      if (p.t0 !== null && p.t1 !== null) expect(p.t1).toBeGreaterThan(p.t0);
+    }
+  });
+
+  it("refuses a run whose identity is ambiguous or whose two rows disagree, instead of guessing", () => {
+    const some = pairs[0];
+    const clone = (r: typeof some.fresh, patch: object) => ({ ...structuredClone(r), ...patch });
+    // A second fresh row carrying the same identity.
+    const dup = agePairs([...atlas.rows, clone(some.fresh, { id: "dup" })]);
+    expect(dup.pairs.some((p) => p.id === some.id)).toBe(false);
+    expect(dup.excluded.find((e) => /more than one/.test(e.reason))!.ids).toEqual([some.id]);
+    // The aged row at a different inlet velocity.
+    const moved = atlas.rows.map((r) => (r.id === some.aged.id ? clone(r, { flowCms: { ...r.flowCms!, v: (r.flowCms!.v ?? 0) + 1 } }) : r));
+    const diff = agePairs(moved);
+    expect(diff.pairs.some((p) => p.id === some.id)).toBe(false);
+    expect(diff.excluded.find((e) => /disagree on inlet velocity/.test(e.reason))!.ids).toEqual([some.id]);
+  });
+
+  it("reports the two flights separately and uses the median of per-run ratios", () => {
+    const ratio = (name: string) => median(pairs.filter((p) => p.fresh.investigation === name).map((p) => p.d1 / p.d0))!;
+    expect(byId("F8").numbers).toMatchObject({ sameRuns: 8, sameRRuns: 40, sameMedianRatio: Number(ratio("same").toFixed(2)), sameRMedianRatio: Number(ratio("same-r").toFixed(2)) });
+    // The ratio of the two median diameters is a different statistic and is not what the claim reports.
+    const ofMedians = median(pairs.map((p) => p.d1))! / median(pairs.map((p) => p.d0))!;
+    expect(Number(ofMedians.toFixed(2))).not.toBe(byId("F8").numbers.medianRatio);
+    expect(byId("F8").unit).toMatch(/runs/);
   });
 });

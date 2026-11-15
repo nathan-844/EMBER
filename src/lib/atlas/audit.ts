@@ -59,7 +59,7 @@ const FLAGS: Record<string, FlagMeta> = {
   "material-blank": { kind: "gap", title: "Material cell blank on a test row", handling: "Not filled in; the test is reported as \"not stated in NASA's table\"." },
   censored: { kind: "gap", title: "Reading off the instrument's scale", handling: "No number is used; counted separately in F4." },
   "negative-reading": { kind: "note", title: "Negative instrument reading", handling: "Kept as written (air rates below zero are not used as a flow)." },
-  "zero-not-measured": { kind: "gap", title: "Zero written where nothing was measured", handling: "Read as no value, so these rows add nothing to particle-size statistics." },
+  "zero-placeholder": { kind: "gap", title: "Zero written where the sheet holds no value", handling: "Read as no value, so these rows add nothing to particle-size statistics. Raw readings for some of these runs exist elsewhere in NASA's workbook and are not imported." },
   ramped: { kind: "note", title: "Flow marked RAMPED, so the run has no single value", handling: "No number is used for the ramped columns." },
   "not-numeric": { kind: "note", title: "Text in a numeric column", handling: "Kept as text; no number is used." },
   "cell-unit-converted": { kind: "note", title: "Cell states a different unit from its column", handling: "Converted using the unit the cell states." },
@@ -121,19 +121,35 @@ export function buildAudit(atlas: Atlas, tables: Record<string, TableIn>): Audit
 
   // 2. Rows that are not tests, mixed into the test table.
   const asides = new Map<string, (typeof psi)[number][]>();
-  // Result rows kept beside a test listed in another table are reported once, separately (below).
-  const isResult = (r: (typeof psi)[number]) => r.rowKindReason?.startsWith("results of ");
-  for (const r of psi) if (r.rowKind === "aside" && !isResult(r)) asides.set(r.source.table, [...(asides.get(r.source.table) ?? []), r]);
-  const results = psi.filter((r) => r.rowKind === "aside" && isResult(r));
+  for (const r of psi) if (r.rowKind === "aside") asides.set(r.source.table, [...(asides.get(r.source.table) ?? []), r]);
+  // Supplement rows (results of a test another table lists) are reported once, with any mismatch.
+  const results = psi.filter((r) => r.rowKind === "supplement");
   if (results.length) {
     const t = results[0].source.table;
     add({
       kind: "note", table: t, title: "The same tests appear in two NASA files",
-      detail: "NASA's SAME and SAME-R results workbook repeats every SAME-R test that the SAME-R run table already lists (same SAME test number), adding the particle sizes measured.",
-      handling: "The run table's row is the test; the workbook's row is kept beside it as that test's results and never counted as a second test.",
+      detail: "NASA's SAME and SAME-R results workbook repeats the SAME-R tests that the SAME-R run table already lists (same sample type and SAME test number), adding the particle sizes measured.",
+      handling: "The run table's row is the test; the workbook's row is kept beside it as a supplement (that test's results) and never counted as a second test.",
       count: results.length, unit: "rows",
       examples: results.map((r) => ({ where: where(r), raw: r.rowKindReason! })),
     });
+    // The two files should list the same runs. Where they do not, EMBER does not pick a side.
+    const supplementIds = new Set(results.map((r) => r.experiment?.id));
+    const invs = new Set(results.map((r) => r.investigation));
+    const unmatched = results.filter((r) => r.experiment?.match === "unmatched");
+    const noResults = psi.filter((r) => r.rowKind === "test" && invs.has(r.investigation) && r.source.table !== t && r.experiment && !supplementIds.has(r.experiment.id));
+    if (unmatched.length || noResults.length) {
+      add({
+        kind: "note", table: t, title: "Run table and results workbook list different runs",
+        detail: "A run in one NASA file has no counterpart with the same sample type and SAME test number in the other. Either file could be the incomplete or mislabelled one; EMBER cannot tell which from the files alone.",
+        handling: "Unresolved: both rows are kept exactly as written. The run-table row stays a test; the workbook row stays an unmatched supplement. Neither is relabelled.",
+        count: unmatched.length + noResults.length, unit: "rows",
+        examples: [
+          ...unmatched.map((r) => ({ where: where(r), raw: `in the workbook only: ${r.material.raw.trim()} ${String(r.measures.sameTest?.v ?? "")}` })),
+          ...noResults.map((r) => ({ where: where(r), raw: `in the run table only: ${r.material.raw.trim()} ${String(r.measures.sameTest?.v ?? "")}` })),
+        ],
+      });
+    }
   }
   for (const [table, rs] of asides) {
     add({

@@ -8,6 +8,7 @@ run("node", ["scripts/normalize-conditions.mjs"]);
 run("node", ["scripts/index-tables.mjs"]);
 run("npx", ["tsx", "scripts/build-atlas.ts"]);
 run("npx", ["tsx", "scripts/build-findings.ts"]);
+run("npx", ["tsx", "scripts/build-counts.ts"]);
 
 // verify-report.json records a date and a test run, so it is not part of this check.
 // `git diff` compares content after line-ending normalisation, so a CRLF checkout does not count as a change.

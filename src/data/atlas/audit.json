@@ -2,10 +2,10 @@
  "version": "audit-v1",
  "method": "Found while reading every cell of every stored NASA PSI combustion table into the Fire Test Atlas, plus cross-checks: gas fractions that should sum to 1, oxygen before and after a burn, identical rows, repeated identifiers and the same material across tables. Nothing in NASA's files is changed; each issue says how EMBER handles it. The tables were not compared with their source papers.",
  "totals": {
-  "issues": 42,
+  "issues": 43,
   "error": 21,
   "gap": 3,
-  "note": 18,
+  "note": 19,
   "tablesAffected": 16,
   "tablesChecked": 23
  },
@@ -555,9 +555,9 @@
   {
    "kind": "gap",
    "table": "PSI-101-1",
-   "title": "Zero written where nothing was measured",
-   "detail": "A particle diameter or concentration written as 0 on a row where nothing was measured (every result on the row is 0); read as no value, never as zero.",
-   "handling": "Read as no value, so these rows add nothing to particle-size statistics.",
+   "title": "Zero written where the sheet holds no value",
+   "detail": "A particle diameter or geometric spread written as 0. Neither can be 0 for an aerosol, so the 0 stands for a value this sheet does not hold: the row's size results were never reduced here, or its particle counter gave no count. Read as no value, never as zero. It does not mean the run was not measured.",
+   "handling": "Read as no value, so these rows add nothing to particle-size statistics. Raw readings for some of these runs exist elsewhere in NASA's workbook and are not imported.",
    "count": 69,
    "unit": "cells",
    "examples": [
@@ -886,6 +886,27 @@
   {
    "kind": "note",
    "table": "PSI-101-1",
+   "title": "Run table and results workbook list different runs",
+   "detail": "A run in one NASA file has no counterpart with the same sample type and SAME test number in the other. Either file could be the incomplete or mislabelled one; EMBER cannot tell which from the files alone.",
+   "handling": "Unresolved: both rows are kept exactly as written. The run-table row stays a test; the workbook row stays an unmatched supplement. Neither is relabelled.",
+   "count": 2,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-101-1 row 154",
+     "raw": "in the workbook only: Kapton 112"
+    },
+    {
+     "where": "PSI-101-0 row 75",
+     "raw": "in the run table only: Teflon 57"
+    }
+   ],
+   "id": "A38",
+   "accession": "PSI-101"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-101-1",
    "title": "Text in a numeric column",
    "detail": "The cell holds text, not a number; kept as written.",
    "handling": "Kept as text; no number is used.",
@@ -903,15 +924,15 @@
      "raw": "x"
     }
    ],
-   "id": "A38",
+   "id": "A39",
    "accession": "PSI-101"
   },
   {
    "kind": "note",
    "table": "PSI-101-1",
    "title": "The same tests appear in two NASA files",
-   "detail": "NASA's SAME and SAME-R results workbook repeats every SAME-R test that the SAME-R run table already lists (same SAME test number), adding the particle sizes measured.",
-   "handling": "The run table's row is the test; the workbook's row is kept beside it as that test's results and never counted as a second test.",
+   "detail": "NASA's SAME and SAME-R results workbook repeats the SAME-R tests that the SAME-R run table already lists (same sample type and SAME test number), adding the particle sizes measured.",
+   "handling": "The run table's row is the test; the workbook's row is kept beside it as a supplement (that test's results) and never counted as a second test.",
    "count": 109,
    "unit": "rows",
    "examples": [
@@ -932,7 +953,7 @@
      "raw": "results of SAME-R test 51, whose conditions are the test row in PSI-101-0"
     }
    ],
-   "id": "A39",
+   "id": "A40",
    "accession": "PSI-101"
   },
   {
@@ -955,7 +976,7 @@
      "raw": "-5.92"
     }
    ],
-   "id": "A40",
+   "id": "A41",
    "accession": "PSI-107"
   },
   {
@@ -984,7 +1005,7 @@
      "raw": "identical to row 11"
     }
    ],
-   "id": "A41",
+   "id": "A42",
    "accession": "PSI-107"
   },
   {
@@ -1013,7 +1034,7 @@
      "raw": "dataset index: one row per figure in a published paper, not a test"
     }
    ],
-   "id": "A42",
+   "id": "A43",
    "accession": "PSI-142"
   }
  ]

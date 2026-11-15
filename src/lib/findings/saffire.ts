@@ -69,7 +69,7 @@ export function f3EarthVsOrbit(rows: AtlasRow[]): Finding {
       text:
         `If ground and orbit were equally likely to burn further, a split of ${numbers.earthFurther} to ${numbers.orbitFurther} (ties left out) would happen by chance with probability ${numbers.signTestP} (two-sided sign test). ` +
         `${numbers.signTestP < 0.05 ? "That is unlikely by chance for these samples, but they are" : "That could be chance; these are"} only ${numbers.samples} samples of mostly different materials.`,
-      method: "Exact two-sided sign test on the samples that differ; samples that burned the same on the ground and in orbit are left out.",
+      method: "Exact two-sided sign test on the samples that differ; samples that burned the same on the ground and in orbit are left out. Each sample is treated as an independent pair.",
     },
     confounders: [
       "The table does not say how the 1-g tests were set up (orientation, flow), so the ground flame may have been driven by buoyant flow rather than the 20 cm/s forced flow used in orbit.",

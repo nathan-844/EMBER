@@ -81,7 +81,7 @@ export function f4CarbonMonoxide(rows: AtlasRow[]): Finding {
         (offScale
           ? `The ${offScale} burns that pushed CO off the sensor's scale${offScalePmma === offScale ? " (all PMMA)" : ""} are left out of the medians${offScalePmma === offScale ? "; counting them could only raise PMMA's figures" : ""}.`
           : ""),
-      method: "Percentile bootstrap: each group's burns resampled with replacement 2000 times (seeded), medians and their ratio recomputed, middle 95% kept.",
+      method: "Percentile bootstrap: each group's burns resampled with replacement 2000 times (seeded), medians and their ratio recomputed, middle 95% kept. Each burn is treated as independent; burns made in the same session share hardware and conditions and may not be, which would make the interval too narrow. Session grouping has not been assessed.",
     },
     confounders: [
       "Burns differ in length, sample size, airflow and starting oxygen; the change is per burn, not per gram of fuel.",
@@ -158,7 +158,7 @@ export function f7CarbonMonoxideEveryBurn(rows: AtlasRow[]): Finding {
       `Readings NASA marks as off the scale are counted separately, never given a number.`,
     uncertainty: {
       text: `Share of burns where CO rose: 95% interval ${numbers.roseCi}. Median rise: 95% bootstrap interval ${numbers.medianCi} ppm. Off-scale burns are left out of the median, so it is if anything an underestimate.`,
-      method: "Wilson score interval for the share; percentile bootstrap (2000 seeded resamples) for the median.",
+      method: "Wilson score interval for the share; percentile bootstrap (2000 seeded resamples) for the median. Each burn is treated as independent; burns made in the same session share hardware and conditions and may not be, which would make the interval too narrow. Session grouping has not been assessed.",
     },
     confounders: [
       `The glovebox air was not always refreshed between burns: starting CO ranged up to ${numbers.maxStartPpm} ppm (median ${numbers.medianStartPpm} ppm), so some burns ran in air that already held CO.`,

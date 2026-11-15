@@ -75,7 +75,7 @@ export function readQuantity(spec: QSpec, raw: string): Quantity | undefined {
     flags.push("leading-zero");
   } else if (spec.zeroIsMissing && /^\s*0(\.0+)?\s*$/.test(text)) {
     values = [];
-    flags.push("zero-not-measured");
+    flags.push("zero-placeholder");
   } else if (own) {
     values = own.values;
     if (own.flag) flags.push(own.flag);
@@ -89,9 +89,32 @@ export function readQuantity(spec: QSpec, raw: string): Quantity | undefined {
   const ok = limit ? converted.filter(limit) : converted;
   if (ok.length < converted.length) flags.push("out-of-range");
   if (ok.length === 1) q.v = ok[0];
-  if (ok.length > 1) q.values = ok;
+  if (ok.length > 1) {
+    q.values = ok;
+    q.shape = multiShape(text);
+  }
   if (flags.length) q.flags = [...new Set(flags)];
+  const status = quantityStatus(q, factor);
+  if (status) q.status = status;
   return q;
+}
+
+/** What a cell with several numbers means, from how NASA wrote it. */
+export function multiShape(text: string): NonNullable<Quantity["shape"]> {
+  if (/\d\s+to\s+\d/i.test(text)) return "trajectory";
+  if (/\d\s+-\s+\d/.test(text) && !/;|\bor\b|,/.test(text)) return "range";
+  return "list";
+}
+
+const UNUSABLE = ["out-of-range", "leading-zero", "spreadsheet-error", "unit-mismatch", "not-numeric", "ramped"];
+/** How the number was obtained, when it is not simply read as written (see Quantity.status). */
+function quantityStatus(q: Quantity, factor: number): Quantity["status"] {
+  const f = q.flags ?? [];
+  if (f.includes("censored")) return "bound";
+  if (f.includes("zero-placeholder")) return "placeholder";
+  if (q.v === null && !q.values?.length && f.some((x) => UNUSABLE.includes(x))) return "invalid";
+  if ((q.v !== null || q.values?.length) && (factor !== 1 || f.includes("cell-unit-converted"))) return "converted";
+  return undefined;
 }
 
 function readText(spec: TSpec, raw: string): TextValue | undefined {
@@ -146,11 +169,24 @@ function psiRows(id: string, table: TableIn, meta: ManifestIn["tables"][number],
       measures: {},
       flags: [],
     };
+    const exp = spec.experiment?.(get);
+    if (exp && rowKind !== "aside") row.experiment = { id: `${row.investigation}:${exp.key}`, role: exp.role, basis: exp.basis };
     for (const key of ["o2Pct", "o2PctEnd", "burnerO2Pct", "pressurePsi", "flowCms"] as const) {
       const s = spec[key];
       if (!s) continue;
       const q = readQuantity(s, get(s.col));
       if (q) row[key] = q;
+    }
+    // Say why a key condition has no value: the table lacks the column, or the cell is empty.
+    if (rowKind !== "aside") {
+      const absent: NonNullable<AtlasRow["absent"]> = {};
+      for (const key of ["o2Pct", "pressurePsi", "flowCms"] as const) {
+        if (row[key]) continue;
+        // Inverse flames record the burner's oxygen stream instead of an ambient value.
+        if (key === "o2Pct" && row.burnerO2Pct) continue;
+        absent[key] = spec[key] ? "blank" : "not-in-table";
+      }
+      if (Object.keys(absent).length) row.absent = absent;
     }
     if (spec.flowDirection) {
       const t = readText({ col: spec.flowDirection, text: true }, get(spec.flowDirection));
@@ -229,6 +265,9 @@ export function buildAtlas(tables: Record<string, TableIn>, manifest: ManifestIn
     rows.push(...psiRows(meta.id, table, meta, spec));
   }
   rows.push(...ntrsRows());
+  // A supplement row is matched when the run table lists a test with the same experiment identity.
+  const runIds = new Set(rows.filter((r) => r.rowKind === "test" && r.experiment).map((r) => r.experiment!.id));
+  for (const r of rows) if (r.rowKind === "supplement" && r.experiment) r.experiment.match = runIds.has(r.experiment.id) ? "matched" : "unmatched";
   return {
     version: ATLAS_VERSION,
     builtFrom: { manifestSyncedOn: manifest.syncedOn, tables: manifest.tables.length, ntrs: [SAFFIRE_NTRS_SOURCE.ntrsId] },
@@ -236,7 +275,8 @@ export function buildAtlas(tables: Record<string, TableIn>, manifest: ManifestIn
       "One record per NASA source row. Values keep the cell they came from; units are converted only where NASA states the unit, and values outside physical limits are kept as raw text with a flag. Outcomes come only from a table's own outcome column, by the rule recorded on each row. Materials are normalised by a dictionary; inferred materials are marked as such.",
     counts: {
       rows: rows.length,
-      byKind: { test: 0, session: 0, matrix: 0, aside: 0, ...tally(rows, (r) => r.rowKind) } as Record<RowKind, number>,
+      byKind: { test: 0, session: 0, matrix: 0, supplement: 0, aside: 0, ...tally(rows, (r) => r.rowKind) } as Record<RowKind, number>,
+      experiments: experimentCount(rows),
       byFuelClass: tally(rows, (r) => r.fuelClass ?? "none"),
       byOutcome: tally(rows, (r) => r.outcome.value),
     },
@@ -244,11 +284,31 @@ export function buildAtlas(tables: Record<string, TableIn>, manifest: ManifestIn
   };
 }
 
+/**
+ * Distinct experiments among test rows. Rows that observe the same reviewed run (a fresh and an aged
+ * smoke measurement) count once; a row with no reviewed identity counts as its own experiment.
+ */
+export function experimentCount(rows: AtlasRow[]): number {
+  return new Set(rows.filter((r) => r.rowKind === "test").map((r) => r.experiment?.id ?? r.id)).size;
+}
+
 const CSV_BASE = [
-  "id", "source", "sourceRow", "sha256", "investigation", "rowKind", "fuelClass", "material", "materialBasis", "materialRaw", "form",
-  "thicknessMm", "widthCm", "diameterMm", "sides", "flameConfig", "o2Pct", "o2PctEnd", "burnerO2Pct", "pressurePsi", "flowCms",
+  "id", "source", "sourceRow", "sha256", "investigation", "rowKind", "experimentId", "experimentRole", "fuelClass", "material", "materialBasis", "materialRaw", "form",
+  "thicknessMm", "widthCm", "diameterMm", "sides", "flameConfig", "o2Pct", "o2PctStatus", "o2PctEnd", "burnerO2Pct", "pressurePsi", "pressurePsiStatus", "flowCms", "flowCmsStatus",
   "flowDirection", "n2Fraction", "co2Fraction", "heFraction", "outcome", "outcomeRule", "flags",
 ];
+
+/**
+ * One word for where a key condition's value stands: reported (read as written), converted (exact
+ * unit factor), list / range / trajectory (several values, not one exact number), invalid, bound,
+ * placeholder, blank (empty cell) or not-in-table (this NASA table has no such column).
+ */
+export function conditionStatus(r: AtlasRow, key: "o2Pct" | "pressurePsi" | "flowCms"): string {
+  const q = r[key];
+  if (!q) return r.absent?.[key] ?? (r.rowKind === "aside" ? "" : key === "o2Pct" && r.burnerO2Pct ? "burner-stream-only" : "");
+  if (q.shape) return q.shape;
+  return q.status ?? "reported";
+}
 
 const csvCell = (v: unknown) => {
   if (v === undefined || v === null) return "";
@@ -265,9 +325,9 @@ export function atlasCsv(atlas: Atlas): string {
     const src = r.source;
     const base = [
       r.id, src.kind === "psi" ? src.table : `NTRS ${src.ntrsId}`, src.kind === "psi" ? src.sourceRow : src.sample, src.kind === "psi" ? src.sha256 : src.pdfSha256,
-      r.investigation, r.rowKind, r.fuelClass, r.material.name, r.material.basis, r.material.raw.trim(), r.material.form,
+      r.investigation, r.rowKind, r.experiment?.id, r.experiment?.role, r.fuelClass, r.material.name, r.material.basis, r.material.raw.trim(), r.material.form,
       r.material.thicknessMm, r.material.widthCm, r.material.diameterMm, r.material.sides, r.flameConfig,
-      qv(r.o2Pct), qv(r.o2PctEnd), qv(r.burnerO2Pct), qv(r.pressurePsi), qv(r.flowCms), r.flowDirection?.v,
+      qv(r.o2Pct), conditionStatus(r, "o2Pct"), qv(r.o2PctEnd), qv(r.burnerO2Pct), qv(r.pressurePsi), conditionStatus(r, "pressurePsi"), qv(r.flowCms), conditionStatus(r, "flowCms"), r.flowDirection?.v,
       qv(r.diluent?.n2), qv(r.diluent?.co2), qv(r.diluent?.he), r.outcome.value, r.outcome.rule, r.flags.join(";"),
     ];
     lines.push([...base, ...measureKeys.map((k) => qv(r.measures[k]))].map(csvCell).join(","));

@@ -1,10 +1,16 @@
 # EMBER data plan: aiming for Best Use of Data
 
+> **Historical plan, kept for the record.** Written on 2026-11-15 before the atlas existed. Its counts
+> (21 tables, 2,001 rows, six findings) describe the data at that time; current counts are generated
+> into `src/data/counts.json` and described in [DATA.md](DATA.md). Statements comparing EMBER with
+> other teams' projects have been removed: they were not re-checked and are not claims EMBER makes.
+> The current roadmap and its completed baseline are in [M0-BASELINE.md](M0-BASELINE.md).
+
 **Goal.** Make EMBER the clearest example in Space Apps 2026 of turning NASA data into results that anyone can check. Every number shown should trace back to a NASA cell in one click, and every step in between should be visible, tested and rebuildable with one command.
 
 **The shift.** Today EMBER uses the 21 PSI tables mainly to build **condition ranges** that rank studies. The measured **outcomes** in those tables (extinction, burn time, ignition, cool flames, CO/CO₂, burn length in µg vs 1 g) are listed in the data explorer but never analysed. The plan moves EMBER from "which study covers my scenario" to "what NASA measured, what it shows, and how you can check it".
 
-**What the competitors do** (checked on 2026-11-15): 34 Percent has about 2,055 tests, 38 NTRS reports and a burn model tested on 25 cases; its findings are hand-written prose. FlameScope works row by row but only on ACME/CFI/SPICE plus 46 hand-transcribed BASS-II rows. JARVIS has curated ranges only. **None publishes a reusable dataset, computes findings across every table, or audits NASA's own tables.** Those three things are our opening.
+**Scope.** The three things this plan set out to add are a reusable dataset, findings computed across every table, and an audit of NASA's own tables.
 
 ---
 
@@ -32,7 +38,7 @@
 | F | Make it visible | Findings and atlas pages, a headline, video and pitch | Must |
 | G | Open release | Versioned dataset with a data card and a DOI | Should |
 
-A → B → F is the minimum winning path. C can run alongside A from day one. D and E build on A.
+A → B → F is the minimum useful path. C can run alongside A from day one. D and E build on A.
 
 ---
 
@@ -214,7 +220,7 @@ The data has to show on screen in the first 30 seconds, or local judges won't no
 3. **F1–F3 views:** Findings, Atlas and Audit pages.
 4. **D, E, G**, then F4–F7 (the scenario lab, the headline, the video and the AI cite-by-id).
 
-If time is short, stop after step 3: we'd have an atlas, measured findings and an audit, which no other team has.
+If time is short, stop after step 3: we'd have an atlas, measured findings and an audit.
 
 ## Risks
 
@@ -222,4 +228,4 @@ If time is short, stop after step 3: we'd have an atlas, measured findings and a
 - **Misreading a column's meaning** (e.g. FLEX "Disruption"). Each outcome rule cites the NASA paper's definition; golden-row tests.
 - **Correcting NASA's data wrongly.** Never overwrite a raw value; corrections live in flags with the evidence, and the raw value is always shown.
 - **Slower app.** The atlas is about 2,000 rows (small); load the Atlas and Findings pages lazily as the explorer already does.
-- **Time.** The order above keeps a winning result after step 3.
+- **Time.** The order above keeps a complete result after step 3.

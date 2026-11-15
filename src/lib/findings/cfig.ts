@@ -50,7 +50,7 @@ export function f5CoolFlames(rows: AtlasRow[]): Finding {
       text:
         `At that fuel and pressure, cool flames appeared in ${cool.length} of ${sameSetting.length} runs (95% interval ${numbers.sameSettingCi}). ` +
         `None in the other ${numbers.otherRuns} runs still allows a true rate of up to about ${numbers.otherUpperPct}% at those settings.`,
-      method: "Wilson score 95% intervals, treating each run as one independent trial; the upper bound for zero events is the Wilson upper limit.",
+      method: "Wilson score 95% intervals; the upper bound for zero events is the Wilson upper limit. Each run is treated as independent; runs made in the same session share hardware and conditions and may not be, which would make the interval too narrow. Session grouping has not been assessed.",
     },
     confounders: [
       "CFI-G set out to find cool flames, so the runs near these conditions were chosen where cool flames were expected; other settings were not searched as finely.",

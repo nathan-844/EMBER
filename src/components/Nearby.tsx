@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import rawRows from "../data/atlas/atlas-rows.json";
 import rawFindings from "../data/findings.json";
 import type { CompactRow } from "../lib/atlas/compact";
+import { displayValue } from "../lib/atlas/display";
 import { NEAR_WINDOW, nearbyTests, type NearbyGroup } from "../lib/coverage";
 import type { FindingsFile } from "../lib/findings/types";
 import type { Scenario } from "../lib/scenario";
@@ -56,8 +57,8 @@ function Group({ g, usesPressure, mine }: { g: NearbyGroup; usesPressure: boolea
       )}
       {g.nearest ? (
         <p className="small">
-          <strong>Closest test:</strong> <a href={g.nearest.row.url} target="_blank" rel="noreferrer">{g.nearest.row.source}</a>, {g.nearest.row.material}, {g.nearest.row.o2}% O₂
-          {g.nearest.row.psi != null && ` at ${g.nearest.row.psi} psia`} ({OUTCOME_WORDS[g.nearest.row.outcome]}). Distance {g.nearest.distance}, where 1 is the edge of the window.
+          <strong>Closest test:</strong> <a href={g.nearest.row.url} target="_blank" rel="noreferrer">{g.nearest.row.source}</a>, {g.nearest.row.material}, {displayValue(g.nearest.row.o2, g.nearest.row.o2Span)}% O₂
+          {displayValue(g.nearest.row.psi, g.nearest.row.psiSpan) != null && ` at ${displayValue(g.nearest.row.psi, g.nearest.row.psiSpan)} psia`} ({OUTCOME_WORDS[g.nearest.row.outcome]}). Distance {g.nearest.distance}, where 1 is the edge of the window.
         </p>
       ) : (
         <p className="small muted">No {FUEL_WORDS[g.fuel].toLowerCase()} test records both oxygen and pressure.</p>

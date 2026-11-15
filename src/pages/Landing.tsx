@@ -1,4 +1,4 @@
-import manifest from "../data/table-manifest.json";
+import { COUNTS } from "../lib/snapshot";
 import { SAFFIRE_NTRS_RUNS, SAFFIRE_NTRS_SOURCE } from "../data/ntrs-saffire";
 import { REJECTED_EXAMPLE, tableOxygenSpan } from "../lib/landing";
 import { PRESETS } from "../lib/scenario";
@@ -15,7 +15,6 @@ const FINDINGS = rawFindings as unknown as FindingsFile;
 const AUDIT = rawAudit as unknown as AuditFile;
 
 const REPO = "https://github.com/nathan-844/EMBER";
-const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
 const SOLID = tableOxygenSpan("solid")!;
 const LIQUID = tableOxygenSpan("liquid")!;
 const GAS = tableOxygenSpan("gas")!;
@@ -55,7 +54,7 @@ export function Landing() {
           <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Source on GitHub</a>
         </div>
         <dl className="land-stats">
-          <div><dt>{TABLE_ROWS.toLocaleString("en-US")}</dt><dd>NASA test rows from {manifest.tables.length} PSI tables, every value traced to the cell it came from</dd></div>
+          <div><dt>{COUNTS.rows.psi.toLocaleString("en-US")}</dt><dd>NASA source rows from {COUNTS.sources.psiTables} PSI tables ({COUNTS.observations.testRows.toLocaleString("en-US")} of them tests), every value traced to the cell it came from</dd></div>
           <div><dt>{FINDINGS.findings.length}</dt><dd>measured findings computed from those rows by code, with no AI in the loop</dd></div>
           <div><dt>{AUDIT.totals.issues}</dt><dd>data-quality issues found and documented in {AUDIT.totals.tablesAffected} of NASA’s {AUDIT.totals.tablesChecked} tables</dd></div>
         </dl>
@@ -116,7 +115,7 @@ export function Landing() {
               <a href={`#findings/${f.id}`} className="card">
                 <span className="finding-id">{f.id}</span>
                 <strong>{f.title}</strong>
-                <span className="muted">{f.n.toLocaleString("en-US")} tests</span>
+                <span className="muted">{f.n.toLocaleString("en-US")} {f.unit ? "runs" : "tests"}</span>
               </a>
             </li>
           ))}
@@ -134,7 +133,7 @@ export function Landing() {
         </p>
         <div className="land-actions">
           <a className="btn land-btn" href="#data/audit">Read the audit</a>
-          <a className="btn land-btn" href="#data">Browse all {TABLE_ROWS.toLocaleString("en-US")} test rows</a>
+          <a className="btn land-btn" href="#data">Browse all {COUNTS.rows.total.toLocaleString("en-US")} records</a>
         </div>
       </section>
 

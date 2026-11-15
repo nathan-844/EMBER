@@ -1,0 +1,113 @@
+{
+ "version": "counts-v1",
+ "snapshot": {
+  "id": "3942bb12dee7",
+  "sha256": "3942bb12dee72693dd611ae22399bc732390fc09b10b621aaed2dc3e5f356d2b",
+  "files": [
+   "src/data/table-manifest.json",
+   "src/data/atlas/atlas.json",
+   "src/data/atlas/audit.json",
+   "src/data/findings.json",
+   "src/data/psi-snapshot.json",
+   "src/data/ntrs-manifest.json",
+   "src/data/normalized-conditions.json"
+  ],
+  "atlasVersion": "atlas-v1",
+  "findingsVersion": "findings-v1",
+  "tablesSyncedOn": "2026-11-15",
+  "psiFetchedOn": "2026-11-15"
+ },
+ "sources": {
+  "psiTables": 23,
+  "workbookSheets": 1,
+  "psiRecordsWithTables": 20,
+  "psiCatalogueRecords": 24,
+  "investigationProfiles": 20,
+  "quoteDocuments": {
+   "ntrs": 16,
+   "psiHeld": 2
+  },
+  "quotes": 33
+ },
+ "rows": {
+  "total": 2168,
+  "psi": 2163,
+  "ntrs": 5,
+  "byKind": {
+   "test": 1912,
+   "session": 103,
+   "matrix": 16,
+   "supplement": 109,
+   "aside": 28
+  }
+ },
+ "observations": {
+  "testRows": 1912,
+  "supplementRows": 109
+ },
+ "experiments": {
+  "total": 1854,
+  "reviewed": {
+   "same": {
+    "experiments": 29,
+    "testRows": 45,
+    "agedMeasurements": 16,
+    "supplementRows": 0,
+    "unmatchedSupplements": 0
+   },
+   "same-r": {
+    "experiments": 67,
+    "testRows": 109,
+    "agedMeasurements": 42,
+    "supplementRows": 109,
+    "unmatchedSupplements": 1
+   }
+  },
+  "unreviewedTestRows": 1758
+ },
+ "tests": {
+  "withOutcome": 623,
+  "outcomeNotRecorded": 1289,
+  "byFuelClass": {
+   "gas": 1129,
+   "liquid": 381,
+   "solid": 402
+  },
+  "solid": 402,
+  "solidWithScalarPressure": 5,
+  "inferredMaterial": 85,
+  "withoutScalarOxygen": 1023,
+  "multiValuedOxygen": 3,
+  "withoutScalarPressure": 887,
+  "withoutScalarFlow": 1304
+ },
+ "audit": {
+  "issues": 43,
+  "error": 21,
+  "gap": 3,
+  "note": 19,
+  "tablesAffected": 16,
+  "tablesChecked": 23
+ },
+ "findings": {
+  "count": 8,
+  "ids": [
+   "F1",
+   "F2",
+   "F3",
+   "F4",
+   "F5",
+   "F6",
+   "F7",
+   "F8"
+  ]
+ },
+ "licences": {
+  "psiRecords": 24,
+  "withDoi": 24,
+  "cc0": 23,
+  "notStated": [
+   "PSI-10"
+  ]
+ }
+}

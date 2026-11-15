@@ -148,17 +148,23 @@ changed are removed so they can be re-recorded.
 ## Fire Test Atlas, audit and measured findings
 
 **Fire Test Atlas** (*Data* page). Every row of the 23 stored NASA PSI tables (including the per-test sheet of NASA's SAME/SAME-R results workbook) plus the five Saffire
-IV-VI samples from NTRS 20240002981, in one schema: 2,006 records, 1,875 of them individual tests.
+IV-VI samples from NTRS 20240002981, in one schema: 2,168 records. 1,912 are test rows, which
+observe 1,854 distinct experiments (SAME and SAME-R measured many runs twice, fresh and aged; those
+identities are reviewed, the rest are taken as one experiment per row). 109 are supplement rows:
+SAME-R particle sizes that NASA lists in a second file for tests already counted. The rest are 103
+session summaries, 16 test-matrix rows and 28 asides. Every count the app and these docs show comes
+from one generated file, `src/data/counts.json`, and a test fails if a doc disagrees with it.
 Each value keeps the NASA header and cell it came from. Units are converted only where NASA states
 them, outcomes come only from a table's own outcome column, and a material dictionary normalises
 about 100 NASA labels (inferred materials are marked, with the reason). The page filters by fuel,
 investigation, outcome and text, opens any record to show NASA's cells as written, and offers the
 whole atlas as CSV. Schema and rules: [DATA.md](DATA.md).
 
-**Data audit** (*Data* page). 42 issues in 16 of the 23 tables: 21 likely errors (oxygen written
+**Data audit** (*Data* page). 43 issues in 16 of the 23 tables: 21 likely errors (oxygen written
 "3400%", thickness "037 mm", fuel labels that count up row by row, gas fractions that do not sum
-to 1, a FLEX identifier used twice, headers that lost their subscripts or the µ), 3 kinds of missing value (including zeros written where nothing was measured)
-and 18 quirks (footnotes inside the test table, identical rows, RAMPED flows). Each lists example
+to 1, a FLEX identifier used twice, headers that lost their subscripts or the µ), 3 kinds of missing value (including zeros written where a sheet holds no value)
+and 19 quirks (footnotes inside the test table, identical rows, RAMPED flows, and two SAME-R runs
+that NASA's run table and results workbook do not agree on, left unresolved). Each lists example
 cells exactly as NASA wrote them and what EMBER does. Nothing in NASA's files is changed. The
 tables were not compared with their source papers.
 
@@ -307,7 +313,7 @@ fails if a quote is edited without running it again.
 | `npm run data:all` | Rebuild all derived data, the API bundles and the verify report |
 | `npm run data:check` | Rebuild the derived data and fail if a committed file differs (run by CI) |
 | `npm run record:demo` | Record live Gemini answers for the presets (needs a key; `-- --asks --missing` records only the missing suggested questions) |
-| `npm run sync:same` | Store the per-test sheet of NASA's SAME/SAME-R results workbook (needs python3 with openpyxl, and psi.nasa.gov) |
+| `npm run sync:same` | Store the per-test sheet of NASA's SAME/SAME-R results workbook (needs python3 with the package pinned in `scripts/requirements.txt`, and psi.nasa.gov) |
 | `npm run sync:ntrs` | Check every NTRS quote against its PDF and rewrite the manifest (needs pdftotext and access to ntrs.nasa.gov) |
 | `npm run recheck:recorded` | Re-check every recorded answer against today's evidence and checker rules |
 | `npm run video:record` | Record the 30-second demo video and screenshots |

@@ -5,7 +5,7 @@ import { TABLES } from "../../data/tables";
 import { SAFFIRE_NTRS_RUNS } from "../../data/ntrs-saffire";
 import { buildAudit } from "./audit";
 import { compactAtlas } from "./compact";
-import { atlasCsv, buildAtlas } from "./build";
+import { atlasCsv, buildAtlas, conditionStatus, experimentCount, multiShape } from "./build";
 import { normaliseMaterial } from "./materials";
 import { FLAG_TEXT, SPECS } from "./specs";
 import type { Atlas, AtlasRow, Quantity, TextValue } from "./types";
@@ -295,5 +295,107 @@ describe("compact atlas for the app", () => {
     expect(JSON.parse(readFileSync("src/data/atlas/atlas-rows.json", "utf8"))).toEqual(JSON.parse(JSON.stringify(compact)));
     expect(compact).toHaveLength(atlas.rows.length);
     for (const r of compact) expect(r.cells.length, r.id).toBeGreaterThan(0);
+  });
+});
+
+describe("observations, experiments and supplements", () => {
+  const tests = atlas.rows.filter((r) => r.rowKind === "test");
+  const inv = (id: string) => tests.filter((r) => r.investigation === id);
+  const runs = (rs: AtlasRow[]) => new Set(rs.map((r) => r.experiment!.id)).size;
+
+  it("counts test rows and experiments separately", () => {
+    expect(atlas.counts.byKind).toEqual({ test: 1912, session: 103, matrix: 16, supplement: 109, aside: 28 });
+    expect(atlas.counts.experiments).toBe(experimentCount(atlas.rows));
+    // Every aged re-measurement is a second observation of a run already counted.
+    const aged = tests.filter((r) => r.experiment?.role === "aged").length;
+    expect(aged).toBe(58);
+    expect(atlas.counts.experiments).toBe(tests.length - aged);
+  });
+
+  it("SAME: 45 test rows observe 29 runs; SAME-R: 109 observe 67", () => {
+    expect([inv("same").length, runs(inv("same"))]).toEqual([45, 29]);
+    expect([inv("same-r").length, runs(inv("same-r"))]).toEqual([109, 67]);
+  });
+
+  it("never gives two fresh rows, or two aged rows, of one table the same run identity", () => {
+    const seen = new Set<string>();
+    for (const r of atlas.rows.filter((x) => x.experiment && x.source.kind === "psi")) {
+      const key = `${(r.source as { table: string }).table}|${r.experiment!.id}|${r.experiment!.role}`;
+      expect(seen.has(key), key).toBe(false);
+      seen.add(key);
+    }
+  });
+
+  it("gives every aged row a fresh row of the same run in the same table", () => {
+    const fresh = new Set(atlas.rows.filter((r) => r.experiment?.role === "run").map((r) => `${(r.source as { table?: string }).table}|${r.experiment!.id}`));
+    for (const r of atlas.rows.filter((x) => x.experiment?.role === "aged")) expect(fresh.has(`${(r.source as { table?: string }).table}|${r.experiment!.id}`), r.id).toBe(true);
+  });
+
+  it("keeps SAME-R workbook rows as supplements of tests in the run table, and reports the two runs that do not line up", () => {
+    const sup = atlas.rows.filter((r) => r.rowKind === "supplement");
+    expect(sup).toHaveLength(109);
+    expect(sup.every((r) => r.investigation === "same-r" && r.experiment && r.fuelClass !== undefined)).toBe(true);
+    expect(sup.filter((r) => r.experiment!.match === "unmatched").map((r) => r.experiment!.id)).toEqual(["same-r:kapton:112"]);
+    // "57" is used under two materials in NASA's run table; only the Lampwick one is in the workbook.
+    expect(row("PSI-101-0:r57").experiment!.id).toBe("same-r:lampwick:57");
+    expect(row("PSI-101-0:r75").experiment!.id).toBe("same-r:teflon:57");
+    const issue = buildAudit(atlas, TABLES).issues.find((i) => i.title === "Run table and results workbook list different runs")!;
+    expect(issue.kind).toBe("note");
+    expect(issue.examples.map((e) => e.raw).sort()).toEqual(["in the run table only: Teflon 57", "in the workbook only: Kapton 112"]);
+    expect(issue.handling).toMatch(/^Unresolved/);
+  });
+
+  it("does not count SAME's 8-line matrix as tests", () => {
+    expect(atlas.rows.filter((r) => r.source.kind === "psi" && r.source.table === "PSI-102-0").map((r) => r.rowKind)).toEqual(Array(8).fill("matrix"));
+  });
+});
+
+describe("what a value is", () => {
+  it("tells a list, a range and a start-to-end drift apart, from how NASA wrote the cell", () => {
+    expect(multiShape("21; 26.5; 40")).toBe("list");
+    expect(multiShape("21.5 - 21.7")).toBe("range");
+    expect(multiShape("22.1 to 22.0")).toBe("trajectory");
+    expect(multiShape("0.5; 1.0; 1.5; 2.0; or 3.0 ")).toBe("list");
+    expect(row("PSI-98-0:r2").o2Pct).toMatchObject({ raw: "21.5 - 21.7", v: null, values: [21.5, 21.7], shape: "range" });
+    expect(row("PSI-99-0:r9").o2Pct).toMatchObject({ v: null, values: [22.1, 22], shape: "trajectory" });
+  });
+
+  it("gives a shape to every multi-valued quantity and to nothing else", () => {
+    for (const r of atlas.rows) for (const q of values(r)) {
+      const multi = "values" in q && (q.values?.length ?? 0) > 1;
+      expect(!!(q as Quantity).shape, `${r.id} ${q.col}`).toBe(multi);
+      if (multi) expect(q.v).toBeNull();
+    }
+  });
+
+  it("says how a number was obtained when it was not simply read", () => {
+    expect(row("PSI-69-0:r2").pressurePsi!.status).toBe("converted"); // mmHg → psia
+    expect(row("PSI-25-0:r2").o2Pct!.status).toBeUndefined(); // vol % as written
+    expect(row("PSI-101-1:r4").measures.amdUm).toMatchObject({ raw: "0", v: null, status: "placeholder" });
+    const censored = atlas.rows.flatMap((r) => values(r)).filter((q) => q.flags?.includes("censored"));
+    expect(censored.length).toBeGreaterThan(0);
+    expect(censored.every((q) => (q as Quantity).status === "bound" && q.v === null)).toBe(true);
+  });
+
+  it("says why a key condition is absent: an empty cell, or a table with no such column", () => {
+    expect(row("PSI-25-0:r2").absent).toEqual({ pressurePsi: "not-in-table", flowCms: "not-in-table" });
+    expect(conditionStatus(row("PSI-25-0:r2"), "pressurePsi")).toBe("not-in-table");
+    expect(conditionStatus(row("PSI-25-0:r2"), "o2Pct")).toBe("reported");
+    expect(conditionStatus(row("PSI-98-0:r2"), "o2Pct")).toBe("range");
+    expect(conditionStatus(row("PSI-69-0:r2"), "pressurePsi")).toBe("converted");
+    const csv = atlasCsv(atlas).split("\n");
+    for (const col of ["experimentId", "experimentRole", "o2PctStatus", "pressurePsiStatus", "flowCmsStatus"]) expect(csv[0].split(","), col).toContain(col);
+  });
+
+  it("reads a zero particle diameter as missing only where the row has no particle count to compute it from", () => {
+    const t = TABLES["PSI-101-1"];
+    const col = (name: string) => t.header.findIndex((h) => norm(h) === norm(name));
+    const [amd, m0] = [col("M1/M0 (micro-m)--AMD"), col("M0 best Diameter")];
+    const zero = t.rows.filter((r) => r.cells[amd] === "0");
+    expect(zero).toHaveLength(23);
+    // The diameter is the ratio M1/M0. On every row where it is written as 0, M0 is itself 0 or an Excel error.
+    for (const r of zero) expect(r.cells[m0] === "0" || r.cells[m0].startsWith("#"), `row ${r.sourceRow}: M0 = ${r.cells[m0]}`).toBe(true);
+    // And no row with a usable particle count has a zero diameter.
+    for (const r of t.rows.filter((x) => Number(x.cells[m0]) > 0)) expect(Number(r.cells[amd]), `row ${r.sourceRow}`).toBeGreaterThan(0);
   });
 });

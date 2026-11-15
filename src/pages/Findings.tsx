@@ -4,7 +4,7 @@ import { RowsPanel } from "../components/findings/RowsPanel";
 import { DownloadIcon } from "../components/icons";
 import atlasCsvUrl from "../data/atlas/atlas.csv?url";
 import rawFindings from "../data/findings.json";
-import manifest from "../data/table-manifest.json";
+import { COUNTS } from "../lib/snapshot";
 import type { Finding, FindingsFile } from "../lib/findings/types";
 import { atlasSourceName } from "../lib/atlas/names";
 
@@ -20,7 +20,7 @@ function FindingCard({ f }: { f: Finding }) {
         <p className="finding-meta">
           <span className="finding-id">{f.id}</span>
           {f.investigations.map((i) => <span key={i} className="badge">{nameOf(i)}</span>)}
-          <span className="muted">{f.n.toLocaleString("en-US")} tests</span>
+          <span className="muted">{f.n.toLocaleString("en-US")} {f.unit ?? "tests"}</span>
         </p>
         <h2 id={`${f.id}-title`}>{f.title}</h2>
         <p className="finding-claim">{f.claim}</p>
@@ -71,14 +71,13 @@ function useScrollToFinding() {
 
 export function Findings() {
   useScrollToFinding();
-  const tableRows = manifest.tables.reduce((n, t) => n + t.rows, 0);
   return (
     <main className="page findings-page">
       <header className="land-hero findings-hero">
         <p className="eyebrow accent">Measured findings · computed, not written</p>
         <h1>Eight things NASA’s own measurements show. <span>Every number traced to its row.</span></h1>
         <p className="land-lede">
-          EMBER reads all {tableRows.toLocaleString("en-US")} rows of {manifest.tables.length} NASA PSI run tables, plus the Saffire IV–VI paper,
+          EMBER reads all {COUNTS.rows.psi.toLocaleString("en-US")} rows of {COUNTS.sources.psiTables} NASA PSI tables, plus the Saffire IV–VI paper,
           into one Fire Test Atlas. Each finding below is computed from those rows by code. Its sentence is generated from the computed
           numbers, and it lists the rows used, the rows left out, what else differs and what it does not claim. No AI writes any of it.
         </p>
@@ -102,7 +101,7 @@ export function Findings() {
           than silently fixed.
         </p>
         <div className="land-actions">
-          <a className="btn btn-primary" href={atlasCsvUrl} download="ember-fire-test-atlas.csv"><DownloadIcon /> Download the atlas (CSV)</a>
+          <a className="btn btn-primary" href={atlasCsvUrl} download={`ember-fire-test-atlas-${COUNTS.snapshot.id}.csv`}><DownloadIcon /> Download the atlas (CSV)</a>
           <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Read the code behind each finding</a>
         </div>
       </section>

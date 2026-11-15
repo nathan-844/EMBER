@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from "react";
 import { EARTH_LINKS } from "../data/applications";
 import { getInvestigation, INVESTIGATIONS } from "../data/investigations";
-import manifest from "../data/table-manifest.json";
+import { COUNTS } from "../lib/snapshot";
 import { BriefDialog } from "../components/BriefDialog";
 import { BaselineDiff } from "../components/BaselineDiff";
 import { Tile, TileDialog } from "../components/Bento";
@@ -40,10 +40,10 @@ const TablesPanel = lazy(() => import("../components/DataExplorer").then((m) => 
 
 const QUESTION_LABEL = { prevention: "Prevention", detection: "Detection", suppression: "Suppression" } as const;
 const FUEL_LABEL = { solid: "Solid material", liquid: "Liquid", gas: "Gas" } as const;
-const TABLE_COUNT = manifest.tables.length;
+const TABLE_COUNT = COUNTS.sources.psiTables;
 /** Tables that actually feed the ranked oxygen, pressure and airflow ranges. */
 const RANKED_TABLES = new Set(INVESTIGATIONS.flatMap((i) => Object.values(i.conditions).filter((r) => r?.source === "psi-table").map((r) => r!.table))).size;
-const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
+const TABLE_ROWS = COUNTS.rows.psi;
 
 type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "near" | "tables" | "ai" | "equipment" | "earth" | "partial" | "design";
 

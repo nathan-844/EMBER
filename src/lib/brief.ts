@@ -5,6 +5,7 @@ import { EQUIPMENT_LINKS } from "../data/applications";
 import { designQuestionsFor, type DesignEvidence } from "../data/design-questions";
 import { NTRS_QUOTES, sourceTag } from "../data/ntrs-evidence";
 import { getPsiRecord } from "../data/psi";
+import { SNAPSHOT, snapshotLine } from "./snapshot";
 
 const evidenceRef = (e: DesignEvidence) =>
   e.kind === "ntrs" ? sourceTag(NTRS_QUOTES.find((q) => q.id === e.quote)!.source) : e.kind === "psi" ? `NASA ${EQUIPMENT_LINKS.find((l) => l.id === e.link)!.quote.accession}` : `EMBER finding ${e.id}`;
@@ -18,6 +19,8 @@ export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], li
     "# EMBER evidence brief",
     "",
     `Generated ${date.toISOString().slice(0, 10)} · research prototype · not a safety certification`,
+    "",
+    `${snapshotLine()}. Snapshot SHA-256: ${SNAPSHOT.sha256}`,
     "",
     "## Scenario",
     "",
@@ -91,6 +94,7 @@ export function buildCsv(scenario: Scenario, ranked: RankedInvestigation[]): str
   const header = [
     "rank", "investigation", "full_name", "psi_accession", "psi_url", "relevance", "score",
     "condition", "scenario_value", "status", "range_min", "range_max", "range_source", "psi_table", "psi_column", "rows_used", "basis",
+    "ember_snapshot",
   ];
   const value = (k: string) => (k === "fuel" ? scenario.fuel : (scenario as unknown as Record<string, unknown>)[k]);
   const rows = ranked.flatMap((r) =>
@@ -99,6 +103,7 @@ export function buildCsv(scenario: Scenario, ranked: RankedInvestigation[]): str
       r.relevance, r.total, c.key, value(c.key), c.status, c.range?.min, c.range?.max,
       c.range ? c.range.source ?? "curated" : c.key === "fuel" ? "curated" : "", c.range?.table, c.range?.column,
       c.range?.rowsUsed != null ? `${c.range.rowsUsed}/${c.range.totalRows}` : "", c.range?.basis ?? (c.key === "fuel" ? r.investigation.fuelTypes.join(" ") : ""),
+      SNAPSHOT.id,
     ]),
   );
   return [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\n") + "\n";

@@ -397,7 +397,9 @@
         "Mass Loss (mg)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
-      "origin": "Live PSI download of the workbook; sheet \"Reduced data sheet\", rows with flight 1 (SAME) or 2 (SAME-R)"
+      "origin": "Live PSI download of the workbook; sheet \"Reduced data sheet\", rows with flight 1 (SAME) or 2 (SAME-R)",
+      "formulaCells": 2741,
+      "values": "values Excel last calculated and saved in the file; not recalculated"
     },
     {
       "id": "PSI-102-0",

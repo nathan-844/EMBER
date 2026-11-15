@@ -93,7 +93,7 @@ export function f1ExtinctionVsOxygen(rows: AtlasRow[]): Finding {
       text:
         `In ${clearlyNegative} of ${measured.length} groups the 95% bootstrap interval of the rank correlation lies wholly below zero; in ${crossesZero} it includes zero, so those groups alone do not show a direction. ` +
         `For methanol in nitrogen at about 1 atm the correlation is ${round(ref.rho!)} (95% interval ${ciText(ref.rhoCi)}).`,
-      method: `Percentile bootstrap: each group's runs resampled with replacement ${2000} times (seeded, so the interval is the same on every rebuild), Spearman's correlation recomputed each time, and the middle 95% kept.`,
+      method: `Percentile bootstrap: each group's runs resampled with replacement ${2000} times (seeded, so the interval is the same on every rebuild), Spearman's correlation recomputed each time, and the middle 95% kept. Each run is treated as independent; runs made in the same session share hardware and conditions and may not be, which would make the interval too narrow. Session grouping has not been assessed.`,
     },
     confounders: [
       "Starting droplet size varies between runs (about 1.5 to 5 mm), and large droplets can go out from radiative heat loss at any oxygen level.",
@@ -158,7 +158,7 @@ export function f2FlexNearExplorationAir(rows: AtlasRow[]): Finding {
       text:
         `Share of flames that went out: ${Math.round((100 * numbers.wentOut) / high.length)}% of ${high.length} near exploration air (95% interval ${numbers.wentOutCi}) against ${Math.round((100 * numbers.airWentOut) / air.length)}% of ${air.length} in air (${numbers.airWentOutCi}). ` +
         `${high.length < 20 ? `With only ${high.length} high-oxygen runs the first interval is wide.` : ""}`.trim(),
-      method: "Wilson score 95% interval for each proportion, treating each burn as one independent trial.",
+      method: "Wilson score 95% interval for each proportion. Each run is treated as independent; runs made in the same session share hardware and conditions and may not be, which would make the interval too narrow. Session grouping has not been assessed.",
     },
     confounders: [
       "The high-oxygen runs are at about 10.4 psia, slightly above the challenge's 10.2 psi, so their oxygen partial pressure is higher than the exploration atmosphere's.",

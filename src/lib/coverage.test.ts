@@ -55,3 +55,35 @@ describe("nearbyTests", () => {
     for (const r of solid.joint) expect(r.id).toMatch(/^NTRS-/);
   });
 });
+
+describe("rows that record a range, not one value", () => {
+  const span = (lo: number, hi: number): CompactRow => ({ ...row(null, 10.2), o2Span: [lo, hi] });
+
+  it("places a range by its farthest end, so it is near only when the whole range is", () => {
+    const s = { oxygenPct: 25, pressurePsi: 10.2 };
+    expect(scaledDistance(span(21.5, 21.7), s)).toBeCloseTo(0.7, 10); // 25 − 21.5 = 3.5 of a 5-point window
+    const whole = nearbyTests([span(21.5, 21.7)], s)!.groups.find((g) => g.fuel === "solid")!;
+    expect(whole.joint).toHaveLength(1);
+    // The top of this range is inside the window but its bottom is not: not a match.
+    const partial = nearbyTests([span(19.5, 21.7)], s)!.groups.find((g) => g.fuel === "solid")!;
+    expect(partial.joint).toHaveLength(0);
+    expect(partial.placed).toBe(1);
+  });
+
+  it("never reduces a real range to one number in the browser copy", () => {
+    const ranged = rows.filter((r) => r.kind === "test" && r.o2Span);
+    expect(ranged.map((r) => [r.id, r.o2, r.o2Span])).toEqual([
+      ["PSI-98-0:r2", null, [21.5, 21.7]],
+      ["PSI-99-0:r9", null, [22, 22.1]],
+      ["PSI-99-0:r10", null, [21.9, 22]],
+    ]);
+  });
+
+  it("matches on unrounded values: a test just outside the window stays outside", () => {
+    const s = { oxygenPct: 30, pressurePsi: 10.2 };
+    const g = nearbyTests([row(35.004, 10.2), row(34.996, 10.2)], s)!.groups.find((x) => x.fuel === "solid")!;
+    expect(g.joint.map((r) => r.o2)).toEqual([34.996]);
+    // Stored values keep the precision of the conversion, not a display rounding.
+    expect(rows.some((r) => r.psi !== null && String(r.psi).split(".")[1]?.length > 2)).toBe(true);
+  });
+});

@@ -4,12 +4,31 @@
 export type FuelClass = "solid" | "liquid" | "gas" | "aerosol";
 
 /**
- * test    – one experiment run (one ignition attempt, droplet, sample or aging run)
- * session – one row summarising several runs (e.g. ACME "Flames ignited: 10" for a test day)
- * matrix  – a test-matrix summary listing the levels tested, not individual runs (FLEX-2)
- * aside   – a row that is not a test (flow visualisation, cleaning run, blank row)
+ * test       – one observation of an experiment run (one ignition attempt, droplet, sample or aging
+ *              measurement). Two test rows can observe the same run (see `experiment`), so the number
+ *              of test rows is a count of observations, not of independent experiments.
+ * session    – one row summarising several runs (e.g. ACME "Flames ignited: 10" for a test day)
+ * matrix     – a test-matrix summary listing the levels tested, not individual runs (FLEX-2, SAME)
+ * supplement – measurements of a run that another table already lists as a test (the SAME-R rows of
+ *              NASA's results workbook). A scientific observation, never counted as a second test.
+ * aside      – a row that is not a test or an observation (footnote, cleaning run, blank row)
  */
-export type RowKind = "test" | "session" | "matrix" | "aside";
+export type RowKind = "test" | "session" | "matrix" | "supplement" | "aside";
+
+/**
+ * Which experiment (one run of one sample) a row observes, where EMBER has reviewed the grouping.
+ * A row without this is taken as its own experiment; that default has not been reviewed.
+ */
+export interface ExperimentLink {
+  /** Rows with the same id observe the same run. */
+  id: string;
+  /** run: the run as first measured. aged: the same smoke measured again after ageing. */
+  role: "run" | "aged";
+  /** How the grouping was established, in plain words. */
+  basis: string;
+  /** Supplement rows only: whether the run table lists a test with this identity. */
+  match?: "matched" | "unmatched";
+}
 
 /**
  * What happened to the flame, as the table itself records it. Only tables with an outcome
@@ -38,8 +57,19 @@ export interface Cell {
 export interface Quantity extends Cell {
   /** The value in `unit`, or null when the cell gave no usable number (see flags). */
   v: number | null;
-  /** All values when the cell lists several (e.g. "21; 26.5; 40"), in `unit`. */
+  /** All values when the cell lists several (e.g. "21; 26.5; 40"), in `unit`, in the order written. */
   values?: number[];
+  /**
+   * What several values mean: "list" (separate levels, "21; 26.5; 40"), "range" (a span, "21.5 - 21.7")
+   * or "trajectory" (start then end, "22.1 to 22.0"). None of them is one exact value.
+   */
+  shape?: "list" | "range" | "trajectory";
+  /**
+   * How the number was obtained when it is not simply read as written: "converted" (from the unit
+   * NASA states, by an exact factor), "invalid" (the cell holds something unusable; see flags),
+   * "bound" (off the instrument's scale) or "placeholder" (a 0 written where the source holds no value).
+   */
+  status?: "converted" | "invalid" | "bound" | "placeholder";
   unit: string;
   /** The cell carried "~". */
   approx?: boolean;
@@ -86,6 +116,13 @@ export interface AtlasRow {
   rowKind: RowKind;
   /** Why the row is an aside or a session, in plain words. */
   rowKindReason?: string;
+  /** The experiment this row observes, where reviewed (SAME and SAME-R). */
+  experiment?: ExperimentLink;
+  /**
+   * Why a key condition has no value: "blank" (the table has the column but the cell is empty) or
+   * "not-in-table" (this NASA table has no such column; the experiment may still have recorded it).
+   */
+  absent?: Partial<Record<"o2Pct" | "pressurePsi" | "flowCms", "blank" | "not-in-table">>;
   fuelClass: FuelClass | null;
   material: MaterialInfo & Cell;
   /** "normal": fuel from the burner into an oxidiser atmosphere; "inverse": oxygen from the burner into a fuel atmosphere. */
@@ -111,6 +148,13 @@ export interface Atlas {
   version: string;
   builtFrom: { manifestSyncedOn: string; tables: number; ntrs: string[] };
   method: string;
-  counts: { rows: number; byKind: Record<RowKind, number>; byFuelClass: Record<string, number>; byOutcome: Record<string, number> };
+  counts: {
+    rows: number;
+    byKind: Record<RowKind, number>;
+    /** Distinct experiments among test rows: rows that observe the same reviewed run count once. */
+    experiments: number;
+    byFuelClass: Record<string, number>;
+    byOutcome: Record<string, number>;
+  };
   rows: AtlasRow[];
 }

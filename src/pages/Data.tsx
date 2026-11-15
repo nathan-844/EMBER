@@ -6,8 +6,10 @@ import atlasCsvUrl from "../data/atlas/atlas.csv?url";
 import rawAudit from "../data/atlas/audit.json";
 import type { AuditFile, AuditIssue, AuditKind } from "../lib/atlas/audit";
 import type { CompactRow } from "../lib/atlas/compact";
+import { displayValue } from "../lib/atlas/display";
 import { FLAG_TEXT } from "../lib/atlas/specs";
 import { atlasSourceName } from "../lib/atlas/names";
+import { COUNTS } from "../lib/snapshot";
 
 const AUDIT = rawAudit as unknown as AuditFile;
 const invName = atlasSourceName;
@@ -57,7 +59,7 @@ function Atlas() {
   if (!rows) return <p className="muted small">Loading the atlas…</p>;
   const pages = Math.max(1, Math.ceil(shown.length / PAGE));
   const slice = shown.slice(page * PAGE, page * PAGE + PAGE);
-  const num = (v: number | null) => (v === null ? <span className="muted">—</span> : v);
+  const num = (v: number | null, span?: [number, number]) => displayValue(v, span) ?? <span className="muted">—</span>;
 
   return (
     <>
@@ -88,6 +90,7 @@ function Atlas() {
       <p className="small muted" aria-live="polite">
         {shown.length.toLocaleString("en-US")} of {rows.length.toLocaleString("en-US")} records. Select a row to see NASA’s cells exactly as written.
       </p>
+      <CountsNote />
       <div className="table-scroll atlas-scroll" tabIndex={0} aria-label="Fire Test Atlas">
         <table className="run-table atlas-table">
           <thead>
@@ -112,7 +115,26 @@ function Atlas() {
   );
 }
 
-function AtlasRowView({ r, open, onToggle, num }: { r: CompactRow; open: boolean; onToggle: () => void; num: (v: number | null) => ReactNode }) {
+/** What the records are, so a row count is never read as a count of experiments. */
+function CountsNote() {
+  const k = COUNTS.rows.byKind, e = COUNTS.experiments;
+  const n = (v: number) => v.toLocaleString("en-US");
+  const reviewed = Object.entries(e.reviewed).map(([id, r]) => `${invName(id)}: ${r.experiments} runs in ${r.testRows} test rows`).join("; ");
+  return (
+    <details className="fold fold-inline counts-note">
+      <summary><span>What these {n(COUNTS.rows.total)} records are</span><span className="disclose" aria-hidden /></summary>
+      <ul className="small">
+        <li><strong>{n(k.test)} test rows</strong>: one observation of one run each. They cover <strong>{n(e.total)} distinct experiments</strong>: where EMBER has reviewed run identities, a run measured twice counts once ({reviewed}). The other {n(e.unreviewedTestRows)} test rows are taken as one experiment each, which has not been reviewed.</li>
+        <li><strong>{n(k.supplement)} supplement rows</strong>: measurements NASA lists in a second file for tests already counted (SAME-R particle sizes). Observations, never extra tests.</li>
+        <li><strong>{n(k.session)} session rows</strong> summarise several runs, <strong>{n(k.matrix)} matrix rows</strong> list the levels a study tested, and <strong>{n(k.aside)} asides</strong> are footnotes, cleaning runs or blank lines.</li>
+        <li>{n(COUNTS.rows.psi)} rows come from {COUNTS.sources.psiTables} NASA PSI tables and {COUNTS.rows.ntrs} from the Saffire IV–VI paper on NTRS.</li>
+      </ul>
+      <p className="small muted">Data snapshot <code>{COUNTS.snapshot.id}</code> (SHA-256 <code>{COUNTS.snapshot.sha256}</code>). The atlas download carries this id in its file name.</p>
+    </details>
+  );
+}
+
+function AtlasRowView({ r, open, onToggle, num }: { r: CompactRow; open: boolean; onToggle: () => void; num: (v: number | null, span?: [number, number]) => ReactNode }) {
   return (
     <>
       <tr className={open ? "is-open" : undefined}>
@@ -120,7 +142,7 @@ function AtlasRowView({ r, open, onToggle, num }: { r: CompactRow; open: boolean
         <td>{invName(r.investigation)}</td>
         <td>{r.fuel ?? <span className="muted">—</span>}</td>
         <td>{r.kind === "test" ? r.material : <span className="muted">{r.kind}</span>}</td>
-        <td>{num(r.o2)}</td><td>{num(r.psi)}</td><td>{num(r.flowCms)}</td>
+        <td>{num(r.o2, r.o2Span)}</td><td>{num(r.psi, r.psiSpan)}</td><td>{num(r.flowCms, r.flowSpan)}</td>
         <td>{OUTCOME_WORDS[r.outcome] ?? r.outcome}</td>
         <td>{r.flags.length > 0 ? <span className="badge badge-warn">{r.flags.length}</span> : ""}</td>
       </tr>
@@ -193,7 +215,7 @@ export function Data() {
           changed: each issue is listed with the cells as written and what EMBER does about it.
         </p>
         <div className="land-actions">
-          <a className="btn btn-primary land-cta" href={atlasCsvUrl} download="ember-fire-test-atlas.csv"><DownloadIcon /> Download the atlas (CSV)</a>
+          <a className="btn btn-primary land-cta" href={atlasCsvUrl} download={`ember-fire-test-atlas-${COUNTS.snapshot.id}.csv`}><DownloadIcon /> Download the atlas (CSV)</a>
           <a className="btn land-btn" href="#data/audit">See the {t.issues} issues</a>
         </div>
       </header>

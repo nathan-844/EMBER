@@ -10,17 +10,18 @@ One record for every row of NASA's microgravity combustion test tables, in one s
 |---|---|
 | `atlas.csv` | One line per record: source, fuel class, material, oxygen, pressure, flow, diluents, outcome, flags and every measured result |
 | `atlas.json` | The same records with full lineage: for each value, NASA's header, the raw cell, the unit and any flags |
-| `audit.json` | 37 data-quality issues found in NASA's tables, with example cells and how each is handled |
-| `findings.json` | Six findings computed from the atlas, with their rows, method, confounders and limits |
+| `audit.json` | 43 data-quality issues found in NASA's tables, with example cells and how each is handled |
+| `counts.json` | Every count quoted here and in the app, generated from the files above, with the snapshot id that exports carry |
+| `findings.json` | Eight findings computed from the atlas, with their rows, method, confounders and limits |
 
 ## Sources
 
-- **NASA Physical Science Informatics (PSI)**, combustion science: 22 experimental tables from 20 investigation records (PSI-10, 20, 21, 22, 23, 25, 26, 39, 47, 68, 69, 98, 99, 100, 101, 102, 106, 107, 142, 159). 2,009 rows. The SHA-256 of each NASA file is in `src/data/table-manifest.json`. First downloaded 2026-11-02; every file re-downloaded live from PSI on 2026-11-15 with identical SHA-256. PSI-142's table indexes datasets in published papers (DOI and figure), so none of its 8 rows is counted as a test. One more table, PSI-101-1, is the sheet "Reduced data sheet" of NASA's SAME and SAME-R results workbook (`PSI-101_Analyzed Data_SAME, SAME-R_Results.xlsx`, SHA-256 recorded; stored by `scripts/sync-same-results.py`): its 45 SAME flight tests are SAME's tests (SAME's own 8-row table is a test matrix), and its 109 SAME-R rows add measured particle sizes to the tests PSI-101-0 already lists, without counting them twice. 2,163 PSI rows in all.
+- **NASA Physical Science Informatics (PSI)**, combustion science: 23 tables from 20 investigation records (PSI-10, 20, 21, 22, 23, 25, 26, 39, 47, 68, 69, 98, 99, 100, 101, 102, 106, 107, 142, 159): 22 CSV run tables and one sheet of a NASA workbook. The SHA-256 of each NASA file is in `src/data/table-manifest.json`. First downloaded 2026-11-02; every file re-downloaded live from PSI on 2026-11-15 with identical SHA-256. PSI-142's table indexes datasets in published papers (DOI and figure), so none of its 8 rows is counted as a test. One more table, PSI-101-1, is the sheet "Reduced data sheet" of NASA's SAME and SAME-R results workbook (`PSI-101_Analyzed Data_SAME, SAME-R_Results.xlsx`, SHA-256 recorded; stored by `scripts/sync-same-results.py`): its 45 SAME flight tests are SAME's tests (SAME's own 8-row table is a test matrix), and its 109 SAME-R rows add measured particle sizes to the tests PSI-101-0 already lists, without counting them twice. 2,163 PSI rows in all.
 - **NASA NTRS 20240002981**, *Preliminary Results from the Saffire VI Experiment* (Urban et al., ICES-2024-365), Tables 1 and 2: 5 samples from Saffire IV–VI. Values checked against the PDF on 2026-11-15; the PDF's SHA-256 is in `src/data/ntrs-saffire.ts`.
 
 ## Size
 
-2,006 records: 1,875 individual tests, 103 per-day session summaries, 8 test-matrix rows and 20 non-test lines (footnotes, blank lines). By fuel: 1,230 gas, 384 solid, 370 liquid, 2 aerosol. 623 tests have a recorded outcome.
+2,168 records: 1,912 test rows, 109 supplement rows (SAME-R measurements of tests already listed), 103 per-day session summaries, 16 test-matrix rows and 28 non-test lines (footnotes, blank lines). The 1,912 test rows observe 1,854 distinct experiments: SAME and SAME-R measured 58 runs a second time after the smoke aged. Test rows by fuel: 1,129 gas, 402 solid, 381 liquid. 623 test rows have a recorded outcome.
 
 ## How it was made
 
@@ -29,7 +30,7 @@ Code only, no manual edits and no language model: `npm run data:atlas` in the [E
 ## What to know before using it
 
 - **Microgravity only.** There is no partial-gravity (Moon or Mars) test in these sources.
-- **Missing is common, and stays missing.** Only 5 of 384 solid-material tests record pressure. Many tables record no outcome. Blank means NASA's table does not say; nothing is filled in.
+- **Missing is common, and stays missing.** Only 5 of 402 solid-material test rows record pressure. Many tables record no outcome. Blank means NASA's table does not say; nothing is filled in.
 - **Units** are converted only where NASA states the unit. Pressure is psia, oxygen is % by volume or mole, flow is cm/s.
 - **Outcomes** come only from a table's own outcome column, by the rule recorded on each record.
 - **Inferred materials** (BASS-II rods and films, BASS spheres) are marked `inferred`; filter on `materialBasis` to exclude them.

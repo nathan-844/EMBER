@@ -1,0 +1,2 @@
+# Python packages for scripts/sync-same-results.py (python3 -m pip install -r scripts/requirements.txt)
+openpyxl==3.1.5

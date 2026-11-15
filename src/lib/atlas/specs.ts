@@ -20,7 +20,7 @@ export interface QSpec {
   parser?: "parseCell" | "pctO2InText";
   /** Codes added to every value read from this column (see FLAG_TEXT). */
   flags?: string[];
-  /** The source writes 0 where nothing was measured (e.g. a particle diameter); 0 is read as no value. */
+  /** The source writes 0 where it holds no value (e.g. a particle diameter that was never reduced); 0 is read as no value. */
   zeroIsMissing?: true;
 }
 export interface TSpec {
@@ -54,6 +54,11 @@ export interface TableSpec {
   measures?: Record<string, QSpec | TSpec>;
   /** Extra row-level checks; return flag codes. */
   rowFlags?: (get: Get) => string[];
+  /**
+   * Reviewed experiment identity: a key unique to one run within the investigation, the row's role
+   * in that run, and how the grouping is known. Only tables whose identities EMBER has reviewed set it.
+   */
+  experiment?: (get: Get) => { key: string; role: "run" | "aged"; basis: string } | null;
 }
 
 const molePct = (col: string, flags?: string[]): QSpec => ({ col, unit: "%", from: "mole fraction", factor: 100, flags });
@@ -64,6 +69,22 @@ const plain = (col: string, unit: string): QSpec => ({ col, unit, from: unit });
 const text = (col: string): TSpec => ({ col, text: true });
 
 const test = (): RowKind => "test";
+/**
+ * SAME and SAME-R number each run; a label ending in "a" ("61a") is the same run's smoke measured
+ * again after ageing. A run's identity is its sample material plus the number, because NASA's
+ * SAME-R run table uses "57" under two materials.
+ */
+const sameExperiment = (material: string, label: string) => {
+  const n = label.trim();
+  if (!n) return null;
+  const aged = /a$/i.test(n);
+  return {
+    key: `${material.trim().toLowerCase()}:${n.replace(/a$/i, "")}`,
+    role: aged ? ("aged" as const) : ("run" as const),
+    basis: `NASA's SAME test number "${n}" under sample type "${material.trim()}"${aged ? '; the "a" suffix marks the aged measurement of that run' : ""}`,
+  };
+};
+
 const session = (why: string) => (_g: Get, blank: boolean): RowKind | [RowKind, string] => (blank ? ["aside", "blank row"] : ["session", why]);
 const ASIDE_LABEL = /flow visuali?s?ation|visulation|soot cleaning/i;
 const solidRow = (materialCol: string) => (g: Get, blank: boolean): RowKind | [RowKind, string] => {
@@ -310,23 +331,31 @@ export const SPECS: Record<string, TableSpec> = {
     rowKind: (_g, blank) => (blank ? ["aside", "blank row"] : "test"),
     flowCms: cms("Inlet velocity (cm/s)"),
     measures: {
+      sameTest: text("SAME Test #"),
       description: text("Description"),
       rtOverR0: plain("Rt/R0", "-"),
       durationS: plain("Duration (sec)", "s"),
       netAgingTimeS: plain("Net aging time (sec)", "s"),
     },
+    experiment: (get) => sameExperiment(get("Sample Type"), get("SAME Test #")),
   },
   // NASA's SAME and SAME-R results workbook (sheet "Reduced data sheet"), stored by
   // scripts/sync-same-results.py: one row per flight test with the particle sizes measured.
   // Flight 1 rows are SAME's tests. Flight 2 rows repeat SAME-R tests that PSI-101-0 already lists,
-  // so they are kept as those tests' results, not counted twice. Rows numbered "…a" are the same run
-  // measured again after the smoke aged, as PSI-101-0 also lists them.
+  // so they are supplements: those tests' results, not counted twice. Rows numbered "…a" are the same
+  // run measured again after the smoke aged, as PSI-101-0 also lists them; `experiment` groups them.
+  //
+  // Zeros: a particle diameter or geometric spread of 0 is not a physical result. In this sheet it
+  // marks a row with no reduced value: all 20 SAME DBP rows (every reduced result is 0, although the
+  // workbook's separate "DBP" sheet holds their raw particle-counter readings) and three SAME-R
+  // Kapton rows whose particle counter gave no count ("no Ptrak"), so no mean diameter exists.
+  // A 0 here means "not in this sheet", not "nothing was measured".
   "PSI-101-1": {
     investigation: (get) => (get("Flight 1=same 2=sameR, g=ground").trim() === "1" ? "same" : "same-r"),
     material: { col: "Sample Type" },
     rowKind: (get, blank) =>
       blank ? ["aside", "blank row"]
-      : get("Flight 1=same 2=sameR, g=ground").trim() === "2" ? ["aside", `results of SAME-R test ${get("SAME #").trim()}, whose conditions are the test row in PSI-101-0`]
+      : get("Flight 1=same 2=sameR, g=ground").trim() === "2" ? ["supplement", `results of SAME-R test ${get("SAME #").trim()}, whose conditions are the test row in PSI-101-0`]
       : "test",
     flowCms: cms("Inlet Velocity (cm/sec)"),
     measures: {
@@ -340,6 +369,7 @@ export const SPECS: Record<string, TableSpec> = {
       sampleTempC: plain("Sample Temperature C", "°C"),
       massLossMg: plain("Mass Loss (mg)", "mg"),
     },
+    experiment: (get) => sameExperiment(get("Sample Type"), get("SAME #")),
   },
   // SAME's run table is a test matrix: one line per sample type and its conditions ("Kapton: same
   // conditions as 1-4"). The flight tests themselves are in NASA's results workbook (PSI-101-1).
@@ -414,7 +444,7 @@ export const FLAG_TEXT: Record<string, string> = {
   "leading-zero": "A number written with a leading zero and no decimal point (e.g. \"037 mm\"), so its magnitude is ambiguous; not used.",
   "not-numeric": "The cell holds text, not a number; kept as written.",
   "negative-reading": "A negative instrument reading (e.g. CO of -1 ppm); kept as written.",
-  "zero-not-measured": "A particle diameter or concentration written as 0 on a row where nothing was measured (every result on the row is 0); read as no value, never as zero.",
+  "zero-placeholder": "A particle diameter or geometric spread written as 0. Neither can be 0 for an aerosol, so the 0 stands for a value this sheet does not hold: the row's size results were never reduced here, or its particle counter gave no count. Read as no value, never as zero. It does not mean the run was not measured.",
   ramped: "NASA marks the flow as RAMPED, so the run has no single fuel fraction or flow.",
   "header-subscript-lost": "NASA's header lost its subscripts (\"O\" is O₂, \"CO\" is CO₂ in FLEX); read with that meaning.",
   "header-encoding": "NASA's header lost the µ (\"?-g\" is µ-g); read with that meaning.",

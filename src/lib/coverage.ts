@@ -31,24 +31,39 @@ export interface Nearby {
 
 const FUELS: FuelClass[] = ["solid", "liquid", "gas"];
 
-export function scaledDistance(row: Pick<CompactRow, "o2" | "psi">, s: Pick<Scenario, "oxygenPct" | "pressurePsi">): number | null {
-  if (row.o2 === null || s.oxygenPct === null) return null;
-  const dO = (row.o2 - s.oxygenPct) / NEAR_WINDOW.oxygenPct;
-  if (s.pressurePsi === null) return Math.abs(dO);
-  if (row.psi === null) return null;
-  return Math.hypot(dO, (row.psi - s.pressurePsi) / NEAR_WINDOW.pressurePsi);
+type Placed = Pick<CompactRow, "o2" | "o2Span" | "psi" | "psiSpan">;
+
+/** The oxygen a row records as an interval: one value, or the span of a range. Null when not recorded. */
+export const o2Interval = (r: Pick<CompactRow, "o2" | "o2Span">): [number, number] | null => (r.o2 !== null ? [r.o2, r.o2] : r.o2Span ?? null);
+const psiInterval = (r: Pick<CompactRow, "psi" | "psiSpan">): [number, number] | null => (r.psi !== null ? [r.psi, r.psi] : r.psiSpan ?? null);
+/** How far the farthest point of an interval is from a value: a range is never credited with its nearest end. */
+const farthest = ([lo, hi]: [number, number], x: number) => Math.max(Math.abs(lo - x), Math.abs(hi - x));
+
+/**
+ * Scaled distance from a scenario (1 = the edge of the window). A row that records a range is
+ * placed by the end of the range farthest from the scenario, so it counts as near only when the
+ * whole range is.
+ */
+export function scaledDistance(row: Placed, s: Pick<Scenario, "oxygenPct" | "pressurePsi">): number | null {
+  const o = o2Interval(row);
+  if (o === null || s.oxygenPct === null) return null;
+  const dO = farthest(o, s.oxygenPct) / NEAR_WINDOW.oxygenPct;
+  if (s.pressurePsi === null) return dO;
+  const p = psiInterval(row);
+  if (p === null) return null;
+  return Math.hypot(dO, farthest(p, s.pressurePsi) / NEAR_WINDOW.pressurePsi);
 }
 
 /** Null when the scenario has no oxygen level: nothing can be placed. */
 export function nearbyTests(rows: CompactRow[], s: Pick<Scenario, "oxygenPct" | "pressurePsi">): Nearby | null {
   if (s.oxygenPct === null) return null;
   const usesPressure = s.pressurePsi !== null;
-  const tests = rows.filter((r) => r.kind === "test" && r.o2 !== null);
+  const tests = rows.filter((r) => r.kind === "test" && o2Interval(r) !== null);
   const groups = FUELS.map((fuel): NearbyGroup => {
     const mine = tests.filter((r) => r.fuel === fuel);
-    const inO2 = mine.filter((r) => Math.abs(r.o2! - s.oxygenPct!) <= NEAR_WINDOW.oxygenPct);
-    const joint = usesPressure ? inO2.filter((r) => r.psi !== null && Math.abs(r.psi - s.pressurePsi!) <= NEAR_WINDOW.pressurePsi) : inO2;
-    const oxygenOnly = usesPressure ? inO2.filter((r) => r.psi === null) : [];
+    const inO2 = mine.filter((r) => farthest(o2Interval(r)!, s.oxygenPct!) <= NEAR_WINDOW.oxygenPct);
+    const joint = usesPressure ? inO2.filter((r) => psiInterval(r) !== null && farthest(psiInterval(r)!, s.pressurePsi!) <= NEAR_WINDOW.pressurePsi) : inO2;
+    const oxygenOnly = usesPressure ? inO2.filter((r) => psiInterval(r) === null) : [];
     const outcomes: Partial<Record<Outcome, number>> = {};
     for (const r of joint) outcomes[r.outcome] = (outcomes[r.outcome] ?? 0) + 1;
     let nearest: NearbyGroup["nearest"] = null;
