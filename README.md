@@ -1,4 +1,4 @@
-# EMBER — Fire Safety Research
+# EMBER - Fire Safety Research
 
 EMBER is a research prototype for the 2026 NASA Space Apps challenge
 **Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data**.
@@ -12,18 +12,24 @@ cannot establish.
 
 ## Features
 
-- **Scenario lab** – pick a preset (ISS, lunar habitat, pressurized rover, Mars habitat,
-  spacesuit) or set oxygen, pressure, gravity, airflow and fuel yourself. Any input can be
+- **Markdown evidence-brief export** and a **CSV data export** (each
+  condition range with its NASA table, column and row count) for modelling.
+- **Scenario lab** - pick a preset environment (ISS, lunar habitat, pressurized rover, Mars habitat,
+  spacesuit) or set oxygen, pressure, gravity, airflow and fuel yourself. The nature of the question
+  **must** be specified (prevention, detection or suppression). Any input can be
   left *unspecified*.
-- **Ranges from NASA run tables** – oxygen, pressure and airflow ranges for 14 profiles are read
-  from 14 of the 21 stored NASA PSI experimental tables (1,527 source rows used; every stored file
-  has its SHA-256). The few remaining
-  hand-written ranges are labelled *curated* everywhere they appear.
-- **BRE as a solid emulator** – NASA built BRE to emulate burning solids, and it is the only PSI
-  data at NASA's candidate exploration atmospheres (its PSI-20 objectives name 10.2 psia at 26.5% O₂
-  and 8.2 psia at 34%). For a solid-fuel scenario it earns two thirds of the fuel points and is listed
-  with the solid studies, labelled as an emulator, so it leads the Moon-habitat case.
-- **Transparent ranking** – 25 points for addressing the safety question (10 for adjacent
+- **Quick Overview** - presents a key insight as to which of NASA's test best cover the scenario you
+  set and what it leaves out. Your condition as well as what can not be established (flow direction etc.)
+  are also provided.
+- **Ask EMBER** - type a question about your scenario, or pick a suggested one, and the answer goes
+  through the same evidence package and the same check. The question is treated as a question, never as
+  instructions; numbers typed only in a question are not accepted (set them in the scenario instead).
+  Suggested questions on the presets replay recorded answers instantly.
+  - A *Google Gemini* powered analysis of the entire scenario can also be provided at the user's request.
+  EMBER treats the model as an untrusted author: a claim is kept only if every
+  excerpt appears word for word in the source it cites and every number appears in those sources
+  or your scenario.
+- **Ranked Evidence** - 25 points for addressing the safety question (10 for adjacent
   research) plus up to 15 points per condition (75 max): 15 inside a range measured in a NASA
   table, 10 inside a curated estimate, two thirds of that just
   outside a range, so a near miss on measured data is worth as much as a match inside an
@@ -32,63 +38,40 @@ cannot establish.
   fuel is listed first and other fuels follow as labelled analogue evidence, because a droplet or
   gas-flame study at the right oxygen is not evidence about how solid cabin materials burn. Ranks
   and ties count within each group. Every score can be expanded to see why.
-- **Honest headline** – the insight card states how many of your conditions the top profile
-  matches and names the ones it does not (gravity first). It never claims coverage from a
-  single matching condition.
-- **Robustness probes** – each scenario is re-ranked under small input changes, single-input
-  removals and four alternative point schemes, and the app reports whether the top match holds.
-- **Key finding by fuel type** – for a Moon-base atmosphere (30% O₂) the app states that no
-  solid-material test in the PSI data goes above 22.2% oxygen; only droplet and gas-flame studies reach
-  30%. It then adds what NASA has published outside PSI: Saffire V and VI burned cotton, SIBAL cloth
-  and PMMA in orbit at 26.2–31.0% oxygen and 54.1–70.7 kPa (NASA NTRS 20240002981, Table 1). These
-  runs are drawn on the gap map as open diamonds and named in the finding, but they are not PSI run
-  tables and are never scored in the ranking.
-- **Grounded AI analysis (optional)** – Google Gemini writes a short synthesis from a server-built
-  evidence package. EMBER treats the model as an untrusted author: a claim is kept only if every
-  excerpt appears word for word in the source it cites and every number appears in those sources
-  or your scenario. Findings, measured data, comparisons and equipment implications must quote NASA
-  text, not only EMBER's summaries, and any claim stating a safety conclusion (that something will
-  not burn, is safe, or needs no detection, suppression or ventilation) is rejected however good its
-  quotes. This checks sources and wording, not reasoning. Rejected claims are shown with the reason,
-  and a receipt counts how many excerpts are NASA text versus EMBER's own summaries.
-- **Ask EMBER** – type a question about your scenario, or pick a suggested one, and the answer goes
-  through the same evidence package and the same check. The question is treated as a question, never as
-  instructions; numbers typed only in a question are not accepted (set them in the scenario instead).
-  Suggested questions on the unedited presets replay recorded answers instantly.
-- **Parameter coverage** – shows where curated condition ranges exist against your scenario.
-- **Gap map of joint test conditions** – every NASA run-table row drawn as oxygen against pressure
+- **Gap map of joint test conditions** - every NASA run-table row drawn as oxygen against pressure
   from the same row, shaped and coloured by fuel type, with your scenario marked and the distance
   to the nearest solid-material run stated. Tables without a pressure column use the curated cabin
   pressure (hollow marks); rows that list several levels without pairing them are left out and
   counted.
-- **What this research informs** – links investigations to next-generation detection,
+- **Limitations** - scenario-specific statements of what the evidence cannot establish
+  (partial gravity, oxygen outside tested ranges, joint-condition coverage, …).
+- **Robustness** - each scenario is re-ranked under small input changes, single-input
+  removals and four alternative point schemes, and the app reports whether the top match holds.
+- **Your Conditions** - calculates the O₂ psia given the oxygen and pressure parameters provided by you
+  and determines how gravity affects the evidence.
+- **Parameter coverage** - shows where curated condition ranges exist against your scenario.
+- **Ranges from NASA run tables** - oxygen, pressure and airflow ranges for 14 profiles are read
+  from 14 of the 21 stored NASA PSI experimental tables (1,527 source rows used; every stored file
+  has its SHA-256).
+  - **Data explorer for modellers** - for each ranked investigation, which ranked conditions and
+  settings varied between runs, which results were recorded (burn length, spread rate,
+  extinction diameter, weight-loss rate…), what was held fixed in every run, and the rows
+  themselves. A tidy CSV export gives every filled cell with its NASA table, SHA-256, source row,
+  the value as NASA wrote it, the parsed numbers and, for ranked conditions, the value in EMBER's
+  unit. Column roles are judged from NASA's headers.
+- **What this research informs** - links investigations to next-generation detection,
   suppression, ventilation and material or atmosphere decisions (e.g. BASS-II's models for
   detection and suppression design, BASS's ISS-type inert extinguishing agent, FLEX's CO₂/He/SF₆
   suppressants, SAME smoke particle sizes, BRE burning in NASA's candidate exploration
   atmospheres). Each link quotes the NASA PSI record word for word (tested) and says whether NASA
   states the use or it is EMBER's reading, plus what is not covered. *Evidence on the way* lists
   SoFIE, FM2 and LUCI and flags the ones that would close a gap in your scenario.
-- **Models built on the flight data** – PSI also holds five NASA-funded ground studies that model
-  or re-analyse flight data (SPICE, BASS, SAME, FLEX and cool-flame data: PSI-60, 62, 115, 117 and
-  142). The data explorer lists them under the investigation they build on.
-- **Fire safety on Earth** – six NASA-stated ground uses of the same research (smoke detectors for
+- **Ground Uses on Earth** - six NASA-stated ground uses of the same research (smoke detectors for
   submarines and labs; mines, aircraft and submarines; less harmful suppressants; wildfire and
   building-fire models; cone-calorimeter material testing), each quoted from the PSI record's
   Earth-benefits text and tested. It says that no PSI combustion record covers fine water mist.
-- **Ventilation in elevated oxygen** – NASA's BRE record reports flames that kept burning with no
-  airflow in elevated-oxygen atmospheres but went out in 21% O₂; EMBER raises this for any
-  scenario above 21.5% O₂ (NASA calls the result preliminary).
-- **Data explorer for modellers** – for each ranked investigation, which ranked conditions and
-  settings varied between runs, which results were recorded (burn length, spread rate,
-  extinction diameter, weight-loss rate…), what was held fixed in every run, and the rows
-  themselves. A tidy CSV export gives every filled cell with its NASA table, SHA-256, source row,
-  the value as NASA wrote it, the parsed numbers and, for ranked conditions, the value in EMBER's
-  unit. Column roles are judged from NASA's headers.
-- **Limitations** – scenario-specific statements of what the evidence cannot establish
-  (partial gravity, oxygen outside tested ranges, joint-condition coverage, …).
-- **Baseline comparison**, **Markdown evidence-brief export** and a **CSV data export** (each
-  condition range with its NASA table, column and row count) for modelling.
-- **Credibility page** – a self-assessment structured on the eight NASA-STD-7009B factors,
+
+- **Credibility page** - a self-assessment structured on the eight NASA-STD-7009B factors,
   backed by a recorded test run and a SHA-256 fingerprint of the curated data.
 
 ## Getting started
@@ -136,7 +119,7 @@ reaches the browser. For each request the server:
 Rejected claims are shown with the reason, and a receipt counts NASA versus EMBER excerpts. The
 check shows the basis is auditable; it does not prove a claim follows from its excerpt.
 
-Live answers use Gemini 3's low thinking level (about 10–30 s; `GEMINI_THINKING` changes it).
+Live answers use Gemini 3's low thinking level (about 10-30 s; `GEMINI_THINKING` changes it).
 `npm run record:demo` records the presets at the model's default level through the same pipeline
 into `src/data/recorded-analyses.json`; without a key (or with `EMBER_AI_OFF=1`, or on a static
 host) the app replays those, labelled **Recorded**. Edited scenarios need a live key.
@@ -164,7 +147,7 @@ link resolves to a Combustion Science record with a matching acronym.
 `npm run data:normalize` converts only columns whose unit is stated (vol %, mole fraction, atm,
 bar, mmHg, cm/s). Uncalibrated instrument readings (BASS-II "Air display"), inverse-flame burner
 oxidizer streams and free text are not used; values outside physical limits are dropped and
-counted. Ranges are min–max envelopes per condition, not joint test points. Gravity and fuel
+counted. Ranges are min-max envelopes per condition, not joint test points. Gravity and fuel
 type stay curated. The current tables were imported on 2026-11-14 from a hash-checked download
 made on 2026-11-02, because PSI's per-investigation API returned HTTP 500 that day.
 
@@ -179,7 +162,7 @@ safety certification.
 All experimental data comes from NASA's [Physical Science Informatics (PSI)](https://psi.nasa.gov/physci/repo/)
 repository: investigation records (titles, objectives, hardware, publications) and the experimental
 tables attached to each investigation, stored unmodified in `src/data/tables` with their SHA-256.
-Check each record's licence before reusing its data. The one exception is the Saffire IV–VI test
+Check each record's licence before reusing its data. The one exception is the Saffire IV-VI test
 conditions and results in `src/data/ntrs-saffire.ts`, copied from Tables 1 and 2 of NASA's paper
 [Preliminary Results from the Saffire VI Experiment](https://ntrs.nasa.gov/citations/20240002981)
 (Urban et al., ICES-2024-365, NTRS 20240002981); pressures are published in kPa and converted to psia
@@ -201,7 +184,7 @@ EMBER is a Space Apps research prototype and is not affiliated with or endorsed 
 - **Building EMBER:** the team used AI coding assistants (Anthropic's Claude, through Claude Code)
   to help write and review code, tests and documentation. Some commits made with an assistant
   carry a `Co-Authored-By` line; not all do, so the commit history is not a complete record of
-  where an assistant helped. The team chose the challenge, scope and scientific framing and reviewed the work.
+  where an assistant helped. The team chose the challenge, scope and scientific framing and reviewed all work.
 
 ## License
 
