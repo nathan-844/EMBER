@@ -11,7 +11,7 @@ const SLIDERS: { key: NumericKey; label: string; unit: string; min: number; max:
   { key: "airflowMs", label: "Airflow", unit: "m/s", min: 0, max: 1, step: 0.01 },
 ];
 
-const QUESTIONS: { id: SafetyQuestion; label: string }[] = [
+export const QUESTIONS: { id: SafetyQuestion; label: string }[] = [
   { id: "prevention", label: "Prevention" },
   { id: "detection", label: "Detection" },
   { id: "suppression", label: "Suppression" },
@@ -138,3 +138,24 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
 }
 
 const SLIDER_KEYS = { oxygenPct: 1, pressurePsi: 1, gravityG: 1, airflowMs: 1 };
+
+/**
+ * Phone-only bar at the top of the results: the two choices that change the answer most
+ * (environment and safety question), with a link down to every condition.
+ */
+export function QuickScenario({ scenario, onChange }: { scenario: Scenario; onChange: (next: Scenario) => void }) {
+  return (
+    <div className="quick-scenario" aria-label="Quick scenario">
+      <label className="field-label" htmlFor="env-quick">Environment</label>
+      <select id="env-quick" value={scenario.environment} onChange={(e) => onChange(presetScenario(e.target.value as EnvironmentId, scenario))}>
+        {PRESETS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
+      </select>
+      <div className="segmented" role="group" aria-label="Safety question">
+        {QUESTIONS.map((q) => (
+          <button key={q.id} aria-pressed={scenario.question === q.id} onClick={() => onChange({ ...scenario, question: q.id })}>{q.label}</button>
+        ))}
+      </div>
+      <a className="quick-all" href="#scenario">All conditions (oxygen, pressure, gravity, airflow, fuel) ↓</a>
+    </div>
+  );
+}

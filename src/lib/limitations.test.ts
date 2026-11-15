@@ -158,3 +158,12 @@ describe("challenge highlights", () => {
     expect(ids(presetScenario("iss"))).not.toContain("gravity-analogue");
   });
 });
+
+describe("empty scenario", () => {
+  it("asks for a condition instead of saying nothing matches", () => {
+    const s = { ...presetScenario("custom"), fuel: null };
+    const t = leadInsight(s, rankInvestigations(s))!.title;
+    expect(t).toMatch(/^Set at least one condition/);
+    expect(t).not.toMatch(/No profile matches/);
+  });
+});

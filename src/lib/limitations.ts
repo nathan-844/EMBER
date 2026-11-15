@@ -234,9 +234,11 @@ export function leadInsight(scenario: Scenario, ranked: RankedInvestigation[]): 
     ? specified.length === 1
       ? `${inv.name}${shared} matches the only condition you specified (${CONDITION_LABELS[specified[0].key].toLowerCase()})`
       : `${inv.name} covers all ${specified.length} specified conditions${shared}`
-    : matched.length === 0
+    : specified.length === 0
+      ? `Set at least one condition to rank the evidence; for now ${inv.name} is listed first on the safety question alone`
+      : matched.length === 0
       ? `No profile matches your specified conditions; ${inv.name} ranks first on the safety question alone`
-      : `${inv.name} matches ${matched.length} of ${specified.length} conditions${shared}, not ${listOr(missing.map((c) => CONDITION_LABELS[c.key].toLowerCase()))}`;
+      : `${inv.name} matches ${matched.length} of ${specified.length} conditions${shared}, not ${listOr(missing.map((c) => (c.key === "fuel" && c.status === "near" ? "fuel type (only emulated)" : CONDITION_LABELS[c.key].toLowerCase())))}`;
 
   const matchedText = matched.length ? `Matched: ${matched.map((c) => CONDITION_LABELS[c.key].toLowerCase()).join(", ")}. ` : "";
   const gapLine = gaps.length ? `Not covered: ${gaps.join("; ")}. ` : "";

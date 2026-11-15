@@ -15,7 +15,7 @@ import { InsightCard } from "../components/InsightCard";
 import { Limitations } from "../components/Limitations";
 import { RankedList } from "../components/RankedList";
 import { RobustnessBar } from "../components/RobustnessBar";
-import { ScenarioPanel } from "../components/ScenarioPanel";
+import { QuickScenario, ScenarioPanel } from "../components/ScenarioPanel";
 import { GRAVITY_TEXT, SummaryStrip } from "../components/SummaryStrip";
 import { buildBrief, buildCsv, downloadText } from "../lib/brief";
 import { compareRankings } from "../lib/compare";
@@ -34,6 +34,8 @@ const TablesPanel = lazy(() => import("../components/DataExplorer").then((m) => 
 const QUESTION_LABEL = { prevention: "Prevention", detection: "Detection", suppression: "Suppression" } as const;
 const FUEL_LABEL = { solid: "Solid material", liquid: "Liquid", gas: "Gas" } as const;
 const TABLE_COUNT = manifest.tables.length;
+/** Tables that actually feed the ranked oxygen, pressure and airflow ranges. */
+const RANKED_TABLES = new Set(INVESTIGATIONS.flatMap((i) => Object.values(i.conditions).filter((r) => r?.source === "psi-table").map((r) => r!.table))).size;
 const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
 
 type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "tables" | "ai" | "equipment" | "earth";
@@ -110,7 +112,7 @@ export function ScenarioLab() {
           <h1>Which NASA fire research applies to <span>your crew habitat?</span></h1>
           <p className="hero-lede">
             Set the cabin conditions in the scenario panel. EMBER ranks {INVESTIGATIONS.length} NASA combustion investigations against them
-            using {TABLE_COUNT} NASA run tables, and says plainly where the data stops. Click any box for the full detail.{" "}
+            with condition ranges read from {RANKED_TABLES} of {TABLE_COUNT} stored NASA run tables, and says plainly where the data stops. Click any box for the full detail.{" "}
             <a href="#credibility">How far can you trust this?</a>
           </p>
         </div>
@@ -126,7 +128,7 @@ export function ScenarioLab() {
         <ScenarioPanel scenario={scenario} onChange={setScenario} onSaveBaseline={() => setBaseline(scenario)} hasBaseline={baseline != null} />
 
         <div className="lab-main">
-          <a className="edit-scenario" href="#scenario">Edit scenario ↓</a>
+          <QuickScenario scenario={scenario} onChange={setScenario} />
           {shifts && <BaselineDiff shifts={shifts} onClear={() => setBaseline(null)} />}
 
           <section className="bento" aria-label="Results for your scenario">
