@@ -1,31 +1,31 @@
 1
-00:00:00,000 --> 00:00:02,953
+00:00:00,000 --> 00:00:02,952
 A Moon base may breathe 30% oxygen at 10.2 psi. Does NASA’s fire data cover it?
 
 2
-00:00:03,003 --> 00:00:06,513
-EMBER ranks 20 NASA combustion investigations against your habitat
+00:00:03,002 --> 00:00:06,485
+EMBER ranks 20 NASA investigations against your habitat and says what each one covers
 
 3
-00:00:06,563 --> 00:00:09,781
-Key finding: no solid-material test in NASA’s data goes above 22.2% oxygen
+00:00:06,535 --> 00:00:10,554
+Key finding: no solid-material test in NASA’s PSI data goes above 22.2% oxygen
 
 4
-00:00:09,831 --> 00:00:12,742
-Every NASA test row is one click from a modeller’s CSV
+00:00:10,604 --> 00:00:14,248
+Every NASA test row is one click from a modeller’s CSV, with units harmonised
 
 5
-00:00:12,792 --> 00:00:17,832
-Gemini writes the analysis. EMBER rejects any quote or number not found in the sources it cites
+00:00:14,298 --> 00:00:19,250
+Gemini writes the analysis; EMBER checks every quote and number against its source
 
 6
-00:00:17,882 --> 00:00:21,594
+00:00:19,300 --> 00:00:23,130
 It shows what the research informs: detection, suppression, ventilation
 
 7
-00:00:21,644 --> 00:00:24,655
+00:00:23,180 --> 00:00:26,863
 …and where it helps on Earth: mines, aircraft, submarines
 
 8
-00:00:24,705 --> 00:00:27,066
+00:00:26,913 --> 00:00:29,280
 Open NASA data, checked AI, honest limits
