@@ -18,8 +18,11 @@ works, where its numbers come from, and what it deliberately leaves out.
 
 ## Scenario lab
 
-Pick a preset environment (ISS, lunar habitat, pressurized rover, Mars habitat, spacesuit) or set
-oxygen, pressure, gravity, airflow and fuel yourself. The safety question (prevention, detection or
+Pick a preset environment (ISS, lunar habitat, NASA's 8.2 psia / 34% O₂ exploration atmosphere,
+the Artemis surface habitat at 10.2 psia / 26.5% O₂, pressurized rover, Mars habitat, spacesuit) or set
+oxygen, pressure, gravity, airflow and fuel yourself. The two exploration presets link the NASA
+document that states their values (NTRS 20150021491 and 20220000245); their AI answers are not
+recorded yet, so they need a live key. The safety question (prevention, detection or
 suppression) must be chosen; any other input can be left *unspecified*.
 
 - **Quick overview** - the top match for your scenario, how many of your conditions it covers, and
@@ -129,6 +132,13 @@ changed are removed so they can be re-recorded.
   gravity, oxygen outside tested ranges, joint-condition coverage, flow direction, …).
 - **Robustness** - each scenario is re-ranked under small input changes, single-input removals and
   four alternative point schemes, and the app reports whether the top match holds.
+- **Rank ranges** - every ranked row shows its best and worst rank when each of the seven point
+  weights moves up or down 20% (all 128 combinations), e.g. "Rank 2–6 if weights move ±20%".
+- **Partial-gravity results** - PSI holds no lunar or Mars gravity runs, so a tile quotes what NASA
+  reports on NTRS have found (Urban et al. 2025, Ruff 2021, Zayac et al. 2024, Ferkul et al. 2025 and
+  2026): some materials burn at lower oxygen in lunar gravity than Earth tests suggest, others the
+  reverse; how the tests were run; and FM2 still to come. Filtered to lunar or Martian gravity, never
+  scored.
 
 ## Fire Test Atlas, audit and measured findings
 
@@ -197,7 +207,9 @@ The explorer lists them under the investigation they build on.
   BASS's ISS-type inert extinguishing agent, FLEX's CO₂/He/SF₆ suppressants, SAME smoke particle
   sizes, BRE burning in NASA's candidate exploration atmospheres). Each link quotes the NASA PSI record
   word for word (tested), says whether NASA states the use or it is EMBER's reading, and says what is
-  not covered.
+  not covered. Where NASA has published a result, it is quoted under the objective from an NTRS
+  report (e.g. BRE flames self-extinguished below ~25% O₂; SAME smoke particles mostly 200–400 nm;
+  BASS-II's negative oxygen margin of 2.4% against the 1-g test).
 - **Evidence on the way** - lists SoFIE, FM2 and LUCI and flags the ones that would close a gap in
   your scenario.
 - **Fire safety on Earth** - six NASA-stated ground uses of the same research (smoke detectors for
@@ -210,6 +222,12 @@ The explorer lists them under the investigation they build on.
 A self-assessment structured on the eight NASA-STD-7009B factors, backed by a recorded test run
 (`npm run verify:report`) and a SHA-256 fingerprint of the curated data. It is not a formal NASA
 credibility assessment.
+
+A **verification scoreboard** lists every check with its count and total: tests, PSI quotes found word
+for word, NTRS quotes found in their PDFs, PSI record links, recorded AI claims whose verdict
+reproduces, run-table hashes and the hand-checked Saffire values. It says how each is run (re-run on
+every report, recorded by a sync run, or by hand). The AI answer-accuracy benchmark is listed as not
+run, because it needs a live key.
 
 ## Where the data comes from
 
@@ -240,6 +258,11 @@ and 2 of NASA's paper
 by EMBER only for plotting. Every stored value was checked against those tables on 2026-11-15; the
 PDF's SHA-256 is recorded in that file.
 
+Published results quoted from 14 other NTRS reports live in `src/data/ntrs-evidence.ts`.
+`npm run sync:ntrs` downloads each PDF, extracts its text with pdftotext, finds every quote in it and
+records the PDF's SHA-256, the page and a hash of the quote in `src/data/ntrs-manifest.json`; a test
+fails if a quote is edited without running it again.
+
 ## All scripts
 
 | Script | What it does |
@@ -254,6 +277,7 @@ PDF's SHA-256 is recorded in that file.
 | `npm run data:all` | Rebuild all derived data, the API bundles and the verify report |
 | `npm run data:check` | Rebuild the derived data and fail if a committed file differs (run by CI) |
 | `npm run record:demo` | Record live Gemini answers for the presets (needs a key; `-- --asks --missing` records only the missing suggested questions) |
+| `npm run sync:ntrs` | Check every NTRS quote against its PDF and rewrite the manifest (needs pdftotext and access to ntrs.nasa.gov) |
 | `npm run recheck:recorded` | Re-check every recorded answer against today's evidence and checker rules |
 | `npm run video:record` | Record the 30-second demo video and screenshots |
 | `npm run verify:report` | Run tests and record `src/data/verify-report.json` for the credibility page |
