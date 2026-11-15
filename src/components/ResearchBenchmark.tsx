@@ -1,7 +1,14 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { runBenchmark } from "../lib/analysis/benchmark";
 export function ResearchBenchmark() {
   const report = useMemo(runBenchmark, []);
+  // The page loads lazily, so a link to #research-benchmark arrives before this section exists: scroll to it once it does.
+  useEffect(() => {
+    const go = () => { if (window.location.hash === "#research-benchmark") document.getElementById("research-benchmark")?.scrollIntoView(); };
+    go();
+    window.addEventListener("hashchange", go);
+    return () => window.removeEventListener("hashchange", go);
+  }, []);
   const categories = [...new Set(report.results.map((r) => r.category))];
   function download() {
     const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));

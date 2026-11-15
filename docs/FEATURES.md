@@ -9,6 +9,8 @@ works, where its numbers come from, and what it deliberately leaves out.
 - [Special cases: BRE, inverse flames and partial gravity (inside *Ranked Evidence*)](#special-cases-bre-inverse-flames-and-partial-gravity-inside-ranked-evidence)
 - [Gap map](#gap-map)
 - [Findings, limitations and robustness](#findings-limitations-and-robustness)
+- [Fire Test Atlas, audit and measured findings](#fire-test-atlas-audit-and-measured-findings)
+- [Compare, Workbench and Mission](#compare-workbench-and-mission)
 - [Data explorer and CSV for modelers (inside *Nasa Run Tables*)](#data-explorer-and-csv-for-modelers-inside-nasa-run-tables)
 - [What the research informs](#what-the-research-informs)
 - [Credibility page](#credibility-page)
@@ -166,7 +168,8 @@ to 1, a FLEX identifier used twice, headers that lost their subscripts or the µ
 and 19 quirks (footnotes inside the test table, identical rows, RAMPED flows, and two SAME-R runs
 that NASA's run table and results workbook do not agree on, left unresolved). Each lists example
 cells exactly as NASA wrote them and what EMBER does. Nothing in NASA's files is changed. The
-tables were not compared with their source papers.
+audit did not compare the tables with their source papers; the one slice that has been compared
+is the BASS-II gas data on the Compare page.
 
 **Measured findings** (*Findings* page). Eight findings computed by code from atlas rows, each with a "How sure" line computed from the same rows (seeded bootstrap intervals for F1 and F4, Wilson intervals for F2 and F5, an exact sign test for F3, Wilson and bootstrap intervals for F7 and F8; F6 is a count and says it has no interval):
 
@@ -192,6 +195,73 @@ quote and numbers like any other source.
 and 2.5 psi of the scenario, per fuel type, with how they ended and the closest test. Tests whose
 table records no pressure are listed separately as oxygen-only matches. The window is a stated
 choice, not a physical threshold.
+
+## Compare, Workbench and Mission
+
+Three pages let you compute an answer from the rows yourself, change its assumptions and take the
+calculation away. All three run in the browser on the stored NASA cells; no AI is involved.
+
+**Compare** (`#compare`, also linked from finding F4). One comparison, checked against its source:
+the carbon monoxide added by BASS-II's PMMA slab burns against its SIBAL fabric burns.
+
+- 47 candidate rows from PSI-25 (20 PMMA slab, 27 SIBAL). Their 188 oxygen and carbon monoxide
+  cells were typed again from Tables A.4 and A.6 of NASA's BASS-II report (NASA/TM-20210011385)
+  and all 188 match the stored PSI cells. An AI coding assistant did this cross-check; no second
+  person has reviewed it.
+- The result is the median CO change in one group minus the median in the other, in ppm, with a
+  95% interval from a seeded bootstrap (2,000 resamples). With every numeric pair it is 315 ppm
+  (200 to 409).
+- A sensitivity table recomputes it under stricter rules: only rows whose material matches the
+  report (314 ppm), without negative CO readings (302 ppm), and only rows in the starting-oxygen
+  range both groups share (319.5 ppm).
+- Every row is listed as used or left out, with the reason. Missing and off-scale readings are
+  never turned into numbers.
+- It compares observed concentration changes in a glovebox. It is not a toxicity ranking and does
+  not show that the material alone caused the difference: burn duration, mass and flow differ too.
+
+**Workbench** (`#research`). The same engine with three more templates:
+
+| Template | What it compares | Default result |
+|---|---|---|
+| Saffire-II | Ground test against orbit, sample by sample | 8 pairs: ground burned further in 5, 3 ties, orbit further in 0 (exact sign test p = 0.0625) |
+| FLEX | Droplet size at extinction over starting size, for two oxygen ranges | Methanol in nitrogen, 12–16% against 20–22% O₂: 18 against 8 observations |
+| Smoke ageing | Aged over fresh particle diameter within each SAME or SAME-R run | 48 pairs, 46 grew, median ratio 1.5 |
+
+Comparisons that do not make sense are blocked with the reason: overlapping oxygen ranges, an
+empty group, a reversed window, the same test used twice. The FLEX template covers only flames
+that went out, so it does not estimate how likely extinction is. The page also offers a ZIP that
+reproduces all eight measured findings.
+
+**Benchmark** (bottom of the Workbench page, `npm run benchmark`). 60 fixed questions about the
+engine and the atlas, each with an expected value, split 30 for development and 30 for evaluation.
+All 60 pass. No model answers them, so they say nothing about the quality of AI answers, and the
+evaluation half was written by the same team rather than held out by someone else.
+
+**Mission** (`#mission`, also opened from the scenario lab with your conditions filled in). List
+the materials in a habitat, set two atmospheres A and B and how close a test must be to count, and
+choose a measured result.
+
+- Each NASA test is sorted into documented, partial, analogue, outside or excluded for each
+  atmosphere, with the reason and its source cells. Material name and form must match; thickness,
+  flow direction, gravity regime, gas mixture and the condition windows decide the rest.
+- A value that is not in the stored record is shown as missing, which is not the same as never
+  tested. Ranges are not interpolated, and equal oxygen partial pressure is not treated as the
+  same condition.
+- The **test planner** takes the oxygen, pressure and flow levels you want covered, candidate
+  tests with a cost each, and a budget. It picks tests in order of new target combinations covered
+  per unit cost. It is a coverage list: it does not predict any result and is not an optimal
+  experimental design. Costs are whatever you enter.
+
+**Reproduction ZIPs.** Compare, Workbench and Mission each download a ZIP holding the analysis
+settings, the rows used and left out, the raw NASA cells, source hashes and licences, the expected
+result, the calculation engine and a runner. Extract it and run `node reproduce.mjs` with Node 22
+or later: it checks every file's SHA-256, recomputes the result and fails if it differs. It needs
+no install, server, network or AI key. The ZIP holds the stored cells, not NASA's original PDF or
+workbook files, so it reproduces the calculation and not the extraction. Shared links carry the
+data snapshot id and are refused when the data has changed since.
+
+Scope, results and limits of each milestone are in [M1-IMPLEMENTATION.md](M1-IMPLEMENTATION.md),
+[M2-IMPLEMENTATION.md](M2-IMPLEMENTATION.md) and [M3-IMPLEMENTATION.md](M3-IMPLEMENTATION.md).
 
 ## Data explorer and CSV for modelers (inside *Nasa Run Tables*)
 
@@ -260,8 +330,8 @@ credibility assessment.
 A **verification scoreboard** lists every check with its count and total: tests, PSI quotes found word
 for word, NTRS quotes found in their PDFs, PSI record links, recorded AI claims whose verdict
 reproduces, run-table hashes and the hand-checked Saffire values. It says how each is run (re-run on
-every report, recorded by a sync run, or by hand). The AI answer-accuracy benchmark is listed as not
-run, because it needs a live key.
+every report, recorded by a sync run, or by hand). The 60-case analysis benchmark is one of the
+re-run checks. The AI answer-accuracy benchmark is listed as not run, because it needs a live key.
 
 ## Where the data comes from
 
@@ -306,6 +376,8 @@ fails if a quote is edited without running it again.
 | `npm run dev` | Start the Vite dev server |
 | `npm test` | Run the test suite |
 | `npm run build` | Type-check and build for production |
+| `npm run typecheck` | Type-check only |
+| `npm run benchmark` | Run the 60-case analysis benchmark (`-- FILE` also writes the results as JSON) |
 | `npm run sync:psi` | Refresh the NASA PSI record snapshot (needs access to psi.nasa.gov) |
 | `npm run sync:tables` | Download the PSI experimental tables (`-- --from DIR` imports an earlier download, hash-checked) |
 | `npm run data:normalize` | Rebuild condition ranges from the stored tables |

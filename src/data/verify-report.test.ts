@@ -5,7 +5,7 @@ describe("verification scoreboard", () => {
   const board = report.scoreboard;
 
   it("lists the tests and every source check, each with a method", () => {
-    expect(board.map((r) => r.id)).toEqual(["tests", "psi-quotes", "ntrs-quotes", "psi-links", "recorded-claims", "table-hashes", "saffire"]);
+    expect(board.map((r) => r.id)).toEqual(["tests", "psi-quotes", "ntrs-quotes", "psi-links", "recorded-claims", "benchmark", "table-hashes", "saffire"]);
     for (const r of board) {
       expect(r.passed, r.id).toBeLessThanOrEqual(r.checked);
       expect(r.checked, r.id).toBeGreaterThan(0);

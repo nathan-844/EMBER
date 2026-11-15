@@ -76,7 +76,7 @@ function Scoreboard() {
               <td>AI answer accuracy benchmark</td>
               <td className="num"><span className="badge badge-warn">Not run</span></td>
               <td className="small muted">Needs a live Gemini key</td>
-              <td className="small">Would score live answers to fixed questions against hand-written expected findings. The checks above confirm each claim's quotes and numbers come from its sources; they do not grade whether the reasoning is right.</td>
+              <td className="small">Would score live answers to fixed questions against hand-written expected findings. The checks above confirm each claim's quotes and numbers come from its sources; they do not grade whether the reasoning is right. The analysis benchmark above has no model in it; its cases are listed on the <a href="#research-benchmark">Workbench page</a>.</td>
             </tr>
           </tbody>
         </table>
@@ -105,12 +105,12 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   {
     name: "Input pedigree", q: "Where did every input come from?", level: verified === INVESTIGATIONS.length ? "Partial" : "Limited",
     shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record, synced ${PSI_SNAPSHOT.fetchedOn}. ${tableProfiles} profiles take ${tableRanges} oxygen, pressure or airflow ranges from ${usedTables.size} of ${TABLES.tables.length} stored NASA PSI run tables (${tableRows.toLocaleString("en-US")} source rows; SHA-256 per file); the remaining ranges are labelled curated. The Fire Test Atlas keeps the NASA header and cell behind every value of all ${TABLES.tables.length} tables, and a data audit lists ${AUDIT.totals.issues} issues found in them.`,
-    missing: "Gravity, fuel type and the remaining curated ranges are not read from tables. The ranking's ranges are marginal min–max envelopes; joint test points are counted separately (tests near your scenario). The tables were not compared with their source papers.",
+    missing: "Gravity, fuel type and the remaining curated ranges are not read from tables. The ranking's ranges are marginal min–max envelopes; joint test points are counted separately (tests near your scenario). Only one slice has been compared with its source paper: 188 BASS-II oxygen and carbon monoxide cells against NASA/TM-20210011385 (Compare page). The other tables were not.",
   },
   {
     name: "Results uncertainty", q: "Is uncertainty in the results represented?", level: "Limited",
-    shown: "Unknown inputs earn zero and are flagged; equal scores share a rank within a fuel group; other fuels and adjacent research are labelled separately.",
-    missing: "Measurement uncertainty from the experiments is not propagated.",
+    shown: "Unknown inputs earn zero and are flagged; equal scores share a rank within a fuel group; other fuels and adjacent research are labelled separately. Findings and comparisons carry intervals computed from their own rows, and the Compare and Workbench pages recompute each result under stricter data-quality rules.",
+    missing: "Measurement uncertainty from the experiments is not propagated. The intervals treat each row or pair as independent; which runs shared a session has not been reviewed.",
   },
   {
     name: "Results robustness", q: "How sensitive are results to the inputs?", level: "Evidence shown",
@@ -130,7 +130,7 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   {
     name: "People qualifications", q: "Who built and reviewed it?", level: "Not established",
     shown: "Built as a NASA Space Apps research prototype.",
-    missing: "Curated interpretations have not been signed off by an independent combustion or fire-safety expert.",
+    missing: "Curated interpretations have not been signed off by an independent combustion or fire-safety expert. The BASS-II source cross-check was done by an AI coding assistant, not by a second person.",
   },
 ];
 

@@ -26,6 +26,13 @@ where the evidence runs out.
 - **Browse the Fire Test Atlas** - every NASA source row (2,163 from 23 PSI tables, including NASA's
   SAME/SAME-R results workbook, plus 5 Saffire IV-VI samples) in one schema: 1,912 test rows that
   observe 1,854 distinct experiments, with each value traced to the cell it came from, and a CSV download.
+- **Compare tests yourself** - a source-checked comparison of carbon monoxide from two BASS-II
+  materials, and a workbench with templates for Saffire-II, FLEX and smoke ageing. Each shows the
+  rows used and left out, and how the result moves under stricter rules.
+- **Check a mission's evidence** - list your materials, set two atmospheres and see which NASA
+  tests apply to each, then list the tests that would fill the gaps within a budget.
+- **Reproduce any result** - every comparison and all eight findings download as a ZIP that reruns
+  the numbers with Node alone: no server, no network, no AI key.
 - **Read the data audit** - 43 data-quality issues EMBER found in NASA's tables, each with the
   cells as written and how it is handled.
 - **See tests near your scenario** - a count of individual NASA tests near your oxygen and pressure
@@ -48,13 +55,16 @@ where the evidence runs out.
   is always kept.
 - All derived data rebuilds from the stored NASA tables with one command (`npm run data:all`), and
   CI fails if the committed data differs from a fresh rebuild.
+- Comparisons list every row left out and why, block ones that do not make sense, and never turn
+  a missing or off-scale reading into a number.
 - EMBER selects evidence. It does not predict whether something will burn.
 
 The full detail of the ranking, the AI check, the data pipeline and the more specialised features is
 in **[docs/FEATURES.md](docs/FEATURES.md)**. The atlas schema, rules and audit are described in
 **[docs/DATA.md](docs/DATA.md)**. What EMBER's checks do and do not establish is in
 **[docs/M0-BASELINE.md](docs/M0-BASELINE.md)**, and every change to how NASA's data is read is logged in
-**[docs/CHANGELOG.md](docs/CHANGELOG.md)**.
+**[docs/CHANGELOG.md](docs/CHANGELOG.md)**. The comparison, workbench and mission pages are described
+in [docs/FEATURES.md](docs/FEATURES.md#compare-workbench-and-mission).
 
 ## Getting started
 
@@ -71,6 +81,7 @@ Google AI Studio). Without a key, the presets replay recorded answers.
 | `npm run dev` | Start the dev server |
 | `npm test` | Run the test suite |
 | `npm run build` | Type-check and build for production |
+| `npm run benchmark` | Run the 60-case analysis benchmark |
 
 The other scripts (data sync, AI recording, demo video) are listed in
 [docs/FEATURES.md](docs/FEATURES.md#all-scripts).
@@ -78,8 +89,10 @@ The other scripts (data sync, AI recording, demo video) are listed in
 ## Not claimed
 
 EMBER does not predict flammability, flame spread, extinction or fire risk, and the AI is told not
-to either. Match points select evidence; they are not confidence or probability. It is not a NASA
-product and not a safety certification.
+to either. Match points select evidence; they are not confidence or probability. The comparisons
+describe what NASA's tests recorded; they do not rank materials by safety, and the test planner
+lists coverage, not predicted results. No combustion or fire-safety expert has reviewed the
+findings or comparisons. It is not a NASA product and not a safety certification.
 
 ## Data credits
 
@@ -102,8 +115,9 @@ EMBER is a Space Apps research prototype and is not affiliated with or endorsed 
 - **In the product:** Google Gemini writes the optional evidence synthesis. Every claim is checked
   against the cited source text by `src/lib/grounding.ts`; nothing the model writes is shown
   unchecked, and recorded answers are labelled as recorded.
-- **Building EMBER:** the team used AI coding assistants (Anthropic's Claude, through Claude Code)
-  to help write and review code, tests and documentation. Some commits made with an assistant
+- **Building EMBER:** the team used AI coding assistants (Anthropic's Claude, through Claude Code,
+  and OpenAI's Codex) to help write and review code, tests and documentation. The check of BASS-II's
+  gas readings against NASA's report on the Compare page was done by an assistant. Some commits made with an assistant
   carry a `Co-Authored-By` line; not all do, so the commit history is not a complete record of
   where an assistant helped. The team chose the challenge, scope and scientific framing and reviewed all work.
 

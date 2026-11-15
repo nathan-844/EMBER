@@ -12,6 +12,7 @@ import { checkAnswer, type GroundingReport, type ModelAnswer } from "../src/lib/
 import { quoteHash } from "../src/lib/ntrs-text";
 import { scenarioKey } from "../src/lib/recorded";
 import { PRESETS, presetScenario, type Scenario } from "../src/lib/scenario";
+import { runBenchmark } from "../src/lib/analysis/benchmark";
 
 export interface ScoreRow {
   id: string;
@@ -85,6 +86,14 @@ rows.push({
   id: "recorded-claims", label: "Recorded AI claims whose verdict reproduces", how: "rerun",
   checked: claims, passed: reproduced,
   method: `Every claim in ${Object.keys(store.entries).length} recorded answers is checked again with today's evidence and checker; ${kept} were accepted when recorded, the rest are shown as rejected.`,
+});
+
+// The deterministic analysis benchmark (npm run benchmark): fixed questions with a known answer.
+const bench = runBenchmark();
+rows.push({
+  id: "benchmark", label: "Analysis benchmark cases answered correctly", how: "rerun",
+  checked: bench.total, passed: bench.passed,
+  method: "Fixed questions about the comparison engine and the atlas, each with an expected value (npm run benchmark). No model answers them, so this does not grade AI answers.",
 });
 
 // Hashes of the NASA run tables.

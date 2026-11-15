@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { PSI_SNAPSHOT } from "../data/psi";
 import { ChartIcon, FlameIcon, ShieldIcon, SlidersIcon, TableIcon } from "./icons";
 
@@ -12,6 +12,12 @@ type Props = {
 };
 
 export function AppShell({ route, onNavigate, recordCount, children }: Props) {
+  // On a phone the nav scrolls sideways; keep the current page's tab in view.
+  const nav = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = nav.current, current = el?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (el && current) el.scrollLeft = Math.max(0, current.offsetLeft - el.offsetLeft - (el.clientWidth - current.offsetWidth) / 2);
+  }, [route]);
   return (
     <>
       <header className="topbar">
@@ -20,7 +26,7 @@ export function AppShell({ route, onNavigate, recordCount, children }: Props) {
           <span className="brand-name">EMBER</span>
           <span className="brand-sub">FIRE<br />SAFETY<br />RESEARCH</span>
         </a>
-        <nav className="nav" aria-label="Main">
+        <nav className="nav" aria-label="Main" ref={nav}>
           <button aria-current={route === "lab" ? "page" : undefined} onClick={() => onNavigate("lab")}>
             <SlidersIcon /> Scenario lab
           </button>

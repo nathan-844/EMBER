@@ -156,6 +156,26 @@ export function Landing() {
         </div>
       </section>
 
+      <section className="land-section" aria-labelledby="land-work">
+        <p className="eyebrow">Work with the rows</p>
+        <h2 id="land-work">Compare tests, plan a mission, and take the calculation with you.</h2>
+        <div className="land-grid three">
+          <a href="#compare" className="card">
+            <h3>Compare two materials</h3>
+            <p>How much carbon monoxide BASS-II's PMMA slabs added against SIBAL fabric, with every row used or left out, and the result recomputed under stricter rules.</p>
+          </a>
+          <a href="#research" className="card">
+            <h3>Run a comparison of your own</h3>
+            <p>Templates for Saffire-II ground against orbit, FLEX droplets at two oxygen levels, and fresh against aged smoke. Comparisons that do not make sense are blocked, with the reason.</p>
+          </a>
+          <a href="#mission" className="card">
+            <h3>Check a mission's evidence</h3>
+            <p>List your materials, set two atmospheres, and see which NASA tests apply to each. Then list the tests that would fill the gaps within a budget.</p>
+          </a>
+        </div>
+        <p className="land-note">Each page downloads a ZIP that reruns its numbers with Node alone: no server, no network, no AI key.</p>
+      </section>
+
       <section className="land-section land-grid two" aria-labelledby="land-ai">
         <div>
           <p className="eyebrow">Checked AI</p>
