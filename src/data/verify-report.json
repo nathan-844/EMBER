@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-15",
   "node": "v22.23.4",
   "tests": {
-    "passed": 440,
+    "passed": 456,
     "failed": 0,
-    "total": 440,
-    "files": 24,
+    "total": 456,
+    "files": 26,
     "names": [
       {
         "file": "server/analyze.test.ts",
@@ -743,6 +743,16 @@
         "status": "passed"
       },
       {
+        "file": "components/GuidedTour.test.ts",
+        "title": "guided tour points every step at something the lab renders",
+        "status": "passed"
+      },
+      {
+        "file": "components/GuidedTour.test.ts",
+        "title": "guided tour keeps each step short",
+        "status": "passed"
+      },
+      {
         "file": "data/applications.test.ts",
         "title": "equipment links detect-suppress-models quotes its NASA PSI record word for word",
         "status": "passed"
@@ -1020,6 +1030,66 @@
       {
         "file": "data/investigations.test.ts",
         "title": "curated data audit PSI urls point at psi.nasa.gov",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss035e015900 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss040e086481 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss051e039882 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos jsc2023e046631 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos jsc2023e046375 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos GRC-2016-C-05051 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss059e103188 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos GRC-2013-C-03367 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss043e190395 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss015e27411 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos only point at real investigations",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos list an investigation's own photo before shared hardware",
         "status": "passed"
       },
       {
@@ -1973,6 +2043,16 @@
         "status": "passed"
       },
       {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure against Earth puts the lunar-base atmosphere at Earth's partial pressure with 43% more oxygen fraction",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure against Earth says when a richer atmosphere still has less oxygen pressure, or more",
+        "status": "passed"
+      },
+      {
         "file": "lib/atlas/atlas.test.ts",
         "title": "atlas coverage has one record per stored NASA row, plus each NTRS Saffire run",
         "status": "passed"
@@ -2222,15 +2302,15 @@
       "src/data/atlas/audit.json",
       "src/data/ntrs-manifest.json"
     ],
-    "value": "e174c6b811bf18b1927400f731b795c73746a3af7ac9a34202f49b1fd6320846"
+    "value": "c1bf5506766dfed6ff59350bcbb179a86a26c7a90979b459ec45dab7cfc4366d"
   },
   "scoreboard": [
     {
       "id": "tests",
       "label": "Automated tests passing",
       "how": "rerun",
-      "checked": 440,
-      "passed": 440,
+      "checked": 456,
+      "passed": 456,
       "method": "The full Vitest suite: ranking rules, data checks, quote checks, the AI claim checker and the server."
     },
     {
@@ -2245,8 +2325,8 @@
       "id": "ntrs-quotes",
       "label": "NTRS report quotes found in the PDF",
       "how": "recorded",
-      "checked": 22,
-      "passed": 22,
+      "checked": 23,
+      "passed": 23,
       "method": "npm run sync:ntrs found each quote in the text of its PDF (14 PDFs, SHA-256 and page recorded) on 2026-11-15; the stored quote hash is re-checked here."
     },
     {
