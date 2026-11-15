@@ -49,6 +49,7 @@ export function Landing() {
         </p>
         <div className="land-actions">
           <a className="btn btn-primary land-cta" href="#lab">Launch EMBER →</a>
+          <a className="btn land-btn" href="#tour">Take the 1-minute tour</a>
           <a className="btn land-btn" href="#findings">See the findings</a>
           <a className="btn land-btn" href="#data">Browse the data</a>
           <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Source on GitHub</a>

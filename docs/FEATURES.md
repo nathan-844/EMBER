@@ -33,6 +33,11 @@ suppression) must be chosen; any other input can be left *unspecified*.
 - **Exports** - a Markdown evidence brief, and a CSV of each condition range with its NASA table,
   column and row count. A scenario can also be saved as a comparison baseline.
 
+**Guided tour.** "Take the tour" in the lab (or "Take the 1-minute tour" on the landing page, which
+opens `#tour`) walks through eight steps with a spotlight: the scenario panel, the short answer, the
+ranked evidence, the gap map, partial-gravity results, Ask EMBER, equipment links and the Credibility
+page. Arrow keys move between steps and Esc closes it; on a phone the card sits at the bottom.
+
 ## How the ranking works
 
 - 25 points for addressing the safety question (10 for adjacent research).

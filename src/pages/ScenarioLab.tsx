@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from "react";
 import { EARTH_LINKS } from "../data/applications";
 import { getInvestigation, INVESTIGATIONS } from "../data/investigations";
 import manifest from "../data/table-manifest.json";
@@ -9,6 +9,7 @@ import { CoverageChart } from "../components/CoverageChart";
 import { EarthPanel } from "../components/EarthPanel";
 import { EquipmentPanel } from "../components/EquipmentPanel";
 import { GravityIllustration } from "../components/GravityIllustration";
+import { GuidedTour, LAB_TOUR } from "../components/GuidedTour";
 import { PartialGravityPanel, partialGravityCount } from "../components/PartialGravityPanel";
 import { AnalysisCard, AskForm } from "../components/AnalysisCard";
 import { useAnalysis } from "../components/useAnalysis";
@@ -84,6 +85,13 @@ export function ScenarioLab() {
   const [baseline, setBaseline] = useState<Scenario | null>(null);
   const [open, setOpen] = useState<TileId | null>(null);
   const [brief, setBrief] = useState<string | null>(null);
+  const [tour, setTour] = useState(false);
+  // #tour (linked from the landing page) opens the lab with the tour running.
+  useEffect(() => {
+    if (window.location.hash !== "#tour") return;
+    history.replaceState(null, "", "#lab");
+    setTour(true);
+  }, []);
   const analysis = useAnalysis(scenario);
 
   const ranked = useMemo(() => rankInvestigations(scenario), [scenario]);
@@ -122,6 +130,7 @@ export function ScenarioLab() {
           </p>
         </div>
         <div className="hero-actions">
+          <button className="btn" onClick={() => setTour(true)}>Take the tour</button>
           <button className="btn btn-primary" onClick={exportBrief}><DownloadIcon /> Evidence brief</button>
           <button className="btn" onClick={() => downloadText(`ember-data-${scenario.environment}.csv`, buildCsv(scenario, ranked), "text/csv")} title="Ranked investigations with each condition range and its NASA source, for modelling">
             <DownloadIcon /> Data (.csv)
@@ -287,6 +296,7 @@ export function ScenarioLab() {
         <EarthPanel />
       </TileDialog>
 
+      <GuidedTour steps={LAB_TOUR} open={tour} onClose={() => setTour(false)} />
       {brief && <BriefDialog text={brief} filename={`ember-brief-${scenario.environment}.md`} onClose={() => setBrief(null)} />}
     </main>
   );
