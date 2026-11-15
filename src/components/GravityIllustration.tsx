@@ -26,13 +26,20 @@ function Candle({ kind }: { kind: "earth" | "micro" }) {
   );
 }
 
-export function GravityIllustration({ scenario }: { scenario: Scenario }) {
+export function GravityIllustration({ scenario, open = false }: { scenario: Scenario; open?: boolean }) {
   const regime = gravityRegime(scenario.gravityG);
   return (
-    <section className="card illus">
+    <section className="card illus" aria-labelledby="illus-title">
+      <details className="fold" open={open}>
+      <summary>
+        <div>
+          <p className="eyebrow">Why gravity changes the evidence</p>
+          <h3 id="illus-title">Without buoyancy, a candle flame changes shape</h3>
+        </div>
+        <span className="badge">Illustration</span>
+        <span className="disclose" aria-hidden />
+      </summary>
       <div className="sim-banner">Simulated · Qualitative illustration · Not NASA measurements</div>
-      <p className="eyebrow">Why gravity changes the evidence</p>
-      <h3>Without buoyancy, a candle flame changes shape</h3>
       <div className="illus-grid">
         <div className="illus-cell">
           <Candle kind="earth" />
@@ -56,6 +63,7 @@ export function GravityIllustration({ scenario }: { scenario: Scenario }) {
         </div>
       </div>
       <p className="small muted">Candle-like example in still air. Solid sheets, droplets and gas jets, and any ventilation, behave differently; colors are artistic, not temperatures.</p>
+      </details>
     </section>
   );
 }

@@ -1,120 +1,70 @@
-import { useEffect, useState } from "react";
-import type { GroundingReport } from "../lib/grounding";
-import { scenarioKey } from "../lib/recorded";
-import type { Scenario } from "../lib/scenario";
-
-interface Result {
-  model?: string;
-  generatedAt?: string;
-  ms?: number;
-  attempts?: number;
-  report?: GroundingReport;
-  recorded?: boolean;
-  cached?: boolean;
-  error?: string;
-}
-
-type Status = {
-  enabled: boolean;
-  provider?: string | null;
-  model: string | null;
-  recorded?: number;
-  limits?: { perVisitor: number; windowMinutes: number; daily: number } | null;
-  server: boolean;
-};
+import { useId, useState } from "react";
+import { ASK_MAX, SUGGESTED_ASKS } from "../lib/recorded";
+import type { Analysis } from "./useAnalysis";
 
 const ORIGIN_LABEL = { nasa: "NASA", derived: "NASA data · EMBER-computed", ember: "EMBER", user: "Scenario" } as const;
 
-/** Recorded answers for the unedited presets, loaded only when there is no live model. */
-async function recordedFor(scenario: Scenario): Promise<Result | null> {
-  const data = (await import("../data/recorded-analyses.json")).default as unknown as { entries: Record<string, Result> };
-  const hit = data.entries[scenarioKey(scenario)];
-  return hit ? { ...hit, recorded: true } : null;
-}
-
 /**
- * Optional AI synthesis. The model is treated as an untrusted author: the server
- * checks every excerpt and number against the evidence package, retries once with the
- * checker's findings, and this card shows what was kept, what was dropped and why.
+ * "Ask EMBER": a typed question, one-click suggestions, or an analysis of the whole scenario.
+ * Every answer goes through the same evidence package and grounding check.
  */
-export function AnalysisCard({ scenario }: { scenario: Scenario }) {
-  const [status, setStatus] = useState<Status | null>(null);
-  const [busy, setBusy] = useState(false);
-  const [result, setResult] = useState<Result | null>(null);
-  const [forKey, setForKey] = useState<string | null>(null);
-  const [hasRecording, setHasRecording] = useState(false);
-  const key = JSON.stringify(scenario);
-
-  useEffect(() => {
-    fetch("/api/ai-status")
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((s) => setStatus({ ...s, server: true }))
-      .catch(() => setStatus({ enabled: false, model: null, server: false }));
-  }, []);
-
-  useEffect(() => {
-    if (!status || status.enabled) return;
-    let live = true;
-    recordedFor(scenario).then((r) => live && setHasRecording(!!r));
-    return () => { live = false; };
-  }, [status, key]);
-
-  const run = async () => {
-    setBusy(true);
-    setResult(null);
-    try {
-      if (!status?.enabled) {
-        setResult((await recordedFor(scenario)) ?? { error: "No recorded analysis for this exact scenario." });
-      } else {
-        const r = await fetch("/api/analyze", { method: "POST", headers: { "Content-Type": "application/json" }, body: key });
-        setResult(await r.json());
-      }
-      setForKey(key);
-    } catch {
-      setResult({ error: "Could not reach the EMBER server." });
-    } finally {
-      setBusy(false);
-    }
+export function AskForm({ analysis, onSubmit, compact = false }: { analysis: Analysis; onSubmit?: () => void; compact?: boolean }) {
+  const [text, setText] = useState("");
+  const inputId = useId();
+  const { live, busy, canRun, status } = analysis;
+  const go = (ask?: string) => {
+    onSubmit?.();
+    void analysis.run(ask ?? null);
   };
-
-  const canRun = !!status && (status.enabled || hasRecording);
-  const stale = result && forKey !== key;
-  const report = result?.report;
+  const typedOk = live && text.trim().length >= 3;
 
   return (
-    <section className="card analysis">
-      <div className="section-head">
-        <div>
-          <p className="eyebrow">Grounded AI analysis · optional</p>
-          <h3>What the evidence says about your scenario</h3>
-        </div>
-        <button className="btn btn-primary" onClick={run} disabled={!canRun || busy} aria-busy={busy}>
-          {busy ? "Analyzing…" : !status?.enabled && hasRecording ? "Show recorded analysis" : result ? "Re-analyze" : "Analyze scenario"}
+    <div className={`ask${compact ? " ask-compact" : ""}`}>
+      <form className="ask-row" onSubmit={(e) => { e.preventDefault(); if (typedOk) go(text); }}>
+        <label htmlFor={inputId} className="sr-only">Your question about this scenario</label>
+        <input
+          id={inputId}
+          type="text"
+          value={text}
+          maxLength={ASK_MAX}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={!status ? "Connecting…" : live ? "Ask about this scenario, e.g. why is BASS-II first?" : "Live AI is off here; try a suggested question"}
+          disabled={!live || busy}
+          autoComplete="off"
+        />
+        <button className="btn btn-primary" type="submit" disabled={!typedOk || busy} aria-busy={busy}>
+          {busy ? "Checking…" : "Ask"}
         </button>
+      </form>
+      <div className="ask-chips" role="group" aria-label="Suggested questions">
+        {SUGGESTED_ASKS.map((q) => (
+          <button key={q} type="button" className="ask-chip" onClick={() => go(q)} disabled={busy || !canRun(q)}
+            title={canRun(q) ? undefined : "No live model here, and no recorded answer for this scenario"}>
+            {q}
+          </button>
+        ))}
       </div>
-      <p className="small muted">
-        {status?.enabled ? `${status.provider} (${status.model})` : "Google Gemini"} reads a server-built package of NASA PSI
-        text, run-table ranges, the NASA table rows nearest your scenario and EMBER's limitations. EMBER rejects any claim
-        whose excerpt is not found word for word in the source it cites (NASA text or EMBER’s own summaries, labelled), or whose numbers do not appear in those sources,
-        your scenario or Earth reference values, and asks the model once to correct what failed. This makes the basis
-        auditable; it does not prove the reasoning is right.
+      <button type="button" className="btn ask-whole" onClick={() => go()} disabled={busy || !canRun(null)}>
+        {!live && canRun(null) ? "Show the recorded analysis of this scenario" : "Or analyze the whole scenario"}
+      </button>
+    </div>
+  );
+}
+
+/** The checked answer: verdict and receipt, the summary, each claim with its verified excerpts. */
+export function AnalysisReport({ analysis }: { analysis: Analysis }) {
+  const { result, stale, busy } = analysis;
+  const report = result?.report;
+  if (busy) return <p className="small muted ask-wait" role="status">Waiting for the model and the grounding check. This can take up to a minute or two.</p>;
+  if (!result) return null;
+  return (
+    <div className="analysis-result" aria-live="polite">
+      <p className="ask-question">
+        <span className="eyebrow">{result.ask ? "You asked" : "Whole-scenario analysis"}</span>
+        {result.ask && <span>“{result.ask}”</span>}
       </p>
-      {busy && <p className="small muted" role="status">Waiting for the model and the grounding check. This can take up to a minute or two.</p>}
-      {status?.enabled && (
-        <p className="small muted">
-          Unedited presets show answers recorded through this same pipeline, instantly. Change any value for a fresh live
-          analysis{status.limits ? ` (up to ${status.limits.perVisitor} per ${status.limits.windowMinutes} minutes per visitor; repeated scenarios are served from cache)` : ""}.
-        </p>
-      )}
-      {status && !status.enabled && (
-        <p className="small warn-note">
-          {hasRecording
-            ? "No live model is connected. This preset has an answer recorded through the same pipeline; it is labelled as recorded."
-            : <>Live AI analysis is off. Put <code>GEMINI_API_KEY=…</code> in <code>.env.local</code> and restart <code>npm run dev</code>. Recorded answers exist for the unedited presets. Everything else on this page works without it.</>}
-        </p>
-      )}
-      {stale && <p className="small warn-note">The scenario changed since this analysis. Re-analyze to update it.</p>}
-      {result?.error && <p className="warn-text" role="alert">{result.error}</p>}
+      {stale && <p className="small warn-note">The scenario changed since this answer. Ask again to update it.</p>}
+      {result.error && <p className="warn-text" role="alert">{result.error}</p>}
       {report && (
         <div className={`analysis-body ${stale ? "is-stale" : ""}`}>
           <div className={`verdict verdict-${report.verdict}`}>
@@ -126,10 +76,10 @@ export function AnalysisCard({ scenario }: { scenario: Scenario }) {
               {report.receipt.nasaExcerpts} NASA text ({report.receipt.tableRowExcerpts ?? 0} run-table rows), {report.receipt.derivedExcerpts ?? 0} EMBER-computed from NASA tables, {report.receipt.emberExcerpts} EMBER, {report.receipt.userExcerpts} scenario
             </span>
             <span className="small">
-              {result?.recorded ? "Recorded" : result?.cached ? "Cached live answer" : "Live"} · {result?.model}
-              {result?.attempts === 2 ? " · corrected once after the check" : ""}
-              {result?.ms ? ` · ${(result.ms / 1000).toFixed(0)} s` : ""}
-              {result?.generatedAt ? ` · ${result.generatedAt.slice(0, 10)}` : ""}
+              {result.recorded ? "Recorded" : result.cached ? "Cached live answer" : "Live"} · {result.model}
+              {result.attempts === 2 ? " · corrected once after the check" : ""}
+              {result.ms ? ` · ${(result.ms / 1000).toFixed(0)} s` : ""}
+              {result.generatedAt ? ` · ${result.generatedAt.slice(0, 10)}` : ""}
             </span>
           </div>
           {report.verdict !== "rejected" && report.summary.accepted && <p className="analysis-summary">{report.summary.text}</p>}
@@ -167,6 +117,44 @@ export function AnalysisCard({ scenario }: { scenario: Scenario }) {
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+/**
+ * The full AI view (inside the dashboard dialog). The model is treated as an untrusted author:
+ * the server checks every excerpt and number against the evidence package, retries once with
+ * the checker's findings, and this view shows what was kept, what was dropped and why.
+ */
+export function AnalysisCard({ analysis }: { analysis: Analysis }) {
+  const { status, live } = analysis;
+  return (
+    <section className="card analysis">
+      <AskForm analysis={analysis} />
+      <details className="fold fold-inline">
+        <summary><span>How the check works</span><span className="disclose" aria-hidden /></summary>
+        <p className="small muted">
+          {live ? `${status?.provider} (${status?.model})` : "Google Gemini"} reads a server-built package of NASA PSI
+          text, run-table ranges, the NASA table rows nearest your scenario and EMBER's limitations, plus your question if you
+          asked one. EMBER rejects any claim whose excerpt is not found word for word in the source it cites (NASA text or
+          EMBER’s own summaries, labelled), or whose numbers do not appear in those sources, your scenario or Earth reference
+          values, and asks the model once to correct what failed. Numbers typed only in a question are not accepted: set them
+          in the scenario panel instead. This makes the basis auditable; it does not prove the reasoning is right.
+        </p>
+      </details>
+      {live && (
+        <p className="small muted">
+          Unedited presets replay recorded answers instantly. Anything else is a live answer
+          {status?.limits ? ` (up to ${status.limits.perVisitor} per ${status.limits.windowMinutes} minutes per visitor; repeated questions are served from cache)` : ""}.
+        </p>
+      )}
+      {status && !live && (
+        <p className="small warn-note">
+          No live model is connected here. Unedited presets replay answers recorded through the same pipeline, labelled as recorded.
+          To ask your own questions locally, put <code>GEMINI_API_KEY=…</code> in <code>.env.local</code> and restart <code>npm run dev</code>.
+        </p>
+      )}
+      <AnalysisReport analysis={analysis} />
     </section>
   );
 }

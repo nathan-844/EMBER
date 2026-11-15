@@ -2,7 +2,7 @@ import { gravityRegime, oxygenPartialPressure, type Scenario } from "../lib/scen
 
 type Props = { scenario: Scenario; relevant: number; total: number };
 
-const GRAVITY_TEXT = {
+export const GRAVITY_TEXT = {
   microgravity: ["Direct evidence", "PSI data are microgravity results"],
   partial: ["Analogue evidence", "No partial-gravity data in PSI yet"],
   earth: ["Ground analogue", "PSI focuses on low-gravity results"],

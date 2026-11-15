@@ -3,12 +3,11 @@ import type { Scenario } from "../lib/scenario";
 import { GapMap } from "./GapMap";
 import { TableExplorer } from "./TableExplorer";
 
-/** Loaded on demand (it pulls in every stored NASA table). */
-export default function DataExplorer({ scenario, ranked }: { scenario: Scenario; ranked: RankedInvestigation[] }) {
-  return (
-    <>
-      <GapMap scenario={scenario} />
-      <TableExplorer ranked={ranked} />
-    </>
-  );
+/** Loaded on demand (it pulls in every stored NASA table). The dashboard opens each part from its own tile. */
+export function GapMapPanel({ scenario }: { scenario: Scenario }) {
+  return <GapMap scenario={scenario} />;
+}
+
+export function TablesPanel({ ranked }: { ranked: RankedInvestigation[] }) {
+  return <TableExplorer ranked={ranked} />;
 }

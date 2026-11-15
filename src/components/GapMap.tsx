@@ -20,7 +20,8 @@ function tip(p: GapPoint): string {
   return `${p.name} · ${FUEL_LABEL[p.fuel]} · ${p.oxygenPct}% O₂, ${pr} · NASA ${p.table} row${p.rows.length > 1 ? "s" : ""} ${p.rows.slice(0, 8).join(", ")}${p.rows.length > 8 ? "…" : ""}`;
 }
 
-export function GapMap({ scenario }: { scenario: Scenario }) {
+export function GapMap({ scenario, compact = false }: { scenario: Scenario; compact?: boolean }) {
+  // compact: the dashboard-tile preview, chart and one-line headline only.
   const data = useMemo(() => gapPoints(INVESTIGATIONS), []);
   const W = 640, left = 52, right = 16, top = 14, plotH = 260, stripGap = 34, stripH = 22, bottom = 40;
   const plotW = W - left - right;
@@ -47,6 +48,54 @@ export function GapMap({ scenario }: { scenario: Scenario }) {
           ? `The closest solid-material run to your ${o2}% O₂ is ${solid.name} at ${solid.oxygenPct}%.`
           : `No solid-material run has a recorded oxygen level.`;
 
+  const chart = (
+    <svg viewBox={`0 0 ${W} ${H}`} className="gapmap" {...(compact ? { "aria-hidden": true } : { role: "img", "aria-label": `Oxygen against pressure for NASA test runs by fuel type. ${headline}` })}>
+      {X.ticks.map((t) => (
+        <g key={`x${t}`}>
+          <line className="grid" x1={x(t)} x2={x(t)} y1={top} y2={top + plotH} />
+          <text className="tick" x={x(t)} y={H - bottom + 16} textAnchor="middle">{t}{t === X.max ? "+" : ""}</text>
+        </g>
+      ))}
+      {Y.ticks.map((t) => (
+        <g key={`y${t}`}>
+          <line className="grid" x1={left} x2={W - right} y1={y(t)} y2={y(t)} />
+          <text className="tick" x={left - 8} y={y(t) + 4} textAnchor="end">{t}</text>
+        </g>
+      ))}
+      <text className="axis-label" x={left + plotW / 2} y={H - 6} textAnchor="middle">Oxygen, vol % (values above 50 drawn at the edge)</text>
+      <text className="axis-label" transform={`translate(14 ${top + plotH / 2}) rotate(-90)`} textAnchor="middle">Pressure, psia</text>
+      <line className="grid" x1={left} x2={W - right} y1={stripY - stripH / 2 - 6} y2={stripY - stripH / 2 - 6} />
+      <text className="strip-label" x={left} y={stripY - stripH / 2 - 10}>Pressure not recorded in the table</text>
+
+      {[...plotted].sort(order).map((q, i) => (
+        <g key={`p${i}`}><Marker fuel={q.fuel} x={x(q.oxygenPct)} y={y(q.pressurePsi!)} assumed={q.pressureAssumed} /><title>{tip(q)}</title></g>
+      ))}
+      {noPressure.map((q, i) => (
+        <g key={`n${i}`}><Marker fuel={q.fuel} x={x(q.oxygenPct)} y={stripY} /><title>{tip(q)}</title></g>
+      ))}
+
+      {o2 != null && (
+        <g aria-hidden>
+          <line x1={x(o2)} x2={x(o2)} y1={top} y2={top + plotH} stroke="var(--bad)" strokeDasharray="4 3" />
+          {p != null && <line x1={left} x2={W - right} y1={y(p)} y2={y(p)} stroke="var(--bad)" strokeDasharray="4 3" />}
+          {p != null && <circle cx={x(o2)} cy={y(p)} r={7} fill="none" stroke="var(--bad)" strokeWidth={2.5} />}
+          <text className="you-label" x={Math.min(x(o2) + 9, W - right - 90)} y={(p != null ? y(p) : top + 12) - 9}>
+            Your scenario{o2 > X.max ? ` (${o2}%)` : ""}
+          </text>
+        </g>
+      )}
+    </svg>
+  );
+
+  if (compact) {
+    return (
+      <div className="gap-compact">
+        <p className="tile-text">{headline}</p>
+        {chart}
+      </div>
+    );
+  }
+
   return (
     <section className="card" aria-labelledby="gapmap-title">
       <p className="eyebrow">Joint test conditions · NASA run-table rows</p>
@@ -58,42 +107,7 @@ export function GapMap({ scenario }: { scenario: Scenario }) {
         {new Set(data.points.map((q) => q.table)).size} tables.
       </p>
       <div className="gapmap-scroll" tabIndex={0} aria-label="Gap map (scrolls sideways on small screens)">
-        <svg viewBox={`0 0 ${W} ${H}`} className="gapmap" role="img" aria-label={`Oxygen against pressure for NASA test runs by fuel type. ${headline}`}>
-          {X.ticks.map((t) => (
-            <g key={`x${t}`}>
-              <line className="grid" x1={x(t)} x2={x(t)} y1={top} y2={top + plotH} />
-              <text className="tick" x={x(t)} y={H - bottom + 16} textAnchor="middle">{t}{t === X.max ? "+" : ""}</text>
-            </g>
-          ))}
-          {Y.ticks.map((t) => (
-            <g key={`y${t}`}>
-              <line className="grid" x1={left} x2={W - right} y1={y(t)} y2={y(t)} />
-              <text className="tick" x={left - 8} y={y(t) + 4} textAnchor="end">{t}</text>
-            </g>
-          ))}
-          <text className="axis-label" x={left + plotW / 2} y={H - 6} textAnchor="middle">Oxygen, vol % (values above 50 drawn at the edge)</text>
-          <text className="axis-label" transform={`translate(14 ${top + plotH / 2}) rotate(-90)`} textAnchor="middle">Pressure, psia</text>
-          <line className="grid" x1={left} x2={W - right} y1={stripY - stripH / 2 - 6} y2={stripY - stripH / 2 - 6} />
-          <text className="strip-label" x={left} y={stripY - stripH / 2 - 10}>Pressure not recorded in the table</text>
-
-          {[...plotted].sort(order).map((q, i) => (
-            <g key={`p${i}`}><Marker fuel={q.fuel} x={x(q.oxygenPct)} y={y(q.pressurePsi!)} assumed={q.pressureAssumed} /><title>{tip(q)}</title></g>
-          ))}
-          {noPressure.map((q, i) => (
-            <g key={`n${i}`}><Marker fuel={q.fuel} x={x(q.oxygenPct)} y={stripY} /><title>{tip(q)}</title></g>
-          ))}
-
-          {o2 != null && (
-            <g aria-hidden>
-              <line x1={x(o2)} x2={x(o2)} y1={top} y2={top + plotH} stroke="var(--bad)" strokeDasharray="4 3" />
-              {p != null && <line x1={left} x2={W - right} y1={y(p)} y2={y(p)} stroke="var(--bad)" strokeDasharray="4 3" />}
-              {p != null && <circle cx={x(o2)} cy={y(p)} r={7} fill="none" stroke="var(--bad)" strokeWidth={2.5} />}
-              <text className="you-label" x={Math.min(x(o2) + 9, W - right - 90)} y={(p != null ? y(p) : top + 12) - 9}>
-                Your scenario{o2 > X.max ? ` (${o2}%)` : ""}
-              </text>
-            </g>
-          )}
-        </svg>
+        {chart}
       </div>
       <div className="gap-legend small muted">
         {(["solid", "liquid", "gas"] as const).map((f) => (

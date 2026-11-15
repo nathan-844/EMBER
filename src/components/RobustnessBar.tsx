@@ -4,8 +4,8 @@ import { CONDITION_LABELS } from "../lib/ranking";
 import { probeRobustness } from "../lib/robustness";
 import type { Scenario } from "../lib/scenario";
 
-export function RobustnessBar({ scenario }: { scenario: Scenario }) {
-  const [open, setOpen] = useState(false);
+export function RobustnessBar({ scenario, initialOpen = false }: { scenario: Scenario; initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const report = useMemo(() => probeRobustness(scenario), [scenario]);
   if (!report.lead) return null;
   const leadName = getInvestigation(report.lead)?.name ?? report.lead;
@@ -21,7 +21,7 @@ export function RobustnessBar({ scenario }: { scenario: Scenario }) {
         {report.dependsOn.length > 0 && (
           <span><strong>Lead depends on:</strong> {report.dependsOn.map((k) => CONDITION_LABELS[k]).join(", ")}</span>
         )}
-        <span aria-hidden>{open ? "▴" : "▾"}</span>
+        <span className="robust-toggle" aria-hidden>{open ? "Hide probes ▴" : "Show probes ▾"}</span>
       </button>
       {open && (
         <table className="probe-table">

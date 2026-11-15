@@ -106,6 +106,8 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
         </p>
       )}
 
+      <details className="fold fold-inline">
+        <summary><span>NASA rows · {t.rows.length} run{t.rows.length === 1 ? "" : "s"}</span><span className="disclose" aria-hidden /></summary>
       <div className="table-scroll" tabIndex={0} aria-label={`NASA ${meta.id} rows`}>
         <table className="run-table">
           <thead>
@@ -127,6 +129,7 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
       {t.rows.length > 12 && (
         <button className="link-btn center" onClick={() => setShowAll(!showAll)}>{showAll ? "Show the first 12 rows" : `Show all ${t.rows.length} rows`}</button>
       )}
+      </details>
     </section>
   );
 }

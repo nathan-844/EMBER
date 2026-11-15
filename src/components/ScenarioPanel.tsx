@@ -30,10 +30,10 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
   const preset = PRESETS.find((p) => p.id === scenario.environment);
 
   return (
-    <aside className="card panel" aria-label="Your scenario">
+    <aside className="card panel" id="scenario" aria-label="Your scenario">
       <div className="panel-head">
         <h2><SlidersIcon /> Your scenario</h2>
-        <button className="icon-btn" title="Reset to lunar habitat" onClick={() => onChange(presetScenario("lunar-habitat"))}>↺</button>
+        <button className="icon-btn" title="Reset to lunar habitat" aria-label="Reset to lunar habitat" onClick={() => onChange(presetScenario("lunar-habitat"))}>↺</button>
       </div>
 
       <label className="field-label" htmlFor="env">Environment</label>
@@ -42,13 +42,14 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
       </select>
       <p className="hint">{preset?.note} Illustrative presets; edit to match your design.</p>
 
-      <span className="field-label">Safety question</span>
+      <span className="field-label" id="q-label">Safety question</span>
       <div className="segmented" role="group" aria-label="Safety question">
         {QUESTIONS.map((q) => (
           <button key={q.id} aria-pressed={scenario.question === q.id} onClick={() => set("question", q.id)}>{q.label}</button>
         ))}
       </div>
 
+      <p className="panel-group">Cabin conditions <span>leave any blank if unknown</span></p>
       {SLIDERS.map((s) => {
         const value = scenario[s.key];
         return (
@@ -87,16 +88,22 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
         );
       })}
 
+      <label className="field-label" htmlFor="fuel">Fuel</label>
+      <select id="fuel" value={scenario.fuel ?? ""} onChange={(e) => set("fuel", (e.target.value || null) as FuelType | null)}>
+        <option value="">Unspecified</option>
+        <option value="solid">Solid material</option>
+        <option value="liquid">Liquid</option>
+        <option value="gas">Gas</option>
+      </select>
+
+      <label className="check">
+        <input type="checkbox" checked={scenario.includeAdjacent} onChange={(e) => set("includeAdjacent", e.target.checked)} />
+        Include analogues &amp; adjacent research
+      </label>
+
+      <details className="fold fold-inline panel-more">
+        <summary><span>Material &amp; flow (optional)</span><span className="disclose" aria-hidden /></summary>
       <div className="grid-2">
-        <div>
-          <label className="field-label" htmlFor="fuel">Fuel</label>
-          <select id="fuel" value={scenario.fuel ?? ""} onChange={(e) => set("fuel", (e.target.value || null) as FuelType | null)}>
-            <option value="">Unspecified</option>
-            <option value="solid">Solid material</option>
-            <option value="liquid">Liquid</option>
-            <option value="gas">Gas</option>
-          </select>
-        </div>
         <div>
           <label className="field-label" htmlFor="flowdir">Flow direction</label>
           <select id="flowdir" value={scenario.flowDirection ?? ""} onChange={(e) => set("flowDirection", (e.target.value || null) as Scenario["flowDirection"])}>
@@ -113,7 +120,7 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
             {MATERIAL_OPTIONS.map((m) => <option key={m}>{m}</option>)}
           </select>
         </div>
-        <div>
+        <div className="span-2">
           <label className="field-label" htmlFor="thick">Thickness · mm</label>
           <input id="thick" type="number" min={0} step={0.1} placeholder="Unknown" value={scenario.thicknessMm ?? ""}
             onChange={(e) => {
@@ -123,11 +130,7 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
         </div>
       </div>
       <p className="hint">Material, thickness and flow direction do not change ranking. Where a PSI run table records materials or flow direction (BASS-II, Saffire), the limitations list says whether yours was tested.</p>
-
-      <label className="check">
-        <input type="checkbox" checked={scenario.includeAdjacent} onChange={(e) => set("includeAdjacent", e.target.checked)} />
-        Include analogues &amp; adjacent research
-      </label>
+      </details>
 
       <button className="btn wide" onClick={onSaveBaseline}>＋ {hasBaseline ? "Replace comparison baseline" : "Save as comparison baseline"}</button>
     </aside>

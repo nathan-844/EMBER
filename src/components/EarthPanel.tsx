@@ -21,7 +21,10 @@ export function EarthPanel() {
                 return <a key={id} className="badge badge-psi" href={inv.psi.url ?? undefined} target="_blank" rel="noreferrer">{inv.name} · {inv.psi.accession} <ExternalIcon /></a>;
               })}
             </div>
-            <blockquote className="equip-quote">“{l.quote.text}”<cite>NASA {l.quote.accession} research impacts</cite></blockquote>
+            <details className="fold fold-inline">
+              <summary><span>NASA's wording</span><span className="disclose" aria-hidden /></summary>
+              <blockquote className="equip-quote">“{l.quote.text}”<cite>NASA {l.quote.accession} research impacts</cite></blockquote>
+            </details>
           </li>
         ))}
       </ul>

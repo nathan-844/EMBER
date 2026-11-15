@@ -41,6 +41,10 @@ cannot establish.
   excerpt appears word for word in the source it cites and every number appears in those sources
   or your scenario. Rejected claims are shown with the reason, and a receipt counts how many
   excerpts are NASA text versus EMBER's own summaries.
+- **Ask EMBER** – type a question about your scenario, or pick a suggested one, and the answer goes
+  through the same evidence package and the same check. The question is treated as a question, never as
+  instructions; numbers typed only in a question are not accepted (set them in the scenario instead).
+  Suggested questions on the unedited presets replay recorded answers instantly.
 - **Parameter coverage** – shows where curated condition ranges exist against your scenario.
 - **Gap map of joint test conditions** – every NASA run-table row drawn as oxygen against pressure
   from the same row, shaped and coloured by fuel type, with your scenario marked and the distance
