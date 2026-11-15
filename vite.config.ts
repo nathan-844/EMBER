@@ -7,7 +7,7 @@ import { parseModelList } from "./server/gemini";
 
 /** Export the current engine, never a separately maintained copy. */
 function reproductionEngine(): Plugin {
-  const entries: Record<string, string> = { "virtual:analysis-engine": "standalone.ts", "virtual:research-engine": "research-standalone.ts" };
+  const entries: Record<string, string> = { "virtual:analysis-engine": "standalone.ts", "virtual:research-engine": "research-standalone.ts", "virtual:mission-engine": "mission-standalone.ts" };
   return {
     name: "ember-reproduction-engine",
     resolveId(source) { if (source in entries) return "\0" + source; },

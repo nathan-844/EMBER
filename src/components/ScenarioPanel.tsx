@@ -1,6 +1,7 @@
 import type { FuelType, SafetyQuestion } from "../data/types";
 import { MATERIAL_OPTIONS, PRESETS, presetScenario, type EnvironmentId, type Scenario } from "../lib/scenario";
 import { SlidersIcon } from "./icons";
+import { missionLink } from "../lib/analysis/mission-link";
 
 type NumericKey = "oxygenPct" | "pressurePsi" | "gravityG" | "airflowMs";
 
@@ -134,7 +135,7 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
             }} />
         </div>
       </div>
-      <p className="hint">Material, thickness and flow direction do not change ranking. Where a PSI run table records materials or flow direction (BASS-II, Saffire), the limitations list says whether yours was tested.</p>
+      <p className="hint">These fields preserve the original investigation ranking. <a href={missionLink(scenario)}>Compare material evidence in Mission</a> to apply row-level thickness and flow gates. A complete atmosphere transfers to B; incomplete atmospheres open defaults. Confirm the material name and form there.</p>
       </details>
 
       <button className="btn wide" onClick={onSaveBaseline}>＋ {hasBaseline ? "Replace comparison baseline" : "Save as comparison baseline"}</button>

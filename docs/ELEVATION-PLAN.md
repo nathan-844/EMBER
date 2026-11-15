@@ -10,6 +10,8 @@ This is an implementation plan, not a claim that all proposed capabilities alrea
 
 **M2 implementation update:** the local workbench now adds Saffire-II, FLEX and optional smoke-ageing comparisons, the additive Atlas research-v2 view, reproducible exports for all eight findings and a 60-case deterministic benchmark. Smoke pair values are independently checked against stored workbook cells; original workbook/PDF extraction and independent scientific review remain separate. See [M2-IMPLEMENTATION.md](M2-IMPLEMENTATION.md) for exact scope and validation. The benchmark is a structured deterministic baseline, not completed live-AI, retrieval or citation-entailment evaluation.
 
+**M3 implementation update:** `#mission` adds A/B atmosphere evidence applicability, editable material inventories and explicit condition windows, row-level provenance/reasons, sensitivity and Pareto views, plus a transparent budgeted test-coverage planner and offline reproducibility ZIP. Thickness recovery is limited to source geometry and the explicit Saffire labels; unknown pressure/gravity stay unknown. The test planner is a greedy coverage heuristic, not experimental-design optimization. See [M3-IMPLEMENTATION.md](M3-IMPLEMENTATION.md) for scope, validation and limits.
+
 ## 1. Award alignment and scope
 
 The official 2025 Best Use of Data description emphasizes making space data accessible or applying it in a distinctive way. A 2026-specific award definition was not successfully retrieved during this review; use the 2025 definition as directional guidance, not as a verified 2026 rubric. The current challenge is Flame in Freefall.

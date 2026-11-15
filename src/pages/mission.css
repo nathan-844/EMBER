@@ -1,0 +1,10 @@
+.mission-atmosphere { border: 1px solid var(--border); border-radius: 8px; margin: 20px 0; padding: 16px; min-width: 0; }
+.mission-atmosphere legend { font-weight: 650; padding: 0 8px; }
+.mission-editor { display: flex; flex-direction: column; gap: 8px; margin: 20px 0; }
+.mission-editor textarea { width: 100%; min-height: 220px; padding: 14px; font: 12px/1.6 monospace; background: var(--surface); color: var(--ink); border: 1px solid var(--border-strong); border-radius: 6px; }
+.mission-json { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 420px; overflow: auto; font-size: 12px; }
+.mission-scroll { max-height: 420px; overflow: auto; }
+.mission-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.mission-status:not(:empty) { position: sticky; bottom: 12px; background: var(--surface); color: var(--ink); border: 1px solid var(--border-strong); border-radius: 8px; padding: 16px; box-shadow: 0 4px 16px #0002; }
+.mission-page .compare-details > .btn { margin-top: 16px; }
+.mission-page .compare-details { overflow-wrap: anywhere; }
