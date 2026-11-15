@@ -14,8 +14,10 @@ const byKey = new Map(
 );
 
 describe("recorded analyses against today's evidence", () => {
-  it.each(entries.map(([k, v]) => [JSON.parse(k).slice(0, 2).join("/"), k, v]))("%s still passes the grounding check", (_label, key, entry) => {
-    const scenario = byKey.get(key as string)!;
+  // Keys of answered questions are "<scenario key>|ask:<question>".
+  const scenarioPart = (k: string) => k.split("|ask:")[0];
+  it.each(entries.map(([k, v]) => [JSON.parse(scenarioPart(k)).slice(0, 2).join("/") + (k.includes("|ask:") ? ` ask "${k.split("|ask:")[1]}"` : ""), k, v]))("%s still passes the grounding check", (_label, key, entry) => {
+    const scenario = byKey.get(scenarioPart(key as string))!;
     const pkg = serverPackage(scenario);
     // Rebuild the model's answer from the stored report and check it again from scratch.
     const answer: ModelAnswer = {
