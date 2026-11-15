@@ -1,4 +1,5 @@
-// Checks every NTRS quote in src/data/ntrs-evidence.ts against the PDF NASA serves, and records
+// Checks every quote in src/data/ntrs-evidence.ts against the PDF NASA serves (an NTRS citation, or
+// a file in a NASA PSI investigation record), and records
 // what was checked in src/data/ntrs-manifest.json.
 //
 // Usage: npm run sync:ntrs [-- --cache <dir>]
@@ -20,6 +21,19 @@ mkdirSync(cache, { recursive: true });
 const sha256 = (b: Buffer | string) => createHash("sha256").update(b).digest("hex");
 
 async function pdfPath(id: string): Promise<string> {
+  const src = NTRS_SOURCES.find((s) => s.id === id)!;
+  if (src.psi) {
+    // A file in a NASA PSI investigation record: PSI returns a signed link to it.
+    const file = join(cache, `${id}.pdf`);
+    if (!existsSync(file)) {
+      const q = new URLSearchParams({ file: src.psi.file, version: String(src.psi.version), redirect: "false" });
+      const link = (await (await fetch(`https://psi.nasa.gov/geode-py/ws/studies/${src.psi.accession}/download?${q}`)).text()).trim().replace(/^"|"$/g, "");
+      const res = await fetch(link);
+      if (!res.ok) throw new Error(`${id}: PSI file download failed (${res.status})`);
+      writeFileSync(file, Buffer.from(await res.arrayBuffer()));
+    }
+    return file;
+  }
   const meta = await (await fetch(`${API}/api/citations/${id}`)).json();
   const link = meta.downloads?.find((d: any) => d.links?.pdf)?.links.pdf;
   if (!link) throw new Error(`${id}: NTRS lists no PDF`);
@@ -63,4 +77,4 @@ if (missing) {
   process.exit(1);
 }
 writeFileSync("src/data/ntrs-manifest.json", JSON.stringify(manifest, null, 2) + "\n");
-console.log(`Checked ${Object.keys(manifest.quotes).length} quotes in ${NTRS_SOURCES.length} NTRS PDFs.`);
+console.log(`Checked ${Object.keys(manifest.quotes).length} quotes in ${NTRS_SOURCES.length} NASA PDFs.`);

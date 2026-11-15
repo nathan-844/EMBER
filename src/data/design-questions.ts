@@ -80,8 +80,16 @@ export const DESIGN_QUESTIONS: DesignQuestion[] = [
     id: "dq-smoke-size",
     area: "detection",
     question: "Is your smoke detector sensitive to the particle sizes low-gravity smoke produces?",
-    why: "SAME measured average smoke particles mostly between 200 and 400 nm, and they grew as the smoke aged.",
-    evidence: [{ kind: "ntrs", quote: "same-sizes" }, { kind: "finding", id: "F8" }, { kind: "psi", link: "smoke-particle-size" }],
+    why: "SAME found low-gravity smoke particles larger than on Earth yet below 300 nm, and they grew as the smoke aged.",
+    evidence: [{ kind: "ntrs", quote: "same-fsr-larger" }, { kind: "finding", id: "F8" }, { kind: "ntrs", quote: "samer-aging" }, { kind: "psi", link: "smoke-particle-size" }],
+    appliesWhen: { test: (s) => s.question === "detection", label: "your question is detection" },
+  },
+  {
+    id: "dq-detector-placement",
+    area: "detection",
+    question: "How long would smoke from a likely fire take to reach your detectors, given what stands in the way?",
+    why: "NASA's model of the ISS lab found detection times can be long and depend strongly on detector location and obstructions.",
+    evidence: [{ kind: "ntrs", quote: "same-fsr-detection-time" }, { kind: "ntrs", quote: "samer-two-moment" }],
     appliesWhen: { test: (s) => s.question === "detection", label: "your question is detection" },
   },
   {

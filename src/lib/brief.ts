@@ -3,11 +3,11 @@ import type { Limitation } from "./limitations";
 import { ppo2Sentence, ppo2VsEarth, type Scenario } from "./scenario";
 import { EQUIPMENT_LINKS } from "../data/applications";
 import { designQuestionsFor, type DesignEvidence } from "../data/design-questions";
-import { NTRS_QUOTES } from "../data/ntrs-evidence";
+import { NTRS_QUOTES, sourceTag } from "../data/ntrs-evidence";
 import { getPsiRecord } from "../data/psi";
 
 const evidenceRef = (e: DesignEvidence) =>
-  e.kind === "ntrs" ? `NTRS ${NTRS_QUOTES.find((q) => q.id === e.quote)!.source}` : e.kind === "psi" ? `NASA ${EQUIPMENT_LINKS.find((l) => l.id === e.link)!.quote.accession}` : `EMBER finding ${e.id}`;
+  e.kind === "ntrs" ? sourceTag(NTRS_QUOTES.find((q) => q.id === e.quote)!.source) : e.kind === "psi" ? `NASA ${EQUIPMENT_LINKS.find((l) => l.id === e.link)!.quote.accession}` : `EMBER finding ${e.id}`;
 
 const fmt = (v: number | null, unit: string) => (v == null ? "unspecified" : `${v} ${unit}`);
 

@@ -209,9 +209,9 @@ The explorer lists them under the investigation they build on.
 
 ## Questions to ask of your design
 
-A "For designers" tile lists ten questions a habitat designer could ask of their own design (for
+A "For designers" tile lists eleven questions a habitat designer could ask of their own design (for
 example: does your fire response count on switching off the ventilation; is your material list cleared
-only by the 1-g screening test; does your detection plan sense carbon monoxide). They are EMBER's
+only by the 1-g screening test; does your detection plan sense carbon monoxide; how long would smoke take to reach your detectors). They are EMBER's
 questions, not rules. Each opens to the NASA evidence behind it: NTRS quotes checked against the PDF,
 PSI quotes checked against the record, or a measured finding. The questions that apply to your
 scenario (by oxygen, gravity or safety question) come first, and also go into the evidence brief. A test
@@ -288,8 +288,8 @@ and 2 of NASA's paper
 by EMBER only for plotting. Every stored value was checked against those tables on 2026-11-15; the
 PDF's SHA-256 is recorded in that file.
 
-Published results quoted from 16 other NTRS reports live in `src/data/ntrs-evidence.ts`.
-`npm run sync:ntrs` downloads each PDF, extracts its text with pdftotext, finds every quote in it and
+Published results quoted from 16 other NTRS reports, and from NASA's SAME and SAME-R final reports held as files in their PSI records, live in `src/data/ntrs-evidence.ts`.
+`npm run sync:ntrs` downloads each PDF (from NTRS, or through PSI's download service for the PSI-held reports), extracts its text with pdftotext, finds every quote in it and
 records the PDF's SHA-256, the page and a hash of the quote in `src/data/ntrs-manifest.json`; a test
 fails if a quote is edited without running it again.
 

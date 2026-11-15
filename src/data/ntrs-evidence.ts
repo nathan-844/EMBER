@@ -15,6 +15,8 @@ export interface NtrsSource {
   venue: string;
   year: number;
   kind: "paper" | "presentation" | "poster" | "extended abstract" | "report";
+  /** Set when the PDF is a file in a NASA PSI investigation record rather than an NTRS citation. */
+  psi?: { accession: string; file: string; version: number };
 }
 
 export type GravityLevel = "lunar" | "mars";
@@ -53,6 +55,10 @@ export const NTRS_SOURCES: NtrsSource[] = [
   { id: "20180005168", title: "Saffire: A Novel Approach to Study of Spacecraft Fire Safety Using Un-Manned Spacecraft", authors: "Urban, D. L., Ferkul, P., Olson, S., et al.", venue: "American Society for Gravitational and Space Research", year: 2017, kind: "presentation" },
   { id: "20130000422", title: "Particle Morphology and Size Results from the Smoke Aerosol Measurement Experiment-2", authors: "Urban, D. L., Ruff, G. A., Greenberg, P. S., et al.", venue: "AIAA International Conference on Environmental Systems", year: 2012, kind: "paper" },
   { id: "20070031686", title: "Particle and Smoke Detection on ISS for Next Generation Smoke Detectors", authors: "Urban, D. L., Ruff, G., Yuan, Z.-G., et al.", venue: "International Space Development Conference", year: 2007, kind: "presentation" },
+  { id: "PSI-102-SAME-FSR", title: "Smoke Aerosol Measurement Experiment (SAME) Final Report", authors: "Urban, D. L., Ruff, G. A., Sheredy, W., et al.", venue: "NASA Glenn Research Center", year: 2010, kind: "report",
+    psi: { accession: "PSI-102", file: "PSI-102_Reports_SAME_Final Science Report.pdf", version: 2 } },
+  { id: "PSI-101-SAMER-FR", title: "Smoke Aerosol Measurement Experiment Re-flight (SAMER) Final Report", authors: "Urban, D. L., Ruff, G. A., Sheredy, W., et al.", venue: "NASA Glenn Research Center", year: 2014, kind: "report",
+    psi: { accession: "PSI-101", file: "PSI-101_Reports_SAME-R_Final Report.pdf", version: 1 } },
   { id: "20130014061", title: "Methanol Droplet Combustion in Oxygen-Inert Environments in Microgravity", authors: "Nayagam, V., Dietrich, D. L., Hicks, M. C., et al.", venue: "8th U.S. National Combustion Meeting", year: 2013, kind: "paper" },
 ];
 
@@ -119,11 +125,29 @@ export const NTRS_QUOTES: NtrsQuote[] = [
     text: "The ISS cabin was found to be a very clean environment with particulate levels substantially below the space shuttle and typical ground-based environments." },
   { id: "saffire-duct", source: "20180005168", topic: "equipment", equipmentLink: "fire-growth",
     text: "Concurrent flame spread (with the wind) was shown to be more sensitive to the flow duct dimension than previously anticipated." },
+  { id: "same-fsr-larger", source: "PSI-102-SAME-FSR", topic: "equipment", equipmentLink: "smoke-particle-size",
+    text: "Smoke particulate produced in low-gravity was found to be typically 50% large in count mean diameter than similar conditions in normal gravity. The resultant sizes were all below 300 nm suggesting that discriminating smoke from spacecraft dust possibly could be achieved by detecting in the sub-micrometer range." },
+  { id: "same-fsr-detection-time", source: "PSI-102-SAME-FSR", topic: "equipment", equipmentLink: "particle-counter",
+    text: "Numerical modeling of smoke transport in the US Lab Module of the ISS predicted that actual detection times can be quite long and strongly dependent on location and the presence of obstructions." },
+  { id: "samer-aging", source: "PSI-101-SAMER-FR", topic: "equipment", equipmentLink: "smoke-particle-size",
+    text: "However, the aging results suggest that some materials such as silicone rubber can produce smoke that can reach sizes better detected by light scattering techniques. The zero flow conditions produced smoke particles that were 2 to 3 times larger than those produced at the nominal 8 cm/s flow rate." },
+  { id: "samer-two-moment", source: "PSI-101-SAMER-FR", topic: "equipment", equipmentLink: "particle-counter",
+    text: "These results suggest that detection methods that can measure more than one moment of the size distribution may show more successful detection and false alarm rejection than single moment detectors." },
   { id: "bre-25pct", source: "20220007191", topic: "equipment", equipmentLink: "ventilation-shutdown-high-o2",
     text: "While the flames can burn for minutes in elevated oxygen concentrations, like those being considered for future spacecraft, they were found to self-extinguish in concentrations below ~25% (by volume)." },
 ];
 
-export const ntrsUrl = (id: string) => `https://ntrs.nasa.gov/citations/${id}`;
+/** Where a source can be opened: its NTRS citation, or the PSI record that holds the file. */
+export const ntrsUrl = (id: string) => {
+  const s = NTRS_SOURCES.find((x) => x.id === id);
+  return s?.psi ? `https://psi.nasa.gov/physci/repo/data/investigations/${s.psi.accession}` : `https://ntrs.nasa.gov/citations/${id}`;
+};
+
+/** "NTRS 20250002114" or "NASA PSI-102 record file". */
+export const sourceTag = (id: string) => {
+  const s = NTRS_SOURCES.find((x) => x.id === id);
+  return s?.psi ? `NASA ${s.psi.accession} record file` : `NTRS ${id}`;
+};
 
 export function ntrsSource(id: string): NtrsSource {
   const s = NTRS_SOURCES.find((x) => x.id === id);
@@ -139,7 +163,7 @@ export function ntrsShort(id: string): string {
 }
 
 /** Short citation, e.g. "Urban et al. 2025 · NTRS 20250002114". */
-export const ntrsCite = (id: string) => `${ntrsShort(id)} · NTRS ${id}`;
+export const ntrsCite = (id: string) => `${ntrsShort(id)} · ${sourceTag(id)}`;
 
 export function quotesFor(topic: NtrsQuote["topic"]): NtrsQuote[] {
   return NTRS_QUOTES.filter((q) => q.topic === topic);

@@ -42,7 +42,7 @@ rows.push({
 // Quotes from NTRS PDFs.
 const ntrs = read("src/data/ntrs-manifest.json");
 rows.push({
-  id: "ntrs-quotes", label: "NTRS report quotes found in the PDF", how: "recorded",
+  id: "ntrs-quotes", label: "NASA report quotes found in the PDF", how: "recorded",
   checked: NTRS_QUOTES.length,
   passed: NTRS_QUOTES.filter((q) => ntrs.quotes[q.id]?.sha256 === quoteHash(q.text) && ntrs.quotes[q.id].source === q.source).length,
   method: `npm run sync:ntrs found each quote in the text of its PDF (${NTRS_SOURCES.length} PDFs, SHA-256 and page recorded) on ${ntrs.checkedOn}; the stored quote hash is re-checked here.`,

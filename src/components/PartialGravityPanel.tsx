@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import manifest from "../data/ntrs-manifest.json";
-import { ntrsShort, ntrsSource, ntrsUrl, partialGravityEvidence, quotesFor, type NtrsQuote } from "../data/ntrs-evidence";
+import { ntrsShort, ntrsSource, ntrsUrl, sourceTag, partialGravityEvidence, quotesFor, type NtrsQuote } from "../data/ntrs-evidence";
 import type { Scenario } from "../lib/scenario";
 import { ExternalIcon } from "./icons";
 
@@ -22,7 +22,7 @@ export function NtrsQuoteBlock({ q }: { q: NtrsQuote }) {
         <a href={ntrsUrl(s.id)} target="_blank" rel="noreferrer">
           {ntrsShort(s.id)}, {s.title} <ExternalIcon />
         </a>{" "}
-        · {s.kind}, {s.venue} · NTRS {s.id}{page ? `, p. ${page}` : ""}
+        · {s.kind}, {s.venue} · {sourceTag(s.id)}{page ? `, p. ${page}` : ""}
       </cite>
     </blockquote>
   );
