@@ -67,6 +67,12 @@ One row per NASA test, in one schema, with lineage for every value.
 
 ## B. Measured findings
 
+> **Status (2026-11-15): done.** Six findings in `src/lib/findings/`, written to `src/data/findings.json` by `npm run data:findings`. Changes from the candidates below, after checking the rows:
+> - **F1** measures how much of the droplet was left when the flame went out, against oxygen. Extinction is the normal end of most FLEX burns, so "the lowest oxygen that still burns" would have been misleading.
+> - **F2** is measured against the challenge's exploration atmosphere (30% O₂ or more at 10.2 psi or less, EMBER's lunar preset). The "34% / 8.2 psi" figure is not used until its NTRS source has been checked.
+> - **F3** leaves out the composite PMMA + Nomex sample: NASA's Note 2 says the PMMA burned completely but the Nomex did not ignite.
+> - **F5** is CFI-G cool flames, and **F6** counts solids by oxygen and pressure (only 5 of 388 solid tests record pressure).
+
 Computed from atlas rows by code, never by the model. Each finding is a small module (`src/lib/findings/*.ts`) returning:
 `{ id, claim, n, rows[], method, numbers{}, confounders[], notClaimed, chart }`.
 A claim's wording is generated from the computed numbers, so the text can't drift from the data.

@@ -74437,6 +74437,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-1",
+     "v": "2-1"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "0.27 mm",
@@ -74543,6 +74548,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-2",
+     "v": "2-2"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "0.61 mm",
@@ -74649,6 +74659,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-3",
+     "v": "2-3"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "1.03 mm",
@@ -74750,6 +74765,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-4",
+     "v": "2-4"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "037 mm",
@@ -74857,6 +74877,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-5",
+     "v": "2-5"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "037 mm",
@@ -74968,6 +74993,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-6",
+     "v": "2-6"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "037 mm",
@@ -75081,6 +75111,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-7",
+     "v": "2-7"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "0.85 and 0.37 mm",
@@ -75196,6 +75231,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-8",
+     "v": "2-8"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "See Fig. 5",
@@ -75312,6 +75352,11 @@
     }
    },
    "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "2-9",
+     "v": "2-9"
+    },
     "thicknessMm": {
      "col": "Samle Thickness ",
      "raw": "1 cm",
@@ -75429,7 +75474,13 @@
     "value": "not-recorded",
     "rule": "not a test row (aside)"
    },
-   "measures": {},
+   "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "F1C1/F1C2",
+     "v": "F1C1/F1C2"
+    }
+   },
    "flags": [
     "label-typo"
    ]
@@ -75462,7 +75513,13 @@
     "value": "not-recorded",
     "rule": "not a test row (aside)"
    },
-   "measures": {},
+   "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "F2C1/F2C2",
+     "v": "F2C1/F2C2"
+    }
+   },
    "flags": [
     "label-typo"
    ]
@@ -75478,6 +75535,7 @@
    },
    "investigation": "saffire-ii",
    "rowKind": "aside",
+   "rowKindReason": "NASA footnote: \"Note 1 Derived from measured CO2 production and referenced to initial O2 concentration reported by ISS.\"",
    "fuelClass": null,
    "material": {
     "name": null,
@@ -75491,9 +75549,14 @@
     "value": "not-recorded",
     "rule": "not a test row (aside)"
    },
-   "measures": {},
-   "flags": [],
-   "rowKindReason": "empty line: no material, condition or measured value"
+   "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "Note 1 Derived from measured CO2 production and referenced to initial O2 concentration reported by ISS.",
+     "v": "Note 1 Derived from measured CO2 production and referenced to initial O2 concentration reported by ISS."
+    }
+   },
+   "flags": []
   },
   {
    "id": "PSI-99-0:r14",
@@ -75506,6 +75569,7 @@
    },
    "investigation": "saffire-ii",
    "rowKind": "aside",
+   "rowKindReason": "NASA footnote: \"Note 2 The PMMA portion was completely consumed but the Nomex was not ignited.\"",
    "fuelClass": null,
    "material": {
     "name": null,
@@ -75519,9 +75583,14 @@
     "value": "not-recorded",
     "rule": "not a test row (aside)"
    },
-   "measures": {},
-   "flags": [],
-   "rowKindReason": "empty line: no material, condition or measured value"
+   "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "Note 2 The PMMA portion was completely consumed but the Nomex was not ignited.",
+     "v": "Note 2 The PMMA portion was completely consumed but the Nomex was not ignited."
+    }
+   },
+   "flags": []
   },
   {
    "id": "PSI-99-0:r15",
@@ -75534,6 +75603,7 @@
    },
    "investigation": "saffire-ii",
    "rowKind": "aside",
+   "rowKindReason": "NASA footnote: \"Note 3 This is the length of fuel with significant visible damage.\"",
    "fuelClass": null,
    "material": {
     "name": null,
@@ -75547,9 +75617,14 @@
     "value": "not-recorded",
     "rule": "not a test row (aside)"
    },
-   "measures": {},
-   "flags": [],
-   "rowKindReason": "empty line: no material, condition or measured value"
+   "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "Note 3 This is the length of fuel with significant visible damage.",
+     "v": "Note 3 This is the length of fuel with significant visible damage."
+    }
+   },
+   "flags": []
   },
   {
    "id": "PSI-99-0:r16",
@@ -75562,6 +75637,7 @@
    },
    "investigation": "saffire-ii",
    "rowKind": "aside",
+   "rowKindReason": "NASA footnote: \"Note 4 The flames remain anchored at the base of the sample which has a very slow regression rate (0.01 to 0.04 mm/s)\"",
    "fuelClass": null,
    "material": {
     "name": null,
@@ -75575,9 +75651,14 @@
     "value": "not-recorded",
     "rule": "not a test row (aside)"
    },
-   "measures": {},
-   "flags": [],
-   "rowKindReason": "empty line: no material, condition or measured value"
+   "measures": {
+    "sample": {
+     "col": "Sample Number",
+     "raw": "Note 4 The flames remain anchored at the base of the sample which has a very slow regression rate (0.01 to 0.04 mm/s)",
+     "v": "Note 4 The flames remain anchored at the base of the sample which has a very slow regression rate (0.01 to 0.04 mm/s)"
+    }
+   },
+   "flags": []
   },
   {
    "id": "PSI-100-0:r2",

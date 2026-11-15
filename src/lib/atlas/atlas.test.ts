@@ -139,6 +139,12 @@ describe("golden rows", () => {
     expect(row("PSI-99-0:r11").rowKind).toBe("aside");
   });
 
+  it("Saffire-II footnote lines are asides that keep NASA's text", () => {
+    const r = row("PSI-99-0:r14");
+    expect(r.rowKind).toBe("aside");
+    expect(r.rowKindReason).toMatch(/NASA footnote: "Note 2 The PMMA portion was completely consumed/);
+  });
+
   it("Saffire-I sample S1: SIBAL, O₂ range kept, length and width flagged", () => {
     const r = row("PSI-98-0:r2");
     expect(r.o2Pct?.values).toEqual([21.5, 21.7]);

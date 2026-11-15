@@ -116,7 +116,9 @@ function psiRows(id: string, table: TableIn, meta: ManifestIn["tables"][number],
   return table.rows.map((r) => {
     const get = (col: string) => r.cells[colIndex(col)] ?? "";
     const isBlank = r.cells.every((c) => !String(c ?? "").trim());
-    const kind = spec.rowKind(get, isBlank);
+    // A footnote line ("Note 1 Derived from…") in the first cell with the rest blank is not a test.
+    const footnote = /^\s*note\s*\d/i.test(r.cells[0] ?? "") && r.cells.slice(1).every((c) => !String(c ?? "").trim());
+    const kind = footnote ? (["aside", `NASA footnote: "${r.cells[0].trim()}"`] as [RowKind, string]) : spec.rowKind(get, isBlank);
     const [rowKind, rowKindReason] = Array.isArray(kind) ? kind : [kind as RowKind, undefined];
     const label = "col" in spec.material ? get(spec.material.col) : spec.material.fixed;
     const mat = normaliseMaterial(label, id);

@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-15",
   "node": "v22.19.0",
   "tests": {
-    "passed": 396,
+    "passed": 410,
     "failed": 0,
-    "total": 396,
-    "files": 19,
+    "total": 410,
+    "files": 20,
     "names": [
       {
         "file": "server/analyze.test.ts",
@@ -1924,6 +1924,11 @@
       },
       {
         "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II footnote lines are asides that keep NASA's text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
         "title": "golden rows Saffire-I sample S1: SIBAL, O₂ range kept, length and width flagged",
         "status": "passed"
       },
@@ -1986,6 +1991,71 @@
         "file": "lib/atlas/atlas.test.ts",
         "title": "material dictionary reads thickness, width, diameter and sides from BASS-II labels",
         "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "stats median",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "stats ranks average ties",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "stats spearman: perfect, reversed and with ties (worked by hand: 1.5 / √3)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "every finding matches the committed findings file (run npm run data:findings after changing a rule)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "every finding has unique ids, cites only atlas rows, and states its method, limits and what it does not claim",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "every finding uses only numbers it computed: every number in a claim is one of the finding's numbers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "every finding can be recomputed from the rows it cites alone",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "headline numbers, rechecked from NASA's raw cells F2: FLEX flames that went out, in air at 1 atm and at ≥30% O₂ near 10.4 psia",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "headline numbers, rechecked from NASA's raw cells F3: Saffire-II ground vs orbit, read directly from the burn-length columns",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "headline numbers, rechecked from NASA's raw cells F4: median CO rise of BASS-II PMMA slabs and SIBAL, from the CO columns",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "headline numbers, rechecked from NASA's raw cells F5: cool flames in CFI-G, from the \"Cool flame?\" column",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "headline numbers, rechecked from NASA's raw cells F6: the highest solid-material oxygen in the PSI tables is 22.2%",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
+        "title": "headline numbers, rechecked from NASA's raw cells F1: methanol in nitrogen at 1 atm, extinction ratio at 12% and 30% O₂",
+        "status": "passed"
       }
     ]
   },
@@ -1997,8 +2067,9 @@
       "src/data/psi-snapshot.json",
       "src/data/table-manifest.json",
       "src/data/normalized-conditions.json",
-      "src/data/atlas/atlas.json"
+      "src/data/atlas/atlas.json",
+      "src/data/findings.json"
     ],
-    "value": "2ae05635f4d0e921a510b1c1af6b1f1294f8e82ae05678927b97d46eef1e3991"
+    "value": "7e0164e85310750d69814cb4db335c52807752ac63bea0af431879f867203a30"
   }
 }

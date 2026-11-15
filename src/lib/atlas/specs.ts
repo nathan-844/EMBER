@@ -276,6 +276,7 @@ export const SPECS: Record<string, TableSpec> = {
     flowDirection: "Flow Direction",
     outcome: saffireBurn("?-g Burn Length", "Sample Length "),
     measures: {
+      sample: text("Sample Number"),
       thicknessMm: { ...plain("Samle Thickness ", "mm"), flags: ["header-typo"] },
       lengthCm: plain("Sample Length ", "cm"),
       widthCm: plain("Sample Width (cm)", "cm"),
