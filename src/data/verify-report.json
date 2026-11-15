@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-15",
   "node": "v22.19.0",
   "tests": {
-    "passed": 411,
+    "passed": 425,
     "failed": 0,
-    "total": 411,
-    "files": 20,
+    "total": 425,
+    "files": 22,
     "names": [
       {
         "file": "server/analyze.test.ts",
@@ -1298,6 +1298,51 @@
         "status": "passed"
       },
       {
+        "file": "lib/coverage.test.ts",
+        "title": "scaledDistance is 1 at the edge of the window and 0 on the scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "scaledDistance is null when a needed value is missing, and uses oxygen alone when the scenario has no pressure",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests separates joint matches from oxygen-only matches",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests returns null without an oxygen level",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests lunar habitat: the only solid tests near 30% O₂ and 10.2 psi are the Saffire IV–VI paper samples",
+        "status": "passed"
+      },
+      {
+        "file": "lib/coverage.test.ts",
+        "title": "nearbyTests ISS: no PSI solid test records pressure, so solids are oxygen-only matches there",
+        "status": "passed"
+      },
+      {
+        "file": "lib/evidence.test.ts",
+        "title": "measured findings as AI evidence offers the findings that draw on the ranked investigations, with the generated claim as text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/evidence.test.ts",
+        "title": "measured findings as AI evidence puts them in the package for a lunar habitat with liquid fuel",
+        "status": "passed"
+      },
+      {
+        "file": "lib/evidence.test.ts",
+        "title": "measured findings as AI evidence lets the checker accept an exact quote of a finding and reject a changed number",
+        "status": "passed"
+      },
+      {
         "file": "lib/explorer.test.ts",
         "title": "run tables every investigation profile has at least one stored NASA table",
         "status": "passed"
@@ -1993,6 +2038,31 @@
         "status": "passed"
       },
       {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit matches the committed audit file",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit gives every issue a count, examples, a plain explanation and a handling note",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit quotes NASA's cells exactly: every flagged example is a real cell of its table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit finds the issues checked by hand",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "compact atlas for the app matches the committed atlas-rows.json and covers every record",
+        "status": "passed"
+      },
+      {
         "file": "lib/findings/findings.test.ts",
         "title": "stats median",
         "status": "passed"
@@ -2073,8 +2143,9 @@
       "src/data/table-manifest.json",
       "src/data/normalized-conditions.json",
       "src/data/atlas/atlas.json",
-      "src/data/findings.json"
+      "src/data/findings.json",
+      "src/data/atlas/audit.json"
     ],
-    "value": "87ae66d7956a4b6ab16b946e481b5448eaf817c5eb912c2b7b36ffd5a54a5e51"
+    "value": "24412b78d4c768feae41633d74a17f0c4530d939bde91df7b0218234b5ff16b9"
   }
 }

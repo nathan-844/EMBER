@@ -1,4 +1,6 @@
+import rawFindings from "../data/findings.json";
 import { getPsiRecord } from "../data/psi";
+import type { FindingsFile } from "./findings/types";
 import { CONDITION_LABELS, rangeLabel, rankInvestigations, type RankedInvestigation } from "./ranking";
 import { scenarioLimitations } from "./limitations";
 import { oxygenPartialPressure, type Scenario } from "./scenario";
@@ -21,6 +23,23 @@ export interface EvidencePackage {
   sources: EvidenceSource[];
   /** Investigation ids in rank order, so the answer can be checked against the ranking. */
   ranked: { id: string; name: string; rank: number; total: number; relevance: string; matched: number; specified: number }[];
+}
+
+const FINDINGS = (rawFindings as unknown as FindingsFile).findings;
+
+/**
+ * Measured findings (computed by code from NASA rows) that draw on any of the given investigations.
+ * Cited as "finding:F2"; their text is the generated claim plus what it does not establish, so the
+ * checker verifies quotes and numbers against it like any other source.
+ */
+export function findingSources(investigationIds: string[]): EvidenceSource[] {
+  const ids = new Set(investigationIds);
+  return FINDINGS.filter((f) => f.investigations.some((i) => ids.has(i))).map((f) => ({
+    id: `finding:${f.id}`,
+    label: `EMBER measured finding ${f.id} (computed from ${f.n} NASA test rows)`,
+    origin: "derived" as const,
+    text: `${f.title}. ${f.claim} Not established: ${f.notClaimed}`,
+  }));
 }
 
 const UNIT: Record<string, string> = { oxygenPct: "vol %", pressurePsi: "psia", gravityG: "g", airflowMs: "m/s" };
@@ -91,6 +110,7 @@ export function buildEvidencePackage(
   const sources: EvidenceSource[] = [
     { id: "scenario", label: "Your scenario", origin: "user", text: scenarioText(scenario) },
     ...top.flatMap((r) => [...profileSources(r), ...extra(r)]),
+    ...findingSources(top.map((r) => r.investigation.id)),
     ...limits.map((l) => ({ id: `limitation:${l.id}`, label: "EMBER limitation", origin: "ember" as const, text: l.text })),
   ];
   return {

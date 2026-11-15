@@ -3,6 +3,8 @@ import { describe, expect, it } from "vitest";
 import manifest from "../../data/table-manifest.json";
 import { TABLES } from "../../data/tables";
 import { SAFFIRE_NTRS_RUNS } from "../../data/ntrs-saffire";
+import { buildAudit } from "./audit";
+import { compactAtlas } from "./compact";
 import { atlasCsv, buildAtlas } from "./build";
 import { normaliseMaterial } from "./materials";
 import { FLAG_TEXT, SPECS } from "./specs";
@@ -241,5 +243,57 @@ describe("material dictionary", () => {
     expect(normaliseMaterial("2mm thick PMMA   1 sided   2 cm wide", "PSI-25-0")).toMatchObject({ thicknessMm: 2, widthCm: 2, sides: 1 });
     expect(normaliseMaterial("0.5\" black rod", "PSI-25-0")).toMatchObject({ name: "PMMA", basis: "inferred", diameterMm: 12.7 });
     expect(normaliseMaterial("PMMA sphere 2 cm", "PSI-26-0")).toMatchObject({ name: "PMMA", form: "sphere", diameterMm: 20 });
+  });
+});
+
+describe("data audit", () => {
+  const audit = buildAudit(atlas, TABLES);
+  const find = (table: string, title: RegExp) => audit.issues.find((i) => i.table === table && title.test(i.title));
+
+  it("matches the committed audit file", () => {
+    expect(JSON.parse(readFileSync("src/data/atlas/audit.json", "utf8"))).toEqual(JSON.parse(JSON.stringify(audit)));
+  });
+
+  it("gives every issue a count, examples, a plain explanation and a handling note", () => {
+    expect(new Set(audit.issues.map((i) => i.id)).size).toBe(audit.issues.length);
+    for (const i of audit.issues) {
+      expect(i.count, i.id).toBeGreaterThan(0);
+      expect(i.examples.length, i.id).toBeGreaterThan(0);
+      expect(i.detail.length, i.id).toBeGreaterThan(20);
+      expect(i.handling.length, i.id).toBeGreaterThan(5);
+    }
+    expect(audit.totals.error + audit.totals.gap + audit.totals.note).toBe(audit.totals.issues);
+  });
+
+  it("quotes NASA's cells exactly: every flagged example is a real cell of its table", () => {
+    for (const i of audit.issues) {
+      for (const e of i.examples) {
+        const m = /^(PSI-\d+-\d+) row (\d+)$/.exec(e.where);
+        if (!m || !e.column || /→|×|sum of/.test(e.column)) continue;
+        const t = TABLES[m[1]];
+        const cells = t.rows.find((r) => r.sourceRow === Number(m[2]))!.cells.map((c) => String(c ?? "").trim());
+        if (e.raw !== "(blank)" && !/also row/.test(e.raw)) expect(cells, `${i.id} ${e.where}`).toContain(e.raw);
+      }
+    }
+  });
+
+  it("finds the issues checked by hand", () => {
+    expect(find("PSI-20-0", /outside physical limits/)?.examples.map((e) => e.raw)).toEqual(["3400%", "2100%"]);
+    expect(find("PSI-99-0", /decimal point/)?.count).toBe(3);
+    expect(find("PSI-69-0", /do not add up/)?.count).toBe(6);
+    expect(find("PSI-39-0", /do not add up/)?.count).toBe(4);
+    expect(find("PSI-69-0", /identifier used twice/)?.examples[0].raw).toMatch(/193F001/);
+    expect(find("PSI-25-0", /cannot produce/)?.examples[0].raw).toBe("22.2 → 1.6");
+    expect(find("PSI-98-0", /three different thicknesses/)?.examples.map((e) => e.raw)).toEqual(["0.37", "037 mm", ".33 cm"]);
+    expect(find("PSI-99-0", /not tests/)?.count).toBe(6);
+  });
+});
+
+describe("compact atlas for the app", () => {
+  it("matches the committed atlas-rows.json and covers every record", () => {
+    const compact = compactAtlas(atlas);
+    expect(JSON.parse(readFileSync("src/data/atlas/atlas-rows.json", "utf8"))).toEqual(JSON.parse(JSON.stringify(compact)));
+    expect(compact).toHaveLength(atlas.rows.length);
+    for (const r of compact) expect(r.cells.length, r.id).toBeGreaterThan(0);
   });
 });

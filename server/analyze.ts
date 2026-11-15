@@ -17,6 +17,7 @@ Write 3 to 6 claims. For each claim, first choose the sources and copy the excer
 - Every excerpt is copied exactly from the text of the source it cites: at least 12 characters, no paraphrasing, no joining text from two sources, no ids or labels.
 - Never write source ids (such as "bass-ii:row7" or "limitation:joint") in the summary, claims, implications or questions; the app shows the citations itself.
 - Every number in a claim or implication must appear in that claim's cited sources, in the scenario, or be an Earth reference (0 g, 1 g, 21% oxygen, 14.7 psia). Do not convert units, compute new values or estimate.
+- Sources whose id starts with "finding:" are measured findings EMBER computed from NASA test rows. Cite one when it bears on the scenario, quoting it exactly, and keep its stated limits (liquid droplets are not cabin solids).
 - Prefer NASA sources. Include at least one Measured data claim when :rowN sources exist, and at least one Research gap claim.
 - Objectives describe what was planned, not results. Do not present them as findings.
 - Never predict flammability, flame spread, extinction or fire risk, and never give probabilities, thresholds, approvals or procedures. Implications are research considerations, not engineering instructions.

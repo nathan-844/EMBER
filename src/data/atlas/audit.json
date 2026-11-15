@@ -1,0 +1,898 @@
+{
+ "version": "audit-v1",
+ "method": "Found while reading every cell of every stored NASA PSI combustion table into the Fire Test Atlas, plus cross-checks: gas fractions that should sum to 1, oxygen before and after a burn, identical rows, repeated identifiers and the same material across tables. Nothing in NASA's files is changed; each issue says how EMBER handles it. The tables were not compared with their source papers.",
+ "totals": {
+  "issues": 37,
+  "error": 20,
+  "gap": 2,
+  "note": 15,
+  "tablesAffected": 14,
+  "tablesChecked": 21
+ },
+ "issues": [
+  {
+   "kind": "error",
+   "table": "PSI-20-0",
+   "title": "Value outside physical limits",
+   "detail": "The value is outside physical limits for its quantity, so it is not used (the raw cell is kept).",
+   "handling": "Not used as a number; the raw cell is kept.",
+   "count": 2,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-20-0 row 6",
+     "column": "Oxygen Conc (percent)",
+     "raw": "3400%"
+    },
+    {
+     "where": "PSI-20-0 row 9",
+     "column": "Oxygen Conc (percent)",
+     "raw": "2100%"
+    }
+   ],
+   "id": "A1",
+   "accession": "PSI-20"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-21-0",
+   "title": "Fuel label counts up row by row (spreadsheet fill-down)",
+   "detail": "The fuel label counts up row by row (\"40% CH5\", \"CH6\"…, or \"N3\", \"N4\"…), a spreadsheet fill-down; the real gas is not stated.",
+   "handling": "No fuel name is assigned; the label is kept as written.",
+   "count": 26,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-21-0 row 3",
+     "column": "Fuel Bottle",
+     "raw": "40% CH5"
+    },
+    {
+     "where": "PSI-21-0 row 4",
+     "column": "Fuel Bottle",
+     "raw": "40% CH6"
+    },
+    {
+     "where": "PSI-21-0 row 5",
+     "column": "Fuel Bottle",
+     "raw": "40% CH7"
+    },
+    {
+     "where": "PSI-21-0 row 6",
+     "column": "Fuel Bottle",
+     "raw": "40% CH8"
+    }
+   ],
+   "id": "A2",
+   "accession": "PSI-21"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-23-0",
+   "title": "Fuel label counts up row by row (spreadsheet fill-down)",
+   "detail": "The fuel label counts up row by row (\"40% CH5\", \"CH6\"…, or \"N3\", \"N4\"…), a spreadsheet fill-down; the real gas is not stated.",
+   "handling": "No fuel name is assigned; the label is kept as written.",
+   "count": 2,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-23-0 row 3",
+     "column": "Fuel Bottle",
+     "raw": "50% C2H4 with N3"
+    },
+    {
+     "where": "PSI-23-0 row 5",
+     "column": "Fuel Bottle",
+     "raw": "45% CH4 with N3"
+    }
+   ],
+   "id": "A3",
+   "accession": "PSI-23"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-25-0",
+   "title": "Final oxygen that a glovebox burn cannot produce",
+   "detail": "Final O₂ differs from initial O₂ by more than 5 points in one burn, which a glovebox burn cannot do; likely a transcription slip.",
+   "handling": "The row is kept but left out of the carbon-monoxide finding (F4).",
+   "count": 5,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-25-0 row 3",
+     "column": "initial → final O2 % by vol",
+     "raw": "22.2 → 1.6"
+    },
+    {
+     "where": "PSI-25-0 row 97",
+     "column": "initial → final O2 % by vol",
+     "raw": "20.8 → 0.6"
+    },
+    {
+     "where": "PSI-25-0 row 98",
+     "column": "initial → final O2 % by vol",
+     "raw": "20 → 39.1"
+    },
+    {
+     "where": "PSI-25-0 row 128",
+     "column": "initial → final O2 % by vol",
+     "raw": "20.7 → 0.9"
+    }
+   ],
+   "id": "A4",
+   "accession": "PSI-25"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-25-0",
+   "title": "Typo in a material label",
+   "detail": "The label has a typo (e.g. \"blac\", \"2ide\", \"parrafin\"); matched with its evident meaning.",
+   "handling": "Matched with its evident meaning; the label is kept as written.",
+   "count": 2,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-25-0 row 46",
+     "column": "Fuel Sample Material",
+     "raw": "4 mm thick   2 cm 2ide PMMA slab"
+    },
+    {
+     "where": "PSI-25-0 row 88",
+     "column": "Fuel Sample Material",
+     "raw": "1/4 blac rod"
+    }
+   ],
+   "id": "A5",
+   "accession": "PSI-25"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-26-0",
+   "title": "Typo in a material label",
+   "detail": "The label has a typo (e.g. \"blac\", \"2ide\", \"parrafin\"); matched with its evident meaning.",
+   "handling": "Matched with its evident meaning; the label is kept as written.",
+   "count": 3,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-26-0 row 82",
+     "column": "Fuel Sample Material",
+     "raw": "parrafin wax slab"
+    },
+    {
+     "where": "PSI-26-0 row 104",
+     "column": "Fuel Sample Material",
+     "raw": "pmma slab   oppsed"
+    },
+    {
+     "where": "PSI-26-0 row 107",
+     "column": "Fuel Sample Material",
+     "raw": "parrafin wax candle"
+    }
+   ],
+   "id": "A6",
+   "accession": "PSI-26"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-39-0",
+   "title": "Gas mole fractions do not add up to 1",
+   "detail": "The oxygen, nitrogen and added-gas fractions of the ambient gas should sum to 1. On these rows they do not, so one fraction is mistyped or a gas is missing from the table.",
+   "handling": "Values are kept as written; the rows stay in the findings because oxygen is the only fraction they use.",
+   "count": 4,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-39-0 row 13",
+     "column": "sum of the composition columns",
+     "raw": "0.97"
+    },
+    {
+     "where": "PSI-39-0 row 14",
+     "column": "sum of the composition columns",
+     "raw": "0.97"
+    },
+    {
+     "where": "PSI-39-0 row 15",
+     "column": "sum of the composition columns",
+     "raw": "0.97"
+    },
+    {
+     "where": "PSI-39-0 row 16",
+     "column": "sum of the composition columns",
+     "raw": "0.97"
+    }
+   ],
+   "id": "A7",
+   "accession": "PSI-39"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-69-0",
+   "title": "Column header lost its subscripts",
+   "detail": "NASA's header lost its subscripts (\"O\" is O₂, \"CO\" is CO₂ in FLEX); read with that meaning.",
+   "handling": "Read with the evident meaning (O is O₂, CO is CO₂, N is N₂ in FLEX's composition columns).",
+   "count": 3,
+   "unit": "columns",
+   "examples": [
+    {
+     "where": "PSI-69-0 header",
+     "raw": "O initial ambient composition; mole fraction"
+    },
+    {
+     "where": "PSI-69-0 header",
+     "raw": "N initial ambient composition; mole fraction"
+    },
+    {
+     "where": "PSI-69-0 header",
+     "raw": "CO initial ambient composition; mole fraction"
+    }
+   ],
+   "id": "A8",
+   "accession": "PSI-69"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-69-0",
+   "title": "Gas mole fractions do not add up to 1",
+   "detail": "The oxygen, nitrogen and added-gas fractions of the ambient gas should sum to 1. On these rows they do not, so one fraction is mistyped or a gas is missing from the table.",
+   "handling": "Values are kept as written; the rows stay in the findings because oxygen is the only fraction they use.",
+   "count": 6,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-69-0 row 70",
+     "column": "sum of the composition columns",
+     "raw": "0.98"
+    },
+    {
+     "where": "PSI-69-0 row 76",
+     "column": "sum of the composition columns",
+     "raw": "0.98"
+    },
+    {
+     "where": "PSI-69-0 row 77",
+     "column": "sum of the composition columns",
+     "raw": "0.98"
+    },
+    {
+     "where": "PSI-69-0 row 80",
+     "column": "sum of the composition columns",
+     "raw": "0.98"
+    }
+   ],
+   "id": "A9",
+   "accession": "PSI-69"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-69-0",
+   "title": "Header unit does not fit the quantity",
+   "detail": "The header's unit (mm) does not fit a burning rate; values are kept in the unit as stated.",
+   "handling": "Values are kept in the unit as stated and not used in any finding.",
+   "count": 1,
+   "unit": "columns",
+   "examples": [
+    {
+     "where": "PSI-69-0 header",
+     "raw": "Burning rate; mm"
+    }
+   ],
+   "id": "A10",
+   "accession": "PSI-69"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-69-0",
+   "title": "Test identifier used twice",
+   "detail": "Each FLEX run has its own identifier, but this one appears on two rows with different results.",
+   "handling": "EMBER identifies rows by table and row number, never by NASA's identifier, so both rows are kept apart.",
+   "count": 1,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-69-0 row 74",
+     "column": "FLEX Identifier",
+     "raw": "193F001 (also row 71)"
+    }
+   ],
+   "id": "A11",
+   "accession": "PSI-69"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-69-0",
+   "title": "Value outside physical limits",
+   "detail": "The value is outside physical limits for its quantity, so it is not used (the raw cell is kept).",
+   "handling": "Not used as a number; the raw cell is kept.",
+   "count": 1,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-69-0 row 115",
+     "column": "Ambient pressure; mmHg",
+     "raw": "0"
+    }
+   ],
+   "id": "A12",
+   "accession": "PSI-69"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-98-0",
+   "title": "Same fabric, three different thicknesses",
+   "detail": "Saffire-I, II and III all burned SIBAL cotton-fiberglass fabric, but its thickness is written 0.37 under a cm header, \"037 mm\" and \".33 cm\". A fabric sheet is a fraction of a millimetre thick, so the cm values look like unit slips.",
+   "handling": "No thickness is used for SIBAL in any finding; each cell is kept as written.",
+   "count": 3,
+   "unit": "tables",
+   "examples": [
+    {
+     "where": "PSI-98-0 row 3",
+     "column": "Sample Thickness (cm)",
+     "raw": "0.37"
+    },
+    {
+     "where": "PSI-99-0 row 6",
+     "column": "Samle Thickness",
+     "raw": "037 mm"
+    },
+    {
+     "where": "PSI-100-0 row 3",
+     "column": "Sample Thickness",
+     "raw": ".33 cm"
+    }
+   ],
+   "id": "A13",
+   "accession": "PSI-98"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-98-0",
+   "title": "Sample length and width look swapped",
+   "detail": "Length and width are the reverse of the Saffire-III table for the same 94 × 40.6 cm sheet format.",
+   "handling": "Kept as written and flagged; not used in any finding.",
+   "count": 2,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-98-0 row 2",
+     "column": "Sample Length (cm) × Sample Width (cm)",
+     "raw": "40.6 × 94"
+    }
+   ],
+   "id": "A14",
+   "accession": "PSI-98"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-98-0",
+   "title": "Typo in a material label",
+   "detail": "The label has a typo (e.g. \"blac\", \"2ide\", \"parrafin\"); matched with its evident meaning.",
+   "handling": "Matched with its evident meaning; the label is kept as written.",
+   "count": 2,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-98-0 row 4",
+     "column": "Material",
+     "raw": "Pre-test flow visulation data for sample 1"
+    },
+    {
+     "where": "PSI-98-0 row 5",
+     "column": "Material",
+     "raw": "Pre-test flow visulation data for sample 2"
+    }
+   ],
+   "id": "A15",
+   "accession": "PSI-98"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-99-0",
+   "title": "Column header lost the µ in µ-g",
+   "detail": "NASA's header lost the µ (\"?-g\" is µ-g); read with that meaning.",
+   "handling": "Read as µ-g (microgravity).",
+   "count": 2,
+   "unit": "columns",
+   "examples": [
+    {
+     "where": "PSI-99-0 header",
+     "raw": "?-g Burn Length"
+    },
+    {
+     "where": "PSI-99-0 header",
+     "raw": "?-g Spread Length"
+    }
+   ],
+   "id": "A16",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-99-0",
+   "title": "Number missing its decimal point",
+   "detail": "A number written with a leading zero and no decimal point (e.g. \"037 mm\"), so its magnitude is ambiguous; not used.",
+   "handling": "Not used: the magnitude is ambiguous. The raw cell is kept.",
+   "count": 3,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-99-0 row 5",
+     "column": "Samle Thickness",
+     "raw": "037 mm"
+    }
+   ],
+   "id": "A17",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-99-0",
+   "title": "Typo in a column header",
+   "detail": "NASA's header has a typo (\"Samle Thickness\"); read with its evident meaning.",
+   "handling": "Read with its evident meaning.",
+   "count": 1,
+   "unit": "columns",
+   "examples": [
+    {
+     "where": "PSI-99-0 header",
+     "raw": "Samle Thickness"
+    }
+   ],
+   "id": "A18",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-99-0",
+   "title": "Typo in a material label",
+   "detail": "The label has a typo (e.g. \"blac\", \"2ide\", \"parrafin\"); matched with its evident meaning.",
+   "handling": "Matched with its evident meaning; the label is kept as written.",
+   "count": 2,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-99-0 row 11",
+     "column": "Material",
+     "raw": "Pre-test flow visulation data for sample 2-1"
+    },
+    {
+     "where": "PSI-99-0 row 12",
+     "column": "Material",
+     "raw": "Pre-test flow visulation data for sample 2-2"
+    }
+   ],
+   "id": "A19",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "error",
+   "table": "PSI-159-0",
+   "title": "Spreadsheet error left in a cell",
+   "detail": "The cell holds a spreadsheet error (e.g. \"#DIV/0!\").",
+   "handling": "Not used.",
+   "count": 2,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-159-0 row 69",
+     "column": "Tad (K)",
+     "raw": "#DIV/0!"
+    }
+   ],
+   "id": "A20",
+   "accession": "PSI-159"
+  },
+  {
+   "kind": "gap",
+   "table": "PSI-25-0",
+   "title": "Reading off the instrument's scale",
+   "detail": "The reading was off the instrument's scale (\">500\", \"OR\", \"over\"); no number is used.",
+   "handling": "No number is used; counted separately in F4.",
+   "count": 5,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-25-0 row 32",
+     "column": "Final CO (ppm)",
+     "raw": ">500"
+    },
+    {
+     "where": "PSI-25-0 row 52",
+     "column": "Final CO (ppm)",
+     "raw": "OR"
+    },
+    {
+     "where": "PSI-25-0 row 64",
+     "column": "Final CO (ppm)",
+     "raw": "over"
+    }
+   ],
+   "id": "A21",
+   "accession": "PSI-25"
+  },
+  {
+   "kind": "gap",
+   "table": "PSI-99-0",
+   "title": "Material cell blank on a test row",
+   "detail": "The material cell is blank on a row with test data; EMBER does not fill it in.",
+   "handling": "Not filled in; the test is reported as \"not stated in NASA's table\".",
+   "count": 2,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-99-0 row 7",
+     "column": "Material",
+     "raw": "(blank)"
+    }
+   ],
+   "id": "A22",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-10-0",
+   "title": "Flow marked RAMPED, so the run has no single value",
+   "detail": "NASA marks the flow as RAMPED, so the run has no single fuel fraction or flow.",
+   "handling": "No number is used for the ramped columns.",
+   "count": 240,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-10-0 row 3",
+     "column": "Xfuel",
+     "raw": "RAMPED"
+    },
+    {
+     "where": "PSI-10-0 row 27",
+     "column": "Xfuel",
+     "raw": "RAMP"
+    }
+   ],
+   "id": "A23",
+   "accession": "PSI-10"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-10-1",
+   "title": "Flow marked RAMPED, so the run has no single value",
+   "detail": "NASA marks the flow as RAMPED, so the run has no single fuel fraction or flow.",
+   "handling": "No number is used for the ramped columns.",
+   "count": 33,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-10-1 row 31",
+     "column": "XO2",
+     "raw": "RAMP"
+    }
+   ],
+   "id": "A24",
+   "accession": "PSI-10"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-10-1",
+   "title": "Text in a numeric column",
+   "detail": "The cell holds text, not a number; kept as written.",
+   "handling": "Kept as text; no number is used.",
+   "count": 8,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-10-1 row 89",
+     "column": "XO2",
+     "raw": "LOW O2"
+    }
+   ],
+   "id": "A25",
+   "accession": "PSI-10"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-22-0",
+   "title": "Lines that are not tests inside the test table",
+   "detail": "Footnotes, flow-visualisation lines, cleaning runs, continuation lines or empty lines sit among the test rows, so a row count overstates the number of tests.",
+   "handling": "Marked as asides with the reason, and left out of every count of tests.",
+   "count": 11,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-22-0 row 4",
+     "raw": "continuation line: lists one more fuel concentration for the test day above"
+    },
+    {
+     "where": "PSI-22-0 row 7",
+     "raw": "continuation line: lists one more fuel concentration for the test day above"
+    },
+    {
+     "where": "PSI-22-0 row 15",
+     "raw": "continuation line: lists one more fuel concentration for the test day above"
+    },
+    {
+     "where": "PSI-22-0 row 19",
+     "raw": "continuation line: lists one more fuel concentration for the test day above"
+    }
+   ],
+   "id": "A26",
+   "accession": "PSI-22"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-22-0",
+   "title": "Rows identical in every column",
+   "detail": "Two or more rows have the same value in every column the table records. They may be genuine repeat runs that the table cannot tell apart, or duplicated lines.",
+   "handling": "Every row is kept as its own test; findings that count tests say so.",
+   "count": 1,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-22-0 row 30",
+     "raw": "identical to row 26"
+    }
+   ],
+   "id": "A27",
+   "accession": "PSI-22"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-25-0",
+   "title": "Negative instrument reading",
+   "detail": "A negative instrument reading (e.g. CO of -1 ppm); kept as written.",
+   "handling": "Kept as written (air rates below zero are not used as a flow).",
+   "count": 13,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-25-0 row 5",
+     "column": "Initial CO (ppm)",
+     "raw": "-1"
+    },
+    {
+     "where": "PSI-25-0 row 53",
+     "column": "Initial CO (ppm)",
+     "raw": "-2"
+    },
+    {
+     "where": "PSI-25-0 row 72",
+     "column": "Initial CO (ppm)",
+     "raw": "-3"
+    }
+   ],
+   "id": "A28",
+   "accession": "PSI-25"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-25-0",
+   "title": "Oxygen higher after the burn than before",
+   "detail": "A burn uses up oxygen, so the final reading should not be above the initial one. These rows rise by about 0.1 point, which is within what a sensor can drift; they may also record a top-up of the glovebox air.",
+   "handling": "Kept as written.",
+   "count": 5,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-25-0 row 106",
+     "column": "initial → final O2 % by vol",
+     "raw": "18.8 → 18.9"
+    },
+    {
+     "where": "PSI-25-0 row 110",
+     "column": "initial → final O2 % by vol",
+     "raw": "16.4 → 16.5"
+    },
+    {
+     "where": "PSI-25-0 row 112",
+     "column": "initial → final O2 % by vol",
+     "raw": "16.8 → 16.9"
+    },
+    {
+     "where": "PSI-25-0 row 113",
+     "column": "initial → final O2 % by vol",
+     "raw": "17.5 → 17.6"
+    }
+   ],
+   "id": "A29",
+   "accession": "PSI-25"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-26-0",
+   "title": "Lines that are not tests inside the test table",
+   "detail": "Footnotes, flow-visualisation lines, cleaning runs, continuation lines or empty lines sit among the test rows, so a row count overstates the number of tests.",
+   "handling": "Marked as asides with the reason, and left out of every count of tests.",
+   "count": 1,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-26-0 row 67",
+     "raw": "SOOT Cleaning"
+    }
+   ],
+   "id": "A30",
+   "accession": "PSI-26"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-39-0",
+   "title": "Rows identical in every column",
+   "detail": "Two or more rows have the same value in every column the table records. They may be genuine repeat runs that the table cannot tell apart, or duplicated lines.",
+   "handling": "Every row is kept as its own test; findings that count tests say so.",
+   "count": 8,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-39-0 row 81",
+     "raw": "identical to row 24"
+    },
+    {
+     "where": "PSI-39-0 row 82",
+     "raw": "identical to row 25"
+    },
+    {
+     "where": "PSI-39-0 row 83",
+     "raw": "identical to row 26"
+    },
+    {
+     "where": "PSI-39-0 row 84",
+     "raw": "identical to row 27"
+    }
+   ],
+   "id": "A31",
+   "accession": "PSI-39"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-98-0",
+   "title": "Lines that are not tests inside the test table",
+   "detail": "Footnotes, flow-visualisation lines, cleaning runs, continuation lines or empty lines sit among the test rows, so a row count overstates the number of tests.",
+   "handling": "Marked as asides with the reason, and left out of every count of tests.",
+   "count": 2,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-98-0 row 4",
+     "raw": "Pre-test flow visulation data for sample 1"
+    },
+    {
+     "where": "PSI-98-0 row 5",
+     "raw": "Pre-test flow visulation data for sample 2"
+    }
+   ],
+   "id": "A32",
+   "accession": "PSI-98"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-99-0",
+   "title": "Cell states a different unit from its column",
+   "detail": "The cell states its own unit, different from the column's (e.g. \"1 cm\" under a mm thickness); converted.",
+   "handling": "Converted using the unit the cell states.",
+   "count": 1,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-99-0 row 10",
+     "column": "Samle Thickness",
+     "raw": "1 cm"
+    }
+   ],
+   "id": "A33",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-99-0",
+   "title": "Lines that are not tests inside the test table",
+   "detail": "Footnotes, flow-visualisation lines, cleaning runs, continuation lines or empty lines sit among the test rows, so a row count overstates the number of tests.",
+   "handling": "Marked as asides with the reason, and left out of every count of tests.",
+   "count": 6,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-99-0 row 11",
+     "raw": "Pre-test flow visulation data for sample 2-1"
+    },
+    {
+     "where": "PSI-99-0 row 12",
+     "raw": "Pre-test flow visulation data for sample 2-2"
+    },
+    {
+     "where": "PSI-99-0 row 13",
+     "raw": "Note 1 Derived from measured CO2 production and referenced to initial O2 concentration reported by ISS."
+    },
+    {
+     "where": "PSI-99-0 row 14",
+     "raw": "Note 2 The PMMA portion was completely consumed but the Nomex was not ignited."
+    }
+   ],
+   "id": "A34",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-99-0",
+   "title": "Text in a numeric column",
+   "detail": "The cell holds text, not a number; kept as written.",
+   "handling": "Kept as text; no number is used.",
+   "count": 10,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-99-0 row 2",
+     "column": "Burn Time (s)",
+     "raw": "Insignificant"
+    },
+    {
+     "where": "PSI-99-0 row 8",
+     "column": "Samle Thickness",
+     "raw": "0.85 and 0.37 mm"
+    },
+    {
+     "where": "PSI-99-0 row 8",
+     "column": "Sample Length",
+     "raw": "5 and 24 cm"
+    },
+    {
+     "where": "PSI-99-0 row 8",
+     "column": "?-g Burn Length",
+     "raw": "5 cm & 0 (note 2)"
+    }
+   ],
+   "id": "A35",
+   "accession": "PSI-99"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-107-0",
+   "title": "Negative instrument reading",
+   "detail": "A negative instrument reading (e.g. CO of -1 ppm); kept as written.",
+   "handling": "Kept as written (air rates below zero are not used as a flow).",
+   "count": 8,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-107-0 row 296",
+     "column": "Air Rate (cm/s)",
+     "raw": "-0.28"
+    },
+    {
+     "where": "PSI-107-0 row 337",
+     "column": "Air Rate (cm/s)",
+     "raw": "-5.92"
+    }
+   ],
+   "id": "A36",
+   "accession": "PSI-107"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-107-0",
+   "title": "Rows identical in every column",
+   "detail": "Two or more rows have the same value in every column the table records. They may be genuine repeat runs that the table cannot tell apart, or duplicated lines.",
+   "handling": "Every row is kept as its own test; findings that count tests say so.",
+   "count": 34,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-107-0 row 3",
+     "raw": "identical to row 2"
+    },
+    {
+     "where": "PSI-107-0 row 7",
+     "raw": "identical to row 6"
+    },
+    {
+     "where": "PSI-107-0 row 10",
+     "raw": "identical to row 9"
+    },
+    {
+     "where": "PSI-107-0 row 12",
+     "raw": "identical to row 11"
+    }
+   ],
+   "id": "A37",
+   "accession": "PSI-107"
+  }
+ ]
+}

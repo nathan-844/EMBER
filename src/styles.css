@@ -241,6 +241,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .brand { gap: 9px; }
   .brand-name { letter-spacing: 0.08em; font-size: 16px; }
   .nav button svg { display: none; }
+  .nav { gap: 9px; }
+  .nav button { font-size: 12px; padding: 0; }
+  .brand-name { display: none; }
 }
 
 /* ---------- Scenario panel ---------- */
@@ -895,3 +898,40 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 @media (forced-colors: active) {
   .viz-dot, .seg, .viz-bar, .viz-key { forced-color-adjust: none; border: 1px solid CanvasText; }
 }
+
+/* ---------- Data page: atlas and audit ---------- */
+.atlas-filters { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; margin: 14px 0 10px; }
+.atlas-filters label { display: grid; gap: 4px; font-size: 11.5px; font-weight: 600; color: var(--muted); }
+.atlas-filters label.grow { flex: 1 1 220px; }
+.atlas-filters label.check { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-2); padding-bottom: 7px; }
+.atlas-filters select, .atlas-filters input[type="search"] { font: inherit; font-size: 13px; font-weight: 400; color: var(--ink); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 6px 8px; min-height: 34px; }
+.atlas-scroll { max-height: 560px; }
+.atlas-table { width: 100%; }
+.atlas-table td { vertical-align: top; }
+.atlas-table tr.is-open > td { background: var(--tint); }
+.row-btn { border: 0; background: none; padding: 0; font: inherit; color: var(--navy-2); font-weight: 600; cursor: pointer; text-decoration: underline dotted; }
+.run-table .atlas-detail td { white-space: normal; max-width: none; overflow: visible; background: var(--sunken); padding: 10px 12px; }
+.atlas-flags { margin: 8px 0 0; padding-left: 18px; font-size: 12px; color: var(--ink-2); display: grid; gap: 3px; }
+.atlas-flags strong { font-family: var(--mono); font-size: 11px; color: var(--warn); margin-right: 4px; }
+.atlas-pager { display: flex; gap: 12px; align-items: center; justify-content: center; margin-top: 12px; }
+.atlas-pager .btn:disabled { opacity: 0.45; cursor: default; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 14px; }
+.chips .chip { font-size: 12.5px; padding: 5px 12px; min-height: 30px; color: var(--ink); }
+.audit-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.audit-issue { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+.audit-head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin: 0 0 6px; font-size: 13.5px; }
+.audit-head .muted { font-size: 12px; font-family: var(--mono); }
+.audit-detail { margin: 0 0 8px; font-size: 13px; color: var(--ink-2); max-width: 820px; }
+.audit-handling { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-2); }
+
+/* Scenario lab: measured nearby */
+.near-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 14px 0; }
+.near-group { padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.near-group.mine { border-color: var(--navy-2); }
+.near-group p { margin: 0; }
+.near-num { font-size: 14px; color: var(--ink-2); }
+.near-num strong { font-size: 28px; color: var(--ink); letter-spacing: -0.02em; margin-right: 4px; }
+.near-h { font-size: 13px; margin: 16px 0 8px; }
+.near-findings { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; }
+.near-findings a { display: inline-flex; gap: 8px; align-items: center; color: var(--ink); font-weight: 600; font-size: 13.5px; }
+@media (max-width: 760px) { .near-grid { grid-template-columns: 1fr; } }

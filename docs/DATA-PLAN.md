@@ -8,6 +8,18 @@
 
 ---
 
+## Status (2026-11-15)
+
+| | Workstream | Status |
+|---|---|---|
+| A | Fire Test Atlas | Done |
+| B | Measured findings | Done |
+| C | Data audit | Done: 37 issues, Data page. Not done: comparison with the source papers |
+| D | Joint coverage | Done as a count of tests near a scenario (lab tile). Not done: an alternative ranking scheme and outcome colours on the gap map |
+| E | Reproducibility | Done: `npm run data:all`, `npm run data:check`, CI, `docs/DATA.md` |
+| F | Make it visible | Done: Findings and Data pages, lab tile, landing page, AI cites findings, demo video. Not done: re-recording the AI answers with findings in the evidence (needs a Gemini key) |
+| G | Open release | Data card written (`docs/ATLAS-DATA-CARD.md`). The GitHub release and the Zenodo DOI need the repository owner |
+
 ## Phase overview
 
 | # | Workstream | Result | Priority |

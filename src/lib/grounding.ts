@@ -155,7 +155,7 @@ export function checkAnswer(answer: ModelAnswer, pkg: EvidencePackage): Groundin
       citations.push({ source: src.id, label: src.label, origin: src.origin, excerpt: cit.excerpt });
     }
     const kind = (CLAIM_KINDS as readonly string[]).includes(c.kind) ? c.kind : "Interpretation";
-    if (kind === "Comparison" && new Set(citations.map((x) => investigationOf(x.source)).filter((id) => id !== "scenario" && !id.startsWith("limitation"))).size < 2) {
+    if (kind === "Comparison" && new Set(citations.map((x) => investigationOf(x.source)).filter((id) => id !== "scenario" && id !== "finding" && !id.startsWith("limitation"))).size < 2) {
       problems.push("A comparison must cite two or more investigations.");
     }
     if (NEEDS_NASA.has(kind) && !citations.some((x) => x.origin === "nasa")) {

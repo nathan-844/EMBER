@@ -23,6 +23,7 @@ const dataFiles = [
   "src/data/normalized-conditions.json",
   "src/data/atlas/atlas.json",
   "src/data/findings.json",
+  "src/data/atlas/audit.json",
 ];
 const fingerprint = createHash("sha256");
 for (const f of dataFiles) fingerprint.update(readFileSync(f, "utf8").replace(/\r\n/g, "\n"));

@@ -130,6 +130,46 @@ changed are removed so they can be re-recorded.
 - **Robustness** - each scenario is re-ranked under small input changes, single-input removals and
   four alternative point schemes, and the app reports whether the top match holds.
 
+## Fire Test Atlas, audit and measured findings
+
+**Fire Test Atlas** (*Data* page). Every row of the 21 stored NASA PSI tables plus the five Saffire
+IV-VI samples from NTRS 20240002981, in one schema: 2,006 records, 1,875 of them individual tests.
+Each value keeps the NASA header and cell it came from. Units are converted only where NASA states
+them, outcomes come only from a table's own outcome column, and a material dictionary normalises
+about 100 NASA labels (inferred materials are marked, with the reason). The page filters by fuel,
+investigation, outcome and text, opens any record to show NASA's cells as written, and offers the
+whole atlas as CSV. Schema and rules: [DATA.md](DATA.md).
+
+**Data audit** (*Data* page). 37 issues in 14 of the 21 tables: 20 likely errors (oxygen written
+"3400%", thickness "037 mm", fuel labels that count up row by row, gas fractions that do not sum
+to 1, a FLEX identifier used twice, headers that lost their subscripts or the µ), 2 missing values
+and 15 quirks (footnotes inside the test table, identical rows, RAMPED flows). Each lists example
+cells exactly as NASA wrote them and what EMBER does. Nothing in NASA's files is changed. The
+tables were not compared with their source papers.
+
+**Measured findings** (*Findings* page). Six findings computed by code from atlas rows:
+
+| | Finding | Tests |
+|---|---|---|
+| F1 | FLEX: the lower the oxygen, the more of the droplet is left when the flame goes out | 154 |
+| F2 | FLEX: none of 17 droplet flames at 30-34% O2 and about 10.4 psia went out early | 46 |
+| F3 | Saffire-II: the 1-g ground test burned further than orbit in 5 of 8 samples | 8 |
+| F4 | BASS-II: PMMA slab burns raised CO about 17 times more than SIBAL fabric | 118 |
+| F5 | CFI-G: all 7 cool flames at n-butane, 2 bar and about 39% O2 | 179 |
+| F6 | Only 2 solid tests reach the exploration atmosphere; both burned | 145 |
+
+Each finding shows a chart, a table view, its method, what else differs between the tests, the
+rows left out and why, what it does not claim, and every cited NASA row. The sentence is generated
+from the computed numbers. Tests check that every number in a claim is one of the finding's
+numbers, that the cited rows alone reproduce them, and that each headline number matches a recount
+from NASA's raw cells. The AI may cite a finding (`finding:F2`); the grounding check verifies the
+quote and numbers like any other source.
+
+**Tests near your scenario** (scenario lab tile). Counts individual tests within 5 points of oxygen
+and 2.5 psi of the scenario, per fuel type, with how they ended and the closest test. Tests whose
+table records no pressure are listed separately as oxygen-only matches. The window is a stated
+choice, not a physical threshold.
+
 ## Data explorer and CSV for modelers (inside *Nasa Run Tables*)
 
 For each ranked investigation: which ranked conditions and settings varied between runs, which
@@ -210,6 +250,9 @@ PDF's SHA-256 is recorded in that file.
 | `npm run sync:psi` | Refresh the NASA PSI record snapshot (needs access to psi.nasa.gov) |
 | `npm run sync:tables` | Download the PSI experimental tables (`-- --from DIR` imports an earlier download, hash-checked) |
 | `npm run data:normalize` | Rebuild condition ranges from the stored tables |
+| `npm run data:atlas` | Rebuild the Fire Test Atlas, the audit and the measured findings |
+| `npm run data:all` | Rebuild all derived data, the API bundles and the verify report |
+| `npm run data:check` | Rebuild the derived data and fail if a committed file differs (run by CI) |
 | `npm run record:demo` | Record live Gemini answers for the presets (needs a key; `-- --asks --missing` records only the missing suggested questions) |
 | `npm run recheck:recorded` | Re-check every recorded answer against today's evidence and checker rules |
 | `npm run video:record` | Record the 30-second demo video and screenshots |

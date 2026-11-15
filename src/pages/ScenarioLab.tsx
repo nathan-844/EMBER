@@ -29,6 +29,8 @@ import { DEFAULT_SCENARIO, gravityRegime, oxygenPartialPressure, PRESETS, type S
 // These read every stored NASA run table, so they load on demand.
 const GapPreview = lazy(() => import("../components/GapPreview"));
 const GapMapPanel = lazy(() => import("../components/DataExplorer").then((m) => ({ default: m.GapMapPanel })));
+const NearbyStat = lazy(() => import("../components/Nearby").then((m) => ({ default: m.NearbyStat })));
+const NearbyPanel = lazy(() => import("../components/Nearby").then((m) => ({ default: m.NearbyPanel })));
 const TablesPanel = lazy(() => import("../components/DataExplorer").then((m) => ({ default: m.TablesPanel })));
 
 const QUESTION_LABEL = { prevention: "Prevention", detection: "Detection", suppression: "Suppression" } as const;
@@ -38,7 +40,7 @@ const TABLE_COUNT = manifest.tables.length;
 const RANKED_TABLES = new Set(INVESTIGATIONS.flatMap((i) => Object.values(i.conditions).filter((r) => r?.source === "psi-table").map((r) => r!.table))).size;
 const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
 
-type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "tables" | "ai" | "equipment" | "earth";
+type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "near" | "tables" | "ai" | "equipment" | "earth";
 
 const VERDICT_TEXT = { accepted: "all claims passed the check", partial: "some claims rejected", rejected: "answer rejected" } as const;
 
@@ -206,6 +208,10 @@ export function ScenarioLab() {
             </Tile>
 
 
+            <Tile {...tile("near")} eyebrow="Measured nearby" title="Tests near your conditions">
+              <Suspense fallback={<Loading />}><NearbyStat scenario={scenario} /></Suspense>
+            </Tile>
+
             <Tile {...tile("tables")} size="2x1" eyebrow="NASA run tables" title="Browse the raw data">
               <Stat value={TABLE_ROWS.toLocaleString("en-US")} unit="rows">from {TABLE_COUNT} NASA PSI tables. See what each study varied and measured; download rows.</Stat>
             </Tile>
@@ -249,6 +255,9 @@ export function ScenarioLab() {
       </TileDialog>
       <TileDialog {...dialog("coverage")} title="Parameter coverage" lede="Where each study's condition ranges sit against your scenario. Click a probe value to try it.">
         <CoverageChart scenario={scenario} onProbe={(key, value) => setScenario({ ...scenario, [key]: value, environment: "custom" })} />
+      </TileDialog>
+      <TileDialog {...dialog("near")} title="Measured near your scenario" lede="Individual NASA tests near your oxygen and pressure, counted from the Fire Test Atlas.">
+        <Suspense fallback={<Loading />}><NearbyPanel scenario={scenario} /></Suspense>
       </TileDialog>
       <TileDialog {...dialog("ai")} title="Ask EMBER" lede="Ask about this scenario. EMBER checks each claim the model writes against the evidence it was given, and shows what it rejected and why.">
         <AnalysisCard analysis={analysis} />

@@ -20,6 +20,15 @@ where the evidence runs out.
   checked against NASA's own text.
 - **See the gaps** - a gap map of every NASA test run and plain statements of what the evidence
   cannot tell you.
+- **Read the measured findings** - six results computed by code from NASA's own test rows (for
+  example: in Saffire-II, the ground test burned further than the same sample did in orbit in 5 of
+  8 cases). Each shows its rows, method, limits and what it does not claim.
+- **Browse the Fire Test Atlas** - every NASA test row (2,001 from 21 PSI tables, plus Saffire
+  IV-VI) in one schema, with each value traced to the cell it came from, and a CSV download.
+- **Read the data audit** - 37 data-quality issues EMBER found in NASA's tables, each with the
+  cells as written and how it is handled.
+- **See tests near your scenario** - a count of individual NASA tests near your oxygen and pressure
+  together, per fuel type.
 - **Explore the raw data** - the NASA run tables behind each investigation, with CSV export for
   modelling.
 - **Check the credibility** - a self-assessment against NASA's model-credibility standard, backed by
@@ -32,10 +41,17 @@ where the evidence runs out.
 - The AI is treated as an untrusted author. A claim is shown only if every quote appears word for word
   in the source it cites and every number can be traced. Claims that state a safety conclusion are
   rejected.
+- Findings are computed by code, never written by a model. Each sentence is generated from the
+  computed numbers, and tests recheck every headline number against NASA's raw cells.
+- Nothing in NASA's files is corrected. Problems become flags and audit entries, and the raw cell
+  is always kept.
+- All derived data rebuilds from the stored NASA tables with one command (`npm run data:all`), and
+  CI fails if the committed data differs from a fresh rebuild.
 - EMBER selects evidence. It does not predict whether something will burn.
 
 The full detail of the ranking, the AI check, the data pipeline and the more specialised features is
-in **[docs/FEATURES.md](docs/FEATURES.md)**.
+in **[docs/FEATURES.md](docs/FEATURES.md)**. The atlas schema, rules and audit are described in
+**[docs/DATA.md](docs/DATA.md)**.
 
 ## Getting started
 

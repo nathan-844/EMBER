@@ -2,6 +2,10 @@ import { INVESTIGATIONS } from "../data/investigations";
 import { PSI_SNAPSHOT } from "../data/psi";
 import rawReport from "../data/verify-report.json";
 import tableManifest from "../data/table-manifest.json";
+import rawAudit from "../data/atlas/audit.json";
+import type { AuditFile } from "../lib/atlas/audit";
+
+const AUDIT = rawAudit as unknown as AuditFile;
 import { profilesWithNormalizedConditions } from "../lib/ranking";
 
 interface VerifyReport {
@@ -44,8 +48,8 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   },
   {
     name: "Input pedigree", q: "Where did every input come from?", level: verified === INVESTIGATIONS.length ? "Partial" : "Limited",
-    shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record, synced ${PSI_SNAPSHOT.fetchedOn}. ${tableProfiles} profiles take ${tableRanges} oxygen, pressure or airflow ranges from ${usedTables.size} of ${TABLES.tables.length} stored NASA PSI run tables (${tableRows.toLocaleString("en-US")} source rows; SHA-256 per file); the remaining ranges are labelled curated.`,
-    missing: "Gravity, fuel type and the remaining curated ranges are not read from tables. Ranges are marginal min–max envelopes, not joint test points.",
+    shown: `${verified} of ${INVESTIGATIONS.length} profiles link to their NASA PSI record, synced ${PSI_SNAPSHOT.fetchedOn}. ${tableProfiles} profiles take ${tableRanges} oxygen, pressure or airflow ranges from ${usedTables.size} of ${TABLES.tables.length} stored NASA PSI run tables (${tableRows.toLocaleString("en-US")} source rows; SHA-256 per file); the remaining ranges are labelled curated. The Fire Test Atlas keeps the NASA header and cell behind every value of all ${TABLES.tables.length} tables, and a data audit lists ${AUDIT.totals.issues} issues found in them.`,
+    missing: "Gravity, fuel type and the remaining curated ranges are not read from tables. The ranking's ranges are marginal min–max envelopes; joint test points are counted separately (tests near your scenario). The tables were not compared with their source papers.",
   },
   {
     name: "Results uncertainty", q: "Is uncertainty in the results represented?", level: "Limited",
@@ -65,7 +69,7 @@ const FACTORS: { name: string; q: string; level: Level; shown: string; missing: 
   {
     name: "M&S management", q: "Are versions and changes controlled?", level: "Evidence shown",
     shown: `Git history and a recorded data fingerprint (${report.dataFingerprint.value ? report.dataFingerprint.value.slice(0, 12) + "…" : "not recorded"}).`,
-    missing: "No formal configuration-control or release-approval process.",
+    missing: "No formal configuration-control or release-approval process. A CI check rebuilds the atlas, audit and findings from the stored NASA tables and fails if the committed data differs.",
   },
   {
     name: "People qualifications", q: "Who built and reviewed it?", level: "Not established",

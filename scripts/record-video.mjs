@@ -61,9 +61,22 @@ const dialogShot = (page, file) => page.locator(".tile-dialog[open] .tile-dialog
     await dialogShot(page, file);
     await closeDialog(page);
   }
+  await openTile(page, "near");
+  await dialogShot(page, "shot-nearby.png");
+  await closeDialog(page);
   await page.goto(base + "/#credibility");
   await page.waitForSelector("h1");
   await page.screenshot({ path: join(out, "shot-credibility.png") });
+  await page.goto(base + "/#findings");
+  await page.waitForSelector("#F1 .viz-dot");
+  await page.screenshot({ path: join(out, "shot-findings.png") });
+  await page.locator("#F3").screenshot({ path: join(out, "shot-finding-f3.png") });
+  await page.goto(base + "/#data");
+  await page.waitForSelector(".atlas-table tbody tr");
+  await page.locator("#atlas").screenshot({ path: join(out, "shot-atlas.png") });
+  await page.locator("#audit").scrollIntoViewIfNeeded();
+  await page.evaluate(() => document.getElementById("audit").scrollIntoView());
+  await page.screenshot({ path: join(out, "shot-audit.png") });
   await page.close();
 }
 
@@ -85,41 +98,54 @@ await wait(3000);
 
 mark("EMBER ranks 20 NASA investigations against your habitat and says what each one covers");
 await page.selectOption("#env", "iss");
-await wait(1300);
+await wait(1100);
 await page.selectOption("#env", "lunar-habitat");
-await wait(2200);
+await wait(1700);
 
 mark("Key finding: no solid-material test in NASA’s PSI data goes above 22.2% oxygen");
 await openTile(page, "gap");
 // Bring the plot (and the solid-material band) above the caption.
 await page.locator(".tile-dialog[open] .tile-dialog-body").evaluate((el) => el.scrollBy({ top: 330, behavior: "instant" }));
+await wait(2700);
+await closeDialog(page);
+
+// Hash navigation keeps one document, so the recording has no reload flash.
+const go = async (hash, selector) => {
+  await page.evaluate((h) => { window.location.hash = h; }, hash);
+  await page.waitForSelector(selector);
+  await wait(350);
+};
+
+mark("Six findings computed from NASA’s own rows: on the ground, Saffire-II samples burned further than in orbit");
+await go("#findings/F3", "#F3 .pairs");
+await wait(3300);
+
+mark("Every number is one click from the cells NASA wrote");
+await page.locator("#F3 details", { hasText: "NASA rows" }).locator("summary").click();
+await page.waitForSelector("#F3 .cited-list li");
+await page.locator("#F3 .cited-list").scrollIntoViewIfNeeded();
+await wait(2500);
+
+mark("We read every cell of NASA’s 21 tables and documented 37 data-quality issues");
+await go("#data/audit", ".atlas-table tbody tr");
+await page.evaluate(() => document.getElementById("audit").scrollIntoView());
 await wait(3200);
-await closeDialog(page);
 
-mark("Every NASA test row is one click from a modeller’s CSV, with units harmonised");
-await openTile(page, "tables");
-await wait(2800);
-await closeDialog(page);
-
+await go("#lab", ".tile-headline");
 mark("Gemini writes the analysis; EMBER checks every quote and number against its source");
 await page.getByRole("button", { name: /recorded analysis of this scenario/ }).click();
 await page.waitForSelector(".tile-dialog[open] .verdict");
-await wait(2200);
+await wait(1900);
 await page.locator(".tile-dialog[open] .tile-dialog-body").evaluate((el) => el.scrollBy({ top: 420, behavior: "smooth" }));
-await wait(2000);
+await wait(1700);
 await closeDialog(page);
 
 mark("It shows what the research informs: detection, suppression, ventilation");
 await openTile(page, "equipment");
-await wait(3000);
+await wait(2400);
 await closeDialog(page);
 
-mark("…and where it helps on Earth: mines, aircraft, submarines");
-await openTile(page, "earth");
-await wait(2800);
-await closeDialog(page);
-
-mark("Open NASA data, checked AI, honest limits");
+mark("Open NASA data, measured findings, checked AI, honest limits");
 await page.setContent(`<!doctype html><html><body style="margin:0;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;background:#121A24;color:#F5F2EB;font-family:'Segoe UI',Arial,sans-serif">
   <div style="font-size:22px;letter-spacing:4px;color:#F08A60;font-weight:600">NASA SPACE APPS 2026 · FLAME IN FREEFALL</div>
   <div style="font-size:120px;font-weight:800;letter-spacing:-2px">EMBER</div>

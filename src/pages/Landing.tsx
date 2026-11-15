@@ -1,12 +1,14 @@
 import manifest from "../data/table-manifest.json";
-import { INVESTIGATIONS } from "../data/investigations";
 import { SAFFIRE_NTRS_RUNS, SAFFIRE_NTRS_SOURCE } from "../data/ntrs-saffire";
 import { REJECTED_EXAMPLE, tableOxygenSpan } from "../lib/landing";
 import { PRESETS } from "../lib/scenario";
+import rawAudit from "../data/atlas/audit.json";
 import rawFindings from "../data/findings.json";
+import type { AuditFile } from "../lib/atlas/audit";
 import type { FindingsFile } from "../lib/findings/types";
 
 const FINDINGS = rawFindings as unknown as FindingsFile;
+const AUDIT = rawAudit as unknown as AuditFile;
 
 const REPO = "https://github.com/nathan-844/EMBER";
 const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
@@ -38,18 +40,19 @@ export function Landing() {
         <p className="eyebrow accent">NASA Space Apps 2026 · Flame in Freefall</p>
         <h1>A Moon base may breathe {MOON_O2}% oxygen. <span>Does NASA’s fire data cover it?</span></h1>
         <p className="land-lede">
-          EMBER ranks NASA’s microgravity combustion experiments against your crew habitat, shows where the evidence runs out, and
-          checks every AI-written claim against NASA’s own text.
+          EMBER reads every row of NASA’s microgravity fire tests into one traceable table, computes what the measurements show, ranks the
+          experiments against your crew habitat, and checks every AI-written claim against NASA’s own text.
         </p>
         <div className="land-actions">
           <a className="btn btn-primary land-cta" href="#lab">Launch EMBER →</a>
-          <a className="btn land-btn" href="#credibility">How far can you trust it?</a>
+          <a className="btn land-btn" href="#findings">See the findings</a>
+          <a className="btn land-btn" href="#data">Browse the data</a>
           <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Source on GitHub</a>
         </div>
         <dl className="land-stats">
-          <div><dt>{INVESTIGATIONS.length}</dt><dd>NASA investigations ranked against your scenario</dd></div>
-          <div><dt>{TABLE_ROWS.toLocaleString("en-US")}</dt><dd>test rows from {manifest.tables.length} NASA PSI run tables</dd></div>
-          <div><dt>{SOLID.max}%</dt><dd>highest oxygen in any solid-material test in those tables</dd></div>
+          <div><dt>{TABLE_ROWS.toLocaleString("en-US")}</dt><dd>NASA test rows from {manifest.tables.length} PSI tables, every value traced to the cell it came from</dd></div>
+          <div><dt>{FINDINGS.findings.length}</dt><dd>measured findings computed from those rows by code, with no AI in the loop</dd></div>
+          <div><dt>{AUDIT.totals.issues}</dt><dd>data-quality issues found and documented in {AUDIT.totals.tablesAffected} of NASA’s {AUDIT.totals.tablesChecked} tables</dd></div>
         </dl>
       </header>
 
@@ -102,6 +105,20 @@ export function Landing() {
           ))}
         </ol>
         <p className="land-note">Each finding is computed by code from the rows it cites; no AI writes or edits it. <a href="#findings">Open the findings →</a></p>
+      </section>
+
+      <section className="card land-section" aria-labelledby="land-audit">
+        <p className="eyebrow">Checked data</p>
+        <h2 id="land-audit">We read every cell of NASA’s tables, and wrote down what is wrong with them.</h2>
+        <p className="land-text">
+          {AUDIT.totals.error} likely errors, {AUDIT.totals.gap} missing values and {AUDIT.totals.note} quirks: oxygen written as “3400%”, a thickness of “037 mm”,
+          fuel labels that count up row by row, gas fractions that do not add up to 1. Nothing in NASA’s files is changed. Each issue is listed
+          with the cells as written and how EMBER handles it.
+        </p>
+        <div className="land-actions">
+          <a className="btn land-btn" href="#data/audit">Read the audit</a>
+          <a className="btn land-btn" href="#data">Browse all {TABLE_ROWS.toLocaleString("en-US")} test rows</a>
+        </div>
       </section>
 
       <section className="land-section" aria-labelledby="land-does">
