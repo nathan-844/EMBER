@@ -68,6 +68,9 @@ cannot establish.
   atmospheres). Each link quotes the NASA PSI record word for word (tested) and says whether NASA
   states the use or it is EMBER's reading, plus what is not covered. *Evidence on the way* lists
   SoFIE, FM2 and LUCI and flags the ones that would close a gap in your scenario.
+- **Models built on the flight data** – PSI also holds five NASA-funded ground studies that model
+  or re-analyse flight data (SPICE, BASS, SAME, FLEX and cool-flame data: PSI-60, 62, 115, 117 and
+  142). The data explorer lists them under the investigation they build on.
 - **Fire safety on Earth** – six NASA-stated ground uses of the same research (smoke detectors for
   submarines and labs; mines, aircraft and submarines; less harmful suppressants; wildfire and
   building-fire models; cone-calorimeter material testing), each quoted from the PSI record's

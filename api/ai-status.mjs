@@ -8391,6 +8391,8 @@ var PSI_SNAPSHOT = psi_snapshot_default;
 function getPsiRecord(accession) {
   return accession ? PSI_SNAPSHOT.records.find((r) => r.accession === accession) : void 0;
 }
+var PROFILED = /* @__PURE__ */ new Set(["PSI-10", "PSI-20", "PSI-21", "PSI-22", "PSI-23", "PSI-25", "PSI-26", "PSI-39", "PSI-47", "PSI-68", "PSI-69", "PSI-98", "PSI-99", "PSI-100", "PSI-101", "PSI-102", "PSI-106", "PSI-107", "PSI-159"]);
+var ANALYSIS_RECORDS = PSI_SNAPSHOT.records.filter((r) => !PROFILED.has(r.accession));
 
 // src/data/investigations.ts
 var PSI_VERIFIED_ON = "2026-11-14";

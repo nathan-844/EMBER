@@ -34,3 +34,14 @@ describe("NASA PSI links", () => {
     expect(PSI_SNAPSHOT.responseSha256).toMatch(/^[0-9a-f]{64}$/);
   });
 });
+
+describe("ground analysis records", () => {
+  it("are exactly the PSI combustion records EMBER does not profile, and each links to a profiled flight study", async () => {
+    const { ANALYSIS_RECORDS } = await import("./psi");
+    const { PSI_ACCESSIONS } = await import("./investigations");
+    const profiled = new Set(Object.values(PSI_ACCESSIONS));
+    expect(ANALYSIS_RECORDS.map((r) => r.accession).sort()).toEqual(["PSI-115", "PSI-117", "PSI-142", "PSI-60", "PSI-62"]);
+    for (const r of ANALYSIS_RECORDS) expect(r.relatedInvestigations.some((a) => profiled.has(a)), r.accession).toBe(true);
+    expect(PSI_SNAPSHOT.records.every((r) => profiled.has(r.accession) || ANALYSIS_RECORDS.includes(r))).toBe(true);
+  });
+});

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getTable, summarizeTable, tablesFor, buildRowsCsv, countOutliers, UNCALIBRATED, type ColumnSummary } from "../lib/explorer";
 import { cleanHeader, isNoValue } from "../lib/cells";
 import { downloadText } from "../lib/brief";
+import { analysesFor } from "../data/psi";
 import type { RankedInvestigation } from "../lib/ranking";
 import { DownloadIcon, ExternalIcon } from "./icons";
 
@@ -32,6 +33,7 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
   const metas = tablesFor(inv);
   const meta = metas[Math.min(tableIdx, metas.length - 1)];
   const s = summarizeTable(meta);
+  const analyses = analysesFor(inv.psi.accession);
   const outlierCount = countOutliers(meta.id);
   const t = getTable(meta.id);
   const rows = showAll ? t.rows : t.rows.slice(0, 12);
@@ -78,6 +80,19 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
         <a href={meta.url} target="_blank" rel="noreferrer">NASA {meta.id} <ExternalIcon /></a>{" "}
         <span className="muted">· {meta.file} · {s.rows} runs</span>
       </p>
+      {analyses.length > 0 && (
+        <div className="analyses">
+          <p className="small"><strong>Models built on this flight data</strong> <span className="muted">(NASA-funded ground studies in PSI)</span></p>
+          <ul className="col-list">
+            {analyses.map((a) => (
+              <li key={a.accession}>
+                <a href={a.url} target="_blank" rel="noreferrer">{a.accession} <ExternalIcon /></a> {a.title}
+                <span className="muted"> · {a.subResearchArea ?? a.researchArea}{a.startDate ? `, from ${a.startDate.slice(0, 4)}` : ""}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="explorer-grid">
         {(["condition", "setting", "result"] as const).map((role) => (
