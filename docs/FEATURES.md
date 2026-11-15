@@ -237,13 +237,25 @@ engine and the atlas, each with an expected value, split 30 for development and 
 All 60 pass. No model answers them, so they say nothing about the quality of AI answers, and the
 evaluation half was written by the same team rather than held out by someone else.
 
-**Mission** (`#mission`, also opened from the scenario lab with your conditions filled in). List
-the materials in a habitat, set two atmospheres A and B and how close a test must be to count, and
-choose a measured result.
+**Mission** (`#mission`, also opened from the scenario lab with your conditions filled in). Pick
+materials from the list of every solid material named in NASA's stored tables (each with its
+number of tests, and the forms it was tested in), and set two atmospheres A and B from a preset or
+by hand. The page opens on a move from the ISS cabin to a lunar habitat.
 
-- Each NASA test is sorted into documented, partial, analogue, outside or excluded for each
-  atmosphere, with the reason and its source cells. Material name and form must match; thickness,
-  flow direction, gravity regime, gas mixture and the condition windows decide the rest.
+- For each material the page shows atmosphere A beside B: how many tests match, a bar of the five
+  groups below, the closest tests with NASA's own cells, and one sentence on what is lost in the
+  move from A to B.
+- The groups are: a full match (same material, form and gravity, every condition you set recorded
+  and inside its window); matches what NASA recorded (at least one condition you set is not in the
+  table); conditions not recorded (the table gives none of oxygen, pressure or flow); related only
+  (different form or gravity, or an inferred material); and outside your windows.
+- Every stored test was run in microgravity, so for a Moon or Mars atmosphere the page says that
+  the best any test can be is related evidence.
+- Matching rules can be changed: the four windows, and whether a test counts when it was simply
+  run on the material (the default) or only when it records a burning outcome, a spread rate or
+  heat release. Few solid tests record an outcome, so the stricter rules leave very little.
+- A material that is not in NASA's stored tables is reported as a gap in the stored data, not as
+  untested and not as a statement about how it burns.
 - A value that is not in the stored record is shown as missing, which is not the same as never
   tested. Ranges are not interpolated, and equal oxygen partial pressure is not treated as the
   same condition.

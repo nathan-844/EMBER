@@ -5,7 +5,8 @@ export const MISSION_METHOD = "mission-coverage-v1";
 export type Atmosphere = { oxygenPct: number; pressurePsi: number; flowCms: number; gravity: "microgravity" | "partial" | "earth"; diluent: "unspecified" | "nitrogen" | "helium" | "carbon-dioxide" };
 export type InventoryItem = { id: string; label: string; material: string; form: string; thicknessMm: number | null; flowDirection: "unspecified" | "opposed" | "concurrent" | "quiescent" };
 export type Windows = { oxygenPct: number; pressurePsi: number; flowCms: number; thicknessMm: number };
-export type Endpoint = "burning-outcome" | "spread-rate" | "heat-release";
+/** "any-test" asks only that the test was run on this material; the others also require that result to be recorded. */
+export type Endpoint = "any-test" | "burning-outcome" | "spread-rate" | "heat-release";
 export type Target = { id: string; itemId: string; atmosphere: Atmosphere };
 export type Candidate = Target & { cost: number; feasibility: "unknown" | "assumed-feasible" | "infeasible" };
 export type MissionSpec = { method: typeof MISSION_METHOD; snapshot: string; inventory: InventoryItem[]; a: Atmosphere; b: Atmosphere; endpoint: Endpoint; windows: Windows; targets: Target[]; candidates: Candidate[]; budget: number; allowUnknownFeasibility: boolean };
@@ -28,7 +29,7 @@ export function validateMission(s: MissionSpec): string[] {
   if (!s || s.method !== MISSION_METHOD || s.snapshot !== SNAPSHOT.id) return ["Unknown method or dataset snapshot. Use the original package for older snapshots."];
   const errors: string[] = [];
   if (!atmosphereValid(s.a) || !atmosphereValid(s.b)) errors.push("Atmospheres require oxygen (0, 100] %, pressure (0, 100] psia, flow [0, 1000] cm/s and known categories.");
-  if (!choices(s.endpoint, ["burning-outcome", "spread-rate", "heat-release"])) errors.push("Unsupported endpoint.");
+  if (!choices(s.endpoint, ["any-test", "burning-outcome", "spread-rate", "heat-release"])) errors.push("Unsupported endpoint.");
   if (!s.windows || !["oxygenPct", "pressurePsi", "flowCms", "thicknessMm"].every(k => finite(s.windows[k as keyof Windows]) && s.windows[k as keyof Windows] > 0)) errors.push("All comparison windows must be finite and positive.");
   if (!Array.isArray(s.inventory) || s.inventory.length < 1 || s.inventory.length > 12) return [...errors, "Provide 1–12 inventory items."];
   const ids = new Set<string>();
@@ -74,6 +75,7 @@ function distance(q: Quantity | null | undefined, target: number, window: number
   return v ? Math.max(...v.map(x => Math.abs(x - target))) / window : null;
 }
 function endpointPresent(r: AtlasRow, endpoint: Endpoint) {
+  if (endpoint === "any-test") return true;
   if (endpoint === "burning-outcome") return r.outcome.value !== "not-recorded";
   const q = r.measures[endpoint === "spread-rate" ? "spreadRateMicrogravity" : "heatReleaseW"];
   return q && "unit" in q && values(q) !== null;

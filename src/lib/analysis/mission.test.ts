@@ -129,11 +129,27 @@ describe("M3 greedy coverage planner", () => {
     const many = plannerSpec(); many.candidates = Array.from({ length: 97 }, (_, i) => ({ ...many.candidates[0], id: String(i) })); expect(validateMission(many).join(" ")).toContain("96");
     const bad = plannerSpec(); bad.candidates[0].cost = 0; expect(validateMission(bad).join(" ")).toContain("positive costs");
   });
+  it("counts any test of the material when no particular result is required", () => {
+    // A stated PMMA slab row that records oxygen but no burning outcome.
+    const row = rows.find(r => r.rowKind === "test" && r.material.name === "PMMA" && r.material.form === "slab" && r.material.basis === "stated" && r.outcome.value === "not-recorded" && r.o2Pct?.v != null)!;
+    const item = { ...spec().inventory[0], thicknessMm: null, flowDirection: "unspecified" as const };
+    const air = { ...spec().a, oxygenPct: row.o2Pct!.v! };
+    expect(assessRow(row, item, air, "burning-outcome", spec().windows).tier).toBe("excluded");
+    const any = assessRow(row, item, air, "any-test", spec().windows);
+    expect(any.tier).not.toBe("excluded");
+    expect(any.distances.oxygenPct).not.toBeNull();
+    expect(validateMission({ ...spec(), endpoint: "any-test" })).toEqual([]);
+    // The stricter rule never admits a test the looser one leaves out.
+    const strict = missionReport(rows, spec()).inventory[0].a, loose = missionReport(rows, { ...spec(), endpoint: "any-test" }).inventory[0].a;
+    strict.forEach((a, n) => { if (a.tier !== "excluded") expect(loose[n].tier).toBe(a.tier); });
+    expect(loose.filter(a => a.tier !== "excluded").length).toBeGreaterThan(strict.filter(a => a.tier !== "excluded").length);
+  });
   it("transfers complete scenario conditions to B with cm/s conversion", () => {
     const s = { ...DEFAULT_SCENARIO, oxygenPct: 30, pressurePsi: 8.2, airflowMs: 0.2, gravityG: 0.166, material: "PMMA", thicknessMm: 3 };
     const restored = JSON.parse(new URLSearchParams(missionLink(s).split("?")[1]).get("spec")!);
     expect(restored.b).toMatchObject({ oxygenPct: 30, pressurePsi: 8.2, flowCms: 20, gravity: "partial" });
     expect(restored.inventory[0]).toMatchObject({ material: "PMMA", thicknessMm: 3, form: "unspecified" });
+    expect(restored.endpoint).toBe("any-test");
     expect(missionLink({ ...s, oxygenPct: null })).toBe("#mission");
   });
   it("rebuilds and reproduces the complete exported analysis in a separate Node process", async () => {
