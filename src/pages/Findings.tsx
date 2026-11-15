@@ -24,6 +24,7 @@ function FindingCard({ f }: { f: Finding }) {
         </p>
         <h2 id={`${f.id}-title`}>{f.title}</h2>
         <p className="finding-claim">{f.claim}</p>
+        {f.id === "F4" && <p><a className="btn" href="#compare">Explore CO changes and download a reproducible comparison</a></p>}
         <p className="finding-sure"><strong>How sure:</strong> {f.uncertainty.text} <span className="muted">({f.uncertainty.method})</span></p>
         <p className="finding-not"><strong>Not claimed:</strong> {f.notClaimed}</p>
         <details className="fold fold-inline">

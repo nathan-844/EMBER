@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { AppShell, type Route } from "./components/AppShell";
 import { INVESTIGATIONS } from "./data/investigations";
 import { Credibility } from "./pages/Credibility";
@@ -7,10 +7,13 @@ import { Findings } from "./pages/Findings";
 import { Landing } from "./pages/Landing";
 import { ScenarioLab } from "./pages/ScenarioLab";
 
+const Compare = lazy(() => import("./pages/Compare"));
+
 function readRoute(): Route {
   const hash = window.location.hash;
   // The landing page is the front door; any other hash (such as #scenario) belongs to the lab.
   if (hash === "" || hash === "#" || hash === "#home") return "home";
+  if (hash === "#compare" || hash.startsWith("#compare?")) return "compare";
   if (hash === "#findings" || hash.startsWith("#findings/")) return "findings";
   if (hash === "#data" || hash.startsWith("#data/")) return "data";
   return hash === "#credibility" ? "credibility" : "lab";
@@ -37,7 +40,7 @@ export function App() {
 
   return (
     <AppShell route={route} onNavigate={navigate} recordCount={INVESTIGATIONS.length}>
-      {route === "home" ? <Landing /> : route === "lab" ? <ScenarioLab /> : route === "findings" ? <Findings /> : route === "data" ? <Data /> : <Credibility />}
+      {route === "compare" ? <Suspense fallback={<main className="page" role="status">Loading comparison…</main>}><Compare /></Suspense> : route === "home" ? <Landing /> : route === "lab" ? <ScenarioLab /> : route === "findings" ? <Findings /> : route === "data" ? <Data /> : <Credibility />}
     </AppShell>
   );
 }
