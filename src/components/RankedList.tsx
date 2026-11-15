@@ -1,9 +1,10 @@
-import { Fragment, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { CONDITION_LABELS, MAX_CONDITION_POINTS, rangeLabel, rankLabel, type ConditionResult, type RankedInvestigation } from "../lib/ranking";
 import { getPsiRecord } from "../data/psi";
 import type { Scenario } from "../lib/scenario";
 import { ExternalIcon } from "./icons";
 import { RobustnessBar } from "./RobustnessBar";
+import { rankRangeLabel, rankStability, type RankRange } from "../lib/robustness";
 
 const STATUS_TEXT: Record<ConditionResult["status"], string> = {
   match: "inside profile range",
@@ -42,7 +43,7 @@ function PsiRecordPanel({ accession }: { accession: string | null }) {
   );
 }
 
-function Row({ r }: { r: RankedInvestigation }) {
+function Row({ r, stability }: { r: RankedInvestigation; stability?: RankRange }) {
   const [open, setOpen] = useState(false);
   const inv = r.investigation;
   const outsideO2 = r.conditions.find((c) => c.key === "oxygenPct")?.status === "outside";
@@ -73,6 +74,12 @@ function Row({ r }: { r: RankedInvestigation }) {
         <div className="score"><strong>{r.total}</strong>/100</div>
         <div className="small muted">question {r.questionPoints}/25 · conditions {r.conditionPoints}/{MAX_CONDITION_POINTS}</div>
         <div className="meter"><span style={{ width: `${r.total}%` }} /></div>
+        {stability && (
+          <p className={`small rank-stability ${stability.min === stability.max ? "is-stable" : ""}`}
+            title={`Best and worst rank across ${stability.combos} combinations of the seven point weights, each moved up or down 20%. This tests the scoring rule, not the experiments.`}>
+            {rankRangeLabel(stability)}
+          </p>
+        )}
         <button className="link-btn" onClick={() => setOpen(!open)} aria-expanded={open}>
           {r.matchedCount}/{r.specifiedCount} specified conditions match · {open ? "hide" : "explain"}
         </button>
@@ -108,6 +115,7 @@ function otherFuelWords(scenario: Scenario): string {
 
 export function RankedList({ ranked, scenario, showRobustness = true }: { ranked: RankedInvestigation[]; scenario: Scenario; showRobustness?: boolean }) {
   const [showAll, setShowAll] = useState(false);
+  const stability = useMemo(() => rankStability(scenario), [scenario]);
   const visible = showAll ? ranked : ranked.slice(0, 5);
   return (
     <section className="card">
@@ -124,7 +132,8 @@ export function RankedList({ ranked, scenario, showRobustness = true }: { ranked
         Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside a range measured in a NASA table,
         10 inside a curated estimate, two thirds of that when just outside; equal scores list NASA-measured data first). When you set a fuel type, studies of that fuel are listed first and other
         fuels follow as analogue evidence; ranks and ties count within each group. Scores do not estimate fire probability, confidence or safety;
-        unknown fields earn no points.
+        unknown fields earn no points. Under each score, the rank range shows the best and worst rank when every point weight is moved
+        up or down 20% (all 128 combinations), so you can see which places depend on the weights EMBER chose.
       </p>
       </details>
       {showRobustness && <RobustnessBar scenario={scenario} />}
@@ -141,7 +150,7 @@ export function RankedList({ ranked, scenario, showRobustness = true }: { ranked
                   condition affects a flame, but they are not direct evidence for your fuel, whatever their score.
                 </li>
               )}
-              <Row r={r} />
+              <Row r={r} stability={stability.get(r.investigation.id)} />
             </Fragment>
           ))}
         </ol>

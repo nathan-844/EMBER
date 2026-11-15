@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { probeRobustness, WEIGHT_SCHEMES } from "./robustness";
+import { probeRobustness, rankRangeLabel, rankStability, WEIGHT_SCHEMES } from "./robustness";
+import { rankInvestigations } from "./ranking";
 import { presetScenario, PRESETS } from "./scenario";
 
 describe("robustness probes", () => {
@@ -44,5 +45,47 @@ describe("robustness probes", () => {
     const r = probeRobustness(presetScenario("iss"));
     expect(r.lead).toBe("bass-ii");
     expect(r.weightsHeld).toBe(WEIGHT_SCHEMES.length);
+  });
+});
+
+describe("rank stability under ±20% weights", () => {
+  it("tries all 128 corners plus the defaults and keeps the default rank inside the range", () => {
+    for (const p of PRESETS.filter((x) => x.id !== "custom")) {
+      const s = presetScenario(p.id);
+      const ranked = rankInvestigations(s);
+      const ranges = rankStability(s);
+      expect(ranges.size).toBe(ranked.length);
+      for (const r of ranked) {
+        const range = ranges.get(r.investigation.id)!;
+        expect(range.combos).toBe(129);
+        expect(range.base).toBe(r.rank);
+        expect(range.min).toBeLessThanOrEqual(r.rank);
+        expect(range.max).toBeGreaterThanOrEqual(r.rank);
+      }
+    }
+  });
+
+  it("finds ranks that hold and ranks that move", () => {
+    const lunar = rankStability(presetScenario("lunar-habitat"));
+    expect(lunar.get("acme-bre")).toMatchObject({ min: 1, max: 1 });
+    const iss = rankStability(presetScenario("iss"));
+    expect(iss.get("bass-ii")).toMatchObject({ min: 1, max: 1 });
+    expect(iss.get("acme-bre")!.max).toBeGreaterThan(iss.get("acme-bre")!.min);
+  });
+
+  it("widens or keeps the range as the swing grows, and is a single rank with no swing", () => {
+    const s = presetScenario("iss");
+    const none = rankStability(s, 0);
+    for (const r of none.values()) expect(r.min).toBe(r.max);
+    const small = rankStability(s, 0.1), big = rankStability(s, 0.3);
+    for (const [id, r] of small) {
+      expect(big.get(id)!.min).toBeLessThanOrEqual(r.min);
+      expect(big.get(id)!.max).toBeGreaterThanOrEqual(r.max);
+    }
+  });
+
+  it("says plainly whether a rank holds", () => {
+    expect(rankRangeLabel({ base: 1, min: 1, max: 1, combos: 129 })).toBe("Stays rank 1 if weights move ±20%");
+    expect(rankRangeLabel({ base: 2, min: 2, max: 6, combos: 129 })).toBe("Rank 2–6 if weights move ±20%");
   });
 });

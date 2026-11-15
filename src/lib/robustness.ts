@@ -119,3 +119,50 @@ export function probeRobustness(scenario: Scenario): RobustnessReport {
     weightsHeld: weightProbes.filter((p) => p.unchanged).length,
   };
 }
+
+/** How far each point weight is moved when testing rank stability: ±20%. */
+export const WEIGHT_SWING = 0.2;
+
+export interface RankRange {
+  /** Rank with the disclosed default weights. */
+  base: number;
+  /** Best and worst rank across every weight combination tried. */
+  min: number;
+  max: number;
+  /** Number of weight combinations tried. */
+  combos: number;
+}
+
+/**
+ * Every corner of the box where each of the seven point weights (direct and adjacent question
+ * points, and the five condition points) is independently its default × (1 − swing) or × (1 + swing),
+ * 2⁷ = 128 combinations, plus the defaults. Reports each investigation's best and worst rank. This
+ * tests the scoring rule's sensitivity to its chosen weights, not the experiments.
+ */
+export function rankStability(scenario: Scenario, swing = WEIGHT_SWING): Map<string, RankRange> {
+  const d = DEFAULT_WEIGHTS;
+  const factors = 2 + CONDITION_KEYS.length;
+  const out = new Map<string, RankRange>();
+  for (const r of rankInvestigations(scenario)) out.set(r.investigation.id, { base: r.rank, min: r.rank, max: r.rank, combos: 1 });
+  for (let mask = 0; mask < 1 << factors; mask++) {
+    const f = (bit: number) => (mask & (1 << bit) ? 1 + swing : 1 - swing);
+    const w: Weights = {
+      question: { direct: d.question.direct * f(0), adjacent: d.question.adjacent * f(1) },
+      conditions: Object.fromEntries(CONDITION_KEYS.map((k, i) => [k, d.conditions[k] * f(2 + i)])) as Weights["conditions"],
+    };
+    for (const r of rankInvestigations(scenario, INVESTIGATIONS, w)) {
+      const cur = out.get(r.investigation.id);
+      if (!cur) continue;
+      cur.min = Math.min(cur.min, r.rank);
+      cur.max = Math.max(cur.max, r.rank);
+      cur.combos++;
+    }
+  }
+  return out;
+}
+
+/** "Stays rank 2 if weights move ±20%" or "Rank 1–3 if weights move ±20%". */
+export function rankRangeLabel(r: RankRange, swing = WEIGHT_SWING): string {
+  const pct = Math.round(swing * 100);
+  return r.min === r.max ? `Stays rank ${r.min} if weights move ±${pct}%` : `Rank ${r.min}–${r.max} if weights move ±${pct}%`;
+}

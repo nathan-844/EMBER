@@ -938,3 +938,5 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 
 /* Partial-gravity evidence groups */
 .pg-group + .pg-group { margin-top: 18px; }
+.rank-stability { margin: 4px 0 0; color: var(--warn); }
+.rank-stability.is-stable { color: var(--muted); }
