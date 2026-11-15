@@ -178,9 +178,15 @@ const CURATED: Omit<Investigation, "psi">[] = [
     hardware: "ACME modular hardware · CIR",
     summary: "Emulate burning of solid materials with gaseous fuel to study flammability in still atmospheres.",
     fuelTypes: ["gas"],
+    emulates: "solid",
     questions: ["prevention"],
     adjacentQuestions: [],
-    conditions: { ...unknownExceptGravity, airflowMs: { min: 0, max: 0.01, basis: "Still (quiescent) atmosphere" } },
+    conditions: {
+      ...unknownExceptGravity,
+      // The run table has no pressure column; NASA's PSI-20 objectives name the three atmospheres.
+      pressurePsi: { min: 8.2, max: 14.7, basis: "Atmospheres named in NASA's PSI-20 objectives: 14.7 psia at 21% O2, 10.2 psia at 26.5%, 8.2 psia at 34%" },
+      airflowMs: { min: 0, max: 0.01, basis: "Still (quiescent) atmosphere" },
+    },
     measurements: ["Heat flux", "Flame extinction", "Fuel flow rate"],
     caveats: ["Gaseous emulator of solid burning, not a real material sample."],
   },

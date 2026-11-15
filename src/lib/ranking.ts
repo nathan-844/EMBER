@@ -104,6 +104,8 @@ function scoreCondition(inv: Investigation, scenario: Scenario, key: ConditionKe
     if (scenario.fuel == null) return { key, status: "unspecified", points: 0, range: null };
     if (inv.fuelTypes.length === 0) return { key, status: "unknown", points: 0, range: null };
     const ok = inv.fuelTypes.includes(scenario.fuel);
+    // A burner built to emulate this fuel (BRE: gas emulating solids) is a partial match.
+    if (!ok && inv.emulates === scenario.fuel) return { key, status: "near", points: Math.round(pts * NEAR_FRACTION), range: null };
     return { key, status: ok ? "match" : "outside", points: ok ? pts : 0, range: null };
   }
   const value = scenario[key];
@@ -147,7 +149,9 @@ const GROUP_ORDER: Record<FuelGroup, number> = { same: 0, all: 0, other: 1 };
 
 function fuelGroup(r: Omit<Scored, "group">, scenario: Scenario): FuelGroup {
   if (scenario.fuel == null) return "all";
-  return r.conditions.find((c) => c.key === "fuel")?.status === "match" ? "same" : "other";
+  const fuel = r.conditions.find((c) => c.key === "fuel")?.status;
+  // An emulator of the scenario's fuel is listed with that fuel's studies, labelled as an emulator.
+  return fuel === "match" || fuel === "near" ? "same" : "other";
 }
 
 /** Conditions inside or just outside a range read from a NASA run table. */

@@ -183,6 +183,7 @@ const UNIT: Record<string, string> = { oxygenPct: "%", pressurePsi: " psia", gra
 
 function gapText(c: RankedInvestigation["conditions"][number]): string {
   const label = CONDITION_LABELS[c.key].toLowerCase();
+  if (c.key === "fuel" && c.status === "near") return `${label} (a gas burner emulating it, not the material itself)`;
   if (c.status === "unknown") return `${label} (no recorded range)`;
   if (c.range) {
     const u = UNIT[c.key] ?? "";

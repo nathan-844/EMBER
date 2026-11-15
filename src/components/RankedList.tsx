@@ -81,7 +81,7 @@ function Row({ r }: { r: RankedInvestigation }) {
           <ul>
             {r.conditions.map((c) => (
               <li key={c.key} className={`st-${c.status}`}>
-                <strong>{CONDITION_LABELS[c.key]}</strong>: {STATUS_TEXT[c.status]}{rangeText(c)} — {c.points} pts
+                <strong>{CONDITION_LABELS[c.key]}</strong>: {c.key === "fuel" && c.status === "near" ? `emulated (${inv.fuelTypes.join("/")} burner built to emulate ${inv.emulates})` : STATUS_TEXT[c.status]}{rangeText(c)} — {c.points} pts
               </li>
             ))}
           </ul>

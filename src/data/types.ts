@@ -50,6 +50,8 @@ export interface Investigation {
   conditions: ConditionEnvelope;
   measurements: string[];
   /** Materials and flow directions named in the PSI run table, when it records them. */
+  /** A burner built to emulate another fuel type (BRE emulates solids with gas). Scored as a partial fuel match. */
+  emulates?: FuelType;
   testedMaterials?: string[];
   testedFlowDirections?: ("opposed" | "concurrent")[];
   psi: PsiReference;
