@@ -126,7 +126,7 @@ export function Credibility() {
       <div className="factor-grid">
         <article className="card factor"><h3 className="h4-size">Findable</h3><p>{verified} of {INVESTIGATIONS.length} profiles carry a NASA PSI accession and link to its record. PSI does not publish DOIs for investigation records.</p></article>
         <article className="card factor"><h3 className="h4-size">Accessible</h3><p>All curated data is plain TypeScript in the repository; no account or API key is needed.</p></article>
-        <article className="card factor"><h3 className="h4-size">Interoperable</h3><p>Units are fixed per field (vol %, psia, g, m/s). Cross-study harmonization is not done.</p></article>
+        <article className="card factor"><h3 className="h4-size">Interoperable</h3><p>Units are fixed per field (vol %, psia, g, m/s). The CSV export adds one harmonised unit per quantity; the ranked ranges themselves are not harmonised across studies.</p></article>
         <article className="card factor"><h3 className="h4-size">Reusable</h3><p>Every range states its basis. Licensing of the original PSI data must be checked per record before reuse.</p></article>
       </div>
 

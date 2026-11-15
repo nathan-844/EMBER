@@ -182,7 +182,8 @@ Science record with a matching acronym.
 
 `npm run sync:tables` stores each investigation's experimental tables in `src/data/tables`, and
 `npm run data:normalize` converts only columns whose unit is stated (vol %, mole fraction, atm, bar,
-mmHg, cm/s):
+mmHg, cm/s). The one exception is s-Flame (PSI-23), whose oxygen level is read from the "% O2"
+stated in its Atmosphere text column:
 
 - uncalibrated instrument readings (BASS-II "Air display") and free text are not used;
 - inverse-flame burner oxidizer streams are shown separately but not used for ranking;

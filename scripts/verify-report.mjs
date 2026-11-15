@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 
 const dir = mkdtempSync(join(tmpdir(), "ember-"));
 const out = join(dir, "vitest.json");
@@ -34,7 +34,7 @@ const report = {
     total: result.numTotalTests,
     files: result.testResults.length,
     names: result.testResults.flatMap((f) =>
-      f.assertionResults.map((a) => ({ file: f.name.split(/[\\/]src[\\/]/).pop(), title: a.fullName, status: a.status })),
+      f.assertionResults.map((a) => ({ file: relative(process.cwd(), f.name).replace(/\\/g, "/").replace(/^src\//, ""), title: a.fullName, status: a.status })),
     ),
   },
   dataFingerprint: { algorithm: "sha256", files: dataFiles, value: fingerprint.digest("hex") },
