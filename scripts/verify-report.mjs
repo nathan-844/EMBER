@@ -21,6 +21,7 @@ const dataFiles = [
   "src/data/psi-snapshot.json",
   "src/data/table-manifest.json",
   "src/data/normalized-conditions.json",
+  "src/data/atlas/atlas.json",
 ];
 const fingerprint = createHash("sha256");
 for (const f of dataFiles) fingerprint.update(readFileSync(f, "utf8").replace(/\r\n/g, "\n"));

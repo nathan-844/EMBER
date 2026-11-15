@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-15",
   "node": "v22.19.0",
   "tests": {
-    "passed": 369,
+    "passed": 396,
     "failed": 0,
-    "total": 369,
-    "files": 18,
+    "total": 396,
+    "files": 19,
     "names": [
       {
         "file": "server/analyze.test.ts",
@@ -1851,6 +1851,141 @@
         "file": "lib/scenario.test.ts",
         "title": "gravity regime null g is unspecified",
         "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "atlas coverage has one record per stored NASA row, plus each NTRS Saffire run",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "atlas coverage gives every record a unique id and every table a spec",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "atlas coverage matches the committed atlas files (run npm run data:atlas after changing the rules)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage keeps the exact NASA cell behind every value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage explains every flag code it uses",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage only reads outcomes from tables that record one, and only on test rows",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage never keeps a number outside physical limits",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage labels every test row with a fuel class, except a blank material or a sample NASA does not name",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows FLEX run 1: methanol droplet in air, disrupted",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows FLEX run 114: pressure written as 0 is not used, CO₂ diluent kept",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II sample 2-1: silicone, no flame spread in orbit, complete burn in 1 g",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II sample 2-4: thickness \"037 mm\" is ambiguous and not used",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II sample 2-5: SIBAL burned the whole 29 cm in orbit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II: a blank material stays blank, \"1 cm\" in a mm column is converted, flow-visualisation rows are asides",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-I sample S1: SIBAL, O₂ range kept, length and width flagged",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows BASS-II test B1: 100 µm PMMA film, O₂ and CO before and after",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows BASS-II test B2: final O₂ of 1.6% is flagged as implausible",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows BASS-II rods without a material are inferred PMMA, with the reason",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME Flame Design run 1: ethylene, O₂ from mole fraction, pressure from atm",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows inverse flames put the burner O₂ apart from ambient O₂",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows CFI-G cool flames sit near 39% O₂ and 2 atm with n-butane",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME BRE: \"3400%\" oxygen is out of range, kept as raw text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME CLD fill-down labels are not given a gas name",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME E-field continuation lines are asides",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows NTRS Saffire VI-2: SIBAL at 31% O₂ and 54.1 kPa burned",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "material dictionary names every stored material label, or says why not",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "material dictionary reads thickness, width, diameter and sides from BASS-II labels",
+        "status": "passed"
       }
     ]
   },
@@ -1861,8 +1996,9 @@
       "src/data/types.ts",
       "src/data/psi-snapshot.json",
       "src/data/table-manifest.json",
-      "src/data/normalized-conditions.json"
+      "src/data/normalized-conditions.json",
+      "src/data/atlas/atlas.json"
     ],
-    "value": "53fb7b0c4ebe7a0ef6d3fd61e2e5702a7d7f5ce72be7737cba66fac6e4376b65"
+    "value": "2ae05635f4d0e921a510b1c1af6b1f1294f8e82ae05678927b97d46eef1e3991"
   }
 }
