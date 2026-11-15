@@ -17,6 +17,7 @@ export function AskForm({ analysis, onSubmit, compact = false }: { analysis: Ana
     void analysis.run(ask ?? null);
   };
   const typedOk = live && text.trim().length >= 3;
+  const chips = !status || live ? SUGGESTED_ASKS : SUGGESTED_ASKS.filter((q) => canRun(q));
 
   return (
     <div className={`ask${compact ? " ask-compact" : ""}`}>
@@ -28,7 +29,7 @@ export function AskForm({ analysis, onSubmit, compact = false }: { analysis: Ana
           value={text}
           maxLength={ASK_MAX}
           onChange={(e) => setText(e.target.value)}
-          placeholder={!status ? "Connecting…" : live ? "Ask about this scenario, e.g. why is BASS-II first?" : "Live AI is off here; try a suggested question"}
+          placeholder={!status ? "Connecting…" : live ? "Ask about this scenario, e.g. why is the top match first?" : chips.length ? "Live AI is off here; try a suggested question" : "Live AI is off here"}
           disabled={!live || busy}
           autoComplete="off"
         />
@@ -36,14 +37,18 @@ export function AskForm({ analysis, onSubmit, compact = false }: { analysis: Ana
           {busy ? "Checking…" : "Ask"}
         </button>
       </form>
-      <div className="ask-chips" role="group" aria-label="Suggested questions">
-        {SUGGESTED_ASKS.map((q) => (
-          <button key={q} type="button" className="ask-chip" onClick={() => go(q)} disabled={busy || !canRun(q)}
-            title={canRun(q) ? undefined : "No live model here, and no recorded answer for this scenario"}>
-            {q}
-          </button>
-        ))}
-      </div>
+      {/* Without a live model only suggestions with a recorded answer are offered; while connecting all show, disabled. */}
+      {chips.length > 0 ? (
+        <div className="ask-chips" role="group" aria-label="Suggested questions">
+          {chips.map((q) => (
+            <button key={q} type="button" className="ask-chip" onClick={() => go(q)} disabled={busy || !canRun(q)}>
+              {q}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <p className="small muted">Suggested questions replay recorded answers on the unedited presets.</p>
+      )}
       <button type="button" className="btn ask-whole" onClick={() => go()} disabled={busy || !canRun(null)}>
         {!live && canRun(null) ? "Show the recorded analysis of this scenario" : "Or analyze the whole scenario"}
       </button>

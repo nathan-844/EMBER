@@ -1,1100 +1,735 @@
 {
   "recordedAt": "2026-11-15",
-  "node": "v22.23.4",
+  "node": "v22.19.0",
   "tests": {
-    "passed": 323,
+    "passed": 366,
     "failed": 0,
-    "total": 323,
+    "total": 366,
     "files": 17,
     "names": [
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "status endpoint reports off without a key",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "status endpoint reports Gemini and the first model with a key, without leaking the key",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint passes other routes through",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint returns 503 without a key and never calls Gemini",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint replays a recorded answer for an unedited preset without a key, labelled as recorded",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint only accepts POST",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint rejects a bad scenario: \"not json\"",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint rejects a bad scenario: {\"environment\":\"iss\",\"question\":\"prevention\",\"fuel\":\"solid\",\"includeAdjacent\":true,\"material\":null,\"thicknessMm\":null,\"flowDirection\":null,\"oxygenPct\":-1,\"pressurePsi\":14.7,\"gravityG\":0,\"airflowMs\":0.1}",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint rejects a bad scenario: {\"environment\":\"iss\",\"question\":\"arson\",\"fuel\":\"solid\",\"includeAdjacent\":true,\"material\":null,\"thicknessMm\":null,\"flowDirection\":null,\"oxygenPct\":21,\"pressurePsi\":14.7,\"gravityG\":0,\"airflowMs\":0.1}",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint rejects an oversized body",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint builds the evidence package on the server and returns a checked report",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint ignores evidence the browser tries to inject",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint drops ungrounded claims from a real-looking answer",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint shows nothing when Gemini returns malformed JSON",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint shows nothing when the JSON has the wrong shape",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint surfaces quota errors with the models tried",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint reports a rejected key as a gateway error without echoing the key",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint sends question-specific evidence for prevention",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint sends question-specific evidence for detection",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "analyze endpoint sends question-specific evidence for suppression",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "answer shape guard accepts the expected shape and rejects near-misses",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts the iss preset",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts the lunar-habitat preset",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts the lunar-rover preset",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts the mars-habitat preset",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts the spacesuit preset",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts the custom preset",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts unspecified (null) conditions",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing accepts only the listed materials",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "scenario parsing rejects NaN, strings and unknown enums",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "retry and table rows includes the nearest NASA run-table rows in the package",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "retry and table rows does not retry an answer that passes every check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "retry and table rows retries once with the checker's findings and keeps the better answer",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/analyze.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/analyze.test.ts",
         "title": "retry and table rows keeps the first answer if the retry is worse",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection serves recorded presets instantly even with a live key",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection answers a repeated scenario from the cache without a second model call",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection merges identical requests that arrive together into one model call",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection limits live calls per visitor, then recovers after the window",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection holds the per-visitor limit when live requests arrive at the same time",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection holds the daily cap when live requests from many visitors arrive at the same time",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection does not count cached or recorded answers against the limit",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection stops at the daily cap across all visitors",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection does not cache rejected answers",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection reports the limits on the status endpoint",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection answers a typed question as its own live call, cached case-insensitively",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection sends the question inside question tags with the ask rules, and strips tag characters",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection rejects questions that are not text or are too long",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection counts questions against the same per-visitor limit",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "quota protection ignores unknown paths",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/api.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/api.test.ts",
         "title": "visitor id is stable, short and does not contain the address",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/bundle.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/bundle.test.ts",
         "title": "Vercel function bundles api/*.mjs match the current server source (run npm run build:api if this fails)",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "model list parses a comma-separated chain and falls back to defaults",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson sends the key in a header, never in the URL, and asks for JSON",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson falls through to the next model on HTTP 404",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson falls through to the next model on HTTP 429",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson falls through to the next model on HTTP 500",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson falls through to the next model on HTTP 503",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson reports every model tried when all fail",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson stops immediately on a rejected key",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson stops on 403 without trying other models",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson does not retry a malformed request (400)",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson treats a truncated answer as a failure and tries the next model",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson refuses safety-stopped answers",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson refuses blocked prompts",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson skips thought parts and joins text parts",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson treats an empty answer as a failure",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson handles network errors and timeouts",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson handles a non-JSON error body",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson sends the thinking level when set, and drops it once if the model rejects it",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson skips a model whose daily quota is used up until Google's retry time",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/gemini.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/gemini.test.ts",
         "title": "generateJson fails fast with a clear message when every model is cooling down",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence iss/prevention still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence iss/detection still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence iss/suppression still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-habitat/prevention still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-habitat/detection still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-habitat/suppression still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-rover/prevention still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-rover/detection still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-rover/suppression still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence mars-habitat/prevention still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence mars-habitat/detection still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence mars-habitat/suppression still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence spacesuit/prevention still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence spacesuit/detection still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence spacesuit/suppression still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence iss/prevention ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence iss/prevention ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence iss/prevention ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-rover/prevention ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-rover/prevention ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence mars-habitat/prevention ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence mars-habitat/prevention ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence mars-habitat/prevention ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence mars-habitat/prevention ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence spacesuit/prevention ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence spacesuit/prevention ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence spacesuit/prevention ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence spacesuit/prevention ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence iss/prevention ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-habitat/prevention ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-rover/prevention ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "/home/user/ember/server/recorded.test.ts",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
         "title": "recorded analyses against today's evidence lunar-habitat/prevention ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief includes the computed O2 partial pressure",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/prevention ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief lists every ranked investigation",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/prevention ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief cites the PSI record of every ranked investigation",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/prevention ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "evidence brief states it is not a safety certification",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/detection ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "baseline comparison is empty when nothing changed",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/detection ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "baseline comparison reports score shifts when oxygen changes",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/detection ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "csv export has one row per ranked investigation and condition, with sources",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/detection ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/brief.test.ts",
-        "title": "csv export quotes cells containing commas or quotes",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/suppression ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "run tables every investigation profile has at least one stored NASA table",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/suppression ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "run tables reads units from NASA headers",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/suppression ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed Saffire-I held thickness, sample size, air flow and igniter fixed and varied flow direction",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence iss/suppression ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed Saffire-II exposes microgravity and 1 g results as result columns",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/detection ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed drops physically impossible condition values, as the ranked ranges do",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/detection ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed treats a list of levels repeated in every row as a test matrix, not a fixed value",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/detection ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed keeps run ids and dates out of the varied list",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/detection ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "what varied and what stayed fixed treats FLEX's lone dashes as 'no measurement' rather than as a value",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/suppression ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "full-row CSV has one line per filled cell with the source table and row",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/suppression ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "full-row CSV converts ranked condition columns into the app's unit",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/suppression ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "full-row CSV keeps the cell exactly as NASA wrote it",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-habitat/suppression ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points draws BASS-II from its run table, with cabin pressure marked as assumed",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/detection ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points has no solid-material point above 22.2% oxygen",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/detection ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points pairs oxygen and pressure from the same row and skips rows whose pairing is unknown",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/detection ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "gap map points names profiles whose oxygen is only a written approximation",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/suppression ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units flags BASS-II's 40.4% final oxygen reading as an outlier, without changing it",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/suppression ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units flags BRE's 3400% typo as outside physical limits",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/suppression ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units marks BASS-II fan and air displays as uncalibrated, with no harmonised value",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/detection ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/explorer.test.ts",
-        "title": "modelling export flags and harmonised units converts FLEX pressure from mmHg to psia",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/detection ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "evidence package is built from the scenario and includes NASA text",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/detection ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "evidence package labels run-table ranges as EMBER-computed NASA data and curated ranges as EMBER",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/detection ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check accepts a verbatim excerpt with traceable numbers",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/suppression ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check rejects a paraphrased excerpt",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/suppression ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check rejects an invented number",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/suppression ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check allows numbers from the scenario and rounding of source numbers",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence mars-habitat/suppression ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check rejects citations to sources outside the package",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/detection ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check marks the answer partial when only some claims pass",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/detection ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check withholds only the summary when it has an untraceable number",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/detection ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "grounding check normalizes typographic quotes, dashes and spacing only",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/detection ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "server scenario parsing accepts a preset scenario",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/suppression ask \"why is the top match ranked first, and what does it not cover?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "server scenario parsing rejects out-of-range or unknown values",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/suppression ask \"what has nasa measured closest to my oxygen and pressure?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds requires a comparison to cite two investigations",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/suppression ask \"which gaps in the evidence matter most for this scenario?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds rejects safety conclusions even with valid quotes (judge's fabricated claims)",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence spacesuit/suppression ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds allows ordinary fire-safety wording",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds requires measured data to quote a table row",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds checks numbers in the implication too",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds allows Earth reference values",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds treats an unknown kind as an interpretation",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds prefers the report with more kept claims",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "claim kinds rejects claims and summaries that show internal source ids",
-        "status": "passed"
-      },
-      {
-        "file": "lib/grounding.test.ts",
-        "title": "equipment implications must quote NASA text",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations flags partial gravity for a lunar habitat",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations does not flag partial gravity in orbit",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations always warns that overlapping ranges are not joint coverage",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations flags elevated oxygen nobody covers when the fuel is unspecified",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations states the Moon-base finding: no solid-material test reaches 30% oxygen",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations adds the published Saffire V-VI runs (NTRS) after the PSI statement, labelled and unscored",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations does not mention Saffire for droplet or gas-flame fuels",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations cites NASA for the partial-gravity caveat and does not claim the 0 g/1 g bound fails",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "limitations drops the material caveat once material is set",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight is null when nothing ranks",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight names the lead investigation",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight never claims coverage from one matching condition on the Moon",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "lead insight reports full coverage only when every specified condition matches",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "tested materials notes when a material appears in a PSI run table",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "tested materials notes when no run table lists the material",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "tested materials does not say 'covers all' about a single specified condition",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "ventilation in elevated oxygen warns for the 30% lunar habitat, citing BRE",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "ventilation in elevated oxygen does not warn for cabin air",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "gap wording does not repeat a single tested value as its own nearest value, or give a 'nearest' for microgravity",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "challenge highlights states CFI-G's 85% burner oxygen from the NASA inverse-flame table",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "challenge highlights names E-FIELD as the closest partial-gravity analogue, citing the challenge",
-        "status": "passed"
-      },
-      {
-        "file": "lib/limitations.test.ts",
-        "title": "empty scenario asks for a condition instead of saying nothing matches",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring caps conditions at 75 and total at 100",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring unknown profile ranges earn no points",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring unspecified inputs earn no points for anyone",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring excludes investigations that do not address the question",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "scoring adjacent research scores lower and can be switched off",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking ties share a rank",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking lists every same-fuel study first, then sorts by descending total within each group",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking puts a same-fuel study ahead of a higher-scoring other-fuel study",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking uses one group when no fuel is set",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking gives a curated estimate two thirds of a measured range's points",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking leads with a solid-fuel study or a declared solid emulator for a lunar prevention scenario",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking ranks BRE, the only PSI data at the 30% / 10.2 psia exploration atmosphere, first for the Moon habitat",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking gives different leads for cabin air, the Moon habitat and a 100% O2 spacesuit",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking detection questions surface SAME and SAME-R",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking every curated profile has a unique id",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "ranking never ranks a different fuel type as tied with the leader (lunar habitat, solid fuel)",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "measured data against estimates scores a near miss on a NASA-table range the same as a match inside a curated estimate",
-        "status": "passed"
-      },
-      {
-        "file": "lib/ranking.test.ts",
-        "title": "measured data against estimates lists Saffire-I and II (measured oxygen) before Saffire-III (estimated oxygen) for ISS detection",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "Ask EMBER questions tidies whitespace and control characters, and treats blank as no question",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "Ask EMBER questions rejects non-strings, very short and over-long questions",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "Ask EMBER questions keys a question apart from the plain analysis, ignoring case",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses are keyed only by unedited presets, so a replay always matches what the user sees",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses only store answers that passed the grounding check",
-        "status": "passed"
-      },
-      {
-        "file": "lib/recorded.test.ts",
-        "title": "recorded analyses changes the key when any ranking input changes",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes runs two changes per specified numeric input and one removal per specified input",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes runs no probes for an empty custom scenario without fuel",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes held counts never exceed totals for every preset and question",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes dependencies are exactly the removals that moved the lead",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes never perturbs below zero",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes re-ranks under every alternative point scheme",
-        "status": "passed"
-      },
-      {
-        "file": "lib/robustness.test.ts",
-        "title": "robustness probes keeps a lead that matches every condition under all schemes",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets lunar habitat follows the challenge atmosphere",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets custom preset leaves every condition unspecified",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets keeps question and fuel when switching environment",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets clears material, thickness and flow direction when switching environment",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "scenario presets every preset has a unique id",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure is 3.06 psia for 30% at 10.2 psi",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure is null when an input is unspecified",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "oxygen partial pressure 30% O2 is more than a 40% increase over Earth air",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 0 g is microgravity",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 0.166 g is partial",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 0.38 g is partial",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime 1 g is earth",
-        "status": "passed"
-      },
-      {
-        "file": "lib/scenario.test.ts",
-        "title": "gravity regime null g is unspecified",
+        "file": "C:/Users/Huzaifa/Desktop/Ember Final/server/recorded.test.ts",
+        "title": "recorded analyses against today's evidence lunar-rover/detection ask \"what does this evidence mean for fire detection or suppression equipment?\" still passes the grounding check",
         "status": "passed"
       },
       {
@@ -1620,6 +1255,586 @@
       {
         "file": "data/psi.test.ts",
         "title": "ground analysis records are exactly the PSI combustion records EMBER does not profile, and each links to a profiled flight study",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief includes the computed O2 partial pressure",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief lists every ranked investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief cites the PSI record of every ranked investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "evidence brief states it is not a safety certification",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "baseline comparison is empty when nothing changed",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "baseline comparison reports score shifts when oxygen changes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "csv export has one row per ranked investigation and condition, with sources",
+        "status": "passed"
+      },
+      {
+        "file": "lib/brief.test.ts",
+        "title": "csv export quotes cells containing commas or quotes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "run tables every investigation profile has at least one stored NASA table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "run tables reads units from NASA headers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed Saffire-I held thickness, sample size, air flow and igniter fixed and varied flow direction",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed Saffire-II exposes microgravity and 1 g results as result columns",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed drops physically impossible condition values, as the ranked ranges do",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed treats a list of levels repeated in every row as a test matrix, not a fixed value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed keeps run ids and dates out of the varied list",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "what varied and what stayed fixed treats FLEX's lone dashes as 'no measurement' rather than as a value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "full-row CSV has one line per filled cell with the source table and row",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "full-row CSV converts ranked condition columns into the app's unit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "full-row CSV keeps the cell exactly as NASA wrote it",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points draws BASS-II from its run table, with cabin pressure marked as assumed",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points has no solid-material point above 22.2% oxygen",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points pairs oxygen and pressure from the same row and skips rows whose pairing is unknown",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "gap map points names profiles whose oxygen is only a written approximation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units flags BASS-II's 40.4% final oxygen reading as an outlier, without changing it",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units flags BRE's 3400% typo as outside physical limits",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units marks BASS-II fan and air displays as uncalibrated, with no harmonised value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/explorer.test.ts",
+        "title": "modelling export flags and harmonised units converts FLEX pressure from mmHg to psia",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "evidence package is built from the scenario and includes NASA text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "evidence package labels run-table ranges as EMBER-computed NASA data and curated ranges as EMBER",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check accepts a verbatim excerpt with traceable numbers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects a paraphrased excerpt",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects an invented number",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check allows numbers from the scenario and rounding of source numbers",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check rejects citations to sources outside the package",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check marks the answer partial when only some claims pass",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check withholds only the summary when it has an untraceable number",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "grounding check normalizes typographic quotes, dashes and spacing only",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "server scenario parsing accepts a preset scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "server scenario parsing rejects out-of-range or unknown values",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds requires a comparison to cite two investigations",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds rejects safety conclusions even with valid quotes (judge's fabricated claims)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds allows ordinary fire-safety wording",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds requires measured data to quote a table row",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds checks numbers in the implication too",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds allows Earth reference values",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds treats an unknown kind as an interpretation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds prefers the report with more kept claims",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "claim kinds rejects claims and summaries that show internal source ids",
+        "status": "passed"
+      },
+      {
+        "file": "lib/grounding.test.ts",
+        "title": "equipment implications must quote NASA text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations flags partial gravity for a lunar habitat",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations does not flag partial gravity in orbit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations always warns that overlapping ranges are not joint coverage",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations flags elevated oxygen nobody covers when the fuel is unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations states the Moon-base finding: no solid-material test reaches 30% oxygen",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations adds the published Saffire V-VI runs (NTRS) after the PSI statement, labelled and unscored",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations does not mention Saffire for droplet or gas-flame fuels",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations cites NASA for the partial-gravity caveat and does not claim the 0 g/1 g bound fails",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "limitations drops the material caveat once material is set",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight is null when nothing ranks",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight names the lead investigation",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight never claims coverage from one matching condition on the Moon",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "lead insight reports full coverage only when every specified condition matches",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials notes when a material appears in a PSI run table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials notes when no run table lists the material",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "tested materials does not say 'covers all' about a single specified condition",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "ventilation in elevated oxygen warns for the 30% lunar habitat, citing BRE",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "ventilation in elevated oxygen does not warn for cabin air",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "gap wording does not repeat a single tested value as its own nearest value, or give a 'nearest' for microgravity",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "challenge highlights states CFI-G's 85% burner oxygen from the NASA inverse-flame table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "challenge highlights names E-FIELD as the closest partial-gravity analogue, citing the challenge",
+        "status": "passed"
+      },
+      {
+        "file": "lib/limitations.test.ts",
+        "title": "empty scenario asks for a condition instead of saying nothing matches",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring caps conditions at 75 and total at 100",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring unknown profile ranges earn no points",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring unspecified inputs earn no points for anyone",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring excludes investigations that do not address the question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "scoring adjacent research scores lower and can be switched off",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking ties share a rank",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking lists every same-fuel study first, then sorts by descending total within each group",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking puts a same-fuel study ahead of a higher-scoring other-fuel study",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking uses one group when no fuel is set",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking gives a curated estimate two thirds of a measured range's points",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking leads with a solid-fuel study or a declared solid emulator for a lunar prevention scenario",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking ranks BRE, the only PSI data at the 30% / 10.2 psia exploration atmosphere, first for the Moon habitat",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking gives different leads for cabin air, the Moon habitat and a 100% O2 spacesuit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking detection questions surface SAME and SAME-R",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking every curated profile has a unique id",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "ranking never ranks a different fuel type as tied with the leader (lunar habitat, solid fuel)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "measured data against estimates scores a near miss on a NASA-table range the same as a match inside a curated estimate",
+        "status": "passed"
+      },
+      {
+        "file": "lib/ranking.test.ts",
+        "title": "measured data against estimates lists Saffire-I and II (measured oxygen) before Saffire-III (estimated oxygen) for ISS detection",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "Ask EMBER questions tidies whitespace and control characters, and treats blank as no question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "Ask EMBER questions rejects non-strings, very short and over-long questions",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "Ask EMBER questions keys a question apart from the plain analysis, ignoring case",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses are keyed only by unedited presets, so a replay always matches what the user sees",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses only store answers that passed the grounding check",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses cover the whole analysis and every suggested question on each preset's opening screen",
+        "status": "passed"
+      },
+      {
+        "file": "lib/recorded.test.ts",
+        "title": "recorded analyses changes the key when any ranking input changes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes runs two changes per specified numeric input and one removal per specified input",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes runs no probes for an empty custom scenario without fuel",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes held counts never exceed totals for every preset and question",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes dependencies are exactly the removals that moved the lead",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes never perturbs below zero",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes re-ranks under every alternative point scheme",
+        "status": "passed"
+      },
+      {
+        "file": "lib/robustness.test.ts",
+        "title": "robustness probes keeps a lead that matches every condition under all schemes",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets lunar habitat follows the challenge atmosphere",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets custom preset leaves every condition unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets keeps question and fuel when switching environment",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets clears material, thickness and flow direction when switching environment",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "scenario presets every preset has a unique id",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure is 3.06 psia for 30% at 10.2 psi",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure is null when an input is unspecified",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "oxygen partial pressure 30% O2 is more than a 40% increase over Earth air",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0 g is microgravity",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0.166 g is partial",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 0.38 g is partial",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime 1 g is earth",
+        "status": "passed"
+      },
+      {
+        "file": "lib/scenario.test.ts",
+        "title": "gravity regime null g is unspecified",
         "status": "passed"
       }
     ]

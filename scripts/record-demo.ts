@@ -2,7 +2,7 @@
 // (evidence package → Gemini → grounding check → one corrective retry), so a host without
 // an API key can replay them, clearly labelled as recorded.
 // Usage: npm run record:demo   (needs GEMINI_API_KEY in .env.local)
-//        npm run record:demo -- --asks   records the suggested "Ask EMBER" questions for each preset
+//        npm run record:demo -- --asks   records the suggested "Ask EMBER" questions for each preset and question
 import { readFileSync, writeFileSync } from "node:fs";
 import { analyze, type AnalysisResponse } from "../server/analyze";
 import { parseModelList } from "../server/gemini";
@@ -22,10 +22,12 @@ const cfg = { apiKey, models: parseModelList(env.GEMINI_MODEL || process.env.GEM
 
 const questions: SafetyQuestion[] = ["prevention", "detection", "suppression"];
 const asks = process.argv.includes("--asks");
-// Plain analyses: every preset × safety question. With --asks: each preset as shipped × each suggested question.
+// Plain analyses: every preset × safety question. With --asks: every preset × safety question × suggested
+// question, since the suggestions stay on screen when the question is switched on an unedited preset.
+const presetJobs = PRESETS.filter((p) => p.id !== "custom").flatMap((p) => questions.map((q) => ({ ...presetScenario(p.id), question: q })));
 const jobs = asks
-  ? PRESETS.filter((p) => p.id !== "custom").flatMap((p) => SUGGESTED_ASKS.map((a) => ({ s: presetScenario(p.id), ask: a as string })))
-  : PRESETS.filter((p) => p.id !== "custom").flatMap((p) => questions.map((q) => ({ s: { ...presetScenario(p.id), question: q }, ask: null as string | null })));
+  ? presetJobs.flatMap((s) => SUGGESTED_ASKS.map((a) => ({ s, ask: a as string })))
+  : presetJobs.map((s) => ({ s, ask: null as string | null }));
 
 const path = "src/data/recorded-analyses.json";
 const store = JSON.parse(readFileSync(path, "utf8")) as { recordedOn: string | null; entries: Record<string, AnalysisResponse> };
@@ -49,6 +51,12 @@ for (const { s, ask } of jobs) {
   }
   if (out.report.verdict === "rejected") {
     log.push(`${label}: rejected by the grounding check; not stored`);
+    console.log(log.at(-1));
+    continue;
+  }
+  // A replay always shows its summary, so (like recheck:recorded) only store answers whose summary passed.
+  if (!out.report.summary.accepted) {
+    log.push(`${label}: summary failed the grounding check (${out.report.summary.problems.join(" ")}); not stored`);
     console.log(log.at(-1));
     continue;
   }

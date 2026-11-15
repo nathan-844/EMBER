@@ -47,6 +47,14 @@ describe("recorded analyses", () => {
     }
   });
 
+  it("cover the whole analysis and every suggested question on each preset's opening screen", () => {
+    const stored = new Set(entries.map(([k]) => k));
+    for (const p of PRESETS.filter((p) => p.id !== "custom")) {
+      const s = presetScenario(p.id);
+      for (const a of [null, ...SUGGESTED_ASKS]) expect(stored.has(analysisKey(s, a)), `${p.id} ${a ?? "(whole scenario)"}`).toBe(true);
+    }
+  });
+
   it("changes the key when any ranking input changes", () => {
     const s = presetScenario("iss");
     expect(scenarioKey({ ...s, oxygenPct: 21.5 })).not.toBe(scenarioKey(s));
