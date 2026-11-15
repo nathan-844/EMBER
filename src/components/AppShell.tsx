@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { PSI_SNAPSHOT } from "../data/psi";
 import { ChartIcon, FlameIcon, ShieldIcon, SlidersIcon, TableIcon } from "./icons";
 
-export type Route = "home" | "lab" | "findings" | "compare" | "data" | "credibility";
+export type Route = "home" | "lab" | "findings" | "compare" | "research" | "data" | "credibility";
 
 type Props = {
   route: Route;
@@ -29,6 +29,9 @@ export function AppShell({ route, onNavigate, recordCount, children }: Props) {
           </button>
           <button aria-current={route === "compare" ? "page" : undefined} onClick={() => onNavigate("compare")}>
             <ChartIcon /> Compare
+          </button>
+          <button aria-current={route === "research" ? "page" : undefined} onClick={() => onNavigate("research")}>
+            <ChartIcon /> Workbench
           </button>
           <button aria-current={route === "data" ? "page" : undefined} onClick={() => onNavigate("data")}>
             <TableIcon /> Data

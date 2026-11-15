@@ -1,0 +1,11 @@
+import { useMemo } from "react";
+import { runBenchmark } from "../lib/analysis/benchmark";
+export function ResearchBenchmark() {
+  const report = useMemo(runBenchmark, []);
+  const categories = [...new Set(report.results.map((r) => r.category))];
+  function download() {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));
+    const a = document.createElement("a"); a.href = url; a.download = "ember-m2-benchmark.json"; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  return <section className="card compare-section" id="research-benchmark"><h2>Benchmark baseline and known gaps</h2><p><strong>{report.passed} / {report.total} deterministic checks pass.</strong> 30 development cases and 30 evaluation cases. The evaluation split is frozen in the repository, but was not independently held out.</p><p>{report.scope}</p><p className="compare-warning">Live AI: not run. Recorded AI: not scored. Keyword retrieval baseline: not run. Scientific review and citation entailment: not assessed. These gaps are not counted as passing cases.</p><div className="compare-table-wrap"><table><caption>Results by category</caption><thead><tr><th>Category</th><th>Passed / total</th></tr></thead><tbody>{categories.map((c) => <tr key={c}><th>{c}</th><td>{report.results.filter((r) => r.category === c && r.passed).length} / {report.results.filter((r) => r.category === c).length}</td></tr>)}</tbody></table></div><details className="compare-details"><summary>Every question, reference, answer and failure</summary><div className="compare-table-wrap"><table><thead><tr><th>Case</th><th>Question and reference</th><th>Expected</th><th>Actual</th><th>Result</th></tr></thead><tbody>{report.results.map((r) => <tr key={r.id}><td>{r.id}<br />{r.split}</td><td>{r.question}<br /><small>{r.source}</small></td><td>{JSON.stringify(r.expected)}</td><td>{JSON.stringify(r.actual)}</td><td>{r.passed ? "Pass" : `FAIL: ${r.error ?? "answer mismatch"}`}</td></tr>)}</tbody></table></div></details><button className="btn" onClick={download}>Download benchmark results</button><p>Re-run from the repository with <code>npm run benchmark</code>. Case definitions and scoring are versioned in <code>src/lib/analysis/benchmark.ts</code>.</p></section>;
+}

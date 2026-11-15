@@ -8,6 +8,8 @@ This is an implementation plan, not a claim that all proposed capabilities alrea
 
 **November 15 implementation update:** M0 was imported in `aa68612`. The narrow M1 comparison workflow is now implemented locally: source-cross-checked BASS-II PMMA/SIBAL CO comparison, oxygen and quality controls, sensitivity, a complete row ledger, pinned share links and an offline reproducibility ZIP. See [M1-IMPLEMENTATION.md](M1-IMPLEMENTATION.md) for scope, review limits, results and validation. Independent human/scientific sign-off and the reviewed F8 package remain follow-on tasks; this does not complete all of workstreams C–F.
 
+**M2 implementation update:** the local workbench now adds Saffire-II, FLEX and optional smoke-ageing comparisons, the additive Atlas research-v2 view, reproducible exports for all eight findings and a 60-case deterministic benchmark. Smoke pair values are independently checked against stored workbook cells; original workbook/PDF extraction and independent scientific review remain separate. See [M2-IMPLEMENTATION.md](M2-IMPLEMENTATION.md) for exact scope and validation. The benchmark is a structured deterministic baseline, not completed live-AI, retrieval or citation-entailment evaluation.
+
 ## 1. Award alignment and scope
 
 The official 2025 Best Use of Data description emphasizes making space data accessible or applying it in a distinctive way. A 2026-specific award definition was not successfully retrieved during this review; use the 2025 definition as directional guidance, not as a verified 2026 rubric. The current challenge is Flame in Freefall.

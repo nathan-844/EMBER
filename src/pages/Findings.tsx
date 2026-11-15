@@ -102,6 +102,7 @@ export function Findings() {
           than silently fixed.
         </p>
         <div className="land-actions">
+          <a className="btn btn-primary" href="#research">Reproduce all eight findings offline</a>
           <a className="btn btn-primary" href={atlasCsvUrl} download={`ember-fire-test-atlas-${COUNTS.snapshot.id}.csv`}><DownloadIcon /> Download the atlas (CSV)</a>
           <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Read the code behind each finding</a>
         </div>

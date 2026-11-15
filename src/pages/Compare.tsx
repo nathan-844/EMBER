@@ -86,6 +86,7 @@ export default function Compare() {
       <h1>Ask the data. <span>Take the calculation with you.</span></h1>
       <p className="land-lede">Compare measured changes in glovebox carbon monoxide for PMMA slabs and SIBAL fabric. Change the oxygen window or review policy, inspect every exclusion, and reproduce the result offline.</p>
       <p className="muted">Data snapshot {spec.dataset} · {spec.reviewVersion} · final CO − initial CO, in ppm</p>
+      <p><a href="#research">Explore Saffire, FLEX and smoke-ageing comparisons</a></p>
     </header>
     <section className="card compare-section" aria-labelledby="controls-title">
       <h2 id="controls-title">1. Define the comparison</h2>

@@ -7,13 +7,14 @@ import { parseModelList } from "./server/gemini";
 
 /** Export the current engine, never a separately maintained copy. */
 function reproductionEngine(): Plugin {
-  const id = "virtual:analysis-engine";
+  const entries: Record<string, string> = { "virtual:analysis-engine": "standalone.ts", "virtual:research-engine": "research-standalone.ts" };
   return {
     name: "ember-reproduction-engine",
-    resolveId(source) { if (source === id) return "\0" + id; },
+    resolveId(source) { if (source in entries) return "\0" + source; },
     async load(source) {
-      if (source !== "\0" + id) return;
-      const result = await build({ entryPoints: [resolve("src/lib/analysis/standalone.ts")], bundle: true, write: false, format: "esm", platform: "neutral", target: "es2022", metafile: true });
+      const entry = entries[source.slice(1)];
+      if (!source.startsWith("\0") || !entry) return;
+      const result = await build({ entryPoints: [resolve("src/lib/analysis/", entry)], bundle: true, write: false, format: "esm", platform: "neutral", target: "es2022", metafile: true });
       for (const input of Object.keys(result.metafile!.inputs)) this.addWatchFile(resolve(input));
       return `export default ${JSON.stringify(result.outputFiles[0].text)};`;
     },

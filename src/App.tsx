@@ -8,12 +8,14 @@ import { Landing } from "./pages/Landing";
 import { ScenarioLab } from "./pages/ScenarioLab";
 
 const Compare = lazy(() => import("./pages/Compare"));
+const Research = lazy(() => import("./pages/Research"));
 
 function readRoute(): Route {
   const hash = window.location.hash;
   // The landing page is the front door; any other hash (such as #scenario) belongs to the lab.
   if (hash === "" || hash === "#" || hash === "#home") return "home";
   if (hash === "#compare" || hash.startsWith("#compare?")) return "compare";
+  if (hash === "#research" || hash === "#research-benchmark" || hash.startsWith("#research?")) return "research";
   if (hash === "#findings" || hash.startsWith("#findings/")) return "findings";
   if (hash === "#data" || hash.startsWith("#data/")) return "data";
   return hash === "#credibility" ? "credibility" : "lab";
@@ -40,7 +42,7 @@ export function App() {
 
   return (
     <AppShell route={route} onNavigate={navigate} recordCount={INVESTIGATIONS.length}>
-      {route === "compare" ? <Suspense fallback={<main className="page" role="status">Loading comparison…</main>}><Compare /></Suspense> : route === "home" ? <Landing /> : route === "lab" ? <ScenarioLab /> : route === "findings" ? <Findings /> : route === "data" ? <Data /> : <Credibility />}
+      {route === "research" ? <Suspense fallback={<main className="page">Loading research workbench…</main>}><Research /></Suspense> : route === "compare" ? <Suspense fallback={<main className="page" role="status">Loading comparison…</main>}><Compare /></Suspense> : route === "home" ? <Landing /> : route === "lab" ? <ScenarioLab /> : route === "findings" ? <Findings /> : route === "data" ? <Data /> : <Credibility />}
     </AppShell>
   );
 }
