@@ -183,7 +183,8 @@ Check each record's licence before reusing its data. The one exception is the Sa
 conditions and results in `src/data/ntrs-saffire.ts`, copied from Tables 1 and 2 of NASA's paper
 [Preliminary Results from the Saffire VI Experiment](https://ntrs.nasa.gov/citations/20240002981)
 (Urban et al., ICES-2024-365, NTRS 20240002981); pressures are published in kPa and converted to psia
-by EMBER only for plotting. Context on partial-gravity flammability comes
+by EMBER only for plotting. Every stored value was checked against those tables on 2026-11-15; the
+PDF's SHA-256 is recorded in that file. Context on partial-gravity flammability comes
 from NASA Glenn's [FM2 page](https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/).
 Earth applications quote each record's "Research Impacts/Earth Benefits" text. Upcoming studies
 cite NASA's [SoFIE page](https://science.nasa.gov/biological-physical/investigations/sofie/) and the

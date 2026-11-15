@@ -8859,7 +8859,11 @@ var SAFFIRE_NTRS_SOURCE = {
   pdf: "https://ntrs.nasa.gov/api/citations/20240002981/downloads/Saffire-ICES-2024-ICES-365-accepted%20final.pdf",
   /** Where the numbers come from in the paper. */
   tables: "Table 1 (sample test conditions) and Table 2 (heat release and carbon oxides)",
-  label: "NASA NTRS 20240002981 \xB7 Saffire VI paper (ICES-2024-365)"
+  label: "NASA NTRS 20240002981 \xB7 Saffire VI paper (ICES-2024-365)",
+  /** Every value below was checked against Tables 1 and 2 of the PDF (pdf, above) on this date. */
+  verifiedOn: "2026-11-15",
+  /** SHA-256 of the PDF that was checked, so the check can be repeated on the same file. */
+  pdfSha256: "7f875da1d6abeeeeac64aeba67d3f160074cf98430e714fe7606b34b37e0aa59"
 };
 var kpaToPsi = (kpa) => +(kpa * 0.1450377).toFixed(2);
 var run = (r) => ({
