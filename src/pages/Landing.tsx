@@ -3,6 +3,10 @@ import { INVESTIGATIONS } from "../data/investigations";
 import { SAFFIRE_NTRS_RUNS, SAFFIRE_NTRS_SOURCE } from "../data/ntrs-saffire";
 import { REJECTED_EXAMPLE, tableOxygenSpan } from "../lib/landing";
 import { PRESETS } from "../lib/scenario";
+import rawFindings from "../data/findings.json";
+import type { FindingsFile } from "../lib/findings/types";
+
+const FINDINGS = rawFindings as unknown as FindingsFile;
 
 const REPO = "https://github.com/nathan-844/EMBER";
 const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
@@ -81,6 +85,23 @@ export function Landing() {
           flights burned solid samples at {Math.min(...SAFFIRE_ABOVE.map((r) => r.oxygenPct))}–{Math.max(...SAFFIRE_ABOVE.map((r) => r.oxygenPct))}% oxygen
           (<a href={SAFFIRE_NTRS_SOURCE.url} target="_blank" rel="noreferrer">NASA NTRS {SAFFIRE_NTRS_SOURCE.ntrsId}</a>); EMBER shows them but does not score them.
         </p>
+      </section>
+
+      <section className="land-section" aria-labelledby="land-measured">
+        <p className="eyebrow">Measured findings</p>
+        <h2 id="land-measured">What NASA’s own measurements show, computed from the rows.</h2>
+        <ol className="land-findings">
+          {FINDINGS.findings.map((f) => (
+            <li key={f.id}>
+              <a href={`#findings/${f.id}`} className="card">
+                <span className="finding-id">{f.id}</span>
+                <strong>{f.title}</strong>
+                <span className="muted">{f.n.toLocaleString("en-US")} tests</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+        <p className="land-note">Each finding is computed by code from the rows it cites; no AI writes or edits it. <a href="#findings">Open the findings →</a></p>
       </section>
 
       <section className="land-section" aria-labelledby="land-does">

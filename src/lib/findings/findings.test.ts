@@ -4,6 +4,7 @@ import manifest from "../../data/table-manifest.json";
 import { TABLES } from "../../data/tables";
 import { buildAtlas } from "../atlas/build";
 import { COMPUTE, computeFindings } from ".";
+import { citedRows } from "./rows";
 import { groundExtent } from "./saffire";
 import { median, ranks, spearman } from "./stats";
 import type { Finding } from "./types";
@@ -40,6 +41,12 @@ describe("stats", () => {
 describe("every finding", () => {
   it("matches the committed findings file (run npm run data:findings after changing a rule)", () => {
     expect(JSON.parse(readFileSync("src/data/findings.json", "utf8"))).toEqual(JSON.parse(JSON.stringify(file)));
+  });
+
+  it("ships every cited row, with NASA's raw cells, for the Findings page", () => {
+    const committed = JSON.parse(readFileSync("src/data/findings-rows.json", "utf8"));
+    expect(committed).toEqual(JSON.parse(JSON.stringify(citedRows(atlas, file))));
+    for (const f of file.findings) for (const id of f.rows) expect(committed[id]?.cells.length, `${f.id} ${id}`).toBeGreaterThan(0);
   });
 
   it("has unique ids, cites only atlas rows, and states its method, limits and what it does not claim", () => {

@@ -2,9 +2,9 @@
   "recordedAt": "2026-11-15",
   "node": "v22.19.0",
   "tests": {
-    "passed": 410,
+    "passed": 411,
     "failed": 0,
-    "total": 410,
+    "total": 411,
     "files": 20,
     "names": [
       {
@@ -2014,6 +2014,11 @@
       },
       {
         "file": "lib/findings/findings.test.ts",
+        "title": "every finding ships every cited row, with NASA's raw cells, for the Findings page",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
         "title": "every finding has unique ids, cites only atlas rows, and states its method, limits and what it does not claim",
         "status": "passed"
       },
@@ -2070,6 +2075,6 @@
       "src/data/atlas/atlas.json",
       "src/data/findings.json"
     ],
-    "value": "7e0164e85310750d69814cb4db335c52807752ac63bea0af431879f867203a30"
+    "value": "87ae66d7956a4b6ab16b946e481b5448eaf817c5eb912c2b7b36ffd5a54a5e51"
   }
 }

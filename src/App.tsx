@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AppShell, type Route } from "./components/AppShell";
 import { INVESTIGATIONS } from "./data/investigations";
 import { Credibility } from "./pages/Credibility";
+import { Findings } from "./pages/Findings";
 import { Landing } from "./pages/Landing";
 import { ScenarioLab } from "./pages/ScenarioLab";
 
@@ -9,6 +10,7 @@ function readRoute(): Route {
   const hash = window.location.hash;
   // The landing page is the front door; any other hash (such as #scenario) belongs to the lab.
   if (hash === "" || hash === "#" || hash === "#home") return "home";
+  if (hash === "#findings" || hash.startsWith("#findings/")) return "findings";
   return hash === "#credibility" ? "credibility" : "lab";
 }
 
@@ -33,7 +35,7 @@ export function App() {
 
   return (
     <AppShell route={route} onNavigate={navigate} recordCount={INVESTIGATIONS.length}>
-      {route === "home" ? <Landing /> : route === "lab" ? <ScenarioLab /> : <Credibility />}
+      {route === "home" ? <Landing /> : route === "lab" ? <ScenarioLab /> : route === "findings" ? <Findings /> : <Credibility />}
     </AppShell>
   );
 }

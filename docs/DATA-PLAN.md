@@ -163,6 +163,14 @@ The current ranges are marginal min–max per condition. With the atlas we can m
 
 ## F. Make it visible
 
+> **Status (2026-11-15): item 1 done.** A Findings page (`#findings`, `src/pages/Findings.tsx`) shows each finding with:
+> - its generated claim and what it does not claim;
+> - a chart drawn from its own table (dumbbell, segmented bars, paired table, bar chart, matrix, oxygen strip), with tooltips on hover and focus and a table view;
+> - the method, confounders and excluded rows;
+> - every cited NASA row with its raw cells, loaded on demand.
+>
+> The page links to the atlas CSV, the landing page links to each finding (`#findings/F3`), and the nav has a Findings tab. Items 2–7 remain.
+
 The data has to show on screen in the first 30 seconds, or local judges won't nominate us.
 
 1. **Findings page:** six cards, each with a one-line measured claim, a small chart, n, a "Show the rows" link, and the method and limits in a drawer.

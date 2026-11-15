@@ -1,12 +1,14 @@
 // F6: how far solid-material tests reach toward the exploration atmosphere, counted over every
 // solid test in the atlas (PSI tables and the NTRS Saffire IV–VI paper).
+import { INVESTIGATIONS } from "../../data/investigations";
 import type { AtlasRow } from "../atlas/types";
 import { EXPLORATION_ATMOSPHERE } from "./flex";
 import type { Finding } from "./types";
 
 /** Highest oxygen a row records: its single value, or the top of a listed range. */
 const o2Of = (r: AtlasRow) => (typeof r.o2Pct?.v === "number" ? r.o2Pct.v : r.o2Pct?.values?.length ? Math.max(...r.o2Pct.values) : null);
-const OUTCOME_WORDS: Record<string, string> = { burned: "burned", "burned-out": "burned away", "no-spread": "no flame spread", "not-recorded": "not recorded" };
+const OUTCOME_WORDS: Record<string, string> = { burned: "burned", "burned-out": "burned away", "no-spread": "no flame spread", "not-recorded": "outcome not recorded" };
+const NAMES = new Map(INVESTIGATIONS.map((i) => [i.id, i.name]));
 
 export function f6SolidsAtHighOxygen(rows: AtlasRow[]): Finding {
   const solids = rows.filter((r) => r.rowKind === "test" && r.fuelClass === "solid");
@@ -30,7 +32,7 @@ export function f6SolidsAtHighOxygen(rows: AtlasRow[]): Finding {
   // Table: every solid test above 21.9% O₂, grouped by source, material, oxygen and pressure.
   const groups = new Map<string, AtlasRow[]>();
   for (const r of withO2.filter((r) => o2Of(r)! > 21.9)) {
-    const src = r.source.kind === "psi" ? r.investigation : "saffire-iv-vi (NTRS paper)";
+    const src = r.source.kind === "psi" ? `${NAMES.get(r.investigation) ?? r.investigation} (PSI table)` : "Saffire IV–VI (NTRS paper)";
     const k = [src, r.material.name ?? "not named", o2Of(r), r.pressurePsi?.v ?? "", r.outcome.value].join("|");
     groups.set(k, [...(groups.get(k) ?? []), r]);
   }
