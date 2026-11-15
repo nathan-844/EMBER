@@ -262,7 +262,7 @@ All 20 profiles in `src/data/investigations.ts` are linked to their NASA Physica
 Informatics (PSI) investigation records (BASS-II → PSI-25, Saffire-I → PSI-98, FLEX → PSI-69, …).
 `npm run sync:psi` fetches the Combustion Science records from the PSI repository search and stores
 them in `src/data/psi-snapshot.json` (accession, title, dates, hardware, objectives, publications)
-with the date and a SHA-256 of the response. Tests check that every link resolves to a Combustion
+with the date and a SHA-256 of the response, plus each record's DOI and licence from its own PSI record (every record has a DOI; 23 of 24 are CC0-1.0, PSI-10 states none). The DOI and licence show in each ranked row and the brief. Tests check that every link resolves to a Combustion
 Science record with a matching acronym.
 
 `npm run sync:tables` stores each investigation's experimental tables in `src/data/tables`, and

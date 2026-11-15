@@ -26,6 +26,11 @@ const LEVEL_CLASS: Record<Level, string> = {
 };
 
 const verified = INVESTIGATIONS.filter((i) => i.psi.verifiedOn).length;
+const profileRecords = INVESTIGATIONS.map((i) => PSI_SNAPSHOT.records.find((r) => r.accession === i.psi.accession)).filter((r): r is NonNullable<typeof r> => !!r);
+const withDoi = new Set(profileRecords.filter((r) => r.doi).map((r) => r.accession)).size;
+const accessions = new Set(profileRecords.map((r) => r.accession)).size;
+const cc0 = new Set(profileRecords.filter((r) => r.license?.id === "CC0-1.0").map((r) => r.accession)).size;
+const noLicence = [...new Set(profileRecords.filter((r) => !r.license).map((r) => r.accession))];
 const TABLES = tableManifest as { tables: { id: string; rows: number }[] };
 const usedTables = new Set(INVESTIGATIONS.flatMap((i) => Object.values(i.conditions)).filter((r) => r?.source === "psi-table").map((r) => r!.table));
 const tableRows = TABLES.tables.filter((t) => usedTables.has(t.id)).reduce((n, t) => n + t.rows, 0);
@@ -174,10 +179,10 @@ export function Credibility() {
       <p className="eyebrow section-gap">FAIR data self-check</p>
       <h2 className="h2">Findable, accessible, interoperable, reusable.</h2>
       <div className="factor-grid">
-        <article className="card factor"><h3 className="h4-size">Findable</h3><p>{verified} of {INVESTIGATIONS.length} profiles carry a NASA PSI accession and link to its record. PSI does not publish DOIs for investigation records.</p></article>
+        <article className="card factor"><h3 className="h4-size">Findable</h3><p>{verified} of {INVESTIGATIONS.length} profiles carry a NASA PSI accession and link to its record. NASA assigns each PSI investigation a DOI; {withDoi} of the {accessions} records EMBER uses have one, and EMBER shows it beside the record.</p></article>
         <article className="card factor"><h3 className="h4-size">Accessible</h3><p>All curated data is plain TypeScript in the repository; no account or API key is needed.</p></article>
         <article className="card factor"><h3 className="h4-size">Interoperable</h3><p>Units are fixed per field (vol %, psia, g, m/s). The CSV export adds one harmonised unit per quantity; the ranked ranges themselves are not harmonised across studies.</p></article>
-        <article className="card factor"><h3 className="h4-size">Reusable</h3><p>Every range states its basis. Licensing of the original PSI data must be checked per record before reuse.</p></article>
+        <article className="card factor"><h3 className="h4-size">Reusable</h3><p>Every range states its basis. {cc0} of the {accessions} PSI records EMBER uses state a CC0-1.0 (public domain) licence on the record{noLicence.length ? `; ${noLicence.join(", ")} states none, so check it before reuse` : ""}. EMBER's own code is MIT-licensed.</p></article>
       </div>
 
       <section className="card warm section-gap">

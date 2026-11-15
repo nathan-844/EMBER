@@ -15897,9 +15897,10 @@ var findings_default = {
 // src/data/psi-snapshot.json
 var psi_snapshot_default = {
   source: "https://psi.nasa.gov/geode-py/ws/repo/search?type=investigation&from=0&size=500",
-  fetchedOn: "2026-11-14",
+  fetchedOn: "2026-11-15",
   totalInvestigations: 133,
-  responseSha256: "ea435e58b2f8e4e2ec8c4a8eb9d80cf58e3be1a49ef572e994b73d5c469a78db",
+  responseSha256: "5e9359cd27856ec7e602ba2600f59f22945621de23bbda1733126876b3513691",
+  detailSource: "https://psi.nasa.gov/geode-py/ws/repo/investigations/<accession>",
   records: [
     {
       accession: "PSI-10",
@@ -15961,7 +15962,10 @@ var psi_snapshot_default = {
         "A theoretical study on soot inception in spherical burner-stabilized diffusion flames",
         "SOOTING LIMITS OF MICROGRAVITY SPHERICAL DIFFUSION FLAMES IN OXYGEN-ENRICHED AIR AND DILUTED FUEL",
         "Effects of structure and hydrodynamics on the sooting behavior of spherical microgravity diffusion flames"
-      ]
+      ],
+      doi: "10.60555/w4zy-bt45",
+      license: null,
+      recordVersion: 1
     },
     {
       accession: "PSI-20",
@@ -16010,7 +16014,14 @@ var psi_snapshot_default = {
         "Flammability maps for microgravity burning of a small flat material in a quiescent ambient",
         "Demonstrating steady burning for small flat materials in microgravity in a quiescent ambient",
         "Theoretical analysis and predictions of burning in microgravity using a burning emulator"
-      ]
+      ],
+      doi: "10.60555/vb93-3y72",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-21",
@@ -16056,7 +16067,14 @@ var psi_snapshot_default = {
         "Distributed-memory parallel computation of a forced, time-dependent, sooting, ethylene/air coflow diffusion flame",
         "Measurements and calculations of formaldehyde concentrations in a methane/N2/air, non-premixed flame: Implications for heat release rate",
         "Computational and experimental study of a forced, time-dependent, methane\u2013air coflow diffusion flame"
-      ]
+      ],
+      doi: "10.60555/23e1-9950",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-22",
@@ -16115,7 +16133,14 @@ var psi_snapshot_default = {
         "Inducing gas flow and swirl in tubes using ionic wind from corona discharges",
         "Modeling of Elevated Pressure Diffusion Flames with Water Addition",
         "Electric-field effects on methane coflow flames aboard the international space station (ISS): ACME E-FIELD flames"
-      ]
+      ],
+      doi: "10.60555/se5a-8c73",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 7
     },
     {
       accession: "PSI-23",
@@ -16189,7 +16214,14 @@ var psi_snapshot_default = {
         "Weakly Buoyant Spherical Diffusion Flames: Properties of Hydrogen-CO Ethylene Flames",
         "Computational Simulation of Spherical Diffusion Flame Dynamics and Extinction in Microgravity",
         "Combustion Science: A Researcher&#x27;s Guide to International Space Station"
-      ]
+      ],
+      doi: "10.60555/k57n-p030",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-25",
@@ -16238,7 +16270,14 @@ var psi_snapshot_default = {
         "Microgravity Flammability of PMMA Rods in Concurrent Flow",
         "Using a Narrow Channel Apparatus to Study Thermally-Intermediate Fuel Combustion in a Simulated 0g Environment",
         "Burning and Suppression of Solids \u2013 II Fire Safety Investigation for the Microgravity Science Glovebox"
-      ]
+      ],
+      doi: "10.60555/4qc4-de67",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-26",
@@ -16280,7 +16319,14 @@ var psi_snapshot_default = {
         "Thickness and Fuel Preheating Effects on Material Flammability in Microgravity from the BASS Experiment",
         "A novel apparatus for flame spread study",
         "Opposed-Flow Flame Spread in a Narrow Channel Apparatus over Thin PMMA Sheets"
-      ]
+      ],
+      doi: "10.60555/58h4-dy80",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-39",
@@ -16321,7 +16367,14 @@ var psi_snapshot_default = {
         "Asymptotic analysis of quasi-steady n-heptane droplet combustion supported by cool-flame chemistry",
         "Science in Short: Cool Flames",
         "Low Temperature n-Dodecane Droplet Combustion Experiments Aboard the International Space Station"
-      ]
+      ],
+      doi: "10.60555/m6pj-a914",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-47",
@@ -16357,7 +16410,14 @@ var psi_snapshot_default = {
       publications: [
         "A Research Plan for Fire Prevention, Detection and Suppression in Crewed Exploration Systems",
         "Detection of Smoke from Microgravity Fires"
-      ]
+      ],
+      doi: "10.60555/ztgj-d202",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 5
     },
     {
       accession: "PSI-60",
@@ -16387,7 +16447,14 @@ var psi_snapshot_default = {
       earthBenefits: "This study sought to enhance understanding of soot formation, flame structure, and radiative transport under microgravity and normal gravity, improving predictive models for combustion in both spacecraft and terrestrial systems. For space applications, the results support safer fire detection, suppression, and cleaner combustion technologies critical for long-duration missions. On Earth, the insights help reduce pollutant emissions, optimize combustion efficiency, and inform the design of cleaner energy and industrial systems.",
       publications: [
         "A Combined Experimental and Computational Study of Soot Formation in Normal and Microgravity Conditions (2022)"
-      ]
+      ],
+      doi: "10.60555/mzjm-yv57",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 1
     },
     {
       accession: "PSI-62",
@@ -16419,7 +16486,14 @@ var psi_snapshot_default = {
         "Radiative flamelet generated manifolds for solid fuel flame spread in microgravity (2023)",
         "Theoretical estimates of flammability bounds for thin condensed fuel diffusion flames in microgravity using detailed models of chemistry and radiation (2023)",
         "Two-color pyrometry based flame to fuel surface radiative heat flux diagnostic using flamelets"
-      ]
+      ],
+      doi: "10.60555/e9xp-ex83",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 1
     },
     {
       accession: "PSI-68",
@@ -16500,7 +16574,14 @@ var psi_snapshot_default = {
         "A Burke\u2013Schumann analysis of diffusion-flame structures supported by a burning droplet",
         "Dynamic Differential Image Circle Diameter Measurement Precision Assessment: Application to Burning Droplets",
         "Interpretation of Backlit Droplet Images from ISS Droplet Combustion Experiments"
-      ]
+      ],
+      doi: "10.60555/byp8-h018",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 6
     },
     {
       accession: "PSI-69",
@@ -16579,7 +16660,14 @@ var psi_snapshot_default = {
         "PROPANOL DROPLET FLAMMABILITY AND COMBUSTION IN AIR-DILUENT ENVIRONMENTS UNDER NORMAL AND REDUCED GRAVITY",
         "Developing Surrogates for Liquid Transportation Fuels: The Role of Spherically Symmetric Droplet Combustion",
         "Detailed results from the flame extinugishment experiment (FLEX) - March 2009 to December 2011"
-      ]
+      ],
+      doi: "10.60555/mbq8-0451",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 5
     },
     {
       accession: "PSI-98",
@@ -16620,7 +16708,14 @@ var psi_snapshot_default = {
         "Transient flame growth and spread processes over a large solid fabric in concurrent low-speed flows in microgravity \u2013 Model versus experiment",
         "Fire safety in space \u2013 beyond flammability testing of small samples",
         "Operation and Development Status of the Spacecraft Fire Experiments (Saffire)"
-      ]
+      ],
+      doi: "10.60555/0t15-1z43",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-99",
@@ -16657,7 +16752,14 @@ var psi_snapshot_default = {
         "Concurrent Flame Spread Over Two-Sided Thick PMMA Slabs in Microgravity",
         "Transient flame growth and spread processes over a large solid fabric in concurrent low-speed flows in microgravity \u2013 Model versus experiment",
         "Evaluation of gas and particle sensors for detecting spacecraft-relevant fire emissions"
-      ]
+      ],
+      doi: "10.60555/2chp-m469",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 5
     },
     {
       accession: "PSI-100",
@@ -16692,7 +16794,14 @@ var psi_snapshot_default = {
         "Buoyant Effects on the Flammability of Silicone Samples Planned for the Spacecraft Fire Experiment (Saffire), 45th International Conference on Environmental Systems ICES-2015-[293] 12-16 July 2015, Bellevue, Washington",
         "The Spacecraft Fire Experiment (Saffire) - Objectives, Development and Status",
         "Operation and Development Status of the Spacecraft Fire Experiments (Saffire), 46th International Conference on Environmental Systems (ICES), July 2016"
-      ]
+      ],
+      doi: "10.60555/040q-4h36",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-101",
@@ -16734,7 +16843,14 @@ var psi_snapshot_default = {
         "Preliminary Results from the Smoke Aerosol Measurement Experiment - Reflight",
         "Detection of Smoke from Microgravity Fires",
         "Evaluation of spacecraft smoke detector performance in the low-gravity environment"
-      ]
+      ],
+      doi: "10.60555/2np7-jv14",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-102",
@@ -16779,7 +16895,14 @@ var psi_snapshot_default = {
         "Evaluation of spacecraft smoke detector performance in the low-gravity environment",
         "The Microgravity Science Glovebox (MSG), a Resource for Gravity-Dependent Phenomena Research on the International Space Station (ISS)",
         "AN OVERVIEW OF THE MICROGRAVITY SCIENCE GLOVEBOX (MSG) FACILITY, AND THE GRAVITY-DEPENDENT PHENOMENARESEARCH PERFORMED IN THE MSG ON THE INTERNATIONAL SPACE STATION (ISS)"
-      ]
+      ],
+      doi: "10.60555/gd4k-8h62",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-106",
@@ -16812,7 +16935,14 @@ var psi_snapshot_default = {
         "Effects of Fuel Dilution and Gravity on Laminar Coflow Methane-Air Diffusion Flames: A Computational and Experimental Investigation",
         "An experimental and computational study of soot formation in a coflow jet flame under microgravity and normal gravity",
         "Analysis of CH* concentration and flame heat release rate in laminar coflow diffusion flames under microgravity and normal gravity"
-      ]
+      ],
+      doi: "10.60555/pm12-rg61",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 3
     },
     {
       accession: "PSI-107",
@@ -16847,7 +16977,14 @@ var psi_snapshot_default = {
         "Shapes of nonbuoyant round luminous hydrocarbon/air laminar jet diffusion flames",
         "Smoke Points of Microgravity and Normal Gravity Coflow Diffusion",
         "Laminar smoke points of coflowing flames in microgravity"
-      ]
+      ],
+      doi: "10.60555/9kbh-e962",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 4
     },
     {
       accession: "PSI-115",
@@ -16879,7 +17016,14 @@ var psi_snapshot_default = {
       ],
       objectives: "The objective of this investigation was to use numerical simulation to explore the influence of gravity on pyrolysis smoke growth from a fundamental perspective. The intention of this effort is to quantify the differences between microgravity and Earth gravity smoke, and to identify the fluid dynamic mechanisms that cause the differences.",
       earthBenefits: "Models and tools that characterize particles generated as smoke can be used to ascertain how temperature, gravity, and material properties affect the smoke produced. This would directly lead to better smoke detection devices and prevent fires that can lead to loss of materiel and loss of life.",
-      publications: []
+      publications: [],
+      doi: "10.60555/q0v5-1v28",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 3
     },
     {
       accession: "PSI-117",
@@ -16918,7 +17062,14 @@ var psi_snapshot_default = {
         "Non-Premixed - Partially Premixed to Diffusive Burning: Initial Transient of Direct Cool Flame Burn (2017)",
         "Oscillatory Cool Flame Combustion Behavior of Submillimeter Sized n-Alkane Droplet under Near Limit Conditions (2018)",
         "Dynamics of cool flames (2019)"
-      ]
+      ],
+      doi: "10.60555/gz0q-b577",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 2
     },
     {
       accession: "PSI-142",
@@ -16970,7 +17121,14 @@ var psi_snapshot_default = {
         "SUPPLEMENTARY MATERIAL\nThe radical index and the effect of oxygen concentration on non-premixed cool flame extinction of large n-alkanes",
         "Pressure and Radiation Effects on the Dynamics of Hot and Cool Diffusion Flames",
         "Transient interactions between a premixed double flame and a vortex"
-      ]
+      ],
+      doi: "10.60555/80qf-vj95",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 2
     },
     {
       accession: "PSI-159",
@@ -17004,7 +17162,14 @@ var psi_snapshot_default = {
       publications: [
         "Spherical gas-fueled cool diffusion flames",
         "Cool diffusion flames in a stably stratified stagnation flow"
-      ]
+      ],
+      doi: "10.60555/cyt1-kh64",
+      license: {
+        id: "CC0-1.0",
+        name: "Creative Commons Zero v1.0 Universal",
+        url: "https://spdx.org/licenses/CC0-1.0.html"
+      },
+      recordVersion: 1
     }
   ]
 };

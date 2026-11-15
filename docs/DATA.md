@@ -78,4 +78,4 @@ Each finding in `src/lib/findings/` is a function of atlas rows that returns its
 - Only 5 of 384 solid-material tests record pressure.
 - Many tables record no outcome (BASS, BASS-II, SPICE, ACME Flame Design).
 - Measurement uncertainty is not in NASA's tables and is not propagated.
-- Check each PSI record's licence before reusing its data.
+- Each PSI record states its licence and DOI (`src/data/psi-snapshot.json`); 23 of 24 are CC0-1.0 and PSI-10 states none.

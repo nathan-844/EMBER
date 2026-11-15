@@ -45,11 +45,22 @@ const records = body.hits.hits
   }))
   .sort((a, b) => Number(a.accession.split("-")[1]) - Number(b.accession.split("-")[1]));
 
+// DOI, licence and version are only in each investigation's own record, not in the search results.
+for (const r of records) {
+  const d = await fetch(`${BASE}/geode-py/ws/repo/investigations/${r.accession}`, { headers: { Accept: "application/json" } });
+  if (!d.ok) throw new Error(`PSI record ${r.accession} failed: HTTP ${d.status}`);
+  const rec = await d.json();
+  r.doi = rec.doi || null;
+  r.license = rec.licenseIdentifier ? { id: rec.licenseIdentifier, name: rec.licenseName ?? rec.licenseIdentifier, url: rec.licenseLink ?? null } : null;
+  r.recordVersion = rec.version ?? null;
+}
+
 const snapshot = {
   source: SEARCH,
   fetchedOn: new Date().toISOString().slice(0, 10),
   totalInvestigations: body.hits.total,
   responseSha256: createHash("sha256").update(raw).digest("hex"),
+  detailSource: `${BASE}/geode-py/ws/repo/investigations/<accession>`,
   records,
 };
 

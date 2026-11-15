@@ -45,3 +45,22 @@ describe("ground analysis records", () => {
     expect(PSI_SNAPSHOT.records.every((r) => profiled.has(r.accession) || ANALYSIS_RECORDS.includes(r))).toBe(true);
   });
 });
+
+describe("PSI DOIs and licences", () => {
+  it("record a NASA DOI for every investigation EMBER profiles", async () => {
+    const { INVESTIGATIONS } = await import("./investigations");
+    const { getPsiRecord } = await import("./psi");
+    for (const inv of INVESTIGATIONS) {
+      const rec = getPsiRecord(inv.psi.accession)!;
+      expect(rec.doi, inv.id).toMatch(/^10\.60555\/[a-z0-9]{4}-[a-z0-9]{4}$/);
+    }
+  });
+
+  it("keeps the licence as the record states it, including none", async () => {
+    const { PSI_SNAPSHOT } = await import("./psi");
+    const flex = PSI_SNAPSHOT.records.find((r) => r.accession === "PSI-69")!;
+    expect(flex.doi).toBe("10.60555/mbq8-0451");
+    expect(flex.license?.id).toBe("CC0-1.0");
+    expect(PSI_SNAPSHOT.records.find((r) => r.accession === "PSI-10")!.license).toBeNull();
+  });
+});

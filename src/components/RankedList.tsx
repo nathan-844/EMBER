@@ -39,6 +39,8 @@ function PsiRecordPanel({ accession }: { accession: string | null }) {
         {(rec.startDate || rec.endDate) && <><dt>Investigation</dt><dd>{rec.startDate ?? "?"} to {rec.endDate ?? "?"}</dd></>}
         {rec.publicReleaseDate && <><dt>Public release</dt><dd>{rec.publicReleaseDate}</dd></>}
         {rec.publications.length > 0 && <><dt>Publications</dt><dd>{rec.publications.length} listed in PSI</dd></>}
+        {rec.doi && <><dt>DOI</dt><dd><a href={`https://doi.org/${rec.doi}`} target="_blank" rel="noreferrer">{rec.doi} <ExternalIcon /></a></dd></>}
+        <dt>Licence</dt><dd>{rec.license ? (rec.license.url ? <a href={rec.license.url} target="_blank" rel="noreferrer">{rec.license.id}</a> : rec.license.id) : "not stated on the PSI record"}</dd>
       </dl>
       {objectives && <p className="psi-obj"><strong>Objectives (PSI):</strong> {objectives}</p>}
     </div>

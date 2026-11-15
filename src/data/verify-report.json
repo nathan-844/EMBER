@@ -2,9 +2,9 @@
   "recordedAt": "2026-11-15",
   "node": "v22.23.4",
   "tests": {
-    "passed": 463,
+    "passed": 465,
     "failed": 0,
-    "total": 463,
+    "total": 465,
     "files": 27,
     "names": [
       {
@@ -753,6 +753,656 @@
         "status": "passed"
       },
       {
+        "file": "data/applications.test.ts",
+        "title": "equipment links detect-suppress-models quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links inert-agent quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links gaseous-suppressants quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links smoke-particle-size quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links particle-counter quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links fire-growth quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links sooting quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links forced-flow quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links ventilation-shutdown-high-o2 quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links screening-test quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links exploration-atmospheres quotes its NASA PSI record word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links detect-suppress-models points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links inert-agent points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links gaseous-suppressants points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links smoke-particle-size points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links particle-counter points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links fire-growth points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links sooting points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links forced-flow points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links ventilation-shutdown-high-o2 points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links screening-test points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links exploration-atmospheres points at real profiles, one of which owns the quote",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links covers detection, suppression, ventilation and materials",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "equipment links leads with the areas that serve the scenario's safety question",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "upcoming studies flag FM2 and LUCI for a lunar habitat and SoFIE for its 30% oxygen solid fuel",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "upcoming studies flag none for the ISS cabin",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "upcoming studies cite a public page for every study",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-smoke-detectors quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-instruments quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-confined-spaces quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-suppressants quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-wildfire-models quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/applications.test.ts",
+        "title": "Earth applications earth-cone-calorimeter quotes NASA's Earth-benefits text word for word",
+        "status": "passed"
+      },
+      {
+        "file": "data/design-questions.test.ts",
+        "title": "design questions are questions, never safety conclusions",
+        "status": "passed"
+      },
+      {
+        "file": "data/design-questions.test.ts",
+        "title": "design questions cite only evidence EMBER has checked",
+        "status": "passed"
+      },
+      {
+        "file": "data/design-questions.test.ts",
+        "title": "design questions put the questions that apply to the scenario first",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit BASS-II has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit BASS has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Saffire-I has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Saffire-II has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Saffire-III has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit FLEX has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit FLEX-2 has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit CFI has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit BRE has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit CFI-G has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit E-FIELD Flames has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit CLD Flame has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit Flame Design has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit s-Flame has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SPICE has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SLICE has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SAME has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit SAME-R has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit DAFT has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit DAFT-2 has valid ranges with a stated basis",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit a verified PSI record always has an accession and a date",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit does not list a question as both direct and adjacent",
+        "status": "passed"
+      },
+      {
+        "file": "data/investigations.test.ts",
+        "title": "curated data audit PSI urls point at psi.nasa.gov",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss035e015900 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss040e086481 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss051e039882 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos jsc2023e046631 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos jsc2023e046375 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos GRC-2016-C-05051 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss059e103188 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos GRC-2013-C-03367 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss043e190395 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos iss015e27411 quotes NASA's description and date",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos only point at real investigations",
+        "status": "passed"
+      },
+      {
+        "file": "data/nasa-media.test.ts",
+        "title": "NASA photos list an investigation's own photo before shared hardware",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes were each found in the NASA PDF, unchanged since (npm run sync:ntrs)",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes record the SHA-256 of every PDF checked",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes have unique ids and cite a known source",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes put equipment results beside an existing equipment link",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes show partial-gravity evidence only for partial gravity, by level",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-evidence.test.ts",
+        "title": "NTRS quotes back every exploration-atmosphere preset with a checked quote that states its values",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-saffire.test.ts",
+        "title": "Saffire IV-VI from NTRS 20240002981 keeps Table 1 of the paper exactly (sample, material, kPa, mol % O2, free volume)",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-saffire.test.ts",
+        "title": "Saffire IV-VI from NTRS 20240002981 keeps Table 2 results",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-saffire.test.ts",
+        "title": "Saffire IV-VI from NTRS 20240002981 converts kPa to psia only for plotting",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-saffire.test.ts",
+        "title": "Saffire IV-VI from NTRS 20240002981 lists runs above an oxygen level, highest first",
+        "status": "passed"
+      },
+      {
+        "file": "data/ntrs-saffire.test.ts",
+        "title": "Saffire IV-VI from NTRS 20240002981 points at the NASA NTRS record",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links every curated profile is linked to a PSI accession",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS-II links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-I links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-II links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-III links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX-2 links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BRE links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI-G links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links E-FIELD Flames links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CLD Flame links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Flame Design links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links s-Flame links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SPICE links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SLICE links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME-R links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT-2 links to a Combustion Science record in the snapshot",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS-II matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BASS matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-I matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-II matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Saffire-III matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links FLEX-2 matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links BRE matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CFI-G matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links E-FIELD Flames matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links CLD Flame matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links Flame Design matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links s-Flame matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SPICE matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SLICE matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links SAME-R matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links DAFT-2 matches the PSI acronym",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links no accession is reused except the shared DAFT / DAFT-2 record",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "NASA PSI links the snapshot records where and when it was fetched",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "ground analysis records are exactly the PSI combustion records EMBER does not profile, and each links to a profiled flight study",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "PSI DOIs and licences record a NASA DOI for every investigation EMBER profiles",
+        "status": "passed"
+      },
+      {
+        "file": "data/psi.test.ts",
+        "title": "PSI DOIs and licences keeps the licence as the record states it, including none",
+        "status": "passed"
+      },
+      {
+        "file": "data/verify-report.test.ts",
+        "title": "verification scoreboard lists the tests and every source check, each with a method",
+        "status": "passed"
+      },
+      {
+        "file": "data/verify-report.test.ts",
+        "title": "verification scoreboard agrees with the recorded test run",
+        "status": "passed"
+      },
+      {
         "file": "lib/brief.test.ts",
         "title": "evidence brief includes the computed O2 partial pressure",
         "status": "passed"
@@ -1428,646 +2078,6 @@
         "status": "passed"
       },
       {
-        "file": "data/applications.test.ts",
-        "title": "equipment links detect-suppress-models quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links inert-agent quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links gaseous-suppressants quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links smoke-particle-size quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links particle-counter quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links fire-growth quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links sooting quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links forced-flow quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links ventilation-shutdown-high-o2 quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links screening-test quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links exploration-atmospheres quotes its NASA PSI record word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links detect-suppress-models points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links inert-agent points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links gaseous-suppressants points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links smoke-particle-size points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links particle-counter points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links fire-growth points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links sooting points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links forced-flow points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links ventilation-shutdown-high-o2 points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links screening-test points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links exploration-atmospheres points at real profiles, one of which owns the quote",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links covers detection, suppression, ventilation and materials",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "equipment links leads with the areas that serve the scenario's safety question",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "upcoming studies flag FM2 and LUCI for a lunar habitat and SoFIE for its 30% oxygen solid fuel",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "upcoming studies flag none for the ISS cabin",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "upcoming studies cite a public page for every study",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "Earth applications earth-smoke-detectors quotes NASA's Earth-benefits text word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "Earth applications earth-instruments quotes NASA's Earth-benefits text word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "Earth applications earth-confined-spaces quotes NASA's Earth-benefits text word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "Earth applications earth-suppressants quotes NASA's Earth-benefits text word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "Earth applications earth-wildfire-models quotes NASA's Earth-benefits text word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/applications.test.ts",
-        "title": "Earth applications earth-cone-calorimeter quotes NASA's Earth-benefits text word for word",
-        "status": "passed"
-      },
-      {
-        "file": "data/design-questions.test.ts",
-        "title": "design questions are questions, never safety conclusions",
-        "status": "passed"
-      },
-      {
-        "file": "data/design-questions.test.ts",
-        "title": "design questions cite only evidence EMBER has checked",
-        "status": "passed"
-      },
-      {
-        "file": "data/design-questions.test.ts",
-        "title": "design questions put the questions that apply to the scenario first",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit BASS-II has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit BASS has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit Saffire-I has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit Saffire-II has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit Saffire-III has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit FLEX has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit FLEX-2 has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit CFI has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit BRE has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit CFI-G has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit E-FIELD Flames has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit CLD Flame has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit Flame Design has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit s-Flame has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit SPICE has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit SLICE has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit SAME has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit SAME-R has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit DAFT has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit DAFT-2 has valid ranges with a stated basis",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit a verified PSI record always has an accession and a date",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit does not list a question as both direct and adjacent",
-        "status": "passed"
-      },
-      {
-        "file": "data/investigations.test.ts",
-        "title": "curated data audit PSI urls point at psi.nasa.gov",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos iss035e015900 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos iss040e086481 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos iss051e039882 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos jsc2023e046631 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos jsc2023e046375 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos GRC-2016-C-05051 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos iss059e103188 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos GRC-2013-C-03367 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos iss043e190395 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos iss015e27411 quotes NASA's description and date",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos only point at real investigations",
-        "status": "passed"
-      },
-      {
-        "file": "data/nasa-media.test.ts",
-        "title": "NASA photos list an investigation's own photo before shared hardware",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-evidence.test.ts",
-        "title": "NTRS quotes were each found in the NASA PDF, unchanged since (npm run sync:ntrs)",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-evidence.test.ts",
-        "title": "NTRS quotes record the SHA-256 of every PDF checked",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-evidence.test.ts",
-        "title": "NTRS quotes have unique ids and cite a known source",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-evidence.test.ts",
-        "title": "NTRS quotes put equipment results beside an existing equipment link",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-evidence.test.ts",
-        "title": "NTRS quotes show partial-gravity evidence only for partial gravity, by level",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-evidence.test.ts",
-        "title": "NTRS quotes back every exploration-atmosphere preset with a checked quote that states its values",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-saffire.test.ts",
-        "title": "Saffire IV-VI from NTRS 20240002981 keeps Table 1 of the paper exactly (sample, material, kPa, mol % O2, free volume)",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-saffire.test.ts",
-        "title": "Saffire IV-VI from NTRS 20240002981 keeps Table 2 results",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-saffire.test.ts",
-        "title": "Saffire IV-VI from NTRS 20240002981 converts kPa to psia only for plotting",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-saffire.test.ts",
-        "title": "Saffire IV-VI from NTRS 20240002981 lists runs above an oxygen level, highest first",
-        "status": "passed"
-      },
-      {
-        "file": "data/ntrs-saffire.test.ts",
-        "title": "Saffire IV-VI from NTRS 20240002981 points at the NASA NTRS record",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links every curated profile is linked to a PSI accession",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links BASS-II links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links BASS links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Saffire-I links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Saffire-II links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Saffire-III links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links FLEX links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links FLEX-2 links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links CFI links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links BRE links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links CFI-G links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links E-FIELD Flames links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links CLD Flame links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Flame Design links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links s-Flame links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SPICE links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SLICE links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SAME links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SAME-R links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links DAFT links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links DAFT-2 links to a Combustion Science record in the snapshot",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links BASS-II matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links BASS matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Saffire-I matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Saffire-II matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Saffire-III matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links FLEX matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links FLEX-2 matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links CFI matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links BRE matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links CFI-G matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links E-FIELD Flames matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links CLD Flame matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links Flame Design matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links s-Flame matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SPICE matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SLICE matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SAME matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links SAME-R matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links DAFT matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links DAFT-2 matches the PSI acronym",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links no accession is reused except the shared DAFT / DAFT-2 record",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "NASA PSI links the snapshot records where and when it was fetched",
-        "status": "passed"
-      },
-      {
-        "file": "data/psi.test.ts",
-        "title": "ground analysis records are exactly the PSI combustion records EMBER does not profile, and each links to a profiled flight study",
-        "status": "passed"
-      },
-      {
-        "file": "data/verify-report.test.ts",
-        "title": "verification scoreboard lists the tests and every source check, each with a method",
-        "status": "passed"
-      },
-      {
-        "file": "data/verify-report.test.ts",
-        "title": "verification scoreboard agrees with the recorded test run",
-        "status": "passed"
-      },
-      {
         "file": "lib/atlas/atlas.test.ts",
         "title": "atlas coverage has one record per stored NASA row, plus each NTRS Saffire run",
         "status": "passed"
@@ -2337,15 +2347,15 @@
       "src/data/atlas/audit.json",
       "src/data/ntrs-manifest.json"
     ],
-    "value": "2b903fab38df93450734b4ea756e3ef02983cfa9c184e799c8b422a952642e15"
+    "value": "d6b27b2ca8a23cfc55271e0400f53705f4078eb179e4db2989e74f716054d08d"
   },
   "scoreboard": [
     {
       "id": "tests",
       "label": "Automated tests passing",
       "how": "rerun",
-      "checked": 463,
-      "passed": 463,
+      "checked": 465,
+      "passed": 465,
       "method": "The full Vitest suite: ranking rules, data checks, quote checks, the AI claim checker and the server."
     },
     {

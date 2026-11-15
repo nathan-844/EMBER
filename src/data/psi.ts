@@ -20,6 +20,11 @@ export interface PsiRecord {
   /** NASA's "Research Impacts/Earth Benefits" text. */
   earthBenefits: string;
   publications: string[];
+  /** DataCite DOI NASA assigns the investigation record (e.g. 10.60555/mbq8-0451). */
+  doi: string | null;
+  /** Licence stated on the PSI record. */
+  license: { id: string; name: string; url: string | null } | null;
+  recordVersion: number | null;
 }
 
 export interface PsiSnapshot {
@@ -27,6 +32,7 @@ export interface PsiSnapshot {
   fetchedOn: string;
   totalInvestigations: number;
   responseSha256: string;
+  detailSource: string;
   records: PsiRecord[];
 }
 

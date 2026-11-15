@@ -4,6 +4,7 @@ import { ppo2Sentence, ppo2VsEarth, type Scenario } from "./scenario";
 import { EQUIPMENT_LINKS } from "../data/applications";
 import { designQuestionsFor, type DesignEvidence } from "../data/design-questions";
 import { NTRS_QUOTES } from "../data/ntrs-evidence";
+import { getPsiRecord } from "../data/psi";
 
 const evidenceRef = (e: DesignEvidence) =>
   e.kind === "ntrs" ? `NTRS ${NTRS_QUOTES.find((q) => q.id === e.quote)!.source}` : e.kind === "psi" ? `NASA ${EQUIPMENT_LINKS.find((l) => l.id === e.link)!.quote.accession}` : `EMBER finding ${e.id}`;
@@ -53,7 +54,10 @@ export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], li
     "## Sources",
     "",
     "- NASA Physical Science Informatics (PSI) investigation records:",
-    ...ranked.map((r) => `  - ${r.investigation.name}: ${r.investigation.psi.accession ?? "not linked"}${r.investigation.psi.url ? ` — ${r.investigation.psi.url}` : ""}`),
+    ...ranked.map((r) => {
+      const doi = getPsiRecord(r.investigation.psi.accession)?.doi;
+      return `  - ${r.investigation.name}: ${r.investigation.psi.accession ?? "not linked"}${r.investigation.psi.url ? ` — ${r.investigation.psi.url}` : ""}${doi ? ` (DOI ${doi})` : ""}`;
+    }),
     "- Condition ranges:",
     ...ranked.flatMap((r) =>
       r.conditions

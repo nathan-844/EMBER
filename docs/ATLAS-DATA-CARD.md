@@ -44,4 +44,4 @@ Predicting flammability, flame spread, extinction or fire risk, or certifying an
 
 ## Licence and credit
 
-The code that builds the atlas is MIT licensed. The underlying data is NASA's: check each PSI record's terms before reuse (several tables are published as CC0). Please credit NASA PSI and NTRS as the data source and EMBER for the harmonised form. EMBER is not affiliated with or endorsed by NASA.
+The code that builds the atlas is MIT licensed. The underlying data is NASA's: each PSI investigation record states its licence and DOI (stored in `src/data/psi-snapshot.json`): 23 of the 24 Combustion Science records are CC0-1.0, and PSI-10 (Flame Design) states none, so check that one before reuse. Cite a study by its PSI DOI (for example FLEX, 10.60555/mbq8-0451). Please credit NASA PSI and NTRS as the data source and EMBER for the harmonised form. EMBER is not affiliated with or endorsed by NASA.

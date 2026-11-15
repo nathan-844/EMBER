@@ -82,7 +82,7 @@ product and not a safety certification.
 
 All experimental data comes from NASA's [Physical Science Informatics (PSI)](https://psi.nasa.gov/physci/repo/)
 repository: investigation records and their experimental tables, stored unmodified in
-`src/data/tables` with their SHA-256. Check each record's licence before reusing its data.
+`src/data/tables` with their SHA-256. Each PSI record's DOI and licence are stored with it (23 of 24 are CC0-1.0; PSI-10 states none).
 
 The Saffire IV-VI values come from NASA's paper
 [Preliminary Results from the Saffire VI Experiment](https://ntrs.nasa.gov/citations/20240002981)
@@ -106,5 +106,5 @@ EMBER is a Space Apps research prototype and is not affiliated with or endorsed 
 
 ## License
 
-Code: MIT (see `LICENSE`). NASA PSI data in `src/data` is NASA's; check each record's terms before
-reuse.
+Code: MIT (see `LICENSE`). NASA PSI data in `src/data` is NASA's: 23 of the 24 PSI records it
+comes from state CC0-1.0, and PSI-10 (Flame Design) states no licence, so check that one before reuse.
