@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-15",
   "node": "v22.19.0",
   "code": {
-    "parentCommit": "16fe70bfe470e4cf1816bde64ff1bfd19fdacdb3",
-    "sourceTreeSha256": "1b9581d0e2ffb18c67dd7792d1c91222965fbf44b44daf24f3aee2d1e13ff2d3",
-    "files": 266,
-    "uncommittedChanges": 22
+    "parentCommit": "4dd3ad409e7554ecc040577fcb410266515489d0",
+    "sourceTreeSha256": "bb06eec059f41bebb9111ecc7c8d964fbf8f9b405f116f9366d98f720983895b",
+    "files": 248,
+    "uncommittedChanges": 0
   },
   "dataSnapshot": {
     "id": "3942bb12dee7",
