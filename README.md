@@ -34,8 +34,11 @@ cannot establish.
 - **Robustness probes** – each scenario is re-ranked under small input changes, single-input
   removals and four alternative point schemes, and the app reports whether the top match holds.
 - **Key finding by fuel type** – for a Moon-base atmosphere (30% O₂) the app states that no
-  solid-material test in the data goes above 22.2% oxygen; only droplet and gas-flame studies reach
-  30%.
+  solid-material test in the PSI data goes above 22.2% oxygen; only droplet and gas-flame studies reach
+  30%. It then adds what NASA has published outside PSI: Saffire V and VI burned cotton, SIBAL cloth
+  and PMMA in orbit at 26.2–31.0% oxygen and 54.1–70.7 kPa (NASA NTRS 20240002981, Table 1). These
+  runs are drawn on the gap map as open diamonds and named in the finding, but they are not PSI run
+  tables and are never scored in the ranking.
 - **Grounded AI analysis (optional)** – Google Gemini writes a short synthesis from a server-built
   evidence package. EMBER treats the model as an untrusted author: a claim is kept only if every
   excerpt appears word for word in the source it cites and every number appears in those sources
@@ -166,7 +169,11 @@ safety certification.
 All experimental data comes from NASA's [Physical Science Informatics (PSI)](https://psi.nasa.gov/physci/repo/)
 repository: investigation records (titles, objectives, hardware, publications) and the experimental
 tables attached to each investigation, stored unmodified in `src/data/tables` with their SHA-256.
-Check each record's licence before reusing its data. Context on partial-gravity flammability comes
+Check each record's licence before reusing its data. The one exception is the Saffire IV–VI test
+conditions and results in `src/data/ntrs-saffire.ts`, copied from Tables 1 and 2 of NASA's paper
+[Preliminary Results from the Saffire VI Experiment](https://ntrs.nasa.gov/citations/20240002981)
+(Urban et al., ICES-2024-365, NTRS 20240002981); pressures are published in kPa and converted to psia
+by EMBER only for plotting. Context on partial-gravity flammability comes
 from NASA Glenn's [FM2 page](https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/flammability-of-materials-on-the-moon-fm2/).
 Earth applications quote each record's "Research Impacts/Earth Benefits" text. Upcoming studies
 cite NASA's [SoFIE page](https://science.nasa.gov/biological-physical/investigations/sofie/) and the

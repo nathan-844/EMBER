@@ -9288,6 +9288,36 @@ function rangeLabel(r, unit = "") {
   return `${r.min === r.max ? r.min : `${r.min}\u2013${r.max}`}${unit}`;
 }
 
+// src/data/ntrs-saffire.ts
+var SAFFIRE_NTRS_SOURCE = {
+  title: "Preliminary Results from the Saffire VI Experiment",
+  authors: "Urban, D. L., Ruff, G. A., Ferkul, P., et al.",
+  venue: "53rd International Conference on Environmental Systems, ICES-2024-365, Louisville, KY, July 2024",
+  ntrsId: "20240002981",
+  url: "https://ntrs.nasa.gov/citations/20240002981",
+  pdf: "https://ntrs.nasa.gov/api/citations/20240002981/downloads/Saffire-ICES-2024-ICES-365-accepted%20final.pdf",
+  /** Where the numbers come from in the paper. */
+  tables: "Table 1 (sample test conditions) and Table 2 (heat release and carbon oxides)",
+  label: "NASA NTRS 20240002981 \xB7 Saffire VI paper (ICES-2024-365)"
+};
+var kpaToPsi = (kpa) => +(kpa * 0.1450377).toFixed(2);
+var run = (r) => ({
+  ...r,
+  flowCms: 20,
+  flowDirection: "concurrent",
+  pressurePsi: kpaToPsi(r.pressureKpa)
+});
+var SAFFIRE_NTRS_RUNS = [
+  run({ sample: "IV-1", flight: "Saffire IV", material: "SIBAL cloth (75% cotton, 25% fiberglass)", lengthCm: 50, pressureKpa: 100, oxygenPct: 22, freeVolumeM3: 17.9, burnS: 130, heatReleaseW: 3150, heatReleaseMethod: "average, fuel consumption", co2IncreasePpm: 1390, coIncreasePpm: 80 }),
+  run({ sample: "V-2", flight: "Saffire V", material: "Cotton jersey", lengthCm: 50, pressureKpa: 70.7, oxygenPct: 26.2, freeVolumeM3: 19, burnS: 200, heatReleaseW: 2800, heatReleaseMethod: "average, fuel consumption", co2IncreasePpm: 2360, coIncreasePpm: 83 }),
+  run({ sample: "VI-2", flight: "Saffire VI", material: "SIBAL cloth (75% cotton, 25% fiberglass)", lengthCm: 50, pressureKpa: 54.1, oxygenPct: 31, freeVolumeM3: 16.7, burnS: 112, heatReleaseW: 3217, heatReleaseMethod: "peak, oxygen consumption", co2IncreasePpm: 2800, coIncreasePpm: 120 }),
+  run({ sample: "VI-3", flight: "Saffire VI", material: "Two-sided PMMA (1 cm thick)", lengthCm: 18, pressureKpa: 54.6, oxygenPct: 30.3, freeVolumeM3: 16.7, burnS: 780, heatReleaseW: 3080, heatReleaseMethod: "peak, oxygen consumption", co2IncreasePpm: 8539, coIncreasePpm: 308 }),
+  run({ sample: "VI-4", flight: "Saffire VI", material: "One-sided PMMA (0.5 cm thick)", lengthCm: 18, pressureKpa: 55.2, oxygenPct: 28.8, freeVolumeM3: 16.7, burnS: 1200, heatReleaseW: 1507, heatReleaseMethod: "peak, oxygen consumption", co2IncreasePpm: 8117, coIncreasePpm: 320 })
+];
+function saffireRunsAbove(oxygenPct) {
+  return SAFFIRE_NTRS_RUNS.filter((r) => r.oxygenPct > oxygenPct).sort((a, b) => b.oxygenPct - a.oxygenPct);
+}
+
 // src/lib/scenario.ts
 var MATERIAL_OPTIONS = ["Cotton-fiberglass fabric", "Nomex", "PMMA", "Ultem", "Silicone"];
 var PRESETS = [
@@ -9373,13 +9403,25 @@ function oxygenGapForFuel(scenario, pool = INVESTIGATIONS) {
 function oxygenGapText(g, oxygenPct) {
   const same = g.sameFuel.slice(0, 4).map((i) => `${i.name} ${rangeLabel(i.conditions.oxygenPct, "%")}${i.conditions.oxygenPct.source === "psi-table" ? "" : " (curated estimate)"}`).join(", ");
   const others = g.otherFuel.length ? ` The profiles that reach ${oxygenPct}% burned ${[...new Set(g.otherFuel.flatMap((i) => i.fuelTypes))].filter((f) => f !== g.fuel).map((f) => f === "liquid" ? "fuel droplets" : f === "gas" ? "gas flames" : "solids").join(" or ")} (${g.otherFuel.map((i) => `${i.name} ${rangeLabel(i.conditions.oxygenPct, "%")}`).join(", ")}), not ${g.fuel} fuel.` : "";
-  return `No ${FUEL_WORD[g.fuel]} test in the PSI data goes above ${g.maxForFuel}% oxygen (${same}); your scenario is ${oxygenPct}%.${others}`;
+  return `No ${FUEL_WORD[g.fuel]} test in the PSI data goes above ${g.maxForFuel}% oxygen (${same}); your scenario is ${oxygenPct}%.${others}${saffireText(g)}`;
+}
+var SAFFIRE_SOURCE = { label: SAFFIRE_NTRS_SOURCE.label, href: SAFFIRE_NTRS_SOURCE.url };
+function saffireText(g) {
+  if (g.fuel !== "solid") return "";
+  const runs = saffireRunsAbove(g.maxForFuel);
+  if (!runs.length) return "";
+  const list = runs.map((r) => {
+    const m = r.material.split(" (")[0];
+    const material = /^[A-Z][a-z]/.test(m) ? m[0].toLowerCase() + m.slice(1) : m;
+    return `Saffire ${r.sample} (${material}) at ${r.oxygenPct.toFixed(1)}% and ${r.pressureKpa.toFixed(1)} kPa`;
+  }).join("; ");
+  return ` Outside PSI, NASA's published Saffire flights burned solid samples above that level in orbit: ${list}; all in microgravity with ${runs[0].flowCms} cm/s concurrent flow (NASA NTRS ${SAFFIRE_NTRS_SOURCE.ntrsId}). These are not PSI run tables, and EMBER does not score them.`;
 }
 function scenarioLimitations(scenario, ranked) {
   const out = [];
   const regime = gravityRegime(scenario.gravityG);
   const gap = oxygenGapForFuel(scenario);
-  if (gap) out.push({ id: "o2-fuel-gap", text: oxygenGapText(gap, scenario.oxygenPct) });
+  if (gap) out.push({ id: "o2-fuel-gap", text: oxygenGapText(gap, scenario.oxygenPct), ...saffireText(gap) ? { source: SAFFIRE_SOURCE } : {} });
   if (regime === "partial") {
     out.push({
       id: "partial-gravity",
@@ -9800,7 +9842,7 @@ function createApi(cfg) {
   let counterQueue = Promise.resolve();
   const local = /* @__PURE__ */ new Map();
   function bump(key, limit, ttlS) {
-    const run = async () => {
+    const run2 = async () => {
       const mine = local.get(key);
       const stored = await store.get(key) ?? 0;
       const count = Math.max(stored, mine && mine.until > now() ? mine.count : 0) + 1;
@@ -9812,7 +9854,7 @@ function createApi(cfg) {
       await store.set(key, count, { ttl: ttlS });
       return { ok: true, count };
     };
-    const result = counterQueue.then(run, run);
+    const result = counterQueue.then(run2, run2);
     counterQueue = result.catch(() => void 0);
     return result;
   }

@@ -159,7 +159,7 @@ export const UPCOMING: UpcomingStudy[] = [
     id: "sofie",
     name: "SoFIE · Solid Fuel Ignition and Extinction",
     closes: "exploration-atmosphere",
-    what: "Solid fuels on the ISS at oxygen levels and pressures of planned exploration atmospheres, the gap above 22.2% O₂.",
+    what: "Solid fuels on the ISS at oxygen levels and pressures of planned exploration atmospheres, the gap above 22.2% O₂ in the PSI data.",
     quote: {
       text: "The CIR chamber provides a level of containment and permits testing at variable oxygen concentrations and pressures representative of current and planned NASA space exploration atmospheres.",
       source: "NASA · Solid Fuel Ignition and Extinction (SoFIE)",

@@ -710,3 +710,6 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
   .ask-row { flex-direction: column; }
   .ask-row .btn { justify-content: center; }
 }
+
+/* Saffire IV-VI from NTRS: open diamonds, distinct from PSI run-table marks */
+.pt.pt-ntrs { fill: var(--surface); fill-opacity: 1; stroke: var(--fuel-solid); stroke-width: 2.2; }

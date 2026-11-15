@@ -1,4 +1,5 @@
 import { INVESTIGATIONS } from "../data/investigations";
+import { SAFFIRE_NTRS_SOURCE, saffireRunsAbove } from "../data/ntrs-saffire";
 import type { FuelType, Investigation } from "../data/types";
 import { CONDITION_LABELS, rangeLabel, type RankedInvestigation } from "./ranking";
 import { gravityRegime, type Scenario } from "./scenario";
@@ -56,7 +57,27 @@ export function oxygenGapText(g: OxygenGap, oxygenPct: number): string {
   const others = g.otherFuel.length
     ? ` The profiles that reach ${oxygenPct}% burned ${[...new Set(g.otherFuel.flatMap((i) => i.fuelTypes))].filter((f) => f !== g.fuel).map((f) => (f === "liquid" ? "fuel droplets" : f === "gas" ? "gas flames" : "solids")).join(" or ")} (${g.otherFuel.map((i) => `${i.name} ${rangeLabel(i.conditions.oxygenPct!, "%")}`).join(", ")}), not ${g.fuel} fuel.`
     : "";
-  return `No ${FUEL_WORD[g.fuel]} test in the PSI data goes above ${g.maxForFuel}% oxygen (${same}); your scenario is ${oxygenPct}%.${others}`;
+  return `No ${FUEL_WORD[g.fuel]} test in the PSI data goes above ${g.maxForFuel}% oxygen (${same}); your scenario is ${oxygenPct}%.${others}${saffireText(g)}`;
+}
+
+export const SAFFIRE_SOURCE = { label: SAFFIRE_NTRS_SOURCE.label, href: SAFFIRE_NTRS_SOURCE.url };
+
+/**
+ * Solid-material runs NASA has published outside PSI (Saffire IV–VI, NTRS) above the PSI ceiling.
+ * Kept as its own sentence after the PSI statement, which stays word for word.
+ */
+export function saffireText(g: OxygenGap): string {
+  if (g.fuel !== "solid") return "";
+  const runs = saffireRunsAbove(g.maxForFuel);
+  if (!runs.length) return "";
+  const list = runs
+    .map((r) => {
+      const m = r.material.split(" (")[0];
+      const material = /^[A-Z][a-z]/.test(m) ? m[0].toLowerCase() + m.slice(1) : m;
+      return `Saffire ${r.sample} (${material}) at ${r.oxygenPct.toFixed(1)}% and ${r.pressureKpa.toFixed(1)} kPa`;
+    })
+    .join("; ");
+  return ` Outside PSI, NASA's published Saffire flights burned solid samples above that level in orbit: ${list}; all in microgravity with ${runs[0].flowCms} cm/s concurrent flow (NASA NTRS ${SAFFIRE_NTRS_SOURCE.ntrsId}). These are not PSI run tables, and EMBER does not score them.`;
 }
 
 /**
@@ -68,7 +89,7 @@ export function scenarioLimitations(scenario: Scenario, ranked: RankedInvestigat
   const regime = gravityRegime(scenario.gravityG);
 
   const gap = oxygenGapForFuel(scenario);
-  if (gap) out.push({ id: "o2-fuel-gap", text: oxygenGapText(gap, scenario.oxygenPct!) });
+  if (gap) out.push({ id: "o2-fuel-gap", text: oxygenGapText(gap, scenario.oxygenPct!), ...(saffireText(gap) ? { source: SAFFIRE_SOURCE } : {}) });
 
   if (regime === "partial") {
     out.push({
@@ -234,6 +255,12 @@ export function leadInsight(scenario: Scenario, ranked: RankedInvestigation[]): 
     gaps,
     fullCoverage,
     keyFinding: gap ? oxygenGapText(gap, scenario.oxygenPct!) : undefined,
-    sources: gravityGap && regime === "partial" ? [FM2_SOURCE, CHALLENGE_SOURCE] : undefined,
+    sources: (() => {
+      const s = [
+        ...(gap && saffireText(gap) ? [SAFFIRE_SOURCE] : []),
+        ...(gravityGap && regime === "partial" ? [FM2_SOURCE, CHALLENGE_SOURCE] : []),
+      ];
+      return s.length ? s : undefined;
+    })(),
   };
 }
