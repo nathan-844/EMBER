@@ -104,25 +104,28 @@ function otherFuelWords(scenario: Scenario): string {
   return (Object.keys(words) as (keyof typeof words)[]).filter((f) => f !== scenario.fuel).map((f) => words[f]).join(" or ");
 }
 
-export function RankedList({ ranked, scenario }: { ranked: RankedInvestigation[]; scenario: Scenario }) {
+export function RankedList({ ranked, scenario, showRobustness = true }: { ranked: RankedInvestigation[]; scenario: Scenario; showRobustness?: boolean }) {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? ranked : ranked.slice(0, 5);
   return (
     <section className="card">
       <div className="section-head">
         <div>
-          <p className="eyebrow">Supporting evidence</p>
+          <p className="eyebrow">Score out of 100 · higher means a closer match to your inputs</p>
           <h3>Investigations ranked for your scenario</h3>
         </div>
-        <span className="badge">Live matching</span>
+        <span className="badge">Updates as you edit</span>
       </div>
+      <details className="fold fold-inline">
+        <summary><span>How the score works</span><span className="disclose" aria-hidden /></summary>
       <p className="small muted">
         Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside a range measured in a NASA table,
         10 inside a curated estimate, two thirds of that when just outside; equal scores list NASA-measured data first). When you set a fuel type, studies of that fuel are listed first and other
         fuels follow as analogue evidence; ranks and ties count within each group. Scores do not estimate fire probability, confidence or safety;
         unknown fields earn no points.
       </p>
-      <RobustnessBar scenario={scenario} />
+      </details>
+      {showRobustness && <RobustnessBar scenario={scenario} />}
       {ranked.length === 0 ? (
         <p className="muted">No profile addresses this question. Try including adjacent research.</p>
       ) : (

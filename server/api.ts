@@ -11,7 +11,7 @@
 //  5. Gemini itself falls through a chain of models with separate quotas (server/gemini.ts).
 import { getCache } from "@vercel/functions";
 import recorded from "../src/data/recorded-analyses.json";
-import { scenarioKey } from "../src/lib/recorded";
+import { analysisKey, cleanAsk } from "../src/lib/recorded";
 import type { Scenario } from "../src/lib/scenario";
 import { analyze, parseScenario, type AnalysisResponse } from "./analyze";
 import type { GeminiConfig } from "./gemini";
@@ -111,19 +111,27 @@ export function createApi(cfg: ApiConfig) {
     if (req.body.length > 20_000) return json(400, { error: "Invalid scenario." });
 
     let scenario: Scenario | null;
+    let ask: string | null | undefined = null;
     try {
-      scenario = parseScenario(JSON.parse(req.body));
+      const body = JSON.parse(req.body);
+      scenario = parseScenario(body);
+      ask = cleanAsk(body?.ask);
     } catch {
       scenario = null;
     }
     if (!scenario) return json(400, { error: "Invalid scenario." });
-    const key = scenarioKey(scenario);
+    if (ask === undefined) return json(400, { error: "Questions must be 3 to 300 characters." });
+    const key = analysisKey(scenario, ask);
 
     // 1. Recorded presets: instant and free, live key or not.
     const rec = RECORDED.entries[key];
     if (rec) return json(200, { ...rec, recorded: true });
     if (!enabled) {
-      return json(503, { error: "Live AI analysis is not connected here. The unedited presets show answers recorded through the same pipeline." });
+      return json(503, {
+        error: ask
+          ? "Live AI is not connected here, so typed questions cannot be answered. On the unedited presets, the suggested questions have answers recorded through the same pipeline."
+          : "Live AI analysis is not connected here. The unedited presets show answers recorded through the same pipeline.",
+      });
     }
 
     // 2. Cache of earlier live answers.
@@ -137,7 +145,7 @@ export function createApi(cfg: ApiConfig) {
       const shared = await running;
       return shared.status === 200 ? { ...shared, body: { ...(shared.body as object), cached: true } } : shared;
     }
-    const job = runLive(key, scenario, req.visitor);
+    const job = runLive(key, scenario, ask, req.visitor);
     inflight.set(key, job);
     try {
       return await job;
@@ -146,7 +154,7 @@ export function createApi(cfg: ApiConfig) {
     }
   }
 
-  async function runLive(key: string, scenario: Scenario, visitor: string): Promise<ApiResponse> {
+  async function runLive(key: string, scenario: Scenario, ask: string | null, visitor: string): Promise<ApiResponse> {
     // 4. Rate limits (only live calls count).
     const windowIndex = Math.floor(now() / 1000 / windowS);
     const day = new Date(now()).toISOString().slice(0, 10);
@@ -165,7 +173,7 @@ export function createApi(cfg: ApiConfig) {
     }
 
     // 5. Live call (Gemini model chain inside).
-    const out = await analyze({ ...cfg, apiKey: cfg.apiKey! }, scenario);
+    const out = await analyze({ ...cfg, apiKey: cfg.apiKey! }, scenario, ask);
     if ("error" in out) return json(out.status, { error: out.error, tried: out.tried });
     if (out.report.verdict !== "rejected") await store.set(`answer:${key}`, out, { ttl });
     return json(200, out);

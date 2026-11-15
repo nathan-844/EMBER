@@ -1,11 +1,38 @@
 import { describe, expect, it } from "vitest";
 import recorded from "../data/recorded-analyses.json";
-import { scenarioKey } from "./recorded";
+import { analysisKey, ASK_MAX, cleanAsk, scenarioKey, SUGGESTED_ASKS } from "./recorded";
 import { PRESETS, presetScenario } from "./scenario";
 
 const entries = Object.entries((recorded as { entries: Record<string, any> }).entries);
 const questions = ["prevention", "detection", "suppression"] as const;
-const presetKeys = new Set(PRESETS.flatMap((p) => questions.map((q) => scenarioKey({ ...presetScenario(p.id), question: q }))));
+// Plain analyses for every preset and safety question, plus the suggested "Ask EMBER" questions.
+const presetKeys = new Set(
+  PRESETS.flatMap((p) => questions.flatMap((q) => {
+    const s = { ...presetScenario(p.id), question: q };
+    return [scenarioKey(s), ...SUGGESTED_ASKS.map((a) => analysisKey(s, a))];
+  })),
+);
+
+describe("Ask EMBER questions", () => {
+  it("tidies whitespace and control characters, and treats blank as no question", () => {
+    expect(cleanAsk("  Why\n\tBASS-II?  ")).toBe("Why BASS-II?");
+    expect(cleanAsk("   ")).toBeNull();
+    expect(cleanAsk(undefined)).toBeNull();
+  });
+
+  it("rejects non-strings, very short and over-long questions", () => {
+    expect(cleanAsk(42)).toBeUndefined();
+    expect(cleanAsk("ok")).toBeUndefined();
+    expect(cleanAsk("x".repeat(ASK_MAX + 1))).toBeUndefined();
+  });
+
+  it("keys a question apart from the plain analysis, ignoring case", () => {
+    const s = presetScenario("iss");
+    expect(analysisKey(s, null)).toBe(scenarioKey(s));
+    expect(analysisKey(s, "Why BASS-II?")).not.toBe(scenarioKey(s));
+    expect(analysisKey(s, "Why BASS-II?")).toBe(analysisKey(s, "why bass-ii?"));
+  });
+});
 
 describe("recorded analyses", () => {
   it("are keyed only by unedited presets, so a replay always matches what the user sees", () => {

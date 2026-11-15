@@ -30,6 +30,27 @@ describe("limitations", () => {
     expect(leadInsight(s, rankInvestigations(s))!.keyFinding).toBe(gap?.text);
   });
 
+  it("adds the published Saffire V-VI runs (NTRS) after the PSI statement, labelled and unscored", () => {
+    const s = presetScenario("lunar-habitat");
+    const gap = scenarioLimitations(s, rankInvestigations(s)).find((l) => l.id === "o2-fuel-gap")!;
+    const psiEnd = gap.text.indexOf("not solid fuel.");
+    const ntrs = gap.text.indexOf("Outside PSI");
+    expect(psiEnd).toBeGreaterThan(0);
+    expect(ntrs).toBeGreaterThan(psiEnd);
+    expect(gap.text).toContain("Saffire VI-2 (SIBAL cloth) at 31.0% and 54.1 kPa");
+    expect(gap.text).toContain("Saffire V-2 (cotton jersey) at 26.2% and 70.7 kPa");
+    expect(gap.text).not.toContain("IV-1"); // 22.0% is not above the 22.2% PSI ceiling
+    expect(gap.text).toMatch(/NTRS 20240002981.*not PSI run tables, and EMBER does not score them/);
+    expect(gap.source?.href).toBe("https://ntrs.nasa.gov/citations/20240002981");
+    expect(leadInsight(s, rankInvestigations(s))!.sources?.[0].href).toBe(gap.source?.href);
+  });
+
+  it("does not mention Saffire for droplet or gas-flame fuels", () => {
+    const s = { ...presetScenario("lunar-habitat"), fuel: "liquid" as const, oxygenPct: 45 };
+    const gap = scenarioLimitations(s, rankInvestigations(s)).find((l) => l.id === "o2-fuel-gap");
+    expect(gap?.text ?? "").not.toContain("Saffire V");
+  });
+
   it("cites NASA for the partial-gravity caveat and does not claim the 0 g/1 g bound fails", () => {
     const s = presetScenario("lunar-habitat");
     const pg = scenarioLimitations(s, rankInvestigations(s)).find((l) => l.id === "partial-gravity")!;

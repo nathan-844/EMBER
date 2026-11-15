@@ -1,5 +1,5 @@
 {
-  "recordedOn": "2026-11-14",
+  "recordedOn": "2026-11-15",
   "entries": {
     "[\"iss\",\"prevention\",21,14.7,0,0.1,\"solid\",null,null,null,true]": {
       "model": "gemini-3.5-flash",
@@ -2527,6 +2527,3396 @@
           "specified": 5
         }
       ]
+    },
+    "[\"iss\",\"prevention\",21,14.7,0,0.1,\"solid\",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:06:49.747Z",
+      "ms": 3214,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "BASS-II is ranked first because it matches all five specified conditions in your scenario, including oxygen, pressure, gravity, airflow, and fuel type. The evidence cannot answer how specific unspecified materials or thicknesses in your scenario would behave, as these parameters were not fully defined.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Reported finding",
+            "text": "BASS-II is the top-ranked investigation because it matches all five of the specified conditions in the scenario: oxygen, pressure, gravity, airflow, and fuel type.",
+            "implication": "This investigation provides the most relevant experimental data for the conditions defined in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:ranking",
+                "label": "BASS-II ranking result",
+                "origin": "ember",
+                "excerpt": "BASS-II (Burning and Suppression of Solids II) is ranked 1 with 85 of 100 points: question 25 (direct), conditions 60. 5 of 5 specified conditions match."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II tests were conducted at an initial oxygen concentration of 21% by volume.",
+            "implication": "These tests align with the 21% oxygen concentration specified in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row10",
+                "label": "BASS-II · NASA PSI-25-0 row 10",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The evidence does not cover the specific material or sample thickness for your scenario, and these factors can significantly alter flame spread and extinction behavior.",
+            "implication": "Results from tested materials like PMMA or fabric cannot be directly applied to your unspecified material without further analysis.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              },
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The flow direction in your scenario is unspecified, and the evidence shows that flame behavior varies significantly between opposed, concurrent, and still-air conditions.",
+            "implication": "The lack of a defined flow direction limits the ability to predict how a fire might spread in your specific environment.",
+            "citations": [
+              {
+                "source": "limitation:flow-dir",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Flow direction is unspecified. Opposed, concurrent and still-air results are not automatically transferable."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does the specific material in the scenario compare to the flammability characteristics of PMMA, Nomex, or cotton-fiberglass fabric?",
+          "What is the effect of the unspecified sample thickness on flame spread rates in the defined 0.1 m/s airflow?",
+          "How does the fire behavior change if the flow direction is concurrent versus opposed in this specific environment?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 7,
+          "nasaExcerpts": 3,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 4,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 3
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 85,
+          "relevance": "direct",
+          "matched": 5,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        }
+      ],
+      "ask": "Why is the top match ranked first, and what does it not cover?"
+    },
+    "[\"iss\",\"prevention\",21,14.7,0,0.1,\"solid\",null,null,null,true]|ask:which gaps in the evidence matter most for this scenario?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:06:58.277Z",
+      "ms": 3475,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The evidence cannot fully address your scenario because material identity, thickness, and flow direction are unspecified, and these factors significantly influence flame spread and extinction. Additionally, while BASS-II matches your environmental conditions, the available data does not confirm that all specified conditions were tested simultaneously.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Measured data",
+            "text": "BASS-II tests included PMMA films with thicknesses of 0.1 mm and 0.2 mm at 21% oxygen.",
+            "implication": "These measurements provide specific data points for thin PMMA films, but they do not represent the unspecified material or thickness in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Fuel Sample Material: 2 cm 0.1 mm PMMA film"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Fuel Sample Material: 2 cm 0.2 mm PMMA film"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The evidence lacks data for your specific, unspecified material.",
+            "implication": "Because different materials exhibit unique combustion characteristics, results from tested materials like PMMA or Nomex cannot be assumed to apply to your scenario.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The evidence does not account for the effect of your unspecified sample thickness.",
+            "implication": "Flame spread rates and extinction limits are highly dependent on sample thickness, meaning the provided research may not reflect the fire behavior of your specific configuration.",
+            "citations": [
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The evidence does not specify a flow direction, which is a critical variable in microgravity combustion.",
+            "implication": "Since concurrent and opposed flows produce different flame spread dynamics, the lack of a defined flow direction in your scenario limits the applicability of the existing experimental data.",
+            "citations": [
+              {
+                "source": "limitation:flow-dir",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Flow direction is unspecified. Opposed, concurrent and still-air results are not automatically transferable."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "The experimental ranges provided in the evidence represent the bounds of testing rather than a single, unified set of conditions.",
+            "implication": "It cannot be assumed that the specific combination of 21% oxygen, 14.7 psia, and 0.1 m/s airflow was tested as a single integrated condition in the cited investigations.",
+            "citations": [
+              {
+                "source": "limitation:joint",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Shared hardware and overlapping ranges do not establish that all selected conditions were tested together."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does the specific material in the scenario respond to 0.1 m/s airflow in microgravity?",
+          "What is the effect of the unspecified sample thickness on flame spread at 21% oxygen?",
+          "Does the fire behavior change significantly if the flow direction is concurrent versus opposed in this specific environment?",
+          "Are there experimental results for this specific material at 14.7 psia and 21% oxygen?"
+        ],
+        "receipt": {
+          "claims": 5,
+          "acceptedClaims": 5,
+          "excerpts": 6,
+          "nasaExcerpts": 2,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 4,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 2
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 85,
+          "relevance": "direct",
+          "matched": 5,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        }
+      ],
+      "ask": "Which gaps in the evidence matter most for this scenario?"
+    },
+    "[\"iss\",\"prevention\",21,14.7,0,0.1,\"solid\",null,null,null,true]|ask:what does this evidence mean for fire detection or suppression equipment?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:07:01.493Z",
+      "ms": 3214,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "NASA microgravity investigations provide data on flame spread, growth, and extinction for solid fuels to inform the design of fire detection and suppression systems. The evidence does not provide specific engineering thresholds or procedures for your scenario.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Equipment implication",
+            "text": "BASS-II results are intended to contribute to combustion computational models.",
+            "implication": "These models are intended to support the design of fire detection and suppression systems, rather than providing direct operational settings.",
+            "citations": [
+              {
+                "source": "bass-ii:objectives",
+                "label": "PSI-25 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "BASS-II results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Reported finding",
+            "text": "BASS assessed the effectiveness of inert, gaseous extinguishing agents.",
+            "implication": "Research into extinguishing agents focuses on material and geometry interactions rather than specific suppression system activation thresholds.",
+            "citations": [
+              {
+                "source": "bass:objectives",
+                "label": "PSI-26 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "Assess the effectiveness of an inert, gaseous extinguishing agent (similar to that used on ISS) in putting out flames over different materials, geometries, preheating, and flow."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II tests recorded initial and final concentrations of O2, CO2, and CO during PMMA film combustion.",
+            "implication": "These measurements provide data on combustion byproducts in microgravity, which may inform the sensitivity requirements for fire detection sensors.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21; Calibrated final O2 % by vol: 20.9; Initial CO2 % by vol: 0.33; Final CO2 % by vol: 0.41; Initial CO (ppm): 0"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21; Calibrated final O2 % by vol: 20.5; Initial CO2 % by vol: 0.33; Final CO2 % by vol: 0.58; Initial CO (ppm): 0; Final CO (ppm): 131"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The evidence does not specify the material or thickness for your scenario.",
+            "implication": "Because flame spread and extinction are sensitive to material type and thickness, the provided data cannot be directly applied to your specific fire safety scenario.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              },
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "What is the specific material and thickness of the solid fuel in the scenario?",
+          "What is the required airflow direction for the fire safety analysis?",
+          "How do the specific fire detection sensor types in the scenario compare to the sensors used in the cited NASA investigations?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 6,
+          "nasaExcerpts": 4,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 2,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 2
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 85,
+          "relevance": "direct",
+          "matched": 5,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        }
+      ],
+      "ask": "What does this evidence mean for fire detection or suppression equipment?"
+    },
+    "[\"lunar-habitat\",\"prevention\",30,10.2,0.166,0.05,\"solid\",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:07:05.350Z",
+      "ms": 3854,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "BASS-II is ranked first because it directly investigates solid-fuel flame spread and extinction in microgravity using hardware and airflow conditions that match the scenario. However, the evidence cannot address the scenario's 30% oxygen concentration, 0.166 g gravity, or the specific material and thickness, as these fall outside the tested ranges or are not covered by the investigation.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Reported finding",
+            "text": "BASS-II is ranked tied for first place because it directly addresses the research question and matches the scenario's fuel type and airflow conditions.",
+            "implication": "The ranking reflects the alignment of experimental objectives and specific test conditions with the user's scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:ranking",
+                "label": "BASS-II ranking result",
+                "origin": "ember",
+                "excerpt": "BASS-II (Burning and Suppression of Solids II) is ranked tied 1 with 50 of 100 points: question 25 (direct), conditions 25. 2 of 5 specified conditions match. Oxygen: outside; Pressure: outside; Gravity: outside; Airflow: match; Fuel type: match."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "The highest oxygen concentration tested for solid fuels in BASS-II is 22.2 vol %.",
+            "implication": "The scenario's 30 vol % oxygen level is outside the range of solid-fuel combustion data provided by this investigation.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is currently no partial-gravity combustion data available in the PSI records.",
+            "implication": "The 0.166 g lunar gravity environment of the scenario is not represented in the existing microgravity or Earth-based datasets.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "The investigation results are sensitive to specific material types and sample thicknesses.",
+            "implication": "Because the scenario does not specify the fuel material or thickness, the available experimental data cannot be directly applied to predict behavior.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              },
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 30 vol % oxygen affect the flammability limits of solid materials compared to the 22.2 vol % limit tested in microgravity?",
+          "What are the flame spread characteristics of solid materials in 0.166 g lunar gravity?",
+          "How do specific material properties and thicknesses influence fire growth in a 10.2 psia, 30% oxygen environment?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 6,
+          "nasaExcerpts": 1,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 5,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 1
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "Why is the top match ranked first, and what does it not cover?"
+    },
+    "[\"lunar-habitat\",\"prevention\",30,10.2,0.166,0.05,\"solid\",null,null,null,true]|ask:what has nasa measured closest to my oxygen and pressure?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:07:08.388Z",
+      "ms": 3034,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "NASA has not measured solid-fuel combustion at your specific 30% oxygen and 10.2 psia pressure. The closest solid-fuel measurements in the PSI database are from BASS-II at 22.2% oxygen and approximately 14.2–14.9 psia, while FLEX-2 has measured liquid droplets at 30% oxygen and pressures ranging from 7.35 to 44.09 psia.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Measured data",
+            "text": "BASS-II solid-fuel tests were conducted at 22.2% oxygen and an estimated pressure of 14.2–14.9 psia.",
+            "implication": "These conditions are the closest solid-fuel test points to your scenario, but they remain outside your specified 30% oxygen and 10.2 psia environment.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                "source": "bass-ii:pressurePsi",
+                "label": "BASS-II pressure range",
+                "origin": "ember",
+                "excerpt": "BASS-II pressure curated estimate 14.2–14.9 psia."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "FLEX-2 droplet combustion experiments were conducted at oxygen levels up to 30% and pressures ranging from 7.35 to 44.09 psia.",
+            "implication": "While these tests match your oxygen level, they involve liquid fuel droplets rather than the solid fuel in your scenario.",
+            "citations": [
+              {
+                "source": "flex-2:row2",
+                "label": "FLEX-2 · NASA PSI-68-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Oxygen Mole Fraction: 0.17; 0.21;0.25; 0.3"
+              },
+              {
+                "source": "flex-2:pressurePsi",
+                "label": "FLEX-2 pressure range",
+                "origin": "derived",
+                "excerpt": "FLEX-2 pressure range 7.35–44.09 psia."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is no solid-material combustion data in the PSI database for oxygen concentrations above 22.2%.",
+            "implication": "The flammability behavior of solid materials at 30% oxygen is not represented in the current solid-fuel microgravity dataset.",
+            "citations": [
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The PSI database contains no combustion data for partial-gravity environments such as 0.166 g.",
+            "implication": "Microgravity and 1 g results may not be conservative for lunar-gravity fire safety, as materials may burn at lower oxygen concentrations in partial gravity.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does solid-fuel flame spread change at 30% oxygen and 10.2 psia compared to 22.2% oxygen and 14.7 psia?",
+          "What are the ignition and extinction characteristics of solid materials in 0.166 g?",
+          "Does the lack of airflow at 30% oxygen lead to sustained combustion for solid materials as observed in gas-burner emulators?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 6,
+          "nasaExcerpts": 2,
+          "derivedExcerpts": 1,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 2
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "What has NASA measured closest to my oxygen and pressure?"
+    },
+    "[\"lunar-rover\",\"prevention\",30,10.2,0.166,0.1,\"solid\",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:07:17.058Z",
+      "ms": 2790,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "BASS-II is ranked first because it matches the user's airflow and fuel type requirements, though it does not cover the 30% oxygen, 10.2 psia pressure, or 0.166 g gravity conditions of the lunar-rover scenario. The evidence cannot answer how solid materials behave at these specific lunar-rover conditions, as current PSI data is limited to microgravity and lower oxygen concentrations.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Reported finding",
+            "text": "BASS-II is ranked first because it directly addresses the user's fuel type and airflow conditions.",
+            "implication": "The ranking reflects the alignment of experimental parameters with the scenario, but does not imply that the investigation covers the full range of the scenario's environmental conditions.",
+            "citations": [
+              {
+                "source": "bass-ii:ranking",
+                "label": "BASS-II ranking result",
+                "origin": "ember",
+                "excerpt": "BASS-II (Burning and Suppression of Solids II) is ranked tied 1 with 50 of 100 points: question 25 (direct), conditions 25. 2 of 5 specified conditions match. Oxygen: outside; Pressure: outside; Gravity: outside; Airflow: match; Fuel type: match."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The 30% oxygen concentration in the scenario exceeds the maximum 22.2% oxygen level tested in BASS-II.",
+            "implication": "Fire behavior at 30% oxygen cannot be determined from the existing solid-material microgravity datasets.",
+            "citations": [
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen (BASS-II 13.6–22.2%, Saffire-II 21.5–22.1%, Saffire-I 21.5–21.7%, Saffire-III 20.5–21.5% (curated estimate)); your scenario is 30%."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is no combustion data available for the 0.166 g gravity environment specified in the scenario.",
+            "implication": "Microgravity and Earth-gravity data may not reliably predict fire behavior in lunar gravity.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "The highest oxygen concentration recorded in the BASS-II run table is 22.2 vol %.",
+            "implication": "The scenario's 30% oxygen level is outside the range of the provided BASS-II experimental data.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                "source": "bass-ii:row4",
+                "label": "BASS-II · NASA PSI-25-0 row 4",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does a 30% oxygen atmosphere affect the ignition and flame spread of solid materials compared to the 22.2% maximum tested in microgravity?",
+          "What are the specific flame spread characteristics of solid materials at 0.166 g?",
+          "How does the 10.2 psia pressure environment influence fire suppression effectiveness for solid materials?",
+          "Does the lack of specified fuel material and thickness in the scenario prevent accurate fire safety assessment based on existing BASS-II data?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 5,
+          "nasaExcerpts": 2,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 2
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "Why is the top match ranked first, and what does it not cover?"
+    },
+    "[\"lunar-rover\",\"prevention\",30,10.2,0.166,0.1,\"solid\",null,null,null,true]|ask:what has nasa measured closest to my oxygen and pressure?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:07:19.438Z",
+      "ms": 2377,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "NASA has not measured solid-fuel combustion at your specific 30% oxygen and 10.2 psia pressure. The closest oxygen measurement for solid fuels is 22.2% in BASS-II, while BRE gas-burner experiments have reached 40% oxygen.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Measured data",
+            "text": "BASS-II measured solid-fuel combustion at an initial oxygen concentration of 22.2 vol %.",
+            "implication": "This is the highest oxygen concentration recorded for solid-fuel tests in the provided PSI data, which remains below your 30% oxygen scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "The Burning Rate Emulator (BRE) investigation measured gas-burner combustion at oxygen concentrations of 21, 26.5, and 40 vol %.",
+            "implication": "While these tests reach your 30% oxygen level, they utilize gaseous fuel emulators rather than solid materials.",
+            "citations": [
+              {
+                "source": "acme-bre:row2",
+                "label": "BRE · NASA PSI-20-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Oxygen Conc (percent): 21; 26.5; 40"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is a lack of experimental data for solid-fuel combustion at 30% oxygen in microgravity.",
+            "implication": "Results for solid-fuel flammability at 30% oxygen are currently based on extrapolation rather than direct measurement.",
+            "citations": [
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              },
+              {
+                "source": "limitation:lead-o2-outside",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Selected oxygen is outside the 13.6–22.2% recorded in the PSI run table for BASS-II; the nearest tested value is 22.2%."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The provided PSI run tables do not explicitly identify chamber pressures for the recorded tests.",
+            "implication": "The influence of 10.2 psia pressure on flame behavior cannot be determined from the current evidence package.",
+            "citations": [
+              {
+                "source": "limitation:pressure-unknown",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "6 ranked profile(s) have no normalized pressure; that is not evidence of pressure independence."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 30% oxygen affect the ignition and flame spread of solid materials compared to the 22.2% limit tested in BASS-II?",
+          "What are the specific pressure conditions for the BASS-II and Saffire test runs?",
+          "How does 0.166 g lunar gravity influence flame spread compared to the 0 g microgravity data provided?",
+          "Does the 10.2 psia pressure environment significantly alter the flammability limits observed at 14.7 psia?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 5,
+          "nasaExcerpts": 2,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 2
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "What has NASA measured closest to my oxygen and pressure?"
+    },
+    "[\"lunar-rover\",\"prevention\",30,10.2,0.166,0.1,\"solid\",null,null,null,true]|ask:which gaps in the evidence matter most for this scenario?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:07:24.255Z",
+      "ms": 4812,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The evidence lacks solid-material combustion data at your 30% oxygen and 0.166 g lunar gravity conditions, as existing NASA microgravity investigations are limited to 22.2% oxygen and 0 g. These gaps prevent direct application of the findings to your specific lunar-rover environment.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Research gap",
+            "text": "NASA solid-fuel investigations have not tested oxygen concentrations at the 30% level specified in your scenario.",
+            "implication": "The flammability and extinction behavior of materials at 30% oxygen cannot be determined from the current solid-fuel microgravity database.",
+            "citations": [
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              },
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is a lack of combustion data for partial-gravity environments such as the 0.166 g specified.",
+            "implication": "Microgravity and 1 g data may not conservatively bound fire behavior in lunar gravity, as materials may burn at lower oxygen concentrations in partial gravity.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Equipment implication",
+            "text": "NASA has examined fire behavior in atmospheres with 26.5% and 34% oxygen, which are closer to your 30% oxygen scenario than standard 21% air.",
+            "implication": "These investigations provide a basis for studying fire behavior in elevated-oxygen environments, though they utilize gaseous fuel emulators rather than solid materials.",
+            "citations": [
+              {
+                "source": "acme-bre:objectives",
+                "label": "PSI-20 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "NASA - considered atmosphere for human space missions will be examined: 14.7 psia, 21 % oxygen: 10.2 psia, 26.5 %; and 8.2 psia, 34 % oxygen."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "NASA investigations have tested specific materials such as PMMA film and SIBAL fabric at 0.2 m/s airflow.",
+            "implication": "These results are specific to the tested materials and thicknesses and cannot be generalized to your unspecified material.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Fuel Sample Material: 100 micron PMMA film 2 cm wide"
+              },
+              {
+                "source": "saffire-i:row2",
+                "label": "Saffire-I · NASA PSI-98-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Material: SIBAL Fabric; Sample Thickness (cm): 0.37"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 0.166 g gravity affect flame spread rates compared to 0 g and 1 g?",
+          "What are the flammability limits of your specific material at 30% oxygen and 10.2 psia?",
+          "Does the 0.1 m/s airflow in your scenario promote or suppress flame spread for your specific material?",
+          "How do the ignition and extinction characteristics of your material change in a 30% oxygen environment?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 6,
+          "nasaExcerpts": 4,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 2,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 3
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "Which gaps in the evidence matter most for this scenario?"
+    },
+    "[\"mars-habitat\",\"prevention\",21,14.7,0.38,0.05,\"solid\",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:07:31.862Z",
+      "ms": 2696,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "BASS-II is ranked first because it matches 4 of 5 specified conditions, including oxygen, pressure, airflow, and fuel type. The evidence cannot answer how fire behaves at 0.38 g, as current investigations are limited to microgravity and 1 g environments.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Reported finding",
+            "text": "BASS-II is ranked first because it aligns with the scenario's oxygen, pressure, airflow, and fuel type requirements.",
+            "implication": "The ranking reflects the high degree of overlap between the investigation's test parameters and the scenario's defined environment.",
+            "citations": [
+              {
+                "source": "bass-ii:ranking",
+                "label": "BASS-II ranking result",
+                "origin": "ember",
+                "excerpt": "BASS-II (Burning and Suppression of Solids II) is ranked 1 with 75 of 100 points: question 25 (direct), conditions 50. 4 of 5 specified conditions match."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is a lack of combustion data for partial-gravity environments like the 0.38 g specified in the scenario.",
+            "implication": "Microgravity and 1 g data may not be conservative for predicting fire behavior in a Mars-habitat environment.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II experiments were conducted at an initial oxygen concentration of 21 vol %.",
+            "implication": "These runs provide data at the same oxygen concentration as the scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row10",
+                "label": "BASS-II · NASA PSI-25-0 row 10",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "The evidence does not account for the specific material or thickness of the fuel in the scenario.",
+            "implication": "Because flame spread and extinction are sensitive to material properties and sample thickness, the provided results may not directly represent the scenario's specific fuel configuration.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              },
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does flame spread behavior change at 0.38 g compared to microgravity?",
+          "What is the flammability limit for the specific material and thickness used in the habitat?",
+          "How does the specified airflow of 0.05 m/s affect flame growth for the specific fuel geometry?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 7,
+          "nasaExcerpts": 3,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 4,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 3
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 75,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "Why is the top match ranked first, and what does it not cover?"
+    },
+    "[\"mars-habitat\",\"prevention\",21,14.7,0.38,0.05,\"solid\",null,null,null,true]|ask:what has nasa measured closest to my oxygen and pressure?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:08:09.177Z",
+      "ms": 5015,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "NASA has measured solid-fuel combustion at 21 vol % oxygen and approximately 14.7 psia in the BASS-II investigation. These conditions align with your specified oxygen and pressure levels.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Measured data",
+            "text": "BASS-II investigations recorded initial oxygen concentrations of 21 vol %.",
+            "implication": "These tests provide data at the exact oxygen concentration specified in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row10",
+                "label": "BASS-II · NASA PSI-25-0 row 10",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II tests were conducted at 14.7 psia, which is the standard sea-level pressure used for these experiments.",
+            "implication": "The pressure conditions in these tests match the 14.7 psia specified in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Date: 7/7/2014; GMT: 188; Sample #: 153m; Fuel Sample Material: 2 cm 0.1 mm PMMA film"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "NASA has not yet conducted combustion investigations in partial-gravity environments.",
+            "implication": "While oxygen and pressure conditions may match, the 0.38 g gravity environment of Mars is not represented in the current experimental data.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "The specific material and thickness for your scenario are not defined.",
+            "implication": "Because flame spread and extinction are sensitive to fuel type and thickness, results from specific materials like PMMA or fabric cannot be directly applied to your unspecified material.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              },
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does the 0.38 g gravity environment of Mars affect flame spread compared to the 0 g data collected in BASS-II?",
+          "What is the specific material and thickness of the fuel in your scenario?",
+          "What is the intended flow direction for the fire scenario?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 7,
+          "nasaExcerpts": 4,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 4
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 75,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "What has NASA measured closest to my oxygen and pressure?"
+    },
+    "[\"mars-habitat\",\"prevention\",21,14.7,0.38,0.05,\"solid\",null,null,null,true]|ask:which gaps in the evidence matter most for this scenario?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:08:29.857Z",
+      "ms": 5662,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The evidence lacks data for partial gravity (0.38 g) and the specific material, thickness, and flow direction of your scenario. These gaps are critical because flame spread and extinction behavior in microgravity are sensitive to these parameters and cannot be assumed to bound behavior at 0.38 g.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Research gap",
+            "text": "There is no combustion data available for partial-gravity environments such as 0.38 g.",
+            "implication": "Microgravity and 1 g data may not conservatively predict fire behavior at 0.38 g, as materials may exhibit different flammability limits in partial gravity.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The specific material for the scenario is unspecified, and existing NASA investigation results for different materials are not interchangeable.",
+            "implication": "Fire safety considerations must be material-specific, as different solid fuels exhibit distinct flame spread and extinction characteristics.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "Sample thickness is not defined in the scenario, which is a key variable in combustion experiments.",
+            "implication": "Flame spread rates and extinction limits are dependent on material thickness, meaning results from thin films or thick slabs may not apply to the scenario.",
+            "citations": [
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The flow direction relative to the flame is unspecified in the scenario.",
+            "implication": "Because opposed, concurrent, and quiescent flow conditions produce different flame behaviors, the lack of a defined flow direction limits the applicability of existing experimental data.",
+            "citations": [
+              {
+                "source": "limitation:flow-dir",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Flow direction is unspecified. Opposed, concurrent and still-air results are not automatically transferable."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II investigations have conducted tests at 21 vol % oxygen.",
+            "implication": "This matches the oxygen concentration in the scenario, allowing for potential comparison of flame behavior at this specific concentration.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row10",
+                "label": "BASS-II · NASA PSI-25-0 row 10",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 0.38 g gravity specifically alter the flame spread rate compared to 0 g and 1 g?",
+          "What is the specific material and thickness of the fuel in the habitat?",
+          "What is the orientation of the airflow relative to the fuel surface?",
+          "Are there validated computational models that can interpolate between 0 g and 1 g for this specific material?"
+        ],
+        "receipt": {
+          "claims": 5,
+          "acceptedClaims": 5,
+          "excerpts": 7,
+          "nasaExcerpts": 3,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 4,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 3
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 75,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "Which gaps in the evidence matter most for this scenario?"
+    },
+    "[\"mars-habitat\",\"prevention\",21,14.7,0.38,0.05,\"solid\",null,null,null,true]|ask:what does this evidence mean for fire detection or suppression equipment?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:08:51.859Z",
+      "ms": 6995,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "NASA microgravity investigations provide data on solid-fuel flame spread and extinction to inform the design of fire detection and suppression systems, but they do not provide specific equipment requirements or procedures. The evidence cannot answer how these results apply to the 0.38 g environment of a Mars habitat, as current data is limited to microgravity and 1 g conditions.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Equipment implication",
+            "text": "BASS-II results are intended to contribute to combustion computational models for fire detection and suppression system design.",
+            "implication": "These models may be used to inform the design process, but the evidence does not provide specific equipment settings or performance thresholds.",
+            "citations": [
+              {
+                "source": "bass-ii:objectives",
+                "label": "PSI-25 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "BASS-II results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Reported finding",
+            "text": "BASS investigated the effectiveness of inert, gaseous extinguishing agents on flames over various materials and geometries.",
+            "implication": "This research helps characterize how suppression agents interact with flames in microgravity, which is a consideration for system design.",
+            "citations": [
+              {
+                "source": "bass:objectives",
+                "label": "PSI-26 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "Assess the effectiveness of an inert, gaseous extinguishing agent (similar to that used on ISS) in putting out flames over different materials, geometries, preheating, and flow."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II tests were conducted at 21 vol % oxygen, with final oxygen concentrations ranging from 20.5 to 20.9 vol %.",
+            "implication": "These values represent the oxygen environment during specific microgravity combustion tests and can be compared against the 21 vol % oxygen level in the scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21; Calibrated final O2 % by vol: 20.9"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21; Calibrated final O2 % by vol: 20.5"
+              },
+              {
+                "source": "bass-ii:row10",
+                "label": "BASS-II · NASA PSI-25-0 row 10",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21; Calibrated final O2 % by vol: 20.9"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is currently no partial-gravity combustion data available in the PSI records.",
+            "implication": "The 0.38 g gravity environment of the Mars habitat is not represented in the current evidence, and microgravity data may not be conservative for this scenario.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How do flame spread and extinction behavior change at 0.38 g compared to microgravity?",
+          "What are the specific material flammability characteristics for the unspecified fuel in the Mars habitat scenario?",
+          "How does the unspecified sample thickness affect fire growth and suppression requirements?",
+          "What are the effects of the unspecified flow direction on flame spread in the habitat?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 6,
+          "nasaExcerpts": 5,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 1,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 3
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 75,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 60,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "What does this evidence mean for fire detection or suppression equipment?"
+    },
+    "[\"spacesuit\",\"prevention\",100,4.3,0.166,0,\"solid\",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:09:12.304Z",
+      "ms": 5429,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "BASS-II is ranked first because it matches the scenario's fuel type and airflow, but the evidence cannot answer your question for a 100% oxygen, 4.3 psia, 0.166 g environment because all solid-material tests were conducted at lower oxygen levels, near-sea-level pressures, and in microgravity.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Comparison",
+            "text": "BASS-II and BASS are both ranked tied for first place with 50 points, as both investigations utilize the same hardware and fuel types relevant to the scenario.",
+            "implication": "The ranking prioritizes the experimental platform and fuel type, but does not indicate that the results are directly applicable to the specific environmental conditions of your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:ranking",
+                "label": "BASS-II ranking result",
+                "origin": "ember",
+                "excerpt": "BASS-II (Burning and Suppression of Solids II) is ranked tied 1 with 50 of 100 points"
+              },
+              {
+                "source": "bass:ranking",
+                "label": "BASS ranking result",
+                "origin": "ember",
+                "excerpt": "BASS (Burning and Suppression of Solids) is ranked tied 1 with 50 of 100 points"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "The highest oxygen concentration tested for solid materials in BASS-II is 22.2% by volume.",
+            "implication": "The 100% oxygen environment in your scenario is significantly outside the range of experimental data available for solid materials.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is currently no partial-gravity combustion data in the PSI records.",
+            "implication": "The 0.166 g environment cannot be characterized using existing microgravity or 1 g data, and current findings may not be conservative for lunar gravity.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Equipment implication",
+            "text": "NASA investigations have examined atmospheres ranging from 14.7 psia at 21% oxygen to 8.2 psia at 34% oxygen.",
+            "implication": "The 4.3 psia and 100% oxygen environment falls outside the range of atmospheres explicitly examined in the BRE flight program.",
+            "citations": [
+              {
+                "source": "acme-bre:objectives",
+                "label": "PSI-20 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "NASA - considered atmosphere for human space missions will be examined: 14.7 psia, 21 % oxygen: 10.2 psia, 26.5 %; and 8.2 psia, 34 % oxygen."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 100% oxygen at 4.3 psia affect the ignition and flame spread of specific solid materials compared to 21% oxygen at 14.7 psia?",
+          "What are the flame extinction characteristics for solid materials in 0.166 g?",
+          "Does the lack of airflow effectively suppress fires in a 100% oxygen, 4.3 psia environment?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 5,
+          "nasaExcerpts": 2,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 1
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 35,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "Why is the top match ranked first, and what does it not cover?"
+    },
+    "[\"spacesuit\",\"prevention\",100,4.3,0.166,0,\"solid\",null,null,null,true]|ask:what has nasa measured closest to my oxygen and pressure?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:09:31.780Z",
+      "ms": 4466,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "NASA has not measured solid-material combustion at 100% oxygen or 4.3 psia. The closest oxygen concentration tested for solid materials is 22.2 vol % in BASS-II, and the pressure range for BASS-II tests is not explicitly recorded in the run-table rows.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Measured data",
+            "text": "The BASS-II investigation recorded a test with an initial oxygen concentration of 22.2 vol %.",
+            "implication": "This value is the closest tested oxygen concentration to the 100 vol % specified in the scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is no solid-material combustion data in the PSI records for oxygen concentrations above 22.2 vol %.",
+            "implication": "The flammability and flame spread behavior of materials in a 100 vol % oxygen environment cannot be characterized using existing solid-fuel microgravity data.",
+            "citations": [
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The PSI run tables for the ranked investigations do not provide normalized pressure data for the tests.",
+            "implication": "The effect of the 4.3 psia pressure on flame behavior in this scenario cannot be assessed from the available run-table data.",
+            "citations": [
+              {
+                "source": "limitation:pressure-unknown",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "6 ranked profile(s) have no normalized pressure; that is not evidence of pressure independence."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "In elevated-oxygen environments, flames can sustain combustion without forced airflow, whereas they may self-extinguish at 21% oxygen.",
+            "implication": "Ventilation control may be less effective for fire suppression in high-oxygen environments compared to standard cabin air.",
+            "citations": [
+              {
+                "source": "limitation:ventilation-high-o2",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "NASA's BRE record reports flames that kept burning without airflow in elevated-oxygen atmospheres, while the same flames self-extinguished in 21% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does flame spread rate change for specific materials at 100% oxygen and 4.3 psia?",
+          "What are the extinction limits for solid materials in 100% oxygen at 0.166 g?",
+          "Does the lack of airflow at 0 m/s lead to flame extinction or sustained growth in a 100% oxygen environment?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 4,
+          "nasaExcerpts": 1,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 1
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 35,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "What has NASA measured closest to my oxygen and pressure?"
+    },
+    "[\"spacesuit\",\"prevention\",100,4.3,0.166,0,\"solid\",null,null,null,true]|ask:which gaps in the evidence matter most for this scenario?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:09:51.983Z",
+      "ms": 5187,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The evidence lacks data for 100% oxygen and partial gravity (0.166 g), which are critical gaps for your spacesuit scenario. Existing microgravity investigations are limited to cabin-like oxygen concentrations (up to 22.2%) and do not account for the specific fire behavior of solid materials in high-oxygen environments.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Research gap",
+            "text": "The current PSI database for solid materials is limited to oxygen concentrations between 13.6% and 22.2%.",
+            "implication": "The 100% oxygen environment in your scenario is significantly outside the range of tested conditions, making any extrapolation from existing data unreliable.",
+            "citations": [
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              },
+              {
+                "source": "limitation:lead-o2-outside",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Selected oxygen is outside the 13.6–22.2% recorded in the PSI run table for BASS-II; the nearest tested value is 22.2%."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is no combustion data available for partial gravity environments like 0.166 g.",
+            "implication": "Fire behavior at 0.166 g cannot be predicted by simply interpolating between 0 g and 1 g, as materials may exhibit different flammability characteristics in partial gravity.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Equipment implication",
+            "text": "NASA investigations have examined specific oxygen and pressure combinations for human space missions, but these do not include 100% oxygen at 4.3 psia.",
+            "implication": "The lack of data for 100% oxygen at 4.3 psia means that fire suppression and detection strategies designed for standard cabin atmospheres may not be validated for your specific spacesuit environment.",
+            "citations": [
+              {
+                "source": "acme-bre:objectives",
+                "label": "PSI-20 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "Consider O2/N2 ambients with various pressures and ambient O2 concentrations and pressures. NASA - considered atmosphere for human space missions will be examined: 14.7 psia, 21 % oxygen: 10.2 psia, 26.5 %; and 8.2 psia, 34 % oxygen."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "The highest oxygen concentrations tested in BASS-II and Saffire-II were 22.2% and 22.1% respectively.",
+            "implication": "These values represent the upper bound of current solid-material flammability research in microgravity, which is far below the 100% oxygen concentration of your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                "source": "saffire-ii:row3",
+                "label": "Saffire-II · NASA PSI-99-0 row 3",
+                "origin": "nasa",
+                "excerpt": "Percent O2 (Note 1): ~ 22.1"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 100% oxygen affect the ignition and flame spread rate of solid materials compared to 21% oxygen?",
+          "Does the 0.166 g environment promote buoyancy-driven flame spread that is absent in 0 g but suppressed in 1 g?",
+          "What are the specific flammability limits for the materials used in the spacesuit at 4.3 psia and 100% oxygen?",
+          "Are there validated computational models that can accurately predict fire behavior at 0.166 g and 100% oxygen?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 6,
+          "nasaExcerpts": 3,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 2
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 35,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "Which gaps in the evidence matter most for this scenario?"
+    },
+    "[\"spacesuit\",\"prevention\",100,4.3,0.166,0,\"solid\",null,null,null,true]|ask:what does this evidence mean for fire detection or suppression equipment?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:10:11.869Z",
+      "ms": 4882,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The evidence does not provide data for 100% oxygen or 0.166 g environments, meaning current NASA microgravity investigations cannot directly inform fire safety equipment design for your specific spacesuit scenario. NASA research indicates that elevated oxygen levels can sustain flames even without forced airflow, which complicates suppression strategies that rely on ventilation control.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Equipment implication",
+            "text": "NASA investigations aim to provide data for fire detection and suppression system design.",
+            "implication": "These models are intended to support engineering design, but their applicability is limited by the specific test conditions documented in the run tables.",
+            "citations": [
+              {
+                "source": "bass-ii:objectives",
+                "label": "PSI-25 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "BASS-II results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Equipment implication",
+            "text": "NASA has examined specific atmosphere compositions for human space missions to inform fire safety.",
+            "implication": "The tested oxygen concentrations are significantly lower than the 100% oxygen level in your scenario, limiting the direct applicability of these findings to spacesuit environments.",
+            "citations": [
+              {
+                "source": "acme-bre:objectives",
+                "label": "PSI-20 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "Consider O2/N2 ambients with various pressures and ambient O2 concentrations and pressures. NASA - considered atmosphere for human space missions will be examined: 14.7 psia, 21 % oxygen: 10.2 psia, 26.5 %; and 8.2 psia, 34 % oxygen."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "The maximum oxygen concentration tested for solid materials in the PSI data is 22.2%.",
+            "implication": "There is a significant gap in experimental data for the 100% oxygen environment specified in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is currently no partial-gravity combustion data available in the PSI records.",
+            "implication": "Fire behavior at 0.166 g cannot be reliably predicted using existing microgravity or 1 g data, as these may not provide a conservative bound for safety equipment.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 100% oxygen at 4.3 psia affect the ignition delay of specific spacesuit materials?",
+          "What are the flame spread rates for solid materials at 0.166 g?",
+          "Are current fire detection sensors calibrated to distinguish between combustion products in a 100% oxygen, low-pressure environment?",
+          "What is the effectiveness of specific suppression agents in a 0.166 g, 100% oxygen environment?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 5,
+          "nasaExcerpts": 3,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 2,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 1
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 35,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "What does this evidence mean for fire detection or suppression equipment?"
+    },
+    "[\"iss\",\"prevention\",21,14.7,0,0.1,\"solid\",null,null,null,true]|ask:what has nasa measured closest to my oxygen and pressure?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:11:14.599Z",
+      "ms": 6529,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "NASA has measured combustion behavior at 21% oxygen and approximately 14.7 psia in the BASS-II investigation, which aligns with your specified environment. These conditions are documented in the BASS-II run table.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Measured data",
+            "text": "BASS-II tests were conducted at an initial oxygen concentration of 21% by volume.",
+            "implication": "These tests provide data at the exact oxygen concentration specified in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row9",
+                "label": "BASS-II · NASA PSI-25-0 row 9",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              },
+              {
+                "source": "bass-ii:row10",
+                "label": "BASS-II · NASA PSI-25-0 row 10",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 21"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II test row 7 was conducted at 21% oxygen, which is the same as the 21 vol % specified in your scenario.",
+            "implication": "This record provides a specific data point for combustion behavior at your specified oxygen level.",
+            "citations": [
+              {
+                "source": "bass-ii:row7",
+                "label": "BASS-II · NASA PSI-25-0 row 7",
+                "origin": "nasa",
+                "excerpt": "Date: 7/7/2014; GMT: 188; Sample #: 153m; Fuel Sample Material: 2 cm 0.1 mm PMMA film"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "While BASS-II examined various fuel geometries and thicknesses, your scenario does not specify the material thickness.",
+            "implication": "Because thickness influences flame spread and extinction, the BASS-II results may not be directly applicable without knowing the specific thickness of your material.",
+            "citations": [
+              {
+                "source": "bass-ii:objectives",
+                "label": "PSI-25 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "Practical, realistic (thicker) fuels in typical geometries will be examined, including slabs, cylinders, and spherical sections."
+              },
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "BASS-II tested specific materials like PMMA and Nomex, but your scenario does not identify the fuel material.",
+            "implication": "Combustion behavior varies significantly by material, meaning the BASS-II findings cannot be generalized to your unspecified fuel.",
+            "citations": [
+              {
+                "source": "bass-ii:tested",
+                "label": "BASS-II materials and flow directions",
+                "origin": "derived",
+                "excerpt": "PSI run table for BASS-II lists materials: Cotton-fiberglass fabric, Nomex, PMMA, Wax (candle)"
+              },
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "What is the specific material being used in the scenario?",
+          "What is the thickness of the fuel sample?",
+          "What is the intended flow direction relative to the fuel surface?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 8,
+          "nasaExcerpts": 5,
+          "derivedExcerpts": 1,
+          "emberExcerpts": 2,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 4
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 85,
+          "relevance": "direct",
+          "matched": 5,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 3,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 2,
+          "total": 70,
+          "relevance": "direct",
+          "matched": 4,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        }
+      ],
+      "ask": "What has NASA measured closest to my oxygen and pressure?"
+    },
+    "[\"lunar-habitat\",\"prevention\",30,10.2,0.166,0.05,\"solid\",null,null,null,true]|ask:what does this evidence mean for fire detection or suppression equipment?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:11:40.139Z",
+      "ms": 2520,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The evidence does not provide data for solid-fuel combustion at 30% oxygen and 0.166 g, as existing NASA microgravity investigations are limited to 22.2% oxygen and orbital free fall. Consequently, the provided research cannot define specific requirements for fire detection or suppression equipment in your lunar-habitat scenario.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Equipment implication",
+            "text": "NASA investigations aim to provide data for the design of fire detection and suppression systems.",
+            "implication": "The results are intended to inform computational models rather than provide direct engineering specifications for your habitat.",
+            "citations": [
+              {
+                "source": "bass-ii:objectives",
+                "label": "PSI-25 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "BASS-II results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "The highest oxygen concentration tested for solid fuels in the BASS-II investigation was 22.2 vol %.",
+            "implication": "Your scenario's 30 vol % oxygen level is outside the range of the solid-fuel combustion data provided.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is currently no partial-gravity combustion data available in the PSI records.",
+            "implication": "Microgravity and 1 g data may not be conservative for predicting fire behavior at 0.166 g.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "In elevated-oxygen atmospheres, some flames have been observed to persist without airflow.",
+            "implication": "Ventilation control may not be an effective suppression strategy in high-oxygen environments.",
+            "citations": [
+              {
+                "source": "limitation:ventilation-high-o2",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "NASA's BRE record reports flames that kept burning without airflow in elevated-oxygen atmospheres, while the same flames self-extinguished in 21% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 30% oxygen affect the ignition and flame spread rate of solid materials compared to 21% oxygen?",
+          "What are the flame extinction characteristics of solid materials at 0.166 g?",
+          "Are current fire detection sensors validated for 10.2 psia and 30% oxygen environments?",
+          "Does the effectiveness of gaseous extinguishing agents change at 0.166 g compared to microgravity?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 5,
+          "nasaExcerpts": 2,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 3,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 1
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "What does this evidence mean for fire detection or suppression equipment?"
+    },
+    "[\"lunar-rover\",\"prevention\",30,10.2,0.166,0.1,\"solid\",null,null,null,true]|ask:what does this evidence mean for fire detection or suppression equipment?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:11:55.477Z",
+      "ms": 5329,
+      "attempts": 2,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        },
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The provided evidence cannot determine the effectiveness of fire detection or suppression equipment for your 30% oxygen, 0.166 g lunar-rover scenario, as existing NASA microgravity solid-fuel tests do not cover these conditions. Research indicates that elevated oxygen levels and partial gravity may significantly alter flame behavior, potentially rendering standard 21% oxygen or 1 g suppression strategies ineffective.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Equipment implication",
+            "text": "NASA states that BASS-II results are intended to contribute to the design of fire detection and suppression systems.",
+            "implication": "These models are based on microgravity data and may not account for the specific 0.166 g lunar environment or the 30% oxygen concentration in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:objectives",
+                "label": "PSI-25 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "BASS-II results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Equipment implication",
+            "text": "NASA investigated the effectiveness of inert, gaseous extinguishing agents on flames over different materials, geometries, and flows.",
+            "implication": "The effectiveness of these agents is dependent on flow and material conditions, which are unspecified in your scenario, and the tests were conducted in microgravity rather than the 0.166 g lunar environment.",
+            "citations": [
+              {
+                "source": "bass:objectives",
+                "label": "PSI-26 objectives (NASA PSI)",
+                "origin": "nasa",
+                "excerpt": "Assess the effectiveness of an inert, gaseous extinguishing agent (similar to that used on ISS) in putting out flames over different materials, geometries, preheating, and flow."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "Materials may exhibit increased flammability at lower oxygen concentrations in lunar gravity compared to Earth gravity.",
+            "implication": "Fire detection and suppression equipment designed based on Earth-gravity (1 g) or microgravity (0 g) testing may not be conservative for the 0.166 g lunar-rover environment.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "NASA’s FM2 team notes that materials may burn at lower oxygen concentrations in lunar gravity than on Earth."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "No solid-material tests in the provided NASA PSI data exceed 22.2% oxygen.",
+            "implication": "There is a lack of experimental data for solid-fuel combustion at the 30% oxygen level specified in your scenario.",
+            "citations": [
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "The highest oxygen concentration recorded for a solid-fuel test in the BASS-II run table is 22.2 vol %.",
+            "implication": "This value is the closest experimental data point to your 30% oxygen scenario, but it remains outside the tested range.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 0.166 g gravity affect the flame spread rate compared to 0 g and 1 g?",
+          "What are the extinction limits for solid materials in 30% oxygen at 10.2 psia?",
+          "Are current spacecraft fire detection sensors validated for 30% oxygen atmospheres?",
+          "How does the unspecified material thickness in the scenario impact the effectiveness of suppression agents?"
+        ],
+        "receipt": {
+          "claims": 5,
+          "acceptedClaims": 5,
+          "excerpts": 5,
+          "nasaExcerpts": 3,
+          "derivedExcerpts": 0,
+          "emberExcerpts": 2,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 1
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "acme-bre",
+          "name": "BRE",
+          "rank": 6,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        }
+      ],
+      "ask": "What does this evidence mean for fire detection or suppression equipment?"
+    },
+    "[\"lunar-habitat\",\"prevention\",30,10.2,0.166,0.05,\"solid\",null,null,null,true]|ask:which gaps in the evidence matter most for this scenario?": {
+      "model": "gemini-3.1-flash-lite",
+      "generatedAt": "2026-11-15T00:11:59.647Z",
+      "ms": 3116,
+      "attempts": 1,
+      "tried": [
+        {
+          "model": "gemini-3.1-flash-lite",
+          "status": 200
+        }
+      ],
+      "report": {
+        "verdict": "accepted",
+        "summary": {
+          "text": "The evidence package contains no solid-material combustion data at 30% oxygen or 0.166 g, which are critical conditions for your lunar-habitat scenario. Existing microgravity solid-fuel investigations are limited to 22.2% oxygen and 0 g, leaving significant gaps in understanding fire behavior at your specified environmental parameters.",
+          "accepted": true,
+          "problems": []
+        },
+        "claims": [
+          {
+            "kind": "Research gap",
+            "text": "The highest oxygen concentration tested for solid fuels in the BASS-II investigation is 22.2 vol %.",
+            "implication": "The 30 vol % oxygen environment in your scenario is outside the range of solid-fuel microgravity data, requiring extrapolation that may not capture the flammability characteristics of materials at higher oxygen levels.",
+            "citations": [
+              {
+                "source": "bass-ii:oxygenPct",
+                "label": "BASS-II oxygen range",
+                "origin": "derived",
+                "excerpt": "BASS-II oxygen range 13.6–22.2 vol %"
+              },
+              {
+                "source": "limitation:o2-fuel-gap",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "No solid-material test in the PSI data goes above 22.2% oxygen"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Research gap",
+            "text": "There is currently no combustion data available from NASA PSI investigations for partial-gravity environments like 0.166 g.",
+            "implication": "Fire behavior at 0.166 g cannot be directly inferred from microgravity or 1 g data, and the lack of partial-gravity testing means potential increases in material flammability at lunar gravity remain uncharacterized.",
+            "citations": [
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "PSI holds no partial-gravity combustion data yet."
+              },
+              {
+                "source": "limitation:partial-gravity",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "materials may burn at lower oxygen concentrations in lunar gravity than on Earth"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Measured data",
+            "text": "BASS-II tests were conducted at an initial oxygen concentration of 22.2 vol %.",
+            "implication": "These measurements provide a baseline for solid-fuel combustion in microgravity at 22.2% oxygen, but they do not represent the 30% oxygen environment specified in your scenario.",
+            "citations": [
+              {
+                "source": "bass-ii:row2",
+                "label": "BASS-II · NASA PSI-25-0 row 2",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2"
+              },
+              {
+                "source": "bass-ii:row4",
+                "label": "BASS-II · NASA PSI-25-0 row 4",
+                "origin": "nasa",
+                "excerpt": "Calibrated initial O2 % by vol: 22.2; Calibrated final O2 % by vol: 21.8"
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          },
+          {
+            "kind": "Interpretation",
+            "text": "The specific material identity and sample thickness are not defined in the scenario.",
+            "implication": "Because flame spread and extinction are highly sensitive to material properties and thickness, the lack of these specifications prevents a focused assessment of how specific materials might behave in your habitat environment.",
+            "citations": [
+              {
+                "source": "limitation:material",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Material identity is unspecified. Fabric, Nomex, Ultem and PMMA results should not be treated as interchangeable."
+              },
+              {
+                "source": "limitation:thickness",
+                "label": "EMBER limitation",
+                "origin": "ember",
+                "excerpt": "Sample thickness is unspecified; thickness can materially change flame spread and extinction."
+              }
+            ],
+            "accepted": true,
+            "problems": []
+          }
+        ],
+        "openQuestions": [
+          "How does 30% oxygen affect the ignition and flame spread of solid materials compared to the 22.2% limit tested in microgravity?",
+          "What are the specific flammability characteristics of materials at 0.166 g compared to 0 g?",
+          "Does the 0.05 m/s airflow provide sufficient cooling to suppress flame spread at 30% oxygen in a lunar-habitat environment?",
+          "How do different solid-fuel thicknesses influence extinction limits in a 10.2 psia, 30% oxygen atmosphere?"
+        ],
+        "receipt": {
+          "claims": 4,
+          "acceptedClaims": 4,
+          "excerpts": 8,
+          "nasaExcerpts": 2,
+          "derivedExcerpts": 1,
+          "emberExcerpts": 5,
+          "userExcerpts": 0,
+          "tableRowExcerpts": 2
+        }
+      },
+      "ranked": [
+        {
+          "id": "bass-ii",
+          "name": "BASS-II",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "bass",
+          "name": "BASS",
+          "rank": 1,
+          "total": 50,
+          "relevance": "direct",
+          "matched": 2,
+          "specified": 5
+        },
+        {
+          "id": "saffire-i",
+          "name": "Saffire-I",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-ii",
+          "name": "Saffire-II",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "saffire-iii",
+          "name": "Saffire-III",
+          "rank": 3,
+          "total": 40,
+          "relevance": "direct",
+          "matched": 1,
+          "specified": 5
+        },
+        {
+          "id": "flex-2",
+          "name": "FLEX-2",
+          "rank": 6,
+          "total": 55,
+          "relevance": "adjacent",
+          "matched": 3,
+          "specified": 5
+        }
+      ],
+      "ask": "Which gaps in the evidence matter most for this scenario?"
     }
   }
 }
