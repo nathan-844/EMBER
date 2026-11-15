@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import engine from "virtual:mission-engine";
 import { RESEARCH_ATLAS } from "../lib/analysis/research-data";
 import { DEFAULT_MISSION, missionReport, validateMission, type MissionSpec, type Atmosphere, type InventoryItem, type Assessment, type Target, type Candidate, type Windows } from "../lib/analysis/mission";
@@ -46,9 +46,22 @@ function Evidence({ data, pareto }: { data: Assessment[]; pareto: string[] }) {
   </>;
 }
 export default function Mission() {
-  const [loaded] = useState(initial), [spec, setSpec] = useState(loaded.spec), [status, setStatus] = useState(""), [busy, setBusy] = useState(false);
+  const [loaded, setLoaded] = useState(initial), [spec, setSpec] = useState(loaded.spec), [status, setStatus] = useState(""), [busy, setBusy] = useState(false);
   const [oxygenLevels, setOxygenLevels] = useState("21, 26.5, 30"), [pressureLevels, setPressureLevels] = useState("8.2, 10.2, 14.7"), [flowLevels, setFlowLevels] = useState("10, 20");
   const [candidateDraft, setCandidateDraft] = useState(""), [targetDraft, setTargetDraft] = useState(""), [importDraft, setImportDraft] = useState("");
+  // A shared link opened while this page is already showing changes only the hash, so read it again.
+  // A link that cannot be applied leaves the mission on screen as it is and says so.
+  useEffect(() => {
+    const restore = () => {
+      if (!window.location.hash.startsWith("#mission?")) return;
+      const next = initial();
+      if (next.warning) setLoaded(l => ({ ...l, warning: next.warning.replace("showing defaults", "keeping the mission already on screen") }));
+      else { setLoaded(next); setSpec(next.spec); setCandidateDraft(""); setTargetDraft(""); setImportDraft(""); }
+      setStatus("");
+    };
+    window.addEventListener("hashchange", restore);
+    return () => window.removeEventListener("hashchange", restore);
+  }, []);
   const errors = validateMission(spec);
   const report = useMemo(() => validateMission(spec).length ? null : missionReport(rows, spec), [spec]);
   const set = <K extends keyof MissionSpec>(k: K, v: MissionSpec[K]) => { setSpec(s => ({ ...s, [k]: v })); setStatus(""); };
