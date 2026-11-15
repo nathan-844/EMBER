@@ -1,0 +1,174 @@
+{
+  "checkedOn": "2026-11-15",
+  "tool": "pdftotext version 24.02.0",
+  "sources": {
+    "20250002114": {
+      "pdfSha256": "a7beb30e4beb5f5b993253161df7d2b9a286a1525bf97ab0d6bf94250a390474",
+      "pages": 12
+    },
+    "20210020446": {
+      "pdfSha256": "f9f56694310386a5ee7506a73418b32a2e4505cb6e4f6179f31c5cee5d969c64",
+      "pages": 21
+    },
+    "20240008623": {
+      "pdfSha256": "b96e5a0e72466792c3a135c232084ec9cc729f33b4906ac6b3fc32ff051bcbac",
+      "pages": 1
+    },
+    "20250010653": {
+      "pdfSha256": "bb0aadd2f9543483467b86796e6aa19f4e13c3f8169eec96134015f95ed61d79",
+      "pages": 42
+    },
+    "20260000646": {
+      "pdfSha256": "5889dd8e772829d83e052c5fccf947fb4ced5fe6bf2b21d3be91602685e88726",
+      "pages": 2
+    },
+    "20150021491": {
+      "pdfSha256": "4defa6b98de32ea3f5972afc1a4c3c60eaba26bc842259d9946615c4b1c1bc60",
+      "pages": 43
+    },
+    "20220000245": {
+      "pdfSha256": "3e0ab65901986a20fe509cfb0f16cefa238c5db5da60628ce6027e11f9b64d83",
+      "pages": 12
+    },
+    "20160000593": {
+      "pdfSha256": "9f2c89db9e1954c3c44409364ed6764f7e7466250264c28ff2d425350287546c",
+      "pages": 20
+    },
+    "20140011099": {
+      "pdfSha256": "fd5e89467bddd426e40081311f0b36541aac6a29236b2d3fc3758a901bc8c072",
+      "pages": 51
+    },
+    "20220007191": {
+      "pdfSha256": "243108eae990e78c0608e439bd9f04da48eac33021253ac5fcaae50fbb60e2ea",
+      "pages": 12
+    },
+    "20180005168": {
+      "pdfSha256": "9ae2e365c850cbd0e136ea4e17cc5ecf68e5ac89d248b3c0a7b7b4bde9e2f402",
+      "pages": 32
+    },
+    "20130000422": {
+      "pdfSha256": "bdc5e7e0d65f569c2c4a0b8899870d2d47e8f0d644cfe033a450d9fd892375aa",
+      "pages": 13
+    },
+    "20070031686": {
+      "pdfSha256": "b135eeb2987924aafe79f8fd673b194def5a8e088d1b7cd728d97a82918ce396",
+      "pages": 31
+    },
+    "20130014061": {
+      "pdfSha256": "1488bbb461f2ea0f97c2c2fab6ac0a01603a6837509ab6ac6d1ef02bbf72050b",
+      "pages": 11
+    }
+  },
+  "quotes": {
+    "urban25-increased": {
+      "source": "20250002114",
+      "page": 11,
+      "sha256": "5c186f87a77b0526fc7a3fe0b44bf064fc20ed279234e6ffd510e20c8271aa25"
+    },
+    "urban25-decreased": {
+      "source": "20250002114",
+      "page": 11,
+      "sha256": "30c5d954dc0e4eaae0e1f80a7101cac5f64127c159c5e2655a40c2a649f4ed71"
+    },
+    "urban25-mars": {
+      "source": "20250002114",
+      "page": 11,
+      "sha256": "c9a70a5eadde70a7c3055e7dedf987854f46510bb3807358dccc22a1e4765211"
+    },
+    "ruff21-moc": {
+      "source": "20210020446",
+      "page": 10,
+      "sha256": "7135ce07cc54654a814b66a13c1135945eaa5f0e4fa68c86303ab245c0eff93e"
+    },
+    "ruff21-materials": {
+      "source": "20210020446",
+      "page": 10,
+      "sha256": "ab1e2b8fa5fa784d2f0ade04f14433881972dcc2b7f883f6d8745bd108d7d6ba"
+    },
+    "fm2-24-lower-limits": {
+      "source": "20240008623",
+      "page": 1,
+      "sha256": "2dcbc7ea958b521404f5f5c248c9e19f99b1a817a6cb529f2ff3ccc503a0d8dc"
+    },
+    "fm2-24-atmospheres": {
+      "source": "20240008623",
+      "page": 1,
+      "sha256": "3e82f13115c38719a89116fd3b4988434b623c7fd9e2019e550339172d68a2dc"
+    },
+    "luci25-sibal": {
+      "source": "20250010653",
+      "page": 16,
+      "sha256": "9dc3478ec37d064e7369cd2e45664ff93ea2f174374e611e2084e789e17068d7"
+    },
+    "ferkul26-burn": {
+      "source": "20260000646",
+      "page": 1,
+      "sha256": "9324ba1beeb22607f3242828b096e1cc66f66d55a46385f724aa9b6bb9c8993e"
+    },
+    "ferkul26-times": {
+      "source": "20260000646",
+      "page": 1,
+      "sha256": "5b0a8fe23074555a2175037ec8d778bf35e81b585bb92e3a18e4390d2d3eccfc"
+    },
+    "ferkul26-rocket": {
+      "source": "20260000646",
+      "page": 1,
+      "sha256": "27c358709a62a6bf340f6358ff169eafee920bf5c4d7a0ade60e11da60323684"
+    },
+    "ferkul26-fm2": {
+      "source": "20260000646",
+      "page": 1,
+      "sha256": "6ed40d30fba10f46cc9bd9ee196355f05dd1e506da2803b69721821f050a5764"
+    },
+    "eaw-8-2-34": {
+      "source": "20150021491",
+      "page": 4,
+      "sha256": "8df9666642cb3a8ed02e16e24b584cfa47c84de7f834c319d73ca853ef33d928"
+    },
+    "artemis-sh": {
+      "source": "20220000245",
+      "page": 4,
+      "sha256": "e5e08e91ac2216b2fb978c44506db890312fdc470a3ddfc91cff05a905cb0705"
+    },
+    "bass2-margin": {
+      "source": "20160000593",
+      "page": 18,
+      "sha256": "e7b791db59d98f4f7c43b3609968b1115e54f65efb837491245afce564182251"
+    },
+    "bass-flow": {
+      "source": "20140011099",
+      "page": 54,
+      "sha256": "dedcdb7a38e809b3d3913bb38d5c145645f0fa7e3cefb1a424a75ad9949dd417"
+    },
+    "bass-nitrogen": {
+      "source": "20140011099",
+      "page": 55,
+      "sha256": "9dd1d98a8749b018393a6c260b27b1e963ace981425387d8141103cf84fd0da5"
+    },
+    "bre-25pct": {
+      "source": "20220007191",
+      "page": 4,
+      "sha256": "18adb56f9165edef3982ff8a1f92f43f342194d8171e1a325580a6827990b19f"
+    },
+    "saffire-duct": {
+      "source": "20180005168",
+      "page": 18,
+      "sha256": "0d1b1800d3d6fdb4256adc72a4fc51aacc0eebbc5cc4567e59f7d19546241cda"
+    },
+    "same-sizes": {
+      "source": "20130000422",
+      "page": 1,
+      "sha256": "7c6e63d58c5c7c79f96987fa05b7c1b7fc7894ab994a55a61ff229c954e6c1b4"
+    },
+    "daft-background": {
+      "source": "20070031686",
+      "page": 1,
+      "sha256": "1e1d1ea2d61766be62a118f205e6acc95764bb91c2855a6bdcb0b45e65dd7370"
+    },
+    "flex-loi": {
+      "source": "20130014061",
+      "page": 1,
+      "sha256": "7aba61434684fe6ebcd29f5f1555d5b1b2baf7afe4dae354d5498ef5d1168dfd"
+    }
+  }
+}
