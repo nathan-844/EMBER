@@ -76,7 +76,7 @@ export function Findings() {
     <main className="page findings-page">
       <header className="land-hero findings-hero">
         <p className="eyebrow accent">Measured findings · computed, not written</p>
-        <h1>Seven things NASA’s own measurements show. <span>Every number traced to its row.</span></h1>
+        <h1>Eight things NASA’s own measurements show. <span>Every number traced to its row.</span></h1>
         <p className="land-lede">
           EMBER reads all {tableRows.toLocaleString("en-US")} rows of {manifest.tables.length} NASA PSI run tables, plus the Saffire IV–VI paper,
           into one Fire Test Atlas. Each finding below is computed from those rows by code. Its sentence is generated from the computed

@@ -2,9 +2,9 @@
   "recordedAt": "2026-11-15",
   "node": "v22.23.4",
   "tests": {
-    "passed": 465,
+    "passed": 466,
     "failed": 0,
-    "total": 465,
+    "total": 466,
     "files": 27,
     "names": [
       {
@@ -2304,6 +2304,11 @@
       },
       {
         "file": "lib/findings/findings.test.ts",
+        "title": "headline numbers, rechecked from NASA's raw cells F8: SAME and SAME-R smoke before and after ageing, from the results workbook's diameter column",
+        "status": "passed"
+      },
+      {
+        "file": "lib/findings/findings.test.ts",
         "title": "headline numbers, rechecked from NASA's raw cells F5: cool flames in CFI-G, from the \"Cool flame?\" column",
         "status": "passed"
       },
@@ -2347,15 +2352,15 @@
       "src/data/atlas/audit.json",
       "src/data/ntrs-manifest.json"
     ],
-    "value": "d6b27b2ca8a23cfc55271e0400f53705f4078eb179e4db2989e74f716054d08d"
+    "value": "bb83d7abb11ff96aff90fdd08db9295fc22bfe49ae68619a9fa7a8baeb65bb0e"
   },
   "scoreboard": [
     {
       "id": "tests",
       "label": "Automated tests passing",
       "how": "rerun",
-      "checked": 465,
-      "passed": 465,
+      "checked": 466,
+      "passed": 466,
       "method": "The full Vitest suite: ranking rules, data checks, quote checks, the AI claim checker and the server."
     },
     {
@@ -2394,8 +2399,8 @@
       "id": "table-hashes",
       "label": "NASA run tables with a recorded SHA-256",
       "how": "recorded",
-      "checked": 22,
-      "passed": 22,
+      "checked": 23,
+      "passed": 23,
       "method": "npm run sync:tables downloads each PSI table again and refuses a file whose SHA-256 differs."
     },
     {

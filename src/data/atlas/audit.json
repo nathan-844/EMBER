@@ -2,12 +2,12 @@
  "version": "audit-v1",
  "method": "Found while reading every cell of every stored NASA PSI combustion table into the Fire Test Atlas, plus cross-checks: gas fractions that should sum to 1, oxygen before and after a burn, identical rows, repeated identifiers and the same material across tables. Nothing in NASA's files is changed; each issue says how EMBER handles it. The tables were not compared with their source papers.",
  "totals": {
-  "issues": 38,
-  "error": 20,
-  "gap": 2,
-  "note": 16,
-  "tablesAffected": 15,
-  "tablesChecked": 22
+  "issues": 42,
+  "error": 21,
+  "gap": 3,
+  "note": 18,
+  "tablesAffected": 16,
+  "tablesChecked": 23
  },
  "issues": [
   {
@@ -467,6 +467,29 @@
   },
   {
    "kind": "error",
+   "table": "PSI-101-1",
+   "title": "Spreadsheet error left in a cell",
+   "detail": "The cell holds a spreadsheet error (e.g. \"#DIV/0!\").",
+   "handling": "Not used.",
+   "count": 8,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-101-1 row 18",
+     "column": "Diameter of Average mass (micro-m)",
+     "raw": "#DIV/0!"
+    },
+    {
+     "where": "PSI-101-1 row 80",
+     "column": "Hatch Choate Sigma g",
+     "raw": "#NUM!"
+    }
+   ],
+   "id": "A20",
+   "accession": "PSI-101"
+  },
+  {
+   "kind": "error",
    "table": "PSI-159-0",
    "title": "Spreadsheet error left in a cell",
    "detail": "The cell holds a spreadsheet error (e.g. \"#DIV/0!\").",
@@ -480,7 +503,7 @@
      "raw": "#DIV/0!"
     }
    ],
-   "id": "A20",
+   "id": "A21",
    "accession": "PSI-159"
   },
   {
@@ -508,7 +531,7 @@
      "raw": "over"
     }
    ],
-   "id": "A21",
+   "id": "A22",
    "accession": "PSI-25"
   },
   {
@@ -526,8 +549,26 @@
      "raw": "(blank)"
     }
    ],
-   "id": "A22",
+   "id": "A23",
    "accession": "PSI-99"
+  },
+  {
+   "kind": "gap",
+   "table": "PSI-101-1",
+   "title": "Zero written where nothing was measured",
+   "detail": "A particle diameter or concentration written as 0 on a row where nothing was measured (every result on the row is 0); read as no value, never as zero.",
+   "handling": "Read as no value, so these rows add nothing to particle-size statistics.",
+   "count": 69,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-101-1 row 4",
+     "column": "M1/M0 (micro-m)--AMD",
+     "raw": "0"
+    }
+   ],
+   "id": "A24",
+   "accession": "PSI-101"
   },
   {
    "kind": "note",
@@ -549,7 +590,7 @@
      "raw": "RAMP"
     }
    ],
-   "id": "A23",
+   "id": "A25",
    "accession": "PSI-10"
   },
   {
@@ -567,7 +608,7 @@
      "raw": "RAMP"
     }
    ],
-   "id": "A24",
+   "id": "A26",
    "accession": "PSI-10"
   },
   {
@@ -585,7 +626,7 @@
      "raw": "LOW O2"
     }
    ],
-   "id": "A25",
+   "id": "A27",
    "accession": "PSI-10"
   },
   {
@@ -614,7 +655,7 @@
      "raw": "continuation line: lists one more fuel concentration for the test day above"
     }
    ],
-   "id": "A26",
+   "id": "A28",
    "accession": "PSI-22"
   },
   {
@@ -631,7 +672,7 @@
      "raw": "identical to row 26"
     }
    ],
-   "id": "A27",
+   "id": "A29",
    "accession": "PSI-22"
   },
   {
@@ -659,7 +700,7 @@
      "raw": "-3"
     }
    ],
-   "id": "A28",
+   "id": "A30",
    "accession": "PSI-25"
   },
   {
@@ -692,7 +733,7 @@
      "raw": "17.5 → 17.6"
     }
    ],
-   "id": "A29",
+   "id": "A31",
    "accession": "PSI-25"
   },
   {
@@ -709,7 +750,7 @@
      "raw": "SOOT Cleaning"
     }
    ],
-   "id": "A30",
+   "id": "A32",
    "accession": "PSI-26"
   },
   {
@@ -738,7 +779,7 @@
      "raw": "identical to row 27"
     }
    ],
-   "id": "A31",
+   "id": "A33",
    "accession": "PSI-39"
   },
   {
@@ -759,7 +800,7 @@
      "raw": "Pre-test flow visulation data for sample 2"
     }
    ],
-   "id": "A32",
+   "id": "A34",
    "accession": "PSI-98"
   },
   {
@@ -777,7 +818,7 @@
      "raw": "1 cm"
     }
    ],
-   "id": "A33",
+   "id": "A35",
    "accession": "PSI-99"
   },
   {
@@ -806,7 +847,7 @@
      "raw": "Note 2 The PMMA portion was completely consumed but the Nomex was not ignited."
     }
    ],
-   "id": "A34",
+   "id": "A36",
    "accession": "PSI-99"
   },
   {
@@ -839,8 +880,60 @@
      "raw": "5 cm & 0 (note 2)"
     }
    ],
-   "id": "A35",
+   "id": "A37",
    "accession": "PSI-99"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-101-1",
+   "title": "Text in a numeric column",
+   "detail": "The cell holds text, not a number; kept as written.",
+   "handling": "Kept as text; no number is used.",
+   "count": 7,
+   "unit": "cells",
+   "examples": [
+    {
+     "where": "PSI-101-1 row 17",
+     "column": "Sample Temperature C",
+     "raw": "??"
+    },
+    {
+     "where": "PSI-101-1 row 59",
+     "column": "Mass Loss (mg)",
+     "raw": "x"
+    }
+   ],
+   "id": "A38",
+   "accession": "PSI-101"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-101-1",
+   "title": "The same tests appear in two NASA files",
+   "detail": "NASA's SAME and SAME-R results workbook repeats every SAME-R test that the SAME-R run table already lists (same SAME test number), adding the particle sizes measured.",
+   "handling": "The run table's row is the test; the workbook's row is kept beside it as that test's results and never counted as a second test.",
+   "count": 109,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-101-1 row 48",
+     "raw": "results of SAME-R test 48, whose conditions are the test row in PSI-101-0"
+    },
+    {
+     "where": "PSI-101-1 row 49",
+     "raw": "results of SAME-R test 49, whose conditions are the test row in PSI-101-0"
+    },
+    {
+     "where": "PSI-101-1 row 50",
+     "raw": "results of SAME-R test 50, whose conditions are the test row in PSI-101-0"
+    },
+    {
+     "where": "PSI-101-1 row 51",
+     "raw": "results of SAME-R test 51, whose conditions are the test row in PSI-101-0"
+    }
+   ],
+   "id": "A39",
+   "accession": "PSI-101"
   },
   {
    "kind": "note",
@@ -862,7 +955,7 @@
      "raw": "-5.92"
     }
    ],
-   "id": "A36",
+   "id": "A40",
    "accession": "PSI-107"
   },
   {
@@ -891,7 +984,7 @@
      "raw": "identical to row 11"
     }
    ],
-   "id": "A37",
+   "id": "A41",
    "accession": "PSI-107"
   },
   {
@@ -920,7 +1013,7 @@
      "raw": "dataset index: one row per figure in a published paper, not a test"
     }
    ],
-   "id": "A38",
+   "id": "A42",
    "accession": "PSI-142"
   }
  ]

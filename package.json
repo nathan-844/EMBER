@@ -23,7 +23,8 @@
     "preview:demo": "vite preview --mode demo --port 4173 --strictPort",
     "build:api": "node scripts/build-api.mjs",
     "recheck:recorded": "tsx scripts/recheck-recorded.ts",
-    "sync:ntrs": "tsx scripts/sync-ntrs.ts"
+    "sync:ntrs": "tsx scripts/sync-ntrs.ts",
+    "sync:same": "python3 scripts/sync-same-results.py"
   },
   "dependencies": {
     "@vercel/functions": "^3.3.0",

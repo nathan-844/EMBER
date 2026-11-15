@@ -1,6 +1,7 @@
 // Downloads the public experimental (run) tables attached to each linked NASA PSI
 // investigation and stores them byte-for-byte with a SHA-256 for every file.
 // Usage: npm run sync:tables                 (needs network access to psi.nasa.gov)
+//        Workbook sheets (SAME/SAME-R results) come from scripts/sync-same-results.py and are kept.
 //        npm run sync:tables -- --from DIR    (import an earlier PSI download: DIR holds
 //        table-manifest.json and tables/<id>.csv; every file must match its recorded SHA-256)
 import { createHash } from "node:crypto";
@@ -116,6 +117,10 @@ for (const accession of fromDir ? [] : ACCESSIONS) {
   }
 }
 
+// Tables taken from a sheet of a NASA workbook (scripts/sync-same-results.py) are kept as they are.
+const previous = existsSync("src/data/table-manifest.json") ? JSON.parse(readFileSync("src/data/table-manifest.json", "utf8")).tables : [];
+for (const t of previous.filter((t) => t.sheet)) tables.push(t);
+tables.sort((a, b) => Number(a.accession.split("-")[1]) - Number(b.accession.split("-")[1]) || a.id.localeCompare(b.id));
 writeFileSync(
   "src/data/table-manifest.json",
   JSON.stringify({ syncedOn: new Date().toISOString().slice(0, 10), tables, errors }, null, 2) + "\n",

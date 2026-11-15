@@ -137,6 +137,19 @@ describe("headline numbers, rechecked from NASA's raw cells", () => {
     expect(byId("F7").numbers).toMatchObject({ burns: 118, rose: 117, medianRisePpm: 45, maxRisePpm: 575, offScale: 4 });
   });
 
+  it("F8: SAME and SAME-R smoke before and after ageing, from the results workbook's diameter column", () => {
+    const rows = rawTable("PSI-101-1");
+    const amd = new Map(rows.map((c) => [c("SAME #").trim(), Number(c("M1/M0 (micro-m)--AMD"))]));
+    const ratios = [...amd.entries()]
+      .filter(([k]) => /a$/.test(k))
+      .map(([k, aged]) => [amd.get(k.slice(0, -1)), aged] as const)
+      .filter(([fresh, aged]) => fresh! > 0 && aged > 0)
+      .map(([fresh, aged]) => aged / fresh!);
+    expect(ratios).toHaveLength(byId("F8").numbers.pairs as number);
+    expect(ratios.filter((x) => x > 1)).toHaveLength(byId("F8").numbers.grew as number);
+    expect(byId("F8").numbers).toMatchObject({ pairs: 48, grew: 46, medianRatio: 1.5 });
+  });
+
   it("F5: cool flames in CFI-G, from the \"Cool flame?\" column", () => {
     const rows = rawTable("PSI-159-0");
     const cool = rows.filter((c) => /^yes/i.test(c("Cool flame?").trim()));

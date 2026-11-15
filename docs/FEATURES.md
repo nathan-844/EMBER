@@ -51,7 +51,7 @@ page. Arrow keys move between steps and Esc closes it; on a phone the card sits 
   within each group.
 - Every score can be expanded to see why.
 
-Oxygen, pressure and airflow ranges for 14 profiles are read from 14 of the 22 stored NASA PSI
+Oxygen, pressure and airflow ranges for 14 profiles are read from 14 of the 23 stored NASA PSI
 experimental tables (1,527 source rows used). The few remaining hand-written ranges are labelled
 *curated* everywhere they appear.
 
@@ -147,7 +147,7 @@ changed are removed so they can be re-recorded.
 
 ## Fire Test Atlas, audit and measured findings
 
-**Fire Test Atlas** (*Data* page). Every row of the 22 stored NASA PSI tables plus the five Saffire
+**Fire Test Atlas** (*Data* page). Every row of the 23 stored NASA PSI tables (including the per-test sheet of NASA's SAME/SAME-R results workbook) plus the five Saffire
 IV-VI samples from NTRS 20240002981, in one schema: 2,006 records, 1,875 of them individual tests.
 Each value keeps the NASA header and cell it came from. Units are converted only where NASA states
 them, outcomes come only from a table's own outcome column, and a material dictionary normalises
@@ -155,14 +155,14 @@ about 100 NASA labels (inferred materials are marked, with the reason). The page
 investigation, outcome and text, opens any record to show NASA's cells as written, and offers the
 whole atlas as CSV. Schema and rules: [DATA.md](DATA.md).
 
-**Data audit** (*Data* page). 38 issues in 15 of the 22 tables: 20 likely errors (oxygen written
+**Data audit** (*Data* page). 42 issues in 16 of the 23 tables: 21 likely errors (oxygen written
 "3400%", thickness "037 mm", fuel labels that count up row by row, gas fractions that do not sum
-to 1, a FLEX identifier used twice, headers that lost their subscripts or the µ), 2 missing values
-and 16 quirks (footnotes inside the test table, identical rows, RAMPED flows). Each lists example
+to 1, a FLEX identifier used twice, headers that lost their subscripts or the µ), 3 kinds of missing value (including zeros written where nothing was measured)
+and 18 quirks (footnotes inside the test table, identical rows, RAMPED flows). Each lists example
 cells exactly as NASA wrote them and what EMBER does. Nothing in NASA's files is changed. The
 tables were not compared with their source papers.
 
-**Measured findings** (*Findings* page). Seven findings computed by code from atlas rows, each with a "How sure" line computed from the same rows (seeded bootstrap intervals for F1 and F4, Wilson intervals for F2 and F5, an exact sign test for F3, Wilson and bootstrap intervals for F7; F6 is a count and says it has no interval):
+**Measured findings** (*Findings* page). Eight findings computed by code from atlas rows, each with a "How sure" line computed from the same rows (seeded bootstrap intervals for F1 and F4, Wilson intervals for F2 and F5, an exact sign test for F3, Wilson and bootstrap intervals for F7 and F8; F6 is a count and says it has no interval):
 
 | | Finding | Tests |
 |---|---|---|
@@ -173,6 +173,7 @@ tables were not compared with their source papers.
 | F5 | CFI-G: all 7 cool flames at n-butane, 2 bar and about 39% O2 | 179 |
 | F6 | Only 2 solid tests reach the exploration atmosphere; both burned | 145 |
 | F7 | BASS-II: CO rose in 117 of 118 burns, median 45 ppm, largest 575 ppm (detection) | 118 |
+| F8 | SAME/SAME-R: smoke particles grew as the smoke aged in 46 of 48 runs, median 1.5 times | 48 |
 
 Each finding shows a chart, a table view, its method, what else differs between the tests, the
 rows left out and why, what it does not claim, and every cited NASA row. The sentence is generated
@@ -306,6 +307,7 @@ fails if a quote is edited without running it again.
 | `npm run data:all` | Rebuild all derived data, the API bundles and the verify report |
 | `npm run data:check` | Rebuild the derived data and fail if a committed file differs (run by CI) |
 | `npm run record:demo` | Record live Gemini answers for the presets (needs a key; `-- --asks --missing` records only the missing suggested questions) |
+| `npm run sync:same` | Store the per-test sheet of NASA's SAME/SAME-R results workbook (needs python3 with openpyxl, and psi.nasa.gov) |
 | `npm run sync:ntrs` | Check every NTRS quote against its PDF and rewrite the manifest (needs pdftotext and access to ntrs.nasa.gov) |
 | `npm run recheck:recorded` | Re-check every recorded answer against today's evidence and checker rules |
 | `npm run video:record` | Record the 30-second demo video and screenshots |

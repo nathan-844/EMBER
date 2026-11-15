@@ -6,11 +6,12 @@ import { f5CoolFlames } from "./cfig";
 import { f1ExtinctionVsOxygen, f2FlexNearExplorationAir } from "./flex";
 import { f3EarthVsOrbit } from "./saffire";
 import { f6SolidsAtHighOxygen } from "./solids";
+import { f8SmokeGrowsWithAge } from "./same";
 import type { FindingsFile } from "./types";
 
 export const FINDINGS_VERSION = "findings-v1";
 
-export const COMPUTE = [f1ExtinctionVsOxygen, f2FlexNearExplorationAir, f3EarthVsOrbit, f4CarbonMonoxide, f5CoolFlames, f6SolidsAtHighOxygen, f7CarbonMonoxideEveryBurn];
+export const COMPUTE = [f1ExtinctionVsOxygen, f2FlexNearExplorationAir, f3EarthVsOrbit, f4CarbonMonoxide, f5CoolFlames, f6SolidsAtHighOxygen, f7CarbonMonoxideEveryBurn, f8SmokeGrowsWithAge];
 
 export function computeFindings(atlas: Atlas): FindingsFile {
   return {

@@ -20,6 +20,8 @@ export interface QSpec {
   parser?: "parseCell" | "pctO2InText";
   /** Codes added to every value read from this column (see FLAG_TEXT). */
   flags?: string[];
+  /** The source writes 0 where nothing was measured (e.g. a particle diameter); 0 is read as no value. */
+  zeroIsMissing?: true;
 }
 export interface TSpec {
   col: string;
@@ -34,7 +36,8 @@ export interface OutcomeResult {
 }
 
 export interface TableSpec {
-  investigation: string;
+  /** Investigation id, or a rule when one table holds rows of two investigations. */
+  investigation: string | ((get: Get) => string);
   /** Column holding the material or fuel label, or a fixed label when the table has one fuel. */
   material: { col: string } | { fixed: string; why: string };
   fuelClass?: FuelClass;
@@ -313,10 +316,37 @@ export const SPECS: Record<string, TableSpec> = {
       netAgingTimeS: plain("Net aging time (sec)", "s"),
     },
   },
+  // NASA's SAME and SAME-R results workbook (sheet "Reduced data sheet"), stored by
+  // scripts/sync-same-results.py: one row per flight test with the particle sizes measured.
+  // Flight 1 rows are SAME's tests. Flight 2 rows repeat SAME-R tests that PSI-101-0 already lists,
+  // so they are kept as those tests' results, not counted twice. Rows numbered "…a" are the same run
+  // measured again after the smoke aged, as PSI-101-0 also lists them.
+  "PSI-101-1": {
+    investigation: (get) => (get("Flight 1=same 2=sameR, g=ground").trim() === "1" ? "same" : "same-r"),
+    material: { col: "Sample Type" },
+    rowKind: (get, blank) =>
+      blank ? ["aside", "blank row"]
+      : get("Flight 1=same 2=sameR, g=ground").trim() === "2" ? ["aside", `results of SAME-R test ${get("SAME #").trim()}, whose conditions are the test row in PSI-101-0`]
+      : "test",
+    flowCms: cms("Inlet Velocity (cm/sec)"),
+    measures: {
+      sameTest: text("SAME #"),
+      description: text("Description"),
+      rtOverR0: plain("Rt/R0", "-"),
+      netAgingS: plain("Net Aging  Duration", "s"),
+      amdUm: { col: "M1/M0 (micro-m)--AMD", unit: "µm", from: "µm", zeroIsMissing: true },
+      massMeanUm: { col: "Diameter of Average mass (micro-m)", unit: "µm", from: "µm", zeroIsMissing: true },
+      sigmaG: { col: "Hatch Choate Sigma g", unit: "-", from: "-", zeroIsMissing: true },
+      sampleTempC: plain("Sample Temperature C", "°C"),
+      massLossMg: plain("Mass Loss (mg)", "mg"),
+    },
+  },
+  // SAME's run table is a test matrix: one line per sample type and its conditions ("Kapton: same
+  // conditions as 1-4"). The flight tests themselves are in NASA's results workbook (PSI-101-1).
   "PSI-102-0": {
     investigation: "same",
     material: { col: "Sample Material  " },
-    rowKind: (_g, blank) => (blank ? ["aside", "blank row"] : "test"),
+    rowKind: (_g, blank) => (blank ? ["aside", "blank row"] : ["matrix", "one line per sample type and condition set; SAME's flight tests are listed in NASA's results workbook (PSI-101-1)"]),
     flowCms: cms("Air Flow (cm/s)"),
     measures: { weightLossRateMgMin: plain("Weight loss rate (mg/min)", "mg/min"), agingMin: plain("Aging Duration (minutes)", "min") },
   },
@@ -384,6 +414,7 @@ export const FLAG_TEXT: Record<string, string> = {
   "leading-zero": "A number written with a leading zero and no decimal point (e.g. \"037 mm\"), so its magnitude is ambiguous; not used.",
   "not-numeric": "The cell holds text, not a number; kept as written.",
   "negative-reading": "A negative instrument reading (e.g. CO of -1 ppm); kept as written.",
+  "zero-not-measured": "A particle diameter or concentration written as 0 on a row where nothing was measured (every result on the row is 0); read as no value, never as zero.",
   ramped: "NASA marks the flow as RAMPED, so the run has no single fuel fraction or flow.",
   "header-subscript-lost": "NASA's header lost its subscripts (\"O\" is O₂, \"CO\" is CO₂ in FLEX); read with that meaning.",
   "header-encoding": "NASA's header lost the µ (\"?-g\" is µ-g); read with that meaning.",

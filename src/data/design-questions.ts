@@ -80,8 +80,8 @@ export const DESIGN_QUESTIONS: DesignQuestion[] = [
     id: "dq-smoke-size",
     area: "detection",
     question: "Is your smoke detector sensitive to the particle sizes low-gravity smoke produces?",
-    why: "SAME measured average smoke particles mostly between 200 and 400 nm.",
-    evidence: [{ kind: "ntrs", quote: "same-sizes" }, { kind: "psi", link: "smoke-particle-size" }],
+    why: "SAME measured average smoke particles mostly between 200 and 400 nm, and they grew as the smoke aged.",
+    evidence: [{ kind: "ntrs", quote: "same-sizes" }, { kind: "finding", id: "F8" }, { kind: "psi", link: "smoke-particle-size" }],
     appliesWhen: { test: (s) => s.question === "detection", label: "your question is detection" },
   },
   {

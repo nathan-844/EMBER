@@ -27,7 +27,7 @@ const LIMITS: Record<string, (v: number) => boolean> = {
 };
 
 /** Cells that mean "no measurement": NASA's dash, "none", "n/a", or a character lost in export. */
-const NO_VALUE = /^(�+|[–—-]|none|n\/a)$/i;
+const NO_VALUE = /^(�+|[–—-]|none|n\/a|na)$/i;
 /** Cells that say the reading was off the scale. */
 const CENSORED = /^(>\s*\d+(\.\d+)?|or|over)$/i;
 
@@ -73,6 +73,9 @@ export function readQuantity(spec: QSpec, raw: string): Quantity | undefined {
   } else if (/(^|[^\d.])0\d/.test(text)) {
     values = [];
     flags.push("leading-zero");
+  } else if (spec.zeroIsMissing && /^\s*0(\.0+)?\s*$/.test(text)) {
+    values = [];
+    flags.push("zero-not-measured");
   } else if (own) {
     values = own.values;
     if (own.flag) flags.push(own.flag);
@@ -129,7 +132,7 @@ function psiRows(id: string, table: TableIn, meta: ManifestIn["tables"][number],
     const row: AtlasRow = {
       id: `${id}:r${r.sourceRow}`,
       source: { kind: "psi", table: id, accession: meta.accession, sha256: meta.sha256, sourceRow: r.sourceRow },
-      investigation: spec.investigation,
+      investigation: typeof spec.investigation === "function" ? spec.investigation(get) : spec.investigation,
       rowKind,
       ...(rowKindReason ? { rowKindReason } : {}),
       fuelClass: rowKind === "aside" ? null : (spec.fuelClass ?? matClass),

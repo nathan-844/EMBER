@@ -31,7 +31,7 @@ const RULES: Rule[] = [
   { re: /\bwax\b/i, name: "Wax (type not stated)", fuelClass: "solid" },
   { re: /^\s*candle\s*$/i, name: "Wax (type not stated)", fuelClass: "solid" },
   // Liquids
-  { re: /dibutyl phthalate/i, name: "Dibutyl phthalate", fuelClass: "liquid" },
+  { re: /dibutyl phthalate|^\s*DBP\s*$/i, name: "Dibutyl phthalate", fuelClass: "liquid" },
   { re: /iso-?dodecane/i, name: "n-Dodecane / iso-dodecane blend", fuelClass: "liquid" },
   { re: /c12h26/i, name: "n-Dodecane", fuelClass: "liquid" },
   { re: /heptane.*iso-?octane/i, name: "Heptane / isooctane blend", fuelClass: "liquid" },

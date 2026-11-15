@@ -70,7 +70,7 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
         {metas.length > 1 && (
           <div className="segmented small-seg" role="group" aria-label="NASA table">
             {metas.map((m, i) => (
-              <button key={m.id} aria-pressed={i === tableIdx} onClick={() => setTableIdx(i)}>{m.file.replace(/^PSI-\d+_Experimental table_/, "").replace(/\.csv$/i, "")}</button>
+              <button key={m.id} aria-pressed={i === tableIdx} onClick={() => setTableIdx(i)}>{"sheet" in m ? "Results workbook" : m.file.replace(/^PSI-\d+_Experimental table_/, "").replace(/\.csv$/i, "")}</button>
             ))}
           </div>
         )}
@@ -78,7 +78,7 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
 
       <p className="small">
         <a href={meta.url} target="_blank" rel="noreferrer">NASA {meta.id} <ExternalIcon /></a>{" "}
-        <span className="muted">· {meta.file} · {s.rows} runs</span>
+        <span className="muted">· {meta.file}{"sheet" in meta ? ` (sheet “${String(meta.sheet)}”)` : ""} · {s.rows} runs</span>
       </p>
       {analyses.length > 0 && (
         <div className="analyses">

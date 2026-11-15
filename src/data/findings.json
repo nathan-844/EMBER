@@ -1158,9 +1158,9 @@
   {
    "id": "F6",
    "title": "Almost no solid has burned in exploration air",
-   "claim": "Of 384 solid-material tests, 145 record the oxygen level and only 5 the pressure. Solid tests in NASA's PSI tables stop at 22.2% O₂; 4 samples from the Saffire IV–VI paper go higher, and 2 of them reach the challenge's exploration atmosphere (SIBAL cotton-fiberglass fabric at 31% and 7.85 psia; PMMA at 30.3% and 7.92 psia). Both burned.",
+   "claim": "Of 402 solid-material tests, 145 record the oxygen level and only 5 the pressure. Solid tests in NASA's PSI tables stop at 22.2% O₂; 4 samples from the Saffire IV–VI paper go higher, and 2 of them reach the challenge's exploration atmosphere (SIBAL cotton-fiberglass fabric at 31% and 7.85 psia; PMMA at 30.3% and 7.92 psia). Both burned.",
    "numbers": {
-    "solidTests": 384,
+    "solidTests": 402,
     "withOxygen": 145,
     "withPressure": 5,
     "psiHighestO2": 22.2,
@@ -1321,7 +1321,7 @@
    "excluded": [
     {
      "reason": "solid tests that do not record oxygen (e.g. BASS, Saffire-III, SAME)",
-     "count": 239
+     "count": 257
     }
    ],
    "method": "1. Take every test in the atlas whose fuel is a solid. 2. Use its oxygen (the top of the range where NASA lists a range) and pressure where recorded. 3. Find the highest oxygen in the PSI tables, then the tests above it, and those at 30% O₂ or more and 10.2 psi or less.",
@@ -1654,6 +1654,218 @@
      [
       "off the sensor's scale",
       4
+     ]
+    ]
+   }
+  },
+  {
+   "id": "F8",
+   "title": "Spacecraft smoke particles grew as the smoke aged",
+   "claim": "In 46 of 48 SAME and SAME-R runs measured both fresh and after ageing, the smoke's mean particle diameter grew. The median run grew 1.5 times, from 0.19 µm about 38 s after the smoke was made to 0.27 µm after about 623 s.",
+   "numbers": {
+    "pairs": 48,
+    "grew": 46,
+    "grewCi": "86–99%",
+    "sameRuns": 8,
+    "sameRRuns": 40,
+    "medianRatio": 1.5,
+    "ratioCi": "1.28 to 1.64",
+    "medianFreshUm": 0.19,
+    "medianAgedUm": 0.27,
+    "medianFreshAgeS": 38,
+    "medianAgedAgeS": 623
+   },
+   "n": 48,
+   "rows": [
+    "PSI-101-1:r7",
+    "PSI-101-1:r8",
+    "PSI-101-1:r11",
+    "PSI-101-1:r12",
+    "PSI-101-1:r15",
+    "PSI-101-1:r16",
+    "PSI-101-1:r19",
+    "PSI-101-1:r20",
+    "PSI-101-1:r23",
+    "PSI-101-1:r24",
+    "PSI-101-1:r34",
+    "PSI-101-1:r35",
+    "PSI-101-1:r44",
+    "PSI-101-1:r45",
+    "PSI-101-1:r46",
+    "PSI-101-1:r47",
+    "PSI-101-1:r51",
+    "PSI-101-1:r52",
+    "PSI-101-1:r56",
+    "PSI-101-1:r57",
+    "PSI-101-1:r60",
+    "PSI-101-1:r61",
+    "PSI-101-1:r62",
+    "PSI-101-1:r63",
+    "PSI-101-1:r64",
+    "PSI-101-1:r65",
+    "PSI-101-1:r66",
+    "PSI-101-1:r67",
+    "PSI-101-1:r68",
+    "PSI-101-1:r69",
+    "PSI-101-1:r70",
+    "PSI-101-1:r71",
+    "PSI-101-1:r72",
+    "PSI-101-1:r73",
+    "PSI-101-1:r74",
+    "PSI-101-1:r75",
+    "PSI-101-1:r76",
+    "PSI-101-1:r77",
+    "PSI-101-1:r84",
+    "PSI-101-1:r85",
+    "PSI-101-1:r86",
+    "PSI-101-1:r87",
+    "PSI-101-1:r90",
+    "PSI-101-1:r91",
+    "PSI-101-1:r92",
+    "PSI-101-1:r93",
+    "PSI-101-1:r94",
+    "PSI-101-1:r95",
+    "PSI-101-1:r96",
+    "PSI-101-1:r97",
+    "PSI-101-1:r98",
+    "PSI-101-1:r99",
+    "PSI-101-1:r100",
+    "PSI-101-1:r101",
+    "PSI-101-1:r102",
+    "PSI-101-1:r103",
+    "PSI-101-1:r104",
+    "PSI-101-1:r105",
+    "PSI-101-1:r106",
+    "PSI-101-1:r107",
+    "PSI-101-1:r110",
+    "PSI-101-1:r111",
+    "PSI-101-1:r115",
+    "PSI-101-1:r116",
+    "PSI-101-1:r119",
+    "PSI-101-1:r120",
+    "PSI-101-1:r121",
+    "PSI-101-1:r122",
+    "PSI-101-1:r123",
+    "PSI-101-1:r124",
+    "PSI-101-1:r125",
+    "PSI-101-1:r126",
+    "PSI-101-1:r127",
+    "PSI-101-1:r128",
+    "PSI-101-1:r129",
+    "PSI-101-1:r130",
+    "PSI-101-1:r131",
+    "PSI-101-1:r132",
+    "PSI-101-1:r133",
+    "PSI-101-1:r134",
+    "PSI-101-1:r135",
+    "PSI-101-1:r136",
+    "PSI-101-1:r137",
+    "PSI-101-1:r138",
+    "PSI-101-1:r139",
+    "PSI-101-1:r140",
+    "PSI-101-1:r141",
+    "PSI-101-1:r142",
+    "PSI-101-1:r143",
+    "PSI-101-1:r144",
+    "PSI-101-1:r145",
+    "PSI-101-1:r146",
+    "PSI-101-1:r147",
+    "PSI-101-1:r148",
+    "PSI-101-1:r149",
+    "PSI-101-1:r150"
+   ],
+   "excluded": [
+    {
+     "reason": "aged run without a measured diameter for it or its fresh run (NASA wrote 0)",
+     "count": 10
+    }
+   ],
+   "method": "1. Take NASA's SAME and SAME-R results workbook (\"Reduced data sheet\"). 2. Pair each run numbered \"…a\" (measured after ageing) with the run of the same number (measured fresh). 3. Use NASA's \"M1/M0 (micro-m)--AMD\" column, the mean particle diameter from the first two moments of the size distribution; a 0 means nothing was measured and the pair is left out. 4. Divide aged by fresh diameter.",
+   "uncertainty": {
+    "text": "Share of runs that grew: 95% interval 86–99%. Median growth: 95% bootstrap interval 1.28 to 1.64 times.",
+    "method": "Wilson score interval for the share; percentile bootstrap (2000 seeded resamples) for the median ratio."
+   },
+   "confounders": [
+    "40 of the 48 pairs are SAME-R and 8 SAME; the two flights differ in materials and heater settings.",
+    "Ageing time, heater temperature and flow differ between runs; the ratio does not separate them.",
+    "Some particles can deposit on chamber walls while the smoke ages, which also changes the measured mean size."
+   ],
+   "notClaimed": "Smoke from heated (not flaming) materials in an experiment chamber, not a cabin fire. It does not set a detector design or say how fast cabin smoke ages.",
+   "investigations": [
+    "same",
+    "same-r"
+   ],
+   "table": {
+    "columns": [
+     "Flight",
+     "Material",
+     "Runs paired",
+     "Grew",
+     "Median growth (×)"
+    ],
+    "rows": [
+     [
+      "SAME-R",
+      "Kapton",
+      11,
+      11,
+      1.47
+     ],
+     [
+      "SAME-R",
+      "Lampwick",
+      7,
+      6,
+      1.28
+     ],
+     [
+      "SAME-R",
+      "Pyrell foam",
+      8,
+      8,
+      1.63
+     ],
+     [
+      "SAME-R",
+      "Silicone rubber",
+      8,
+      8,
+      1.71
+     ],
+     [
+      "SAME-R",
+      "Teflon",
+      6,
+      5,
+      1.74
+     ],
+     [
+      "SAME",
+      "Kapton",
+      2,
+      2,
+      1.46
+     ],
+     [
+      "SAME",
+      "Lampwick",
+      2,
+      2,
+      1.32
+     ],
+     [
+      "SAME",
+      "Silicone rubber",
+      2,
+      2,
+      1.49
+     ],
+     [
+      "SAME",
+      "Teflon",
+      2,
+      2,
+      1.18
      ]
     ]
    }

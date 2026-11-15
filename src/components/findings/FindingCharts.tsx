@@ -250,4 +250,4 @@ export function FindingChart({ f }: { f: Finding }) {
 }
 
 /** Charts whose form is already a table need no separate table view. */
-export const IS_TABLE_FORM = new Set(["F3", "F5", "F7"]);
+export const IS_TABLE_FORM = new Set(["F3", "F5", "F7", "F8"]);
