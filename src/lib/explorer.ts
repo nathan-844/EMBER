@@ -165,32 +165,126 @@ const csvCell = (v: unknown) => {
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 
+/** Cells in a table whose numbers fall outside their column's outlier fences (same rule as the CSV flag). */
+export function countOutliers(tableId: string): number {
+  const t = getTable(tableId);
+  let n = 0;
+  for (const [i, f] of outlierFences(tableId)) {
+    for (const r of t.rows) {
+      const cell = r.cells[i] ?? "";
+      if (!isNoValue(cell) && cellValues(cell).some((v) => v < f.lo || v > f.hi)) n++;
+    }
+  }
+  return n;
+}
+
 /**
  * Tidy (long) CSV of every filled cell in the NASA tables of the given investigations: one row per
  * test run and column, with the cell exactly as NASA wrote it, the numbers parsed from it and,
  * for the columns EMBER ranks on, the value converted into the app's unit.
  */
+/** Unit conversions to one unit per quantity, for modelling. Keys are lower-case units as written. */
+const HARMONISE: Record<string, { unit: string; f: (v: number) => number }> = {
+  "cm/s": { unit: "m/s", f: (v) => v / 100 },
+  "mm/s": { unit: "m/s", f: (v) => v / 1000 },
+  "m/s": { unit: "m/s", f: (v) => v },
+  atm: { unit: "psia", f: (v) => v * 14.6959 },
+  bar: { unit: "psia", f: (v) => v * 14.5038 },
+  mmhg: { unit: "psia", f: (v) => (v * 14.6959) / 760 },
+  kpa: { unit: "psia", f: (v) => v * 0.145038 },
+  psia: { unit: "psia", f: (v) => v },
+  psi: { unit: "psia", f: (v) => v },
+  "mole fraction": { unit: "vol %", f: (v) => v * 100 },
+  "%": { unit: "vol %", f: (v) => v },
+  percent: { unit: "vol %", f: (v) => v },
+  mm: { unit: "mm", f: (v) => v },
+  cm: { unit: "mm", f: (v) => v * 10 },
+  s: { unit: "s", f: (v) => v },
+  sec: { unit: "s", f: (v) => v },
+  minutes: { unit: "s", f: (v) => v * 60 },
+  "mg/s": { unit: "mg/s", f: (v) => v },
+  "mg/min": { unit: "mg/s", f: (v) => v / 60 },
+  k: { unit: "K", f: (v) => v },
+  c: { unit: "K", f: (v) => v + 273.15 },
+};
+
+/** Columns that are instrument settings or uncalibrated readings, not physical quantities. */
+export const UNCALIBRATED: Record<string, string[]> = {
+  "PSI-25-0": ["Fan display", "Air display"],
+};
+
+/** The unit a cell is in: from its header, else from a unit written in the cell ("20 cm/s"). */
+function cellUnit(header: string, value: string): string | null {
+  const h = unitOf(header);
+  if (h) return h.replace(/\s*\)$/, "").trim();
+  // Percentages named in the header text ("O2 % by vol", "Percent O2").
+  if (/%|\bpercent\b/i.test(header)) return "%";
+  const m = /\d\s*(cm\/s|mm\/s|m\/s|atm|bar|mmhg|kpa|psia|%|mm|cm|sec|s|mg\/s|mg\/min)\b/i.exec(value);
+  return m ? m[1] : null;
+}
+
+const quantile = (sorted: number[], q: number) => {
+  const pos = (sorted.length - 1) * q;
+  const lo = Math.floor(pos);
+  return sorted[lo] + (sorted[Math.min(lo + 1, sorted.length - 1)] - sorted[lo]) * (pos - lo);
+};
+
+/**
+ * Per numeric column, the fences beyond which a value is flagged as an outlier: 3 × IQR outside the
+ * quartiles, for columns with at least 8 numbers. Flags are for review; nothing is removed.
+ */
+export function outlierFences(tableId: string): Map<number, { lo: number; hi: number }> {
+  const t = getTable(tableId);
+  const out = new Map<number, { lo: number; hi: number }>();
+  t.header.forEach((_, i) => {
+    const vals = t.rows.flatMap((r) => (isNoValue(r.cells[i] ?? "") ? [] : cellValues(r.cells[i]))).sort((a, b) => a - b);
+    if (vals.length < 8) return;
+    const q1 = quantile(vals, 0.25), q3 = quantile(vals, 0.75), iqr = q3 - q1;
+    if (iqr <= 0) return;
+    out.set(i, { lo: q1 - 3 * iqr, hi: q3 + 3 * iqr });
+  });
+  return out;
+}
+
+/**
+ * Tidy (long) CSV of every filled cell in the NASA tables of the given investigations: one row per
+ * test run and column, with the cell exactly as NASA wrote it, the numbers parsed from it, the same
+ * numbers in one harmonised unit per quantity, EMBER's ranked-condition value where used, and flags
+ * for review (outliers, values outside physical limits, uncalibrated readings). Nothing is dropped.
+ */
 export function buildRowsCsv(invs: Investigation[]): string {
   const header = [
     "investigation", "psi_accession", "psi_table", "table_sha256", "source_row", "column", "column_role",
-    "unit_in_header", "value_as_written", "numbers_parsed", "ember_condition", "ember_value", "ember_unit",
+    "unit_as_written", "value_as_written", "numbers_parsed", "harmonised_value", "harmonised_unit",
+    "ember_condition", "ember_value", "ember_unit", "flags",
   ];
   const lines = [header.join(",")];
   for (const inv of invs) {
     for (const meta of tablesFor(inv)) {
       const t = getTable(meta.id);
       const conds = conditionColumns(meta.id);
+      const fences = outlierFences(meta.id);
+      const uncalibrated = new Set(UNCALIBRATED[meta.id] ?? []);
       for (const r of t.rows) {
         t.header.forEach((rawHeader, i) => {
           const value = (r.cells[i] ?? "").replace(/\s+/g, " ").trim();
           if (!value || isNoValue(value) || !rawHeader.trim()) return;
-          const key = rawHeader.replace(/\s+/g, " ").trim();
+          const key = norm(rawHeader);
           const cond = conds.get(key);
           const nums = cellValues(value, cond?.parser);
           const converted = cond ? nums.map((n) => +(n * cond.factor).toPrecision(6)) : [];
+          const unit = cellUnit(rawHeader, value);
+          const h = unit && !uncalibrated.has(key) ? HARMONISE[unit.toLowerCase()] : undefined;
+          const harmonised = h ? nums.map((n) => +h.f(n).toPrecision(6)) : [];
+          const flags: string[] = [];
+          if (uncalibrated.has(key)) flags.push("uncalibrated instrument reading; not a physical quantity");
+          if (cond && converted.some((v) => !LIMITS[cond.key](v))) flags.push("outside physical limits; left out of EMBER's ranges");
+          const f = fences.get(i);
+          if (f && nums.some((n) => n < f.lo || n > f.hi)) flags.push(`outlier: beyond 3×IQR of this column (${+f.lo.toPrecision(4)} to ${+f.hi.toPrecision(4)})`);
           lines.push([
             inv.name, meta.accession, meta.id, meta.sha256, r.sourceRow, cleanHeader(rawHeader), columnRole(rawHeader, conds),
-            unitOf(rawHeader), value, nums.join(";"), cond?.key ?? "", converted.join(";"), cond ? APP_UNIT[cond.key] : "",
+            unit, value, nums.join(";"), harmonised.join(";"), h?.unit ?? "",
+            cond?.key ?? "", converted.join(";"), cond ? APP_UNIT[cond.key] : "", flags.join(" | "),
           ].map(csvCell).join(","));
         });
       }

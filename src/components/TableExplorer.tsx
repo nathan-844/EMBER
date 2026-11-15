@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getTable, summarizeTable, tablesFor, buildRowsCsv, type ColumnSummary } from "../lib/explorer";
+import { getTable, summarizeTable, tablesFor, buildRowsCsv, countOutliers, UNCALIBRATED, type ColumnSummary } from "../lib/explorer";
 import { cleanHeader, isNoValue } from "../lib/cells";
 import { downloadText } from "../lib/brief";
 import type { RankedInvestigation } from "../lib/ranking";
@@ -32,6 +32,7 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
   const metas = tablesFor(inv);
   const meta = metas[Math.min(tableIdx, metas.length - 1)];
   const s = summarizeTable(meta);
+  const outlierCount = countOutliers(meta.id);
   const t = getTable(meta.id);
   const rows = showAll ? t.rows : t.rows.slice(0, 12);
   const byRole = (role: ColumnSummary["role"]) => s.varied.filter((c) => c.role === role);
@@ -53,8 +54,10 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
         </div>
       </div>
       <p className="small muted">
-        Every filled cell, one line per run and column, with the NASA table, its SHA-256, the source row, the value as NASA wrote
-        it and, for ranked conditions, the value in EMBER's unit. Column roles are judged from NASA's headers.
+        Every filled cell, one line per run and column: the NASA table, its SHA-256 and source row, the value exactly as NASA
+        wrote it, the same numbers in one unit per quantity (psia, m/s, vol %, s, mm, K, mg/s), EMBER's value for ranked
+        conditions, and review flags for outliers, impossible values and uncalibrated readings. Nothing is dropped or edited.
+        Column roles are judged from NASA's headers.
       </p>
 
       <div className="explorer-pick">
@@ -98,11 +101,13 @@ export function TableExplorer({ ranked }: { ranked: RankedInvestigation[] }) {
       <p className="small"><strong>Held fixed in every run:</strong>{" "}
         {s.fixed.length ? s.fixed.map((c) => `${c.header} = ${c.examples[0]}`).join(" · ") : <span className="muted">nothing</span>}
       </p>
-      {(s.bookkeeping.length > 0 || s.empty.length > 0 || s.noValueCells > 0) && (
+      {(s.bookkeeping.length > 0 || s.empty.length > 0 || s.noValueCells > 0 || outlierCount > 0) && (
         <p className="small muted">
           {s.bookkeeping.length > 0 && <>Run ids and dates: {s.bookkeeping.join(", ")}. </>}
           {s.empty.length > 0 && <>Empty columns: {s.empty.join(", ")}. </>}
-          {s.noValueCells > 0 && <>{s.noValueCells} cells say "no measurement" (a dash) and are left out.</>}
+          {s.noValueCells > 0 && <>{s.noValueCells} cells say "no measurement" (a dash) and are left out. </>}
+          {outlierCount > 0 && <>{outlierCount} values are flagged as outliers (beyond 3×IQR of their column) in the CSV for review. </>}
+          {(UNCALIBRATED[meta.id] ?? []).length > 0 && <>Uncalibrated readings, not converted: {UNCALIBRATED[meta.id].join(", ")}.</>}
         </p>
       )}
 

@@ -67,7 +67,7 @@ describe("full-row CSV", () => {
   });
 
   it("converts ranked condition columns into the app's unit", () => {
-    expect(lines.some((l) => /,Air Flow \(cm\/s\),condition,cm\/s,20 cm\/s,20,airflowMs,0\.2,m\/s$/.test(l))).toBe(true);
+    expect(lines.some((l) => /,Air Flow \(cm\/s\),condition,cm\/s,20 cm\/s,20,0\.2,m\/s,airflowMs,0\.2,m\/s,$/.test(l))).toBe(true);
   });
 
   it("keeps the cell exactly as NASA wrote it", () => {
@@ -102,5 +102,27 @@ describe("gap map points", async () => {
 
   it("names profiles whose oxygen is only a written approximation", () => {
     expect(g.curatedOnly).toContain("Saffire-III");
+  });
+});
+
+describe("modelling export flags and harmonised units", () => {
+  const csv = buildRowsCsv([inv("bass-ii"), inv("acme-bre"), inv("flex")]);
+  const lines = csv.trim().split("\n");
+  it("flags BASS-II's 40.4% final oxygen reading as an outlier, without changing it", () => {
+    const l = lines.find((x) => x.includes(",Calibrated final O2 % by vol,") && x.includes(",40.4,"))!;
+    expect(l).toMatch(/outlier: beyond 3×IQR/);
+    expect(l).toMatch(/,40\.4,vol %,/);
+  });
+  it("flags BRE's 3400% typo as outside physical limits", () => {
+    expect(lines.find((x) => x.includes(",3400%,"))).toMatch(/outside physical limits/);
+  });
+  it("marks BASS-II fan and air displays as uncalibrated, with no harmonised value", () => {
+    const l = lines.find((x) => x.includes(",Fan display,"))!;
+    expect(l).toMatch(/uncalibrated instrument reading/);
+  });
+  it("converts FLEX pressure from mmHg to psia", () => {
+    const l = lines.find((x) => x.includes(",Ambient pressure; mmHg,") && x.includes(",760,"));
+    if (l) expect(l).toMatch(/,14\.6959,psia,/);
+    expect(lines.some((x) => x.includes(",Ambient pressure; mmHg,") && /,psia,/.test(x))).toBe(true);
   });
 });

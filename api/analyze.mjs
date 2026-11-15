@@ -8448,7 +8448,7 @@ var CURATED = [
       oxygenPct: { min: 14, max: 21.5, basis: "Reduced-oxygen runs by nitrogen dilution up to cabin air, approximate" },
       pressurePsi: CABIN_AIR_P,
       gravityG: MICROGRAVITY,
-      airflowMs: { min: 0, max: 0.5, basis: "Fan-driven duct flow from quiescent to tens of cm/s, approximate" }
+      airflowMs: { min: 0, max: 0.5, basis: "EMBER estimate: fan-driven duct flow from quiescent to tens of cm/s. Not read from the PSI-25 run table, whose Fan display and Air display columns are uncalibrated instrument readings" }
     },
     measurements: ["Video of flame spread", "Flame extinction limits", "Duct flow speed"],
     caveats: ["Duct-scale samples; spacecraft-scale fire growth was studied separately in Saffire."]
