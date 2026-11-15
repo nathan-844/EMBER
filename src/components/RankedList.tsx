@@ -1,6 +1,8 @@
 import { Fragment, useMemo, useState } from "react";
 import { CONDITION_LABELS, MAX_CONDITION_POINTS, rangeLabel, rankLabel, type ConditionResult, type RankedInvestigation } from "../lib/ranking";
 import { getPsiRecord } from "../data/psi";
+import { photosFor } from "../data/nasa-media";
+import { NasaPhoto } from "./NasaPhoto";
 import type { Scenario } from "../lib/scenario";
 import { ExternalIcon } from "./icons";
 import { RobustnessBar } from "./RobustnessBar";
@@ -101,6 +103,7 @@ function Row({ r, stability }: { r: RankedInvestigation; stability?: RankRange }
               {inv.testedFlowDirections?.length ? ` Flow direction ${inv.testedFlowDirections.join(" and ")}.` : ""}
             </p>
           ) : null}
+          {photosFor(inv.id).map(({ photo, shared }) => <NasaPhoto key={photo.nasaId} photo={photo} shared={shared} />)}
           <PsiRecordPanel accession={inv.psi.accession} />
         </div>
       )}

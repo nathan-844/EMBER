@@ -200,6 +200,17 @@ The tidy CSV export gives every filled cell with:
 re-analyse flight data (SPICE, BASS, SAME, FLEX and cool-flame data: PSI-60, 62, 115, 117 and 142).
 The explorer lists them under the investigation they build on.
 
+## NASA photos
+
+Ten public-domain photos from the NASA Image and Video Library show the studies' flames and hardware
+(BASS, BASS-II, Saffire-III in its Cygnus, Saffire-IV burning plexiglass and fabric, the ACME insert,
+Flame Design, E-FIELD, the droplet apparatus used by FLEX, FLEX-2 and CFI, and SAME). Each opens
+in its investigation's ranked row (marked "shared hardware" when the photo shows equipment several
+studies used), and four flames lead the landing page. Captions follow NASA's descriptions, which are
+stored in `src/data/nasa-media-records.json`; a test checks each quoted phrase and date against them.
+One NASA record is titled Saffire-II but describes Saffire-III on OA-7; EMBER files it as Saffire-III
+and says so.
+
 ## What the research informs
 
 - **Next-generation equipment** - links investigations to detection, suppression, ventilation and

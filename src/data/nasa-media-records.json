@@ -1,0 +1,86 @@
+{
+ "source": "https://images-api.nasa.gov/search?nasa_id=<id>",
+ "fetchedOn": "2026-11-15",
+ "records": {
+  "iss035e015900": {
+   "nasa_id": "iss035e015900",
+   "title": "BASS Experiment Imagery",
+   "date_created": "2013-04-09T00:00:00Z",
+   "center": "JSC",
+   "photographer": null,
+   "description": "ISS035-E-015900 (10 April 2013) --- This is one of a series of close-up images photographed during a run of the Burning and Suppression of Solids (BASS) experiment onboard the Earth-orbiting International Space Station. Following a series of preparations,  NASA astronaut Chris Cassidy (out of frame) conducted several runs of the experiment, which examines the burning and extinction characteristics of a wide variety of fuel samples in microgravity.  The experiment is planned for guiding strategies for extinguishing fires in microgravity. BASS results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth."
+  },
+  "iss040e086481": {
+   "nasa_id": "iss040e086481",
+   "title": "BASS-II Experiment",
+   "date_created": "2014-08-02T00:00:00Z",
+   "center": "JSC",
+   "photographer": "Reid Wiseman",
+   "description": "Image taken on card 8 during BASS-II flame test session with reduced O2 partial pressure. Session conducted on GMT 213. The Burning and Suppression of Solids - II (BASS-II) investigation examines the burning and extinction characteristics of a wide variety of fuel samples in microgravity. The BASS-II experiment will guide strategies for materials flammability screening for use in spacecraft as well as provide valuable data on solid fuel burning behavior in microgravity. BASS-II results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth."
+  },
+  "iss051e039882": {
+   "nasa_id": "iss051e039882",
+   "title": "Saffire-II in Cygnus OA-7 during Cargo Transfer OPS",
+   "date_created": "2017-05-08T00:00:00Z",
+   "center": "JSC",
+   "photographer": "Thomas Pesquet",
+   "description": "iss051e039882 (5/8/2017) --- A view of Spacecraft Fire Experiment-III (Saffire-III) award the John Glenn Orbital ATK 7 (OA-7) Cygnus spacecraft, taken during cargo transfer operations (OPS). The NASA Advanced Exploration Systems program began a project to develop and demonstrate spacecraft fire safety technologies in relevant environments. The keystone of these demonstrations is a large-scale fire safety experiment conducted on an International Space Station (ISS) re-supply vehicle after it has undocked from the ISS and before it enters the atmosphere."
+  },
+  "jsc2023e046631": {
+   "nasa_id": "jsc2023e046631",
+   "title": "jsc2023e046631",
+   "date_created": "2023-07-25T00:00:00Z",
+   "center": "JSC",
+   "photographer": null,
+   "description": "jsc2023e046631 (7/25/2023) --- Plexiglass is shown burning in Spacecraft Fire Experiment-IV (Saffire-IV). The flame appears orange because of the soot that is produced as it burns. As the plexiglass burns, the solid is melted, vaporized, and then the vapor burns. The bright flame balls in the flame is vapor burning as it is expelled from the surface. Saffire-VI burns plexiglass at higher oxygen concentrations. The Saffire experiments aim to inform the development of fire safety equipment and strategies for future spacecraft."
+  },
+  "jsc2023e046375": {
+   "nasa_id": "jsc2023e046375",
+   "title": "jsc2023e046375",
+   "date_created": "2023-07-25T00:00:00Z",
+   "center": "JSC",
+   "photographer": null,
+   "description": "jsc2023e046375 (7/25/2023) --- A sample of fabric burns inside Spacecraft Fire Experiment-IV (Saffire-IV). The sample is a composite fabric made of cotton and fiberglass and is 40 cm wide. The image appears green because green LED lights are used to illuminate the sample during a burn. The flame appears orange in this image and the black region to the right of the flame is the cotton in the sample beginning to heat and char. The bright specks to the left of the flame are smoldering cotton that remains on the fiberglass substrate after the flame passes. In Saffire-VI, this fabric is burned at higher oxygen concentrations. Researchers aim to study realistic flame spread to aid the development of fire safety equipment and strategies for future spacecraft."
+  },
+  "GRC-2016-C-05051": {
+   "nasa_id": "GRC-2016-C-05051",
+   "title": "Advanced Combustion via Microgravity Experiments, ACME chamber insert",
+   "date_created": "2016-06-22T00:00:00Z",
+   "center": "GRC",
+   "photographer": "NASA/GRC/Marvin Smith",
+   "description": "NASA Glenn engineer Christopher Mroczka inspects the gas-jet burner within the Advanced Combustion via Microgravity Experiments, ACME insert for the Combustion Integrated Rack, CIR. The apparatus allows researchers to conduct experiments with flames of gaseous fuels on the International Space Station, ISS"
+  },
+  "iss059e103188": {
+   "nasa_id": "iss059e103188",
+   "title": "CIR / ACME / Flame Design hardware replacement",
+   "date_created": "2019-06-14T00:00:00Z",
+   "center": "JSC",
+   "photographer": "Christina Koch",
+   "description": "iss059e103188 (6/14/2019) --- Photo documentation taken aboard the International Space Station (ISS) during the Fluids and Combustion Facility (FCF) Combustion Integration Rack (CIR) / Advanced Combustion via Microgravity Experiments (ACME) / Flame Design hardware replacement."
+  },
+  "GRC-2013-C-03367": {
+   "nasa_id": "GRC-2013-C-03367",
+   "title": "GRC-2013-C-03367",
+   "date_created": "2013-08-19T00:00:00Z",
+   "center": "GRC",
+   "photographer": "NASA/GRC/Marvin Smith",
+   "description": "Mechanical Engineer Adrian Drake inspects engineering model hardware built to generate a high-voltage electric field for the Electric-Field Effects on Laminar Diffusion Flames (E-FIELD Flames) experiment of the Advanced Combustion via Microgravity Experiments (ACME) project. ACME’s small computer (i.e., the Cube) for data acquisition and control within the CIR combustion chamber is seen in the right foreground.  The E-FIELD Flames tests were conducted in the Combustion Integrated Rack (CIR) on the International Space Station (ISS) in 2018."
+  },
+  "iss043e190395": {
+   "nasa_id": "iss043e190395",
+   "title": "CIR MDCA replacement",
+   "date_created": "2015-05-13T00:00:00Z",
+   "center": "JSC",
+   "photographer": "Terry Virts",
+   "description": "ISS043E190395 (05/13/2015) --- NASA astronaut Terry Virts prepares the Multi-user Droplet Combustion Apparatus from inside the Combustion Integrated Rack for upcoming runs of the FLame Extinguishment Experiment, or FLEX-2. The FLEX-2 experiment studies how quickly fuel burns, the conditions required for soot to form, and how mixtures of fuels evaporate before burning. Understanding these processes could lead to the production of a safer spacecraft as well as increased fuel efficiency for engines using liquid fuel on Earth."
+  },
+  "iss015e27411": {
+   "nasa_id": "iss015e27411",
+   "title": "View of Anderson working with SAME Hardware in the US Lab during Expedition 15",
+   "date_created": "2007-09-08T00:00:00Z",
+   "center": "JSC",
+   "photographer": null,
+   "description": "ISS015-E-27411 (8 Sept. 2007) --- NASA astronaut Clay Anderson, Expedition 15 flight engineer, works on the Smoke and Aerosol Measurement Experiment (SAME) hardware located in the Microgravity Science Glovebox (MSG) in the Destiny laboratory of the International Space Station. SAME will measure the smoke properties, or particle size distribution, of typical particles that are produced from different materials that can be found onboard station and other spacecrafts. SAME aims to test the performance of ionization smoke detectors and evaluate the performance of the photoelectric smoke detectors. The data will be used to develop a model that can predict smoke droplet growth that will be used to evaluate future smoke detection devices."
+  }
+ }
+}

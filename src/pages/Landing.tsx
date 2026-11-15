@@ -6,6 +6,10 @@ import rawAudit from "../data/atlas/audit.json";
 import rawFindings from "../data/findings.json";
 import type { AuditFile } from "../lib/atlas/audit";
 import type { FindingsFile } from "../lib/findings/types";
+import { NASA_PHOTOS } from "../data/nasa-media";
+import { NasaPhoto } from "../components/NasaPhoto";
+
+const FLAMES = ["iss035e015900", "iss040e086481", "jsc2023e046631", "jsc2023e046375"].map((id) => NASA_PHOTOS.find((p) => p.nasaId === id)!);
 
 const FINDINGS = rawFindings as unknown as FindingsFile;
 const AUDIT = rawAudit as unknown as AuditFile;
@@ -88,6 +92,18 @@ export function Landing() {
           flights burned solid samples at {Math.min(...SAFFIRE_ABOVE.map((r) => r.oxygenPct))}–{Math.max(...SAFFIRE_ABOVE.map((r) => r.oxygenPct))}% oxygen
           (<a href={SAFFIRE_NTRS_SOURCE.url} target="_blank" rel="noreferrer">NASA NTRS {SAFFIRE_NTRS_SOURCE.ntrsId}</a>); EMBER shows them but does not score them.
         </p>
+      </section>
+
+      <section className="land-section" aria-labelledby="land-photos">
+        <p className="eyebrow">NASA photos · public domain</p>
+        <h2 id="land-photos">What these fires look like in orbit.</h2>
+        <p className="land-text">
+          Flames from two of the studies EMBER ranks (BASS and BASS-II) and from Saffire-IV, the first of the later Saffire flights NASA has
+          published but PSI does not hold. Saffire V and VI burned the same kinds of samples at 26–31% oxygen. Captions follow NASA's own descriptions.
+        </p>
+        <div className="land-photos">
+          {FLAMES.map((p) => <NasaPhoto key={p.nasaId} photo={p} compact />)}
+        </div>
       </section>
 
       <section className="land-section" aria-labelledby="land-measured">

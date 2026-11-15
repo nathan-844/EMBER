@@ -969,3 +969,16 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 .ox-bar.mine { background: var(--accent); }
 .ox-val { text-align: right; font-variant-numeric: tabular-nums; }
 @media (max-width: 640px) { .ox-grid { grid-template-columns: 1fr; } .ox-row { grid-template-columns: 96px 1fr 68px; } }
+
+/* NASA Image Library photos */
+.nasa-photo { margin: 10px 0; display: grid; grid-template-columns: 220px 1fr; gap: 12px; align-items: start; }
+.nasa-photo img { width: 100%; height: auto; display: block; border-radius: var(--radius-sm); border: 1px solid var(--border); background: #000; }
+.nasa-photo figcaption { font-size: 12.5px; color: var(--ink-2); }
+.nasa-photo-note { color: var(--warn); }
+.nasa-credit { display: block; margin-top: 4px; font-size: 11px; color: var(--muted); }
+.nasa-photo.compact { display: block; margin: 0; }
+.nasa-photo.compact img { aspect-ratio: 3 / 2; object-fit: cover; }
+.nasa-photo.compact figcaption { margin-top: 6px; }
+.land-photos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+@media (max-width: 900px) { .land-photos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .nasa-photo { grid-template-columns: 1fr; } .land-photos { grid-template-columns: 1fr; } }
