@@ -2,8 +2,8 @@
   "recordedAt": "2026-11-15",
   "node": "v22.19.0",
   "code": {
-    "parentCommit": "4dd3ad409e7554ecc040577fcb410266515489d0",
-    "sourceTreeSha256": "bb06eec059f41bebb9111ecc7c8d964fbf8f9b405f116f9366d98f720983895b",
+    "parentCommit": "51449e65683d127068076b813af3bb04c27fdc68",
+    "sourceTreeSha256": "21957e89528fdc1a8b398d5e6abf1b2b03f065ca0bd666d4504bc4338ec8eb9a",
     "files": 248,
     "uncommittedChanges": 0
   },
@@ -2248,6 +2248,226 @@
         "status": "passed"
       },
       {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "atlas coverage has one record per stored NASA row, plus each NTRS Saffire run",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "atlas coverage gives every record a unique id and every table a spec",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "atlas coverage matches the committed atlas files (run npm run data:atlas after changing the rules)",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage keeps the exact NASA cell behind every value",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage explains every flag code it uses",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage only reads outcomes from tables that record one, and only on test rows",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage never keeps a number outside physical limits",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "lineage labels every test row with a fuel class, except a blank material or a sample NASA does not name",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows FLEX run 1: methanol droplet in air, disrupted",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows FLEX run 114: pressure written as 0 is not used, CO₂ diluent kept",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II sample 2-1: silicone, no flame spread in orbit, complete burn in 1 g",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II sample 2-4: thickness \"037 mm\" is ambiguous and not used",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II sample 2-5: SIBAL burned the whole 29 cm in orbit",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II: a blank material stays blank, \"1 cm\" in a mm column is converted, flow-visualisation rows are asides",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-II footnote lines are asides that keep NASA's text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows Saffire-I sample S1: SIBAL, O₂ range kept, length and width flagged",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows BASS-II test B1: 100 µm PMMA film, O₂ and CO before and after",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows BASS-II test B2: final O₂ of 1.6% is flagged as implausible",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows BASS-II rods without a material are inferred PMMA, with the reason",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME Flame Design run 1: ethylene, O₂ from mole fraction, pressure from atm",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows inverse flames put the burner O₂ apart from ambient O₂",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows CFI-G cool flames sit near 39% O₂ and 2 atm with n-butane",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME BRE: \"3400%\" oxygen is out of range, kept as raw text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME CLD fill-down labels are not given a gas name",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows ACME E-field continuation lines are asides",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "golden rows NTRS Saffire VI-2: SIBAL at 31% O₂ and 54.1 kPa burned",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "material dictionary names every stored material label, or says why not",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "material dictionary reads thickness, width, diameter and sides from BASS-II labels",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit matches the committed audit file",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit gives every issue a count, examples, a plain explanation and a handling note",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit quotes NASA's cells exactly: every flagged example is a real cell of its table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "data audit finds the issues checked by hand",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "compact atlas for the app matches the committed atlas-rows.json and covers every record",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements counts test rows and experiments separately",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements SAME: 45 test rows observe 29 runs; SAME-R: 109 observe 67",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements never gives two fresh rows, or two aged rows, of one table the same run identity",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements gives every aged row a fresh row of the same run in the same table",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements keeps SAME-R workbook rows as supplements of tests in the run table, and reports the two runs that do not line up",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "observations, experiments and supplements does not count SAME's 8-line matrix as tests",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is tells a list, a range and a start-to-end drift apart, from how NASA wrote the cell",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is gives a shape to every multi-valued quantity and to nothing else",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is says how a number was obtained when it was not simply read",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is says why a key condition is absent: an empty cell, or a table with no such column",
+        "status": "passed"
+      },
+      {
+        "file": "lib/atlas/atlas.test.ts",
+        "title": "what a value is reads a zero particle diameter as missing only where the row has no particle count to compute it from",
+        "status": "passed"
+      },
+      {
         "file": "lib/analysis/analysis.test.ts",
         "title": "BASS-II source reconciliation cross-checks all 188 gas cells against a separately transcribed NASA report reference",
         "status": "passed"
@@ -2575,226 +2795,6 @@
       {
         "file": "lib/analysis/workbench.test.ts",
         "title": "M2 benchmark and offline reproduction blocks invalid or mismatched-snapshot exports",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "atlas coverage has one record per stored NASA row, plus each NTRS Saffire run",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "atlas coverage gives every record a unique id and every table a spec",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "atlas coverage matches the committed atlas files (run npm run data:atlas after changing the rules)",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "lineage keeps the exact NASA cell behind every value",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "lineage explains every flag code it uses",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "lineage only reads outcomes from tables that record one, and only on test rows",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "lineage never keeps a number outside physical limits",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "lineage labels every test row with a fuel class, except a blank material or a sample NASA does not name",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows FLEX run 1: methanol droplet in air, disrupted",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows FLEX run 114: pressure written as 0 is not used, CO₂ diluent kept",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows Saffire-II sample 2-1: silicone, no flame spread in orbit, complete burn in 1 g",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows Saffire-II sample 2-4: thickness \"037 mm\" is ambiguous and not used",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows Saffire-II sample 2-5: SIBAL burned the whole 29 cm in orbit",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows Saffire-II: a blank material stays blank, \"1 cm\" in a mm column is converted, flow-visualisation rows are asides",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows Saffire-II footnote lines are asides that keep NASA's text",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows Saffire-I sample S1: SIBAL, O₂ range kept, length and width flagged",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows BASS-II test B1: 100 µm PMMA film, O₂ and CO before and after",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows BASS-II test B2: final O₂ of 1.6% is flagged as implausible",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows BASS-II rods without a material are inferred PMMA, with the reason",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows ACME Flame Design run 1: ethylene, O₂ from mole fraction, pressure from atm",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows inverse flames put the burner O₂ apart from ambient O₂",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows CFI-G cool flames sit near 39% O₂ and 2 atm with n-butane",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows ACME BRE: \"3400%\" oxygen is out of range, kept as raw text",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows ACME CLD fill-down labels are not given a gas name",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows ACME E-field continuation lines are asides",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "golden rows NTRS Saffire VI-2: SIBAL at 31% O₂ and 54.1 kPa burned",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "material dictionary names every stored material label, or says why not",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "material dictionary reads thickness, width, diameter and sides from BASS-II labels",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "data audit matches the committed audit file",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "data audit gives every issue a count, examples, a plain explanation and a handling note",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "data audit quotes NASA's cells exactly: every flagged example is a real cell of its table",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "data audit finds the issues checked by hand",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "compact atlas for the app matches the committed atlas-rows.json and covers every record",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "observations, experiments and supplements counts test rows and experiments separately",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "observations, experiments and supplements SAME: 45 test rows observe 29 runs; SAME-R: 109 observe 67",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "observations, experiments and supplements never gives two fresh rows, or two aged rows, of one table the same run identity",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "observations, experiments and supplements gives every aged row a fresh row of the same run in the same table",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "observations, experiments and supplements keeps SAME-R workbook rows as supplements of tests in the run table, and reports the two runs that do not line up",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "observations, experiments and supplements does not count SAME's 8-line matrix as tests",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "what a value is tells a list, a range and a start-to-end drift apart, from how NASA wrote the cell",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "what a value is gives a shape to every multi-valued quantity and to nothing else",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "what a value is says how a number was obtained when it was not simply read",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "what a value is says why a key condition is absent: an empty cell, or a table with no such column",
-        "status": "passed"
-      },
-      {
-        "file": "lib/atlas/atlas.test.ts",
-        "title": "what a value is reads a zero particle diameter as missing only where the row has no particle count to compute it from",
         "status": "passed"
       },
       {
