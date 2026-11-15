@@ -4,14 +4,13 @@ import { RowsPanel } from "../components/findings/RowsPanel";
 import { DownloadIcon } from "../components/icons";
 import atlasCsvUrl from "../data/atlas/atlas.csv?url";
 import rawFindings from "../data/findings.json";
-import { INVESTIGATIONS } from "../data/investigations";
 import manifest from "../data/table-manifest.json";
 import type { Finding, FindingsFile } from "../lib/findings/types";
+import { atlasSourceName } from "../lib/atlas/names";
 
 const FILE = rawFindings as unknown as FindingsFile;
 const CITED = new Set(FILE.findings.flatMap((f) => f.rows)).size;
-const NAME = new Map(INVESTIGATIONS.map((i) => [i.id, i.name]));
-const nameOf = (id: string) => (id === "saffire-iv-vi" ? "Saffire IV–VI (NTRS)" : NAME.get(id) ?? id);
+const nameOf = atlasSourceName;
 const REPO = "https://github.com/nathan-844/EMBER/tree/main/src/lib/findings";
 
 function FindingCard({ f }: { f: Finding }) {

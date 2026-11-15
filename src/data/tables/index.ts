@@ -19,6 +19,7 @@ import t_PSI_101_0 from "./PSI-101-0.json";
 import t_PSI_102_0 from "./PSI-102-0.json";
 import t_PSI_106_0 from "./PSI-106-0.json";
 import t_PSI_107_0 from "./PSI-107-0.json";
+import t_PSI_142_0 from "./PSI-142-0.json";
 import t_PSI_159_0 from "./PSI-159-0.json";
 import t_PSI_159_1 from "./PSI-159-1.json";
 export const TABLES: Record<string, RunTable> = {
@@ -41,6 +42,7 @@ export const TABLES: Record<string, RunTable> = {
   "PSI-102-0": t_PSI_102_0 as RunTable,
   "PSI-106-0": t_PSI_106_0 as RunTable,
   "PSI-107-0": t_PSI_107_0 as RunTable,
+  "PSI-142-0": t_PSI_142_0 as RunTable,
   "PSI-159-0": t_PSI_159_0 as RunTable,
   "PSI-159-1": t_PSI_159_1 as RunTable,
 };

@@ -1,30 +1,30 @@
 {
  "version": "atlas-v1",
  "builtFrom": {
-  "manifestSyncedOn": "2026-11-14",
-  "tables": 21,
+  "manifestSyncedOn": "2026-11-15",
+  "tables": 22,
   "ntrs": [
    "20240002981"
   ]
  },
  "method": "One record per NASA source row. Values keep the cell they came from; units are converted only where NASA states the unit, and values outside physical limits are kept as raw text with a flag. Outcomes come only from a table's own outcome column, by the rule recorded on each row. Materials are normalised by a dictionary; inferred materials are marked as such.",
  "counts": {
-  "rows": 2006,
+  "rows": 2014,
   "byKind": {
    "test": 1875,
    "session": 103,
    "matrix": 8,
-   "aside": 20
+   "aside": 28
   },
   "byFuelClass": {
    "gas": 1230,
-   "none": 20,
+   "none": 28,
    "solid": 384,
    "liquid": 370,
    "aerosol": 2
   },
   "byOutcome": {
-   "not-recorded": 1383,
+   "not-recorded": 1391,
    "disrupted": 61,
    "extinguished": 361,
    "burned-out": 29,
@@ -103980,6 +103980,358 @@
     "v": 31.69,
     "unit": "cm/s"
    }
+  },
+  {
+   "id": "PSI-142-0:r2",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 2
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "CFE limit with ozone",
+     "v": "CFE limit with ozone"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "http://dx.doi.org/10.1016/j.combustflame.2017.01.028",
+     "v": "http://dx.doi.org/10.1016/j.combustflame.2017.01.028"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "4",
+     "v": "4"
+    }
+   },
+   "flags": []
+  },
+  {
+   "id": "PSI-142-0:r3",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 3
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "CFE limit without ozone",
+     "v": "CFE limit without ozone"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "http://dx.doi.org/10.1016/j.combustflame.2017.01.028",
+     "v": "http://dx.doi.org/10.1016/j.combustflame.2017.01.028"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "5",
+     "v": "5"
+    }
+   },
+   "flags": []
+  },
+  {
+   "id": "PSI-142-0:r4",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 4
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "CFE and HFE Predicted vs Measured ",
+     "v": "CFE and HFE Predicted vs Measured"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "http://dx.doi.org/10.1016/j.combustflame.2017.01.028",
+     "v": "http://dx.doi.org/10.1016/j.combustflame.2017.01.028"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "7",
+     "v": "7"
+    }
+   },
+   "flags": []
+  },
+  {
+   "id": "PSI-142-0:r5",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 5
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "Measured and computed DME/O2/O3 CFE and HFE",
+     "v": "Measured and computed DME/O2/O3 CFE and HFE"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "https://doi.org/10.1016/j.proci.2018.07.050",
+     "v": "https://doi.org/10.1016/j.proci.2018.07.050"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "2",
+     "v": "2"
+    }
+   },
+   "flags": []
+  },
+  {
+   "id": "PSI-142-0:r6",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 6
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "CH2O PLIF and thermometry",
+     "v": "CH2O PLIF and thermometry"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "https://doi.org/10.1016/j.combustflame.2018.03.013",
+     "v": "https://doi.org/10.1016/j.combustflame.2018.03.013"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "8",
+     "v": "8"
+    }
+   },
+   "flags": []
+  },
+  {
+   "id": "PSI-142-0:r7",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 7
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "nC7/nC10/nC12 chemiluminescence",
+     "v": "nC7/nC10/nC12 chemiluminescence"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "https://doi.org/10.1016/j.proci.2018.06.161",
+     "v": "https://doi.org/10.1016/j.proci.2018.06.161"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "2",
+     "v": "2"
+    }
+   },
+   "flags": []
+  },
+  {
+   "id": "PSI-142-0:r8",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 8
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "nC12 chemiluminescence",
+     "v": "nC12 chemiluminescence"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "https://doi.org/10.1016/j.proci.2018.06.162",
+     "v": "https://doi.org/10.1016/j.proci.2018.06.162"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "7",
+     "v": "7"
+    }
+   },
+   "flags": []
+  },
+  {
+   "id": "PSI-142-0:r9",
+   "source": {
+    "kind": "psi",
+    "table": "PSI-142-0",
+    "accession": "PSI-142",
+    "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+    "sourceRow": 9
+   },
+   "investigation": "cool-flame-counterflow",
+   "rowKind": "aside",
+   "rowKindReason": "dataset index: one row per figure in a published paper, not a test",
+   "fuelClass": null,
+   "material": {
+    "name": null,
+    "basis": "none",
+    "form": null,
+    "col": "(fixed: the table lists datasets and the papers they appear in, not fuels)",
+    "raw": "not recorded"
+   },
+   "gravity": "microgravity",
+   "outcome": {
+    "value": "not-recorded",
+    "rule": "this table has no outcome column"
+   },
+   "measures": {
+    "dataset": {
+     "col": "Data Description",
+     "raw": "nC12 thermometry",
+     "v": "nC12 thermometry"
+    },
+    "publication": {
+     "col": "Reference Publication Link",
+     "raw": "https://doi.org/10.1016/j.proci.2018.06.163",
+     "v": "https://doi.org/10.1016/j.proci.2018.06.163"
+    },
+    "figure": {
+     "col": "Figure ID in Reference",
+     "raw": "9",
+     "v": "9"
+    }
+   },
+   "flags": []
   },
   {
    "id": "PSI-159-0:r2",

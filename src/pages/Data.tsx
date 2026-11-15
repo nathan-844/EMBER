@@ -4,14 +4,13 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { DownloadIcon, ExternalIcon } from "../components/icons";
 import atlasCsvUrl from "../data/atlas/atlas.csv?url";
 import rawAudit from "../data/atlas/audit.json";
-import { INVESTIGATIONS } from "../data/investigations";
 import type { AuditFile, AuditIssue, AuditKind } from "../lib/atlas/audit";
 import type { CompactRow } from "../lib/atlas/compact";
 import { FLAG_TEXT } from "../lib/atlas/specs";
+import { atlasSourceName } from "../lib/atlas/names";
 
 const AUDIT = rawAudit as unknown as AuditFile;
-const NAME = new Map(INVESTIGATIONS.map((i) => [i.id, i.name]));
-const invName = (id: string) => (id === "saffire-iv-vi" ? "Saffire IV–VI (NTRS)" : NAME.get(id) ?? id);
+const invName = atlasSourceName;
 const OUTCOME_WORDS: Record<string, string> = {
   extinguished: "went out", "burned-out": "burned away", disrupted: "broke apart", burned: "burned", "no-spread": "no flame spread",
   "no-ignition": "did not ignite", flash: "flash only", terminated: "fuel flow stopped", "not-recorded": "not recorded",

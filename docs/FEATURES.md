@@ -46,7 +46,7 @@ suppression) must be chosen; any other input can be left *unspecified*.
   within each group.
 - Every score can be expanded to see why.
 
-Oxygen, pressure and airflow ranges for 14 profiles are read from 14 of the 21 stored NASA PSI
+Oxygen, pressure and airflow ranges for 14 profiles are read from 14 of the 22 stored NASA PSI
 experimental tables (1,527 source rows used). The few remaining hand-written ranges are labelled
 *curated* everywhere they appear.
 
@@ -142,7 +142,7 @@ changed are removed so they can be re-recorded.
 
 ## Fire Test Atlas, audit and measured findings
 
-**Fire Test Atlas** (*Data* page). Every row of the 21 stored NASA PSI tables plus the five Saffire
+**Fire Test Atlas** (*Data* page). Every row of the 22 stored NASA PSI tables plus the five Saffire
 IV-VI samples from NTRS 20240002981, in one schema: 2,006 records, 1,875 of them individual tests.
 Each value keeps the NASA header and cell it came from. Units are converted only where NASA states
 them, outcomes come only from a table's own outcome column, and a material dictionary normalises
@@ -150,10 +150,10 @@ about 100 NASA labels (inferred materials are marked, with the reason). The page
 investigation, outcome and text, opens any record to show NASA's cells as written, and offers the
 whole atlas as CSV. Schema and rules: [DATA.md](DATA.md).
 
-**Data audit** (*Data* page). 37 issues in 14 of the 21 tables: 20 likely errors (oxygen written
+**Data audit** (*Data* page). 38 issues in 15 of the 22 tables: 20 likely errors (oxygen written
 "3400%", thickness "037 mm", fuel labels that count up row by row, gas fractions that do not sum
 to 1, a FLEX identifier used twice, headers that lost their subscripts or the µ), 2 missing values
-and 15 quirks (footnotes inside the test table, identical rows, RAMPED flows). Each lists example
+and 16 quirks (footnotes inside the test table, identical rows, RAMPED flows). Each lists example
 cells exactly as NASA wrote them and what EMBER does. Nothing in NASA's files is changed. The
 tables were not compared with their source papers.
 
@@ -248,8 +248,10 @@ mmHg, cm/s):
 - ranges are min-max envelopes per condition, not joint test points;
 - gravity and fuel type stay curated.
 
-The current tables were imported on 2026-11-14 from a hash-checked download made on 2026-11-02,
-because PSI's per-investigation API returned HTTP 500 that day.
+The tables were first imported from a hash-checked download made on 2026-11-02, because PSI's
+per-investigation API returned HTTP 500 at the time. On 2026-11-15 all of them were downloaded live
+again with identical SHA-256, and PSI-142's table (an index of the datasets behind figures in its
+published papers, with DOIs) was added; its rows are not counted as tests.
 
 The Saffire IV-VI test conditions and results in `src/data/ntrs-saffire.ts` are copied from Tables 1
 and 2 of NASA's paper

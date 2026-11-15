@@ -23,7 +23,7 @@ where the evidence runs out.
 - **Read the measured findings** - six results computed by code from NASA's own test rows (for
   example: in Saffire-II, the ground test burned further than the same sample did in orbit in 5 of
   8 cases). Each shows its rows, method, limits and what it does not claim.
-- **Browse the Fire Test Atlas** - every NASA test row (2,001 from 21 PSI tables, plus Saffire
+- **Browse the Fire Test Atlas** - every NASA test row (2,009 from 22 PSI tables, plus Saffire
   IV-VI) in one schema, with each value traced to the cell it came from, and a CSV download.
 - **Read the data audit** - 37 data-quality issues EMBER found in NASA's tables, each with the
   cells as written and how it is handled.

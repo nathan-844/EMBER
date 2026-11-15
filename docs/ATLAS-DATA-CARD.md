@@ -15,7 +15,7 @@ One record for every row of NASA's microgravity combustion test tables, in one s
 
 ## Sources
 
-- **NASA Physical Science Informatics (PSI)**, combustion science: 21 experimental tables from 19 investigation records (PSI-10, 20, 21, 22, 23, 25, 26, 39, 47, 68, 69, 98, 99, 100, 101, 102, 106, 107, 159). 2,001 rows. The SHA-256 of each NASA file is in `src/data/table-manifest.json`. Downloaded 2026-11-02.
+- **NASA Physical Science Informatics (PSI)**, combustion science: 22 experimental tables from 20 investigation records (PSI-10, 20, 21, 22, 23, 25, 26, 39, 47, 68, 69, 98, 99, 100, 101, 102, 106, 107, 142, 159). 2,009 rows. The SHA-256 of each NASA file is in `src/data/table-manifest.json`. First downloaded 2026-11-02; every file re-downloaded live from PSI on 2026-11-15 with identical SHA-256. PSI-142's table indexes datasets in published papers (DOI and figure), so none of its 8 rows is counted as a test.
 - **NASA NTRS 20240002981**, *Preliminary Results from the Saffire VI Experiment* (Urban et al., ICES-2024-365), Tables 1 and 2: 5 samples from Saffire IV–VI. Values checked against the PDF on 2026-11-15; the PDF's SHA-256 is in `src/data/ntrs-saffire.ts`.
 
 ## Size

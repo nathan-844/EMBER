@@ -333,6 +333,14 @@ export const SPECS: Record<string, TableSpec> = {
     flowCms: cms("Air Rate (cm/s)"),
     measures: { nozzleMm: plain("Nozzle (mm)", "mm"), fuelRateMgS: plain("Fuel Rate (mg/s)", "mg/s") },
   },
+  // Cool-flame counterflow analysis (PSI-142): the table indexes the datasets behind figures in
+  // published papers (description, DOI, figure number). No row is a test, so none is counted as one.
+  "PSI-142-0": {
+    investigation: "cool-flame-counterflow",
+    material: { fixed: "not recorded", why: "the table lists datasets and the papers they appear in, not fuels" },
+    rowKind: (_g, blank) => (blank ? ["aside", "blank row"] : ["aside", "dataset index: one row per figure in a published paper, not a test"]),
+    measures: { dataset: text("Data Description"), publication: text("Reference Publication Link"), figure: text("Figure ID in Reference") },
+  },
   // ACME CFI-G, normal flames: cool-flame search with gaseous fuels.
   "PSI-159-0": {
     investigation: "acme-cfi-g",

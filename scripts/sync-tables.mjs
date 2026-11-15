@@ -9,8 +9,8 @@ import { join } from "node:path";
 
 const BASE = "https://psi.nasa.gov";
 const OUT = "src/data/tables";
-// Keep in step with PSI_ACCESSIONS in src/data/investigations.ts.
-const ACCESSIONS = [10, 20, 21, 22, 23, 25, 26, 39, 47, 68, 69, 98, 99, 100, 101, 102, 106, 107, 159].map((n) => `PSI-${n}`);
+// Keep in step with PSI_ACCESSIONS in src/data/investigations.ts, plus analysis records with a table (PSI-142).
+const ACCESSIONS = [10, 20, 21, 22, 23, 25, 26, 39, 47, 68, 69, 98, 99, 100, 101, 102, 106, 107, 142, 159].map((n) => `PSI-${n}`);
 
 /**
  * NASA files are mostly UTF-8, but some (e.g. FLEX, PSI-69) are Windows-1252, where 0x96 is an

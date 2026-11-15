@@ -2222,7 +2222,7 @@
       "src/data/atlas/audit.json",
       "src/data/ntrs-manifest.json"
     ],
-    "value": "b0b80ec289ddeb504913268c43dde7386f226364b791d6c79eea4299c32cbd61"
+    "value": "e174c6b811bf18b1927400f731b795c73746a3af7ac9a34202f49b1fd6320846"
   },
   "scoreboard": [
     {
@@ -2269,8 +2269,8 @@
       "id": "table-hashes",
       "label": "NASA run tables with a recorded SHA-256",
       "how": "recorded",
-      "checked": 21,
-      "passed": 21,
+      "checked": 22,
+      "passed": 22,
       "method": "npm run sync:tables downloads each PSI table again and refuses a file whose SHA-256 differs."
     },
     {

@@ -1,5 +1,5 @@
 {
-  "syncedOn": "2026-11-14",
+  "syncedOn": "2026-11-15",
   "tables": [
     {
       "id": "PSI-10-0",
@@ -26,7 +26,7 @@
         "Tad (K)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-10",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-10-1",
@@ -52,7 +52,7 @@
         "Tad (K)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-10",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-20-0",
@@ -72,7 +72,7 @@
         "Notes"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-20",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-21-0",
@@ -92,7 +92,7 @@
         "Notes"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-21",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-22-0",
@@ -114,7 +114,7 @@
         "Notes"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-22",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-23-0",
@@ -135,7 +135,7 @@
         "Notes"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-23",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-25-0",
@@ -164,7 +164,7 @@
         "Final CO (ppm)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-25",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-26-0",
@@ -182,7 +182,7 @@
         "Fuel Sample Material"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-26",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-39-0",
@@ -204,7 +204,7 @@
         "Fuel "
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-39",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-47-0",
@@ -221,7 +221,7 @@
         "Sampled Location"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-47",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-68-0",
@@ -240,7 +240,7 @@
         "Flow Velocity (cm/s)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-68",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-69-0",
@@ -267,7 +267,7 @@
         "Test end"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-98-0",
@@ -292,7 +292,7 @@
         "Camera 2"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-99-0",
@@ -321,7 +321,7 @@
         "Camera 2"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-99",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-100-0",
@@ -342,7 +342,7 @@
         "Camera 2"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-100",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-101-0",
@@ -364,7 +364,7 @@
         "Net aging time (sec)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-102-0",
@@ -381,7 +381,7 @@
         "Aging Duration (minutes)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-102",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-106-0",
@@ -395,7 +395,7 @@
         "Fuel Type"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-106",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-107-0",
@@ -416,7 +416,23 @@
         "Air Rate (cm/s)"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
+    },
+    {
+      "id": "PSI-142-0",
+      "accession": "PSI-142",
+      "file": "PSI-142_Experimental table_Data Summary Table.csv",
+      "version": 1,
+      "sha256": "c66d135b0053590d239f06b9e8627d826e3d726b8443fd2cbccc37484b6a8e7f",
+      "rows": 8,
+      "columns": [
+        "Data ID",
+        "Data Description",
+        "Reference Publication Link",
+        "Figure ID in Reference"
+      ],
+      "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-142",
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-159-0",
@@ -446,7 +462,7 @@
         "Comments"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-159",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     },
     {
       "id": "PSI-159-1",
@@ -478,7 +494,7 @@
         "Comments"
       ],
       "url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-159",
-      "origin": "PSI download of 2026-11-02, imported offline with matching SHA-256"
+      "origin": "Live PSI download"
     }
   ],
   "errors": []

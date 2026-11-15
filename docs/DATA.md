@@ -27,7 +27,7 @@ Measured findings    src/data/findings.json, findings-rows.json
 
 ## Atlas schema
 
-One record per NASA source row (2,001 PSI rows) plus the 5 Saffire IV–VI samples from the NTRS paper.
+One record per NASA source row (2,009 PSI rows, 8 of them PSI-142's dataset index, which are not tests) plus the 5 Saffire IV–VI samples from the NTRS paper.
 
 | Field | Meaning |
 |---|---|

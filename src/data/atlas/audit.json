@@ -2,12 +2,12 @@
  "version": "audit-v1",
  "method": "Found while reading every cell of every stored NASA PSI combustion table into the Fire Test Atlas, plus cross-checks: gas fractions that should sum to 1, oxygen before and after a burn, identical rows, repeated identifiers and the same material across tables. Nothing in NASA's files is changed; each issue says how EMBER handles it. The tables were not compared with their source papers.",
  "totals": {
-  "issues": 37,
+  "issues": 38,
   "error": 20,
   "gap": 2,
-  "note": 15,
-  "tablesAffected": 14,
-  "tablesChecked": 21
+  "note": 16,
+  "tablesAffected": 15,
+  "tablesChecked": 22
  },
  "issues": [
   {
@@ -893,6 +893,35 @@
    ],
    "id": "A37",
    "accession": "PSI-107"
+  },
+  {
+   "kind": "note",
+   "table": "PSI-142-0",
+   "title": "Lines that are not tests inside the test table",
+   "detail": "Footnotes, flow-visualisation lines, cleaning runs, continuation lines or empty lines sit among the test rows, so a row count overstates the number of tests.",
+   "handling": "Marked as asides with the reason, and left out of every count of tests.",
+   "count": 8,
+   "unit": "rows",
+   "examples": [
+    {
+     "where": "PSI-142-0 row 2",
+     "raw": "dataset index: one row per figure in a published paper, not a test"
+    },
+    {
+     "where": "PSI-142-0 row 3",
+     "raw": "dataset index: one row per figure in a published paper, not a test"
+    },
+    {
+     "where": "PSI-142-0 row 4",
+     "raw": "dataset index: one row per figure in a published paper, not a test"
+    },
+    {
+     "where": "PSI-142-0 row 5",
+     "raw": "dataset index: one row per figure in a published paper, not a test"
+    }
+   ],
+   "id": "A38",
+   "accession": "PSI-142"
   }
  ]
 }
