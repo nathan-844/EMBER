@@ -14,6 +14,14 @@
       "pdfSha256": "b96e5a0e72466792c3a135c232084ec9cc729f33b4906ac6b3fc32ff051bcbac",
       "pages": 1
     },
+    "20210020516": {
+      "pdfSha256": "b8f929c9676233769f0b3904fea6744df1bd3dc646cfc62c030c1ba5c8c9642f",
+      "pages": 20
+    },
+    "20210011385": {
+      "pdfSha256": "5ffa911fd9b6356f204646003fb9342e341810dcdfdf5cb15756e7f01ec5f770",
+      "pages": 137
+    },
     "20250010653": {
       "pdfSha256": "bb0aadd2f9543483467b86796e6aa19f4e13c3f8169eec96134015f95ed61d79",
       "pages": 42
@@ -99,6 +107,36 @@
       "source": "20240008623",
       "page": 1,
       "sha256": "3e82f13115c38719a89116fd3b4988434b623c7fd9e2019e550339172d68a2dc"
+    },
+    "fotm21-most-flammable": {
+      "source": "20210020516",
+      "page": 8,
+      "sha256": "c4b08b168bdc2a0170da62ce6999b92ef5d479ae3e7a188695db12a0d91245fa"
+    },
+    "fotm21-minimum-o2": {
+      "source": "20210020516",
+      "page": 8,
+      "sha256": "4c7ad5d8281f397c54149232d63bc9bb5e641f7178565e72e6786f0fc5b74699"
+    },
+    "fotm21-planned": {
+      "source": "20210020516",
+      "page": 10,
+      "sha256": "49db1af3601a22e4ea0ce585a34e53e24d1716e598c5c8af38bb4026b725396a"
+    },
+    "bass2tm-ignition": {
+      "source": "20210011385",
+      "page": 97,
+      "sha256": "28a1cdb6ba801806a90c0a2cc7724456b24a97f1f9593f1ab1a7eecf0293726d"
+    },
+    "bass2tm-quench": {
+      "source": "20210011385",
+      "page": 109,
+      "sha256": "1cf3ece3b743476b9b9c4d5a74d37b5e9a6263a243f933029f1fffca6fbfe0b5"
+    },
+    "bass2tm-co": {
+      "source": "20210011385",
+      "page": 19,
+      "sha256": "9c2b87447c32d80572300e27d21637de87ced8bc51864e5023dc808e47afdd87"
     },
     "luci25-sibal": {
       "source": "20250010653",

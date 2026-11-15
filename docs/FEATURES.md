@@ -140,8 +140,8 @@ changed are removed so they can be re-recorded.
 - **Rank ranges** - every ranked row shows its best and worst rank when each of the seven point
   weights moves up or down 20% (all 128 combinations), e.g. "Rank 2–6 if weights move ±20%".
 - **Partial-gravity results** - PSI holds no lunar or Mars gravity runs, so a tile quotes what NASA
-  reports on NTRS have found (Urban et al. 2025, Ruff 2021, Zayac et al. 2024, Ferkul et al. 2025 and
-  2026): some materials burn at lower oxygen in lunar gravity than Earth tests suggest, others the
+  reports on NTRS have found (Urban et al. 2025, Ruff 2021, Ferkul et al. 2021 "Fire on the Moon",
+  Zayac et al. 2024, Ferkul et al. 2025 and 2026): some materials burn at lower oxygen in lunar gravity than Earth tests suggest, others the
   reverse; how the tests were run; and FM2 still to come. Filtered to lunar or Martian gravity, never
   scored.
 
@@ -277,7 +277,7 @@ and 2 of NASA's paper
 by EMBER only for plotting. Every stored value was checked against those tables on 2026-11-15; the
 PDF's SHA-256 is recorded in that file.
 
-Published results quoted from 14 other NTRS reports live in `src/data/ntrs-evidence.ts`.
+Published results quoted from 16 other NTRS reports live in `src/data/ntrs-evidence.ts`.
 `npm run sync:ntrs` downloads each PDF, extracts its text with pdftotext, finds every quote in it and
 records the PDF's SHA-256, the page and a hash of the quote in `src/data/ntrs-manifest.json`; a test
 fails if a quote is edited without running it again.
