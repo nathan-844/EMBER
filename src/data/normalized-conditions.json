@@ -30,6 +30,14 @@
           "dropped": 0,
           "approx": false
         }
+      },
+      "burnerOxygen": {
+        "min": 21.2,
+        "max": 85,
+        "table": "PSI-10-1",
+        "column": "XO2",
+        "rowsUsed": 109,
+        "totalRows": 120
       }
     },
     "acme-bre": {
@@ -412,6 +420,14 @@
           "dropped": 0,
           "approx": false
         }
+      },
+      "burnerOxygen": {
+        "min": 12,
+        "max": 85,
+        "table": "PSI-159-1",
+        "column": "XO2",
+        "rowsUsed": 154,
+        "totalRows": 154
       }
     }
   }

@@ -98,6 +98,14 @@ export function scenarioLimitations(scenario: Scenario, ranked: RankedInvestigat
         "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative: NASA’s FM2 team notes that materials may burn at lower oxygen concentrations in lunar gravity than on Earth. LUCI and FM2 are expected to add partial-gravity data.",
       source: FM2_SOURCE,
     });
+    const analogue = INVESTIGATIONS.find((inv) => inv.gravityAnalogue);
+    if (analogue?.gravityAnalogue) {
+      out.push({
+        id: "gravity-analogue",
+        text: `Closest partial-gravity analogue already in PSI: ${analogue.name} (${analogue.psi.accession}). ${analogue.gravityAnalogue.text} It is not a measurement at ${scenario.gravityG} g.`,
+        source: analogue.gravityAnalogue.source,
+      });
+    }
   } else if (regime === "earth") {
     out.push({ id: "earth-gravity", text: "PSI results are low-gravity data; buoyant 1 g flames behave differently and are better covered by ground test standards." });
   }
@@ -157,7 +165,9 @@ export function scenarioLimitations(scenario: Scenario, ranked: RankedInvestigat
   if (scenario.flowDirection == null) out.push({ id: "flow-dir", text: "Flow direction is unspecified. Opposed, concurrent and still-air results are not automatically transferable." });
 
   if (ranked.some((r) => r.investigation.id === "acme-cfi-g")) {
-    out.push({ id: "cfi-g", text: "CFI-G's oxygen-enriched burner oxidizer is not a cabin atmosphere. Electric-field effects are not lunar-gravity measurements." });
+    const cfig = ranked.find((r) => r.investigation.id === "acme-cfi-g")!.investigation;
+    const burner = cfig.burnerOxygen ? ` Its inverse flames fed up to ${cfig.burnerOxygen.max}% O₂ through the burner (NASA ${cfig.burnerOxygen.table}); the surrounding atmosphere stayed within ${cfig.conditions.oxygenPct?.min}–${cfig.conditions.oxygenPct?.max}%.` : "";
+    out.push({ id: "cfi-g", text: `CFI-G's oxygen-enriched burner oxidizer is not a cabin atmosphere.${burner} Electric-field effects are not lunar-gravity measurements.` });
   }
 
   return out;

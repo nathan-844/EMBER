@@ -142,3 +142,19 @@ describe("gap wording", () => {
     }
   });
 });
+
+describe("challenge highlights", () => {
+  it("states CFI-G's 85% burner oxygen from the NASA inverse-flame table", () => {
+    const s = presetScenario("lunar-habitat");
+    const l = scenarioLimitations(s, rankInvestigations(s)).find((x) => x.id === "cfi-g");
+    expect(l?.text).toMatch(/85% O₂ through the burner \(NASA PSI-159-1\)/);
+  });
+
+  it("names E-FIELD as the closest partial-gravity analogue, citing the challenge", () => {
+    const s = presetScenario("lunar-habitat");
+    const l = scenarioLimitations(s, rankInvestigations(s)).find((x) => x.id === "gravity-analogue");
+    expect(l?.text).toMatch(/E-FIELD Flames \(PSI-22\)/);
+    expect(l?.source?.href).toMatch(/spaceappschallenge\.org/);
+    expect(ids(presetScenario("iss"))).not.toContain("gravity-analogue");
+  });
+});

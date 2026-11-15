@@ -6726,6 +6726,14 @@ var normalized_conditions_default = {
           dropped: 0,
           approx: false
         }
+      },
+      burnerOxygen: {
+        min: 21.2,
+        max: 85,
+        table: "PSI-10-1",
+        column: "XO2",
+        rowsUsed: 109,
+        totalRows: 120
       }
     },
     "acme-bre": {
@@ -7108,6 +7116,14 @@ var normalized_conditions_default = {
           dropped: 0,
           approx: false
         }
+      },
+      burnerOxygen: {
+        min: 12,
+        max: 85,
+        table: "PSI-159-1",
+        column: "XO2",
+        rowsUsed: 154,
+        totalRows: 154
       }
     }
   }
@@ -8551,7 +8567,7 @@ var CURATED = [
     adjacentQuestions: ["prevention"],
     conditions: unknownExceptGravity,
     measurements: ["Flame radius", "Radiative emission"],
-    caveats: ["Up to 85% O\u2082 burner oxidizer is not a cabin atmosphere."]
+    caveats: []
   },
   {
     id: "acme-efield",
@@ -8566,7 +8582,12 @@ var CURATED = [
     adjacentQuestions: ["prevention"],
     conditions: unknownExceptGravity,
     measurements: ["Ion current", "Flame shape"],
-    caveats: ["Electric-field effects are not lunar-gravity measurements."]
+    caveats: ["Electric-field effects are not lunar-gravity measurements."],
+    gravityAnalogue: {
+      text: "An electric field acting on the ions in a flame adds a body force, which the challenge describes as mimicking partial gravity. Gas-jet flames, not materials.",
+      quote: "Partial gravity was mimicked in ACME\u2019s Electric-Field Effects on Laminar Diffusion Flames (E-FIELD Flames) experiment through the effect of the electric field on the ions that naturally occur in flames.",
+      source: { label: "NASA Space Apps 2026 \xB7 Flame in Freefall challenge", href: "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/" }
+    }
   },
   {
     id: "acme-cld",
@@ -8723,7 +8744,14 @@ function withPsiTables(inv) {
     ...inv,
     conditions,
     ...n.materials ? { testedMaterials: n.materials } : {},
-    ...n.flowDirections ? { testedFlowDirections: n.flowDirections } : {}
+    ...n.flowDirections ? { testedFlowDirections: n.flowDirections } : {},
+    ...n.burnerOxygen ? {
+      burnerOxygen: n.burnerOxygen,
+      caveats: [
+        ...inv.caveats,
+        `Inverse flames fed up to ${n.burnerOxygen.max}% O\u2082 through the burner (NASA ${n.burnerOxygen.table}, ${n.burnerOxygen.rowsUsed} runs). That is the oxygen in the burner stream, not the surrounding atmosphere, so it is not used as an ambient range.`
+      ]
+    } : {}
   };
 }
 var INVESTIGATIONS = CURATED.map((inv) => ({ ...withPsiTables(inv), psi: psiRef(inv.id) }));
@@ -8959,6 +8987,14 @@ function scenarioLimitations(scenario, ranked) {
       text: "PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results may bound behavior at intermediate gravity, but that bound may not be conservative: NASA\u2019s FM2 team notes that materials may burn at lower oxygen concentrations in lunar gravity than on Earth. LUCI and FM2 are expected to add partial-gravity data.",
       source: FM2_SOURCE
     });
+    const analogue = INVESTIGATIONS.find((inv) => inv.gravityAnalogue);
+    if (analogue?.gravityAnalogue) {
+      out.push({
+        id: "gravity-analogue",
+        text: `Closest partial-gravity analogue already in PSI: ${analogue.name} (${analogue.psi.accession}). ${analogue.gravityAnalogue.text} It is not a measurement at ${scenario.gravityG} g.`,
+        source: analogue.gravityAnalogue.source
+      });
+    }
   } else if (regime === "earth") {
     out.push({ id: "earth-gravity", text: "PSI results are low-gravity data; buoyant 1 g flames behave differently and are better covered by ground test standards." });
   }
@@ -9008,7 +9044,9 @@ function scenarioLimitations(scenario, ranked) {
   if (scenario.thicknessMm == null) out.push({ id: "thickness", text: "Sample thickness is unspecified; thickness can materially change flame spread and extinction." });
   if (scenario.flowDirection == null) out.push({ id: "flow-dir", text: "Flow direction is unspecified. Opposed, concurrent and still-air results are not automatically transferable." });
   if (ranked.some((r) => r.investigation.id === "acme-cfi-g")) {
-    out.push({ id: "cfi-g", text: "CFI-G's oxygen-enriched burner oxidizer is not a cabin atmosphere. Electric-field effects are not lunar-gravity measurements." });
+    const cfig = ranked.find((r) => r.investigation.id === "acme-cfi-g").investigation;
+    const burner = cfig.burnerOxygen ? ` Its inverse flames fed up to ${cfig.burnerOxygen.max}% O\u2082 through the burner (NASA ${cfig.burnerOxygen.table}); the surrounding atmosphere stayed within ${cfig.conditions.oxygenPct?.min}\u2013${cfig.conditions.oxygenPct?.max}%.` : "";
+    out.push({ id: "cfi-g", text: `CFI-G's oxygen-enriched burner oxidizer is not a cabin atmosphere.${burner} Electric-field effects are not lunar-gravity measurements.` });
   }
   return out;
 }

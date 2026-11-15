@@ -50,7 +50,7 @@ const LIMITS = {
 
 // profile id → table + column mappings. `factor` converts the source unit into the app unit.
 const MAPPINGS = {
-  "acme-flame-design": { table: "PSI-10-0", oxygenPct: { column: "XO2 (init)", factor: 100, unit: "mole fraction" }, pressurePsi: { column: "pinit (atm)", factor: ATM, unit: "atm" } },
+  "acme-flame-design": { table: "PSI-10-0", oxygenPct: { column: "XO2 (init)", factor: 100, unit: "mole fraction" }, pressurePsi: { column: "pinit (atm)", factor: ATM, unit: "atm" }, burnerOxygen: { table: "PSI-10-1", column: "XO2", factor: 100 } },
   "acme-bre": { table: "PSI-20-0", oxygenPct: { column: "Oxygen Conc (percent)", factor: 1, unit: "vol %" } },
   "acme-s-flame": { table: "PSI-23-0", oxygenPct: { column: "Atmosphere*", factor: 1, unit: "% O2 in text", parse: pctO2InText } },
   "bass-ii": { table: "PSI-25-0", oxygenPct: { column: "Calibrated  initial O2 % by vol ", factor: 1, unit: "vol %" }, materialColumn: "Fuel Sample Material" },
@@ -69,7 +69,7 @@ const MAPPINGS = {
   "same-r": { table: "PSI-101-0", airflowMs: { column: "Inlet velocity (cm/s)", factor: 0.01, unit: "cm/s" } },
   same: { table: "PSI-102-0", airflowMs: { column: "Air Flow (cm/s)", factor: 0.01, unit: "cm/s" } },
   spice: { table: "PSI-107-0", airflowMs: { column: "Air Rate (cm/s)", factor: 0.01, unit: "cm/s" } },
-  "acme-cfi-g": { table: "PSI-159-0", oxygenPct: { column: " XO2 before test", factor: 100, unit: "mole fraction" }, pressurePsi: { column: "approx p (bar)", factor: BAR, unit: "bar" } },
+  "acme-cfi-g": { table: "PSI-159-0", oxygenPct: { column: " XO2 before test", factor: 100, unit: "mole fraction" }, pressurePsi: { column: "approx p (bar)", factor: BAR, unit: "bar" }, burnerOxygen: { table: "PSI-159-1", column: "XO2", factor: 100 } },
 };
 
 const MATERIALS = [
@@ -123,6 +123,16 @@ for (const [id, map] of Object.entries(MAPPINGS)) {
     };
   }
 
+  // Inverse flames feed oxygen through the burner into a fuel atmosphere: a burner-stream oxygen
+  // level, kept apart from the ambient ranges used for ranking.
+  if (map.burnerOxygen) {
+    const b = map.burnerOxygen;
+    const bt = JSON.parse(readFileSync(`src/data/tables/${b.table}.json`, "utf8"));
+    const bi = bt.header.findIndex((h) => h.trim() === b.column);
+    if (bi < 0) throw new Error(`Schema changed: ${b.table} has no column ${JSON.stringify(b.column)}`);
+    const vals = bt.rows.flatMap((r) => parseCell(r.cells[bi]).values.map((v) => v * b.factor)).filter(LIMITS.oxygenPct);
+    if (vals.length) out.burnerOxygen = { min: round(Math.min(...vals)), max: round(Math.max(...vals)), table: b.table, column: b.column, rowsUsed: vals.length, totalRows: bt.rows.length };
+  }
   if (map.materialColumn) {
     const i = col(map.materialColumn);
     const names = new Set();

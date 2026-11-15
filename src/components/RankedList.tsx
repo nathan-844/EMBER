@@ -57,6 +57,8 @@ function Row({ r }: { r: RankedInvestigation }) {
         <p>{inv.summary}</p>
         <div className="tags">
           <span className={`badge ${r.relevance === "direct" ? "badge-ok" : ""}`}>{r.relevance === "direct" ? "Direct" : "Adjacent"}</span>
+          {inv.emulates && <span className="badge badge-warn" title={`A ${inv.fuelTypes.join("/")} burner built to emulate ${inv.emulates} materials`}>Emulates {inv.emulates}s</span>}
+          {inv.gravityAnalogue && <span className="badge badge-warn" title={inv.gravityAnalogue.text}>Partial-gravity analogue</span>}
           <span className="small muted">{inv.hardware}</span>
           {inv.psi.accession ? (
             <a className="badge badge-psi" href={inv.psi.url!} target="_blank" rel="noreferrer" title={`NASA PSI record, matched ${inv.psi.verifiedOn}`}>

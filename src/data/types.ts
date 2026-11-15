@@ -52,6 +52,10 @@ export interface Investigation {
   /** Materials and flow directions named in the PSI run table, when it records them. */
   /** A burner built to emulate another fuel type (BRE emulates solids with gas). Scored as a partial fuel match. */
   emulates?: FuelType;
+  /** Inverse flames only: oxygen fed through the burner (not the surrounding atmosphere), from a NASA table. */
+  burnerOxygen?: { min: number; max: number; table: string; column: string; rowsUsed: number; totalRows: number };
+  /** A way this study stands in for partial gravity, with its public source. */
+  gravityAnalogue?: { text: string; quote: string; source: { label: string; href: string } };
   testedMaterials?: string[];
   testedFlowDirections?: ("opposed" | "concurrent")[];
   psi: PsiReference;

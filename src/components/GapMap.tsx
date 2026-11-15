@@ -30,6 +30,7 @@ function tip(p: GapPoint): string {
 }
 
 export function GapMap({ scenario, compact = false }: { scenario: Scenario; compact?: boolean }) {
+  const burner = INVESTIGATIONS.filter((i) => i.burnerOxygen);
   // compact: the dashboard-tile preview, chart and one-line headline only.
   const data = useMemo(() => gapPoints(INVESTIGATIONS), []);
   const W = 640, left = 52, right = 16, top = 14, plotH = 260, stripGap = 34, stripH = 22, bottom = 40;
@@ -137,6 +138,7 @@ export function GapMap({ scenario, compact = false }: { scenario: Scenario; comp
         {data.ambiguousRows ? ` ${data.ambiguousRows} rows list several oxygen and pressure levels without saying which were paired, so they are not drawn (FLEX-2).` : ""}
         {data.curatedOnly.length ? ` Not drawn: ${data.curatedOnly.join(", ")}, whose oxygen is a written approximation rather than a table value.` : ""}
         {" "}All runs are microgravity; gravity is not an axis here. Saffire pressures are published in kPa and converted to psia by EMBER.
+        {burner.length > 0 && ` Not drawn: inverse flames fed up to ${Math.max(...burner.map((i) => i.burnerOxygen!.max))}% O₂ through the burner (${burner.map((i) => `${i.name}, NASA ${i.burnerOxygen!.table}`).join("; ")}); that is the burner stream, not the atmosphere this axis shows.`}
       </p>
     </section>
   );

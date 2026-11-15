@@ -203,7 +203,7 @@ const CURATED: Omit<Investigation, "psi">[] = [
     adjacentQuestions: ["prevention"],
     conditions: unknownExceptGravity,
     measurements: ["Flame radius", "Radiative emission"],
-    caveats: ["Up to 85% O₂ burner oxidizer is not a cabin atmosphere."],
+    caveats: [],
   },
   {
     id: "acme-efield",
@@ -219,6 +219,11 @@ const CURATED: Omit<Investigation, "psi">[] = [
     conditions: unknownExceptGravity,
     measurements: ["Ion current", "Flame shape"],
     caveats: ["Electric-field effects are not lunar-gravity measurements."],
+    gravityAnalogue: {
+      text: "An electric field acting on the ions in a flame adds a body force, which the challenge describes as mimicking partial gravity. Gas-jet flames, not materials.",
+      quote: "Partial gravity was mimicked in ACME’s Electric-Field Effects on Laminar Diffusion Flames (E-FIELD Flames) experiment through the effect of the electric field on the ions that naturally occur in flames.",
+      source: { label: "NASA Space Apps 2026 · Flame in Freefall challenge", href: "https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/" },
+    },
   },
   {
     id: "acme-cld",
@@ -361,6 +366,8 @@ type NormalizedProfile = {
   conditions: Partial<Record<"oxygenPct" | "pressurePsi" | "airflowMs", NormalizedCondition>>;
   materials?: string[];
   flowDirections?: ("opposed" | "concurrent")[];
+  /** Inverse flames: oxygen fed through the burner, not the surrounding atmosphere. */
+  burnerOxygen?: { min: number; max: number; table: string; column: string; rowsUsed: number; totalRows: number };
 };
 export const NORMALIZED = normalized as { method: string; profiles: Record<string, NormalizedProfile> };
 
@@ -394,6 +401,15 @@ function withPsiTables(inv: Omit<Investigation, "psi">): Omit<Investigation, "ps
     conditions,
     ...(n.materials ? { testedMaterials: n.materials } : {}),
     ...(n.flowDirections ? { testedFlowDirections: n.flowDirections } : {}),
+    ...(n.burnerOxygen
+      ? {
+          burnerOxygen: n.burnerOxygen,
+          caveats: [
+            ...inv.caveats,
+            `Inverse flames fed up to ${n.burnerOxygen.max}% O₂ through the burner (NASA ${n.burnerOxygen.table}, ${n.burnerOxygen.rowsUsed} runs). That is the oxygen in the burner stream, not the surrounding atmosphere, so it is not used as an ambient range.`,
+          ],
+        }
+      : {}),
   };
 }
 
