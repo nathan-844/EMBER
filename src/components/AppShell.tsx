@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { PSI_SNAPSHOT } from "../data/psi";
 import { FlameIcon, ShieldIcon, SlidersIcon } from "./icons";
 
-export type Route = "lab" | "credibility";
+export type Route = "home" | "lab" | "credibility";
 
 type Props = {
   route: Route;
@@ -15,7 +15,7 @@ export function AppShell({ route, onNavigate, recordCount, children }: Props) {
   return (
     <>
       <header className="topbar">
-        <a className="brand" href="#lab" onClick={() => onNavigate("lab")}>
+        <a className="brand" href="#home" aria-label="EMBER home" onClick={() => onNavigate("home")}>
           <span className="brand-mark"><FlameIcon size={17} /></span>
           <span className="brand-name">EMBER</span>
           <span className="brand-sub">FIRE<br />SAFETY<br />RESEARCH</span>

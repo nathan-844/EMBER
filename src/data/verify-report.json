@@ -2,10 +2,10 @@
   "recordedAt": "2026-11-15",
   "node": "v22.19.0",
   "tests": {
-    "passed": 366,
+    "passed": 369,
     "failed": 0,
-    "total": 366,
-    "files": 17,
+    "total": 369,
+    "files": 18,
     "names": [
       {
         "file": "server/analyze.test.ts",
@@ -1500,6 +1500,21 @@
       {
         "file": "lib/grounding.test.ts",
         "title": "equipment implications must quote NASA text",
+        "status": "passed"
+      },
+      {
+        "file": "lib/landing.test.ts",
+        "title": "landing page facts reads the solid-material oxygen ceiling from the NASA run tables",
+        "status": "passed"
+      },
+      {
+        "file": "lib/landing.test.ts",
+        "title": "landing page facts finds droplet and gas-flame tables that reach a 30% oxygen atmosphere",
+        "status": "passed"
+      },
+      {
+        "file": "lib/landing.test.ts",
+        "title": "landing page facts shows a rejected claim that is really in the recorded answers",
         "status": "passed"
       },
       {
