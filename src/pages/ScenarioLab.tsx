@@ -9,6 +9,7 @@ import { CoverageChart } from "../components/CoverageChart";
 import { EarthPanel } from "../components/EarthPanel";
 import { EquipmentPanel } from "../components/EquipmentPanel";
 import { GravityIllustration } from "../components/GravityIllustration";
+import { PartialGravityPanel, partialGravityCount } from "../components/PartialGravityPanel";
 import { AnalysisCard, AskForm } from "../components/AnalysisCard";
 import { useAnalysis } from "../components/useAnalysis";
 import { InsightCard } from "../components/InsightCard";
@@ -40,7 +41,7 @@ const TABLE_COUNT = manifest.tables.length;
 const RANKED_TABLES = new Set(INVESTIGATIONS.flatMap((i) => Object.values(i.conditions).filter((r) => r?.source === "psi-table").map((r) => r!.table))).size;
 const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
 
-type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "near" | "tables" | "ai" | "equipment" | "earth";
+type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "near" | "tables" | "ai" | "equipment" | "earth" | "partial";
 
 const VERDICT_TEXT = { accepted: "all claims passed the check", partial: "some claims rejected", rejected: "answer rejected" } as const;
 
@@ -105,6 +106,7 @@ export function ScenarioLab() {
   const leadName = robust.lead ? getInvestigation(robust.lead)?.name ?? robust.lead : null;
   const o2Covered = ranked.filter((r) => r.conditions.find((c) => c.key === "oxygenPct")?.status === "match").length;
   const equipLinks = equipment.reduce((n, g) => n + g.links.length, 0);
+  const pgCount = partialGravityCount(scenario);
   const equipForQuestion = equipment.filter((g) => g.forQuestion).reduce((n, g) => n + g.links.length, 0);
 
   return (
@@ -223,7 +225,15 @@ export function ScenarioLab() {
               </Stat>
             </Tile>
 
-            <Tile {...tile("earth")} eyebrow="On Earth" title="Ground uses">
+            <Tile {...tile("partial")} size="2x1" eyebrow="Moon and Mars · NASA reports" title="Partial-gravity results">
+              {pgCount ? (
+                <Stat value={pgCount}>published NASA statements about burning at {scenario.gravityG! >= 0.27 ? "Mars" : "lunar"} gravity, which PSI does not hold yet. Quoted word for word from NASA technical reports.</Stat>
+              ) : (
+                <p className="tile-text">Your scenario is not at partial gravity. NASA's lunar and Mars results, which PSI does not hold yet, are listed here when gravity is between 0 and 1 g.</p>
+              )}
+            </Tile>
+
+            <Tile {...tile("earth")} size="2x1" eyebrow="On Earth" title="Ground uses">
               <Stat value={EARTH_LINKS.length}>uses on Earth stated by NASA, from smoke detectors to wildfire models.</Stat>
             </Tile>
           </section>
@@ -267,6 +277,9 @@ export function ScenarioLab() {
       </TileDialog>
       <TileDialog {...dialog("equipment")} title="What this research informs">
         <EquipmentPanel scenario={scenario} ranked={ranked} />
+      </TileDialog>
+      <TileDialog {...dialog("partial")} title="Partial gravity: what NASA has reported" lede="Lunar and Mars gravity results from NASA technical reports, quoted word for word and checked against each PDF.">
+        <PartialGravityPanel scenario={scenario} />
       </TileDialog>
       <TileDialog {...dialog("earth")} title="Fire safety on Earth">
         <EarthPanel />

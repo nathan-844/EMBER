@@ -935,3 +935,6 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 .near-findings { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; }
 .near-findings a { display: inline-flex; gap: 8px; align-items: center; color: var(--ink); font-weight: 600; font-size: 13.5px; }
 @media (max-width: 760px) { .near-grid { grid-template-columns: 1fr; } }
+
+/* Partial-gravity evidence groups */
+.pg-group + .pg-group { margin-top: 18px; }
