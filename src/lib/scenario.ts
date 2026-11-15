@@ -1,6 +1,6 @@
 import type { FuelType, SafetyQuestion } from "../data/types";
 
-export type EnvironmentId = "iss" | "lunar-habitat" | "lunar-rover" | "mars-habitat" | "spacesuit" | "custom";
+export type EnvironmentId = "iss" | "lunar-habitat" | "lunar-exploration" | "artemis-surface-habitat" | "lunar-rover" | "mars-habitat" | "spacesuit" | "custom";
 
 export interface Scenario {
   environment: EnvironmentId;
@@ -26,11 +26,14 @@ export interface EnvironmentPreset {
   label: string;
   note: string;
   values: Pick<Scenario, "oxygenPct" | "pressurePsi" | "gravityG" | "airflowMs">;
+  /** A NASA document that states this oxygen and pressure: an NTRS id and a checked quote id (src/data/ntrs-evidence.ts). */
+  source?: { ntrsId: string; quote: string; label: string };
 }
 
 /**
- * Illustrative atmosphere presets. Lunar values follow the Space Apps challenge
- * text (30% O2 or more at 10.2 psi or less). Mars uses an Earth-like placeholder.
+ * Atmosphere presets. "Lunar habitat" follows the Space Apps challenge text (30% O2 or more at
+ * 10.2 psi or less). The two exploration presets use values NASA documents state, quoted in
+ * src/data/ntrs-evidence.ts. Airflow is EMBER's assumption. Mars uses an Earth-like placeholder.
  */
 export const PRESETS: EnvironmentPreset[] = [
   {
@@ -44,6 +47,20 @@ export const PRESETS: EnvironmentPreset[] = [
     label: "Lunar habitat",
     note: "Exploration atmosphere expected for a Moon base.",
     values: { oxygenPct: 30, pressurePsi: 10.2, gravityG: 0.166, airflowMs: 0.05 },
+  },
+  {
+    id: "lunar-exploration",
+    label: "Exploration 8.2 psia / 34% O₂",
+    note: "NASA's exploration atmosphere for EVA-heavy lunar missions, at lunar gravity.",
+    values: { oxygenPct: 34, pressurePsi: 8.2, gravityG: 0.166, airflowMs: 0.05 },
+    source: { ntrsId: "20150021491", quote: "eaw-8-2-34", label: "NASA exploration atmosphere evidence report" },
+  },
+  {
+    id: "artemis-surface-habitat",
+    label: "Artemis habitat 10.2 / 26.5%",
+    note: "Nominal atmosphere assumed for the Artemis Surface Habitat, at lunar gravity.",
+    values: { oxygenPct: 26.5, pressurePsi: 10.2, gravityG: 0.166, airflowMs: 0.05 },
+    source: { ntrsId: "20220000245", quote: "artemis-sh", label: "Artemis Deep Space Habitation paper" },
   },
   {
     id: "lunar-rover",

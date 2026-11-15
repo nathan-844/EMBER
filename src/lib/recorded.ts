@@ -15,6 +15,13 @@ export const SUGGESTED_ASKS = [
 ] as const;
 
 /**
+ * Presets added since the last recording run. Their AI answers need a live key; until they are
+ * recorded (npm run record:demo -- <preset id>, then with --asks), the app says so. A test fails
+ * once a preset here has recordings, so the list cannot go stale.
+ */
+export const AWAITING_RECORDING: readonly string[] = ["lunar-exploration", "artemis-surface-habitat"];
+
+/**
  * Tidy a typed question: drop control characters, collapse whitespace, trim.
  * Returns null when there is no question and undefined when the input is not acceptable.
  */

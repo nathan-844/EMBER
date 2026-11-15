@@ -40,7 +40,12 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
       <select id="env" value={scenario.environment} onChange={(e) => onChange(presetScenario(e.target.value as EnvironmentId, scenario))}>
         {PRESETS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
       </select>
-      <p className="hint">{preset?.note} Illustrative presets; edit to match your design.</p>
+      <p className="hint">
+        {preset?.note}{" "}
+        {preset?.source
+          ? <>Values from the <a href={`https://ntrs.nasa.gov/citations/${preset.source.ntrsId}`} target="_blank" rel="noreferrer">{preset.source.label} (NTRS {preset.source.ntrsId})</a>; airflow is EMBER's assumption.</>
+          : "Illustrative presets; edit to match your design."}
+      </p>
 
       <span className="field-label" id="q-label">Safety question</span>
       <div className="segmented" role="group" aria-label="Safety question">

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { GroundingReport } from "../lib/grounding";
-import { analysisKey, cleanAsk } from "../lib/recorded";
+import { analysisKey, AWAITING_RECORDING, cleanAsk } from "../lib/recorded";
 import type { Scenario } from "../lib/scenario";
 
 export interface AnalysisResult {
@@ -69,11 +69,14 @@ export function useAnalysis(scenario: Scenario) {
     try {
       if (!live) {
         const hit = recorded?.[analysisKey(scenario, ask)];
+        const awaiting = AWAITING_RECORDING.includes(scenario.environment);
         setResult(hit ? { ...hit, recorded: true } : {
           ask: ask ?? undefined,
-          error: ask
-            ? "Live AI is off here, so typed questions cannot be answered. Try a suggested question on an unedited preset."
-            : "No recorded analysis for this exact scenario.",
+          error: awaiting
+            ? "This preset is new and has no recorded answers yet; it needs a live AI key. The ranking and evidence panels work as normal."
+            : ask
+              ? "Live AI is off here, so typed questions cannot be answered. Try a suggested question on an unedited preset."
+              : "No recorded analysis for this exact scenario.",
         });
       } else {
         const r = await fetch("/api/analyze", {

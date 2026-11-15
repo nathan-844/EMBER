@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import recorded from "../data/recorded-analyses.json";
-import { analysisKey, ASK_MAX, cleanAsk, scenarioKey, SUGGESTED_ASKS } from "./recorded";
+import { analysisKey, ASK_MAX, AWAITING_RECORDING, cleanAsk, scenarioKey, SUGGESTED_ASKS } from "./recorded";
 import { PRESETS, presetScenario } from "./scenario";
 
 const entries = Object.entries((recorded as { entries: Record<string, any> }).entries);
@@ -49,9 +49,17 @@ describe("recorded analyses", () => {
 
   it("cover the whole analysis and every suggested question on each preset's opening screen", () => {
     const stored = new Set(entries.map(([k]) => k));
-    for (const p of PRESETS.filter((p) => p.id !== "custom")) {
+    for (const p of PRESETS.filter((p) => p.id !== "custom" && !AWAITING_RECORDING.includes(p.id))) {
       const s = presetScenario(p.id);
       for (const a of [null, ...SUGGESTED_ASKS]) expect(stored.has(analysisKey(s, a)), `${p.id} ${a ?? "(whole scenario)"}`).toBe(true);
+    }
+  });
+
+  it("only list presets as awaiting recording while they have none", () => {
+    const keys = entries.map(([k]) => k);
+    for (const id of AWAITING_RECORDING) {
+      expect(PRESETS.some((p) => p.id === id), id).toBe(true);
+      expect(keys.some((k) => k.startsWith(`["${id}"`)), `${id} is recorded now; remove it from AWAITING_RECORDING`).toBe(false);
     }
   });
 
