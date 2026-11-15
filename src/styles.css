@@ -959,3 +959,13 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
   .board tr.not-run { background: var(--sunken); padding: 10px 8px; }
   .board tr.not-run td { background: none; }
 }
+
+/* Oxygen against Earth air */
+.ox-compare h3 { margin: 2px 0 12px; }
+.ox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 10px; }
+.ox-row { display: grid; grid-template-columns: 110px 1fr 76px; gap: 8px; align-items: center; font-size: 12.5px; margin: 4px 0; }
+.ox-track { height: 10px; background: var(--sunken); border-radius: 5px; overflow: hidden; }
+.ox-bar { display: block; height: 100%; background: var(--muted); border-radius: 5px; }
+.ox-bar.mine { background: var(--accent); }
+.ox-val { text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .ox-grid { grid-template-columns: 1fr; } .ox-row { grid-template-columns: 96px 1fr 68px; } }

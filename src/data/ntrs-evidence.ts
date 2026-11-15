@@ -85,6 +85,8 @@ export const NTRS_QUOTES: NtrsQuote[] = [
     text: "After re-evaluation in 2012, the 8/32 environment was altered to 8.2 psia and 34% O2 to reduce the hypoxic stress to a crewmember." },
   { id: "fm2-24-atmospheres", source: "20240008623", topic: "atmosphere",
     text: "The environmental control system can replicate and conduct fire experiments automatically in the expected atmospheres, specifically 21% oxygen at 14.7 psia, and 34% oxygen at 8.2 psia, which are of immediate interest to the Human Lander System (HLS) and Lunar Rover." },
+  { id: "ruff21-o2-vs-pressure", source: "20210020446", topic: "atmosphere",
+    text: "The nearly vertical lines for the pressure vs. MOC show that increasing oxygen has a significantly greater effect than increasing pressure" },
   { id: "artemis-sh", source: "20220000245", topic: "atmosphere",
     text: "The SH is assumed to operate at a nominal atmospheric operating pressure of 10.2 psia and 26.5% oxygen concentration and a capability of operating at 8.2 psia and 34% oxygen." },
 

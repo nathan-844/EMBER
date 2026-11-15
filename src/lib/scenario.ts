@@ -117,6 +117,43 @@ export function oxygenPartialPressure(s: Pick<Scenario, "oxygenPct" | "pressureP
   return (s.oxygenPct / 100) * s.pressurePsi;
 }
 
+export const PSI_TO_KPA = 6.894757;
+/** Oxygen partial pressure of Earth sea-level air: 20.95% of 14.7 psia, about 3.08 psia or 21.2 kPa. */
+export const EARTH_PPO2_PSI = (EARTH_SEA_LEVEL.oxygenPct / 100) * EARTH_SEA_LEVEL.pressurePsi;
+
+export interface Ppo2Comparison {
+  psi: number;
+  kpa: number;
+  earthKpa: number;
+  /** Relative difference from Earth sea level, e.g. -0.006 for 30% O2 at 10.2 psia. */
+  vsEarth: number;
+  /** Relative difference of the O2 fraction from Earth air, e.g. 0.43 for 30%. */
+  fractionVsEarth: number;
+}
+
+/** The scenario's oxygen partial pressure in psia and kPa, against Earth sea level. */
+export function ppo2VsEarth(s: Pick<Scenario, "oxygenPct" | "pressurePsi">): Ppo2Comparison | null {
+  const psi = oxygenPartialPressure(s);
+  if (psi == null) return null;
+  return {
+    psi,
+    kpa: psi * PSI_TO_KPA,
+    earthKpa: EARTH_PPO2_PSI * PSI_TO_KPA,
+    vsEarth: psi / EARTH_PPO2_PSI - 1,
+    fractionVsEarth: s.oxygenPct! / EARTH_SEA_LEVEL.oxygenPct - 1,
+  };
+}
+
+/** "about the same as Earth sea level (21.2 kPa), although the oxygen fraction is 43% higher". */
+export function ppo2Sentence(c: Ppo2Comparison): string {
+  const pct = (x: number) => `${Math.round(Math.abs(x) * 100)}%`;
+  const earth = `Earth sea level (${c.earthKpa.toFixed(1)} kPa)`;
+  const rel = Math.abs(c.vsEarth) < 0.02 ? `about the same as ${earth}` : `${pct(c.vsEarth)} ${c.vsEarth < 0 ? "below" : "above"} ${earth}`;
+  const fractionUp = c.fractionVsEarth >= 0.02;
+  if (fractionUp && c.vsEarth < 0.02) return `${rel}, although the oxygen fraction is ${pct(c.fractionVsEarth)} higher than Earth air`;
+  return rel;
+}
+
 /** Relative change in O2 concentration versus Earth sea-level air, e.g. 0.43 for 30%. */
 export function oxygenIncreaseVsEarth(oxygenPct: number | null): number | null {
   if (oxygenPct == null) return null;

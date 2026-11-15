@@ -25,7 +25,8 @@ import { DownloadIcon } from "../components/icons";
 import { leadInsight, scenarioLimitations } from "../lib/limitations";
 import { rankInvestigations } from "../lib/ranking";
 import { probeRobustness } from "../lib/robustness";
-import { DEFAULT_SCENARIO, gravityRegime, oxygenPartialPressure, PRESETS, type Scenario } from "../lib/scenario";
+import { DEFAULT_SCENARIO, gravityRegime, PRESETS, ppo2VsEarth, type Scenario } from "../lib/scenario";
+import { OxygenComparison } from "../components/OxygenComparison";
 
 // These read every stored NASA run table, so they load on demand.
 const GapPreview = lazy(() => import("../components/GapPreview"));
@@ -97,8 +98,8 @@ export function ScenarioLab() {
   const tile = (id: TileId) => ({ id, onOpen: () => setOpen(id) });
   const dialog = (id: TileId) => ({ open: open === id, onClose: () => setOpen((cur) => (cur === id ? null : cur)) });
 
-  const ppo2 = oxygenPartialPressure(scenario);
-  const [gTitle, gNote] = GRAVITY_TEXT[gravityRegime(scenario.gravityG)];
+  const ppo2 = ppo2VsEarth(scenario);
+  const [gTitle] = GRAVITY_TEXT[gravityRegime(scenario.gravityG)];
   // The oxygen gap already leads the answer tile; show a different limit here.
   const keyLimit = (insight?.keyFinding ? limits.find((l) => l.id !== "o2-fuel-gap") : undefined) ?? limits[0];
   const probesHeld = robust.changesHeld + robust.removalsHeld + robust.weightsHeld;
@@ -198,7 +199,7 @@ export function ScenarioLab() {
             </Tile>
 
             <Tile {...tile("conditions")} eyebrow="Your conditions" title="Oxygen and gravity">
-              <Stat value={ppo2 == null ? "—" : ppo2.toFixed(2)} unit="psia O₂">partial pressure. Gravity: <strong>{gTitle}</strong>. {gNote}.</Stat>
+              <Stat value={ppo2 == null ? "—" : ppo2.kpa.toFixed(1)} unit="kPa O₂">{ppo2 ? `partial pressure; Earth's is ${ppo2.earthKpa.toFixed(1)}${ppo2.fractionVsEarth >= 0.02 ? `, though your O₂ fraction is ${Math.round(ppo2.fractionVsEarth * 100)}% higher` : ""}.` : "partial pressure."} Gravity: <strong>{gTitle}</strong>.</Stat>
             </Tile>
 
             <Tile {...tile("coverage")} eyebrow="Parameter coverage" title="Tested at your oxygen?">
@@ -261,6 +262,7 @@ export function ScenarioLab() {
       <TileDialog {...dialog("conditions")} title="Your conditions">
         <ScenarioGlance scenario={scenario} />
         <SummaryStrip scenario={scenario} relevant={ranked.length} total={INVESTIGATIONS.length} />
+        <OxygenComparison scenario={scenario} />
         <GravityIllustration scenario={scenario} open />
       </TileDialog>
       <TileDialog {...dialog("coverage")} title="Parameter coverage" lede="Where each study's condition ranges sit against your scenario. Click a probe value to try it.">

@@ -1,4 +1,4 @@
-import { gravityRegime, oxygenPartialPressure, type Scenario } from "../lib/scenario";
+import { gravityRegime, ppo2VsEarth, type Scenario } from "../lib/scenario";
 
 type Props = { scenario: Scenario; relevant: number; total: number };
 
@@ -10,14 +10,14 @@ export const GRAVITY_TEXT = {
 } as const;
 
 export function SummaryStrip({ scenario, relevant, total }: Props) {
-  const ppo2 = oxygenPartialPressure(scenario);
+  const ppo2 = ppo2VsEarth(scenario);
   const [gTitle, gNote] = GRAVITY_TEXT[gravityRegime(scenario.gravityG)];
   return (
     <section className="card summary">
       <div>
         <p className="eyebrow">Oxygen partial pressure</p>
-        <p className="big">{ppo2 == null ? "—" : ppo2.toFixed(2)} <small>psia</small></p>
-        <p className="small muted">Calculated · O₂ fraction × pressure</p>
+        <p className="big">{ppo2 == null ? "—" : ppo2.psi.toFixed(2)} <small>psia</small></p>
+        <p className="small muted">{ppo2 ? `${ppo2.kpa.toFixed(1)} kPa · Earth sea level ${ppo2.earthKpa.toFixed(1)} kPa` : "Calculated · O₂ fraction × pressure"}</p>
       </div>
       <div>
         <p className="eyebrow">Question-relevant profiles</p>

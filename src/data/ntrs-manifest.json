@@ -85,6 +85,11 @@
       "page": 10,
       "sha256": "ab1e2b8fa5fa784d2f0ade04f14433881972dcc2b7f883f6d8745bd108d7d6ba"
     },
+    "ruff21-o2-vs-pressure": {
+      "source": "20210020446",
+      "page": 8,
+      "sha256": "1c4b7463f8f49b40544af1bd1b4c426859e53f6cd240fabda6dfcfbc4b917773"
+    },
     "fm2-24-lower-limits": {
       "source": "20240008623",
       "page": 1,

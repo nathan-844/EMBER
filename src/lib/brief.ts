@@ -1,12 +1,12 @@
 import { CONDITION_LABELS, type RankedInvestigation } from "./ranking";
 import type { Limitation } from "./limitations";
-import { oxygenPartialPressure, type Scenario } from "./scenario";
+import { ppo2Sentence, ppo2VsEarth, type Scenario } from "./scenario";
 
 const fmt = (v: number | null, unit: string) => (v == null ? "unspecified" : `${v} ${unit}`);
 
 /** Markdown evidence brief. Everything in it is derived from profile fields and PSI run-table ranges. */
 export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], limits: Limitation[], date = new Date()): string {
-  const ppo2 = oxygenPartialPressure(scenario);
+  const ppo2 = ppo2VsEarth(scenario);
   const lines = [
     "# EMBER evidence brief",
     "",
@@ -18,7 +18,7 @@ export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], li
     `- Safety question: ${scenario.question}`,
     `- Oxygen: ${fmt(scenario.oxygenPct, "vol %")}`,
     `- Pressure: ${fmt(scenario.pressurePsi, "psia")}`,
-    `- O₂ partial pressure: ${ppo2 == null ? "unspecified" : `${ppo2.toFixed(2)} psia`}`,
+    `- O₂ partial pressure: ${ppo2 == null ? "unspecified" : `${ppo2.psi.toFixed(2)} psia (${ppo2.kpa.toFixed(1)} kPa), ${ppo2Sentence(ppo2)}`}`,
     `- Gravity: ${fmt(scenario.gravityG, "g")}`,
     `- Airflow: ${fmt(scenario.airflowMs, "m/s")}`,
     `- Fuel: ${scenario.fuel ?? "unspecified"}; material: ${scenario.material ?? "unspecified"}; thickness: ${fmt(scenario.thicknessMm, "mm")}; flow direction: ${scenario.flowDirection ?? "unspecified"}`,

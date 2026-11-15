@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { gravityRegime, oxygenIncreaseVsEarth, oxygenPartialPressure, presetScenario, PRESETS } from "./scenario";
+import { gravityRegime, oxygenIncreaseVsEarth, oxygenPartialPressure, ppo2Sentence, ppo2VsEarth, presetScenario, PRESETS } from "./scenario";
 
 describe("scenario presets", () => {
   it("lunar habitat follows the challenge atmosphere", () => {
@@ -56,5 +56,21 @@ describe("gravity regime", () => {
     [null, "unspecified"],
   ] as const)("%s g is %s", (g, regime) => {
     expect(gravityRegime(g)).toBe(regime);
+  });
+});
+
+describe("oxygen partial pressure against Earth", () => {
+  it("puts the lunar-base atmosphere at Earth's partial pressure with 43% more oxygen fraction", () => {
+    const c = ppo2VsEarth(presetScenario("lunar-habitat"))!;
+    expect(c.psi).toBeCloseTo(3.06, 2);
+    expect(c.kpa).toBeCloseTo(21.1, 1);
+    expect(c.earthKpa).toBeCloseTo(21.23, 1);
+    expect(ppo2Sentence(c)).toBe("about the same as Earth sea level (21.2 kPa), although the oxygen fraction is 43% higher than Earth air");
+  });
+
+  it("says when a richer atmosphere still has less oxygen pressure, or more", () => {
+    expect(ppo2Sentence(ppo2VsEarth(presetScenario("lunar-exploration"))!)).toBe("9% below Earth sea level (21.2 kPa), although the oxygen fraction is 62% higher than Earth air");
+    expect(ppo2Sentence(ppo2VsEarth(presetScenario("spacesuit"))!)).toBe("40% above Earth sea level (21.2 kPa)");
+    expect(ppo2VsEarth({ oxygenPct: null, pressurePsi: 10 })).toBeNull();
   });
 });

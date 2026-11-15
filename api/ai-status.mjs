@@ -17312,6 +17312,7 @@ var PRESETS = [
     values: { oxygenPct: null, pressurePsi: null, gravityG: null, airflowMs: null }
   }
 ];
+var EARTH_SEA_LEVEL = { oxygenPct: 20.95, pressurePsi: 14.7 };
 function presetScenario(id, previous) {
   const preset = PRESETS.find((p) => p.id === id) ?? PRESETS[1];
   return {
@@ -17330,6 +17331,7 @@ function oxygenPartialPressure(s) {
   if (s.oxygenPct == null || s.pressurePsi == null) return null;
   return s.oxygenPct / 100 * s.pressurePsi;
 }
+var EARTH_PPO2_PSI = EARTH_SEA_LEVEL.oxygenPct / 100 * EARTH_SEA_LEVEL.pressurePsi;
 function gravityRegime(g) {
   if (g == null) return "unspecified";
   if (g <= 1e-3) return "microgravity";
