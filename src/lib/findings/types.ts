@@ -25,6 +25,11 @@ export interface Finding {
   method: string;
   /** What else differs between the compared tests, or could explain the result. */
   confounders: string[];
+  /**
+   * How sure the numbers are: a sentence generated from computed intervals or tests, and how they
+   * were computed. Intervals cover sampling variation within these NASA rows only.
+   */
+  uncertainty: { text: string; method: string };
   /** What this finding does not establish. */
   notClaimed: string;
   /** EMBER investigation ids the rows come from. */

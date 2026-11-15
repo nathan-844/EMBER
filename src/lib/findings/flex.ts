@@ -2,7 +2,7 @@
 // ("Test end": Extinction / Disruption / Completion), the starting droplet diameter and,
 // when the flame went out, the droplet diameter at that moment.
 import type { AtlasRow } from "../atlas/types";
-import { median, round, spearman } from "./stats";
+import { bootstrapCI, ciText, median, pctCi, round, spearman, wilson } from "./stats";
 import type { Finding } from "./types";
 
 type Diluent = "none" | "CO2" | "He";
@@ -41,7 +41,8 @@ export function f1ExtinctionVsOxygen(rows: AtlasRow[]): Finding {
     .map((g) => {
       const levels = [...new Set(g.runs.map((x) => x.o2))].sort((a, b) => a - b);
       const at = (o2: number) => median(g.runs.filter((x) => x.o2 === o2).map((x) => x.ratio))!;
-      return { ...g, levels, rho: spearman(g.runs.map((x) => x.o2), g.runs.map((x) => x.ratio)), lowRatio: at(levels[0]), highRatio: at(levels[levels.length - 1]) };
+      const rhoOf = (rs: typeof g.runs) => spearman(rs.map((x) => x.o2), rs.map((x) => x.ratio));
+      return { ...g, levels, rho: rhoOf(g.runs), rhoCi: bootstrapCI([g.runs], ([rs]) => rhoOf(rs)), lowRatio: at(levels[0]), highRatio: at(levels[levels.length - 1]) };
     })
     .filter((g) => g.runs.length >= MIN_RUNS && g.levels.length >= MIN_LEVELS && g.rho !== null)
     .sort((a, b) => a.fuel.localeCompare(b.fuel) || a.band.localeCompare(b.band) || a.diluent.localeCompare(b.diluent));
@@ -51,9 +52,15 @@ export function f1ExtinctionVsOxygen(rows: AtlasRow[]): Finding {
   const negative = measured.filter((g) => g.rho! < 0).length;
   const rhos = measured.map((g) => g.rho!);
   const ref = measured.find((g) => g.fuel === "Methanol" && g.diluent === "none" && g.band === "1 atm")!;
+  const clearlyNegative = measured.filter((g) => g.rhoCi && g.rhoCi[1] < 0).length;
+  const crossesZero = measured.filter((g) => !g.rhoCi || (g.rhoCi[0] <= 0 && g.rhoCi[1] >= 0)).length;
   const numbers = {
     groups: measured.length,
     groupsFallingOxygenMoreFuelLeft: negative,
+    groupsIntervalBelowZero: clearlyNegative,
+    groupsIntervalSpansZero: crossesZero,
+    refRhoCiLow: ref.rhoCi ? round(ref.rhoCi[0]) : "n/a",
+    refRhoCiHigh: ref.rhoCi ? round(ref.rhoCi[1]) : "n/a",
     runs: used.length,
     rhoMin: round(Math.min(...rhos)),
     rhoMax: round(Math.max(...rhos)),
@@ -82,6 +89,12 @@ export function f1ExtinctionVsOxygen(rows: AtlasRow[]): Finding {
       `2. Divide extinction diameter by starting diameter: 1 means the flame went out at once, near 0 that almost all the fuel burned. ` +
       `3. Group runs by fuel, added gas (none, CO₂ or helium, from NASA's composition columns) and pressure band (0.7 atm: 9–12 psia; 1 atm: 12–16 psia). ` +
       `4. In each group with at least ${MIN_RUNS} runs over ${MIN_LEVELS} oxygen levels, compute Spearman's rank correlation between oxygen and the ratio. A negative value means less oxygen, more fuel left.`,
+    uncertainty: {
+      text:
+        `In ${clearlyNegative} of ${measured.length} groups the 95% bootstrap interval of the rank correlation lies wholly below zero; in ${crossesZero} it includes zero, so those groups alone do not show a direction. ` +
+        `For methanol in nitrogen at about 1 atm the correlation is ${round(ref.rho!)} (95% interval ${ciText(ref.rhoCi)}).`,
+      method: `Percentile bootstrap: each group's runs resampled with replacement ${2000} times (seeded, so the interval is the same on every rebuild), Spearman's correlation recomputed each time, and the middle 95% kept.`,
+    },
     confounders: [
       "Starting droplet size varies between runs (about 1.5 to 5 mm), and large droplets can go out from radiative heat loss at any oxygen level.",
       "Where CO₂ or helium was added, its share changes with the oxygen level, so oxygen and added gas are not varied independently.",
@@ -92,8 +105,8 @@ export function f1ExtinctionVsOxygen(rows: AtlasRow[]): Finding {
       "Liquid fuel droplets, not cabin solids. This shows a direction within FLEX's own runs; it is not an oxygen limit, a flammability prediction or a fire-safety rating.",
     investigations: ["flex"],
     table: {
-      columns: ["Fuel", "Added gas", "Pressure", "Runs", "O₂ levels (%)", "Rank correlation", "Ratio at lowest O₂", "Ratio at highest O₂"],
-      rows: measured.map((g) => [g.fuel, DILUENT_WORDS[g.diluent], g.band, g.runs.length, `${g.levels[0]}–${g.levels[g.levels.length - 1]}`, round(g.rho!), round(g.lowRatio), round(g.highRatio)]),
+      columns: ["Fuel", "Added gas", "Pressure", "Runs", "O₂ levels (%)", "Rank correlation", "95% interval", "Ratio at lowest O₂", "Ratio at highest O₂"],
+      rows: measured.map((g) => [g.fuel, DILUENT_WORDS[g.diluent], g.band, g.runs.length, `${g.levels[0]}–${g.levels[g.levels.length - 1]}`, round(g.rho!), ciText(g.rhoCi), round(g.lowRatio), round(g.highRatio)]),
     },
   };
 }
@@ -120,6 +133,8 @@ export function f2FlexNearExplorationAir(rows: AtlasRow[]): Finding {
     airRuns: air.length,
     airWentOut: out(air),
     challengeMaxPsi: EXPLORATION_ATMOSPHERE.maxPsi,
+    wentOutCi: pctCi(wilson(out(high), high.length)),
+    airWentOutCi: pctCi(wilson(out(air), air.length)),
   };
   const byGroup = new Map<string, AtlasRow[]>();
   for (const r of [...high, ...air]) {
@@ -139,6 +154,12 @@ export function f2FlexNearExplorationAir(rows: AtlasRow[]): Finding {
     method:
       `1. Take FLEX runs with no CO₂ or helium added. 2. High-oxygen set: oxygen of ${EXPLORATION_ATMOSPHERE.minO2Pct}% or more in the 0.7 atm band (9–12 psia). Reference set: 21% oxygen in the 1 atm band (12–16 psia). ` +
       `3. Count how each burn ended, from NASA's "Test end" column: Extinction (the flame went out), Disruption (the droplet broke apart) or Completion (it burned away).`,
+    uncertainty: {
+      text:
+        `Share of flames that went out: ${Math.round((100 * numbers.wentOut) / high.length)}% of ${high.length} near exploration air (95% interval ${numbers.wentOutCi}) against ${Math.round((100 * numbers.airWentOut) / air.length)}% of ${air.length} in air (${numbers.airWentOutCi}). ` +
+        `${high.length < 20 ? `With only ${high.length} high-oxygen runs the first interval is wide.` : ""}`.trim(),
+      method: "Wilson score 95% interval for each proportion, treating each burn as one independent trial.",
+    },
     confounders: [
       "The high-oxygen runs are at about 10.4 psia, slightly above the challenge's 10.2 psi, so their oxygen partial pressure is higher than the exploration atmosphere's.",
       "The reference runs differ in pressure as well as oxygen.",

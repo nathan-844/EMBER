@@ -14243,6 +14243,10 @@ var findings_default = {
       numbers: {
         groups: 10,
         groupsFallingOxygenMoreFuelLeft: 9,
+        groupsIntervalBelowZero: 8,
+        groupsIntervalSpansZero: 2,
+        refRhoCiLow: -0.83,
+        refRhoCiHigh: -0.43,
         runs: 154,
         rhoMin: -0.94,
         rhoMax: 0,
@@ -14427,6 +14431,10 @@ var findings_default = {
         }
       ],
       method: `1. Take FLEX runs whose "Test end" is Extinction and that record both the starting droplet diameter and the visible flame extinction diameter. 2. Divide extinction diameter by starting diameter: 1 means the flame went out at once, near 0 that almost all the fuel burned. 3. Group runs by fuel, added gas (none, CO\u2082 or helium, from NASA's composition columns) and pressure band (0.7 atm: 9\u201312 psia; 1 atm: 12\u201316 psia). 4. In each group with at least 6 runs over 3 oxygen levels, compute Spearman's rank correlation between oxygen and the ratio. A negative value means less oxygen, more fuel left.`,
+      uncertainty: {
+        text: "In 8 of 10 groups the 95% bootstrap interval of the rank correlation lies wholly below zero; in 2 it includes zero, so those groups alone do not show a direction. For methanol in nitrogen at about 1 atm the correlation is -0.68 (95% interval -0.83 to -0.43).",
+        method: "Percentile bootstrap: each group's runs resampled with replacement 2000 times (seeded, so the interval is the same on every rebuild), Spearman's correlation recomputed each time, and the middle 95% kept."
+      },
       confounders: [
         "Starting droplet size varies between runs (about 1.5 to 5 mm), and large droplets can go out from radiative heat loss at any oxygen level.",
         "Where CO\u2082 or helium was added, its share changes with the oxygen level, so oxygen and added gas are not varied independently.",
@@ -14445,6 +14453,7 @@ var findings_default = {
           "Runs",
           "O\u2082 levels (%)",
           "Rank correlation",
+          "95% interval",
           "Ratio at lowest O\u2082",
           "Ratio at highest O\u2082"
         ],
@@ -14456,6 +14465,7 @@ var findings_default = {
             23,
             "15\u201324",
             -0.84,
+            "-0.94 to -0.6",
             0.94,
             0.45
           ],
@@ -14466,6 +14476,7 @@ var findings_default = {
             11,
             "17\u201324",
             -0.94,
+            "-0.99 to -0.71",
             0.84,
             0.37
           ],
@@ -14476,6 +14487,7 @@ var findings_default = {
             26,
             "14\u201321",
             -0.75,
+            "-0.88 to -0.43",
             0.87,
             0.44
           ],
@@ -14486,6 +14498,7 @@ var findings_default = {
             10,
             "13\u201320",
             -0.91,
+            "-1 to -0.59",
             0.99,
             0.38
           ],
@@ -14496,6 +14509,7 @@ var findings_default = {
             30,
             "12\u201330",
             -0.68,
+            "-0.83 to -0.43",
             0.73,
             0.41
           ],
@@ -14506,6 +14520,7 @@ var findings_default = {
             13,
             "17\u201324",
             -0.83,
+            "-0.97 to -0.44",
             1,
             0.81
           ],
@@ -14516,6 +14531,7 @@ var findings_default = {
             8,
             "17\u201324",
             -0.35,
+            "-0.89 to 0.48",
             0.84,
             0.67
           ],
@@ -14526,6 +14542,7 @@ var findings_default = {
             13,
             "17\u201324",
             -0.64,
+            "-0.89 to -0.17",
             0.97,
             0.79
           ],
@@ -14536,6 +14553,7 @@ var findings_default = {
             6,
             "16\u201321",
             0,
+            "-0.89 to 1",
             0.46,
             0.54
           ],
@@ -14546,6 +14564,7 @@ var findings_default = {
             14,
             "13\u201321",
             -0.81,
+            "-0.93 to -0.51",
             0.98,
             0.8
           ]
@@ -14566,7 +14585,9 @@ var findings_default = {
         burnedOut: 2,
         airRuns: 29,
         airWentOut: 14,
-        challengeMaxPsi: 10.2
+        challengeMaxPsi: 10.2,
+        wentOutCi: "0\u201318%",
+        airWentOutCi: "31\u201366%"
       },
       n: 46,
       rows: [
@@ -14624,6 +14645,10 @@ var findings_default = {
         }
       ],
       method: `1. Take FLEX runs with no CO\u2082 or helium added. 2. High-oxygen set: oxygen of 30% or more in the 0.7 atm band (9\u201312 psia). Reference set: 21% oxygen in the 1 atm band (12\u201316 psia). 3. Count how each burn ended, from NASA's "Test end" column: Extinction (the flame went out), Disruption (the droplet broke apart) or Completion (it burned away).`,
+      uncertainty: {
+        text: "Share of flames that went out: 0% of 17 near exploration air (95% interval 0\u201318%) against 48% of 29 in air (31\u201366%). With only 17 high-oxygen runs the first interval is wide.",
+        method: "Wilson score 95% interval for each proportion, treating each burn as one independent trial."
+      },
       confounders: [
         "The high-oxygen runs are at about 10.4 psia, slightly above the challenge's 10.2 psi, so their oxygen partial pressure is higher than the exploration atmosphere's.",
         "The reference runs differ in pressure as well as oxygen.",
@@ -14714,7 +14739,8 @@ var findings_default = {
         siliconeEarthFurther: 3,
         o2Min: 21.5,
         o2Max: 22.1,
-        flowCms: "20"
+        flowCms: "20",
+        signTestP: 0.063
       },
       n: 8,
       rows: [
@@ -14734,6 +14760,10 @@ var findings_default = {
         }
       ],
       method: `1. For each Saffire-II sample, read NASA's \xB5-g burn length (orbit) and 1-g burn length (ground). 2. Put each on the same three-step scale: no spread (about 0), partial burn (a length in cm, short of the sample), whole sample ("Complete", or a \xB5-g length equal to the 29 cm sample). 3. Compare the two for the same sample.`,
+      uncertainty: {
+        text: "If ground and orbit were equally likely to burn further, a split of 5 to 0 (ties left out) would happen by chance with probability 0.063 (two-sided sign test). That could be chance; these are only 8 samples of mostly different materials.",
+        method: "Exact two-sided sign test on the samples that differ; samples that burned the same on the ground and in orbit are left out."
+      },
       confounders: [
         "The table does not say how the 1-g tests were set up (orientation, flow), so the ground flame may have been driven by buoyant flow rather than the 20 cm/s forced flow used in orbit.",
         "One sample per material and thickness, at one oxygen level (about 22%).",
@@ -14832,7 +14862,10 @@ var findings_default = {
         ratio: 17,
         offScale: 4,
         offScalePmma: 4,
-        tests: 118
+        tests: 118,
+        slabCi: "219 to 428",
+        fabricCi: "11 to 30",
+        ratioCi: "10 to 31"
       },
       n: 118,
       rows: [
@@ -14970,6 +15003,10 @@ var findings_default = {
         }
       ],
       method: `1. Take every BASS-II burn. 2. Subtract NASA's "Initial CO (ppm)" from "Final CO (ppm)", and initial from final CO\u2082 (% by volume). 3. Group burns by material and form from the atlas material dictionary (PMMA slab, rod or film; SIBAL; Nomex; wax). 4. Report the median change per group. Readings NASA marks as off the scale (">500", "OR", "over") are counted separately, never given a number.`,
+      uncertainty: {
+        text: "95% bootstrap intervals: PMMA slab median 219 to 428 ppm, SIBAL fabric median 11 to 30 ppm, ratio 10 to 31 times. The 4 burns that pushed CO off the sensor's scale (all PMMA) are left out of the medians; counting them could only raise PMMA's figures.",
+        method: "Percentile bootstrap: each group's burns resampled with replacement 2000 times (seeded), medians and their ratio recomputed, middle 95% kept."
+      },
       confounders: [
         "Burns differ in length, sample size, airflow and starting oxygen; the change is per burn, not per gram of fuel.",
         "All burns share one glovebox volume, but the glovebox air was not always refreshed between burns, so starting levels differ.",
@@ -15062,7 +15099,9 @@ var findings_default = {
         o2Min: 38.9,
         o2Max: 39.9,
         sameSettingRuns: 17,
-        otherRuns: 162
+        otherRuns: 162,
+        sameSettingCi: "22\u201364%",
+        otherUpperPct: 2
       },
       n: 179,
       rows: [
@@ -15248,6 +15287,10 @@ var findings_default = {
       ],
       excluded: [],
       method: `1. Take every CFI-G normal-flame run (fuel from the burner into an O\u2082/N\u2082 atmosphere). 2. A run has a cool flame when NASA's "Cool flame?" column starts with "yes". 3. Group runs by fuel and pressure (NASA's "approx p (bar)") and count cool flames in each.`,
+      uncertainty: {
+        text: "At that fuel and pressure, cool flames appeared in 7 of 17 runs (95% interval 22\u201364%). None in the other 162 runs still allows a true rate of up to about 2% at those settings.",
+        method: "Wilson score 95% intervals, treating each run as one independent trial; the upper bound for zero events is the Wilson upper limit."
+      },
       confounders: [
         "CFI-G set out to find cool flames, so the runs near these conditions were chosen where cool flames were expected; other settings were not searched as finely.",
         "Oxygen fell during each run (NASA gives before and after values); the before value is used."
@@ -15515,6 +15558,10 @@ var findings_default = {
         }
       ],
       method: "1. Take every test in the atlas whose fuel is a solid. 2. Use its oxygen (the top of the range where NASA lists a range) and pressure where recorded. 3. Find the highest oxygen in the PSI tables, then the tests above it, and those at 30% O\u2082 or more and 10.2 psi or less.",
+      uncertainty: {
+        text: "This is a count of the tests that exist in these sources, not an estimate from a sample, so it has no sampling interval. It is only as complete as the sources: a test outside PSI and the Saffire IV\u2013VI paper is not counted.",
+        method: "No statistical test: every solid test in the atlas is counted."
+      },
       confounders: [
         "PSI solid tests at 21\u201322% O\u2082 ran in the ISS cabin or glovebox at about 1 atm, but the tables do not record pressure, so they cannot be placed on both axes.",
         "The Saffire IV\u2013VI values come from a NASA conference paper (NTRS 20240002981), not from PSI."
@@ -17456,7 +17503,7 @@ function findingSources(investigationIds) {
     id: `finding:${f.id}`,
     label: `EMBER measured finding ${f.id} (computed from ${f.n} NASA test rows)`,
     origin: "derived",
-    text: `${f.title}. ${f.claim} Not established: ${f.notClaimed}`
+    text: `${f.title}. ${f.claim} How sure: ${f.uncertainty.text} Not established: ${f.notClaimed}`
   }));
 }
 var UNIT = { oxygenPct: "vol %", pressurePsi: "psia", gravityG: "g", airflowMs: "m/s" };

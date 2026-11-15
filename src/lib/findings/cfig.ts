@@ -1,7 +1,7 @@
 // F5: ACME CFI-G (PSI-159) searched for cool flames with gaseous fuels. NASA's "Cool flame?" column
 // says which runs produced one.
 import type { AtlasRow } from "../atlas/types";
-import { round } from "./stats";
+import { pctCi, round, wilson } from "./stats";
 import type { Finding } from "./types";
 
 const isCool = (r: AtlasRow) => /^yes/i.test(String(r.measures.coolFlame?.v ?? ""));
@@ -25,6 +25,8 @@ export function f5CoolFlames(rows: AtlasRow[]): Finding {
     o2Max: round(Math.max(...o2), 1),
     sameSettingRuns: sameSetting.length,
     otherRuns: tests.length - sameSetting.length,
+    sameSettingCi: pctCi(wilson(cool.length, sameSetting.length)),
+    otherUpperPct: Math.round(wilson(0, tests.length - sameSetting.length)[1] * 100),
   };
   const settings = new Map<string, AtlasRow[]>();
   for (const r of tests) {
@@ -44,6 +46,12 @@ export function f5CoolFlames(rows: AtlasRow[]): Finding {
     method:
       `1. Take every CFI-G normal-flame run (fuel from the burner into an O₂/N₂ atmosphere). 2. A run has a cool flame when NASA's "Cool flame?" column starts with "yes". ` +
       `3. Group runs by fuel and pressure (NASA's "approx p (bar)") and count cool flames in each.`,
+    uncertainty: {
+      text:
+        `At that fuel and pressure, cool flames appeared in ${cool.length} of ${sameSetting.length} runs (95% interval ${numbers.sameSettingCi}). ` +
+        `None in the other ${numbers.otherRuns} runs still allows a true rate of up to about ${numbers.otherUpperPct}% at those settings.`,
+      method: "Wilson score 95% intervals, treating each run as one independent trial; the upper bound for zero events is the Wilson upper limit.",
+    },
     confounders: [
       "CFI-G set out to find cool flames, so the runs near these conditions were chosen where cool flames were expected; other settings were not searched as finely.",
       "Oxygen fell during each run (NASA gives before and after values); the before value is used.",

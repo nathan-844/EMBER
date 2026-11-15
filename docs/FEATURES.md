@@ -162,7 +162,7 @@ and 16 quirks (footnotes inside the test table, identical rows, RAMPED flows). E
 cells exactly as NASA wrote them and what EMBER does. Nothing in NASA's files is changed. The
 tables were not compared with their source papers.
 
-**Measured findings** (*Findings* page). Six findings computed by code from atlas rows:
+**Measured findings** (*Findings* page). Six findings computed by code from atlas rows, each with a "How sure" line computed from the same rows (seeded bootstrap intervals for F1 and F4, Wilson intervals for F2 and F5, an exact sign test for F3; F6 is a count and says it has no interval):
 
 | | Finding | Tests |
 |---|---|---|

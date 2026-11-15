@@ -38,7 +38,7 @@ export function findingSources(investigationIds: string[]): EvidenceSource[] {
     id: `finding:${f.id}`,
     label: `EMBER measured finding ${f.id} (computed from ${f.n} NASA test rows)`,
     origin: "derived" as const,
-    text: `${f.title}. ${f.claim} Not established: ${f.notClaimed}`,
+    text: `${f.title}. ${f.claim} How sure: ${f.uncertainty.text} Not established: ${f.notClaimed}`,
   }));
 }
 

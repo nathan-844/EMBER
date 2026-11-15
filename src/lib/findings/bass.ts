@@ -1,7 +1,7 @@
 // F4: BASS-II (PSI-25) records O₂, CO₂ and CO in the Microgravity Science Glovebox before and
 // after each burn. The change per burn shows how much each kind of sample fouled the air.
 import type { AtlasRow, Quantity } from "../atlas/types";
-import { median, round } from "./stats";
+import { bootstrapCI, ciText, median, round } from "./stats";
 import type { Finding } from "./types";
 
 const num = (q: unknown) => (q && typeof (q as Quantity).v === "number" ? (q as Quantity).v : null);
@@ -41,6 +41,10 @@ export function f4CarbonMonoxide(rows: AtlasRow[]): Finding {
   const offScale = table.reduce((n, g) => n + g.offScale.length, 0);
   const offScalePmma = table.filter((g) => g.name.startsWith("PMMA")).reduce((n, g) => n + g.offScale.length, 0);
   const used = table.flatMap((g) => g.co.map((x) => x.id));
+  const slabV = slab.co.map((x) => x.v), fabricV = fabric.co.map((x) => x.v);
+  const slabCi = bootstrapCI([slabV], ([s]) => median(s));
+  const fabricCi = bootstrapCI([fabricV], ([f]) => median(f));
+  const ratioCi = bootstrapCI([slabV, fabricV], ([s, f]) => { const fm = median(f); return fm && fm > 0 ? median(s)! / fm : null; });
   const numbers = {
     slabCoMedianPpm: round(slab.coMed!, 0),
     slabTests: slab.co.length,
@@ -50,6 +54,9 @@ export function f4CarbonMonoxide(rows: AtlasRow[]): Finding {
     offScale,
     offScalePmma,
     tests: used.length,
+    slabCi: ciText(slabCi, 0),
+    fabricCi: ciText(fabricCi, 0),
+    ratioCi: ciText(ratioCi, 0),
   };
   return {
     id: "F4",
@@ -68,6 +75,14 @@ export function f4CarbonMonoxide(rows: AtlasRow[]): Finding {
       `1. Take every BASS-II burn. 2. Subtract NASA's "Initial CO (ppm)" from "Final CO (ppm)", and initial from final CO₂ (% by volume). ` +
       `3. Group burns by material and form from the atlas material dictionary (PMMA slab, rod or film; SIBAL; Nomex; wax). 4. Report the median change per group. ` +
       `Readings NASA marks as off the scale (">500", "OR", "over") are counted separately, never given a number.`,
+    uncertainty: {
+      text:
+        `95% bootstrap intervals: PMMA slab median ${numbers.slabCi} ppm, SIBAL fabric median ${numbers.fabricCi} ppm, ratio ${numbers.ratioCi} times. ` +
+        (offScale
+          ? `The ${offScale} burns that pushed CO off the sensor's scale${offScalePmma === offScale ? " (all PMMA)" : ""} are left out of the medians${offScalePmma === offScale ? "; counting them could only raise PMMA's figures" : ""}.`
+          : ""),
+      method: "Percentile bootstrap: each group's burns resampled with replacement 2000 times (seeded), medians and their ratio recomputed, middle 95% kept.",
+    },
     confounders: [
       "Burns differ in length, sample size, airflow and starting oxygen; the change is per burn, not per gram of fuel.",
       "All burns share one glovebox volume, but the glovebox air was not always refreshed between burns, so starting levels differ.",

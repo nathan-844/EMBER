@@ -1,6 +1,7 @@
 // F3: Saffire-II (PSI-99) records, for each sample, the burn length in orbit and the burn length
 // of a matching ground test in 1 g. This compares the two, sample by sample.
 import type { AtlasRow } from "../atlas/types";
+import { signTestP, round } from "./stats";
 import type { Finding } from "./types";
 
 /** 0 = no flame spread, 1 = partial burn, 2 = the whole sample burned. */
@@ -44,6 +45,7 @@ export function f3EarthVsOrbit(rows: AtlasRow[]): Finding {
     o2Min: Math.min(...o2),
     o2Max: Math.max(...o2),
     flowCms: flows.join(", "),
+    signTestP: round(signTestP(earthFurther.length, orbitFurther.length), 3),
   };
   const sampleNo = (r: AtlasRow) => String(r.measures.sample?.v ?? r.id.replace(/^.*:r/, "row "));
   return {
@@ -63,6 +65,12 @@ export function f3EarthVsOrbit(rows: AtlasRow[]): Finding {
       `1. For each Saffire-II sample, read NASA's µ-g burn length (orbit) and 1-g burn length (ground). ` +
       `2. Put each on the same three-step scale: no spread (about 0), partial burn (a length in cm, short of the sample), whole sample ("Complete", or a µ-g length equal to the 29 cm sample). ` +
       `3. Compare the two for the same sample.`,
+    uncertainty: {
+      text:
+        `If ground and orbit were equally likely to burn further, a split of ${numbers.earthFurther} to ${numbers.orbitFurther} (ties left out) would happen by chance with probability ${numbers.signTestP} (two-sided sign test). ` +
+        `${numbers.signTestP < 0.05 ? "That is unlikely by chance for these samples, but they are" : "That could be chance; these are"} only ${numbers.samples} samples of mostly different materials.`,
+      method: "Exact two-sided sign test on the samples that differ; samples that burned the same on the ground and in orbit are left out.",
+    },
     confounders: [
       "The table does not say how the 1-g tests were set up (orientation, flow), so the ground flame may have been driven by buoyant flow rather than the 20 cm/s forced flow used in orbit.",
       "One sample per material and thickness, at one oxygen level (about 22%).",

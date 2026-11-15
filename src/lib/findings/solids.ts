@@ -49,6 +49,10 @@ export function f6SolidsAtHighOxygen(rows: AtlasRow[]): Finding {
     method:
       `1. Take every test in the atlas whose fuel is a solid. 2. Use its oxygen (the top of the range where NASA lists a range) and pressure where recorded. ` +
       `3. Find the highest oxygen in the PSI tables, then the tests above it, and those at ${EXPLORATION_ATMOSPHERE.minO2Pct}% O₂ or more and ${EXPLORATION_ATMOSPHERE.maxPsi} psi or less.`,
+    uncertainty: {
+      text: "This is a count of the tests that exist in these sources, not an estimate from a sample, so it has no sampling interval. It is only as complete as the sources: a test outside PSI and the Saffire IV–VI paper is not counted.",
+      method: "No statistical test: every solid test in the atlas is counted.",
+    },
     confounders: [
       "PSI solid tests at 21–22% O₂ ran in the ISS cabin or glovebox at about 1 atm, but the tables do not record pressure, so they cannot be placed on both axes.",
       "The Saffire IV–VI values come from a NASA conference paper (NTRS 20240002981), not from PSI.",

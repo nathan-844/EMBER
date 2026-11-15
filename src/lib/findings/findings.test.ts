@@ -6,7 +6,7 @@ import { buildAtlas } from "../atlas/build";
 import { COMPUTE, computeFindings } from ".";
 import { citedRows } from "./rows";
 import { groundExtent } from "./saffire";
-import { median, ranks, spearman } from "./stats";
+import { bootstrapCI, median, ranks, signTestP, spearman, wilson } from "./stats";
 import type { Finding } from "./types";
 
 const atlas = buildAtlas(TABLES, manifest);
@@ -153,5 +153,36 @@ describe("headline numbers, rechecked from NASA's raw cells", () => {
     const at = (o2: number) => median(rows.filter((c) => Number(c("O initial ambient composition; mole fraction")) === o2).map((c) => Number(c("Visible flame extinction diameter; mm")) / Number(c("Droplet initial diameter; mm"))))!;
     expect(Number(at(0.12).toFixed(2))).toBe(byId("F1").numbers.refLowRatio);
     expect(Number(at(0.3).toFixed(2))).toBe(byId("F1").numbers.refHighRatio);
+  });
+});
+
+describe("uncertainty", () => {
+  it("matches hand-worked Wilson intervals and sign tests", () => {
+    const [lo, hi] = wilson(6, 13);
+    expect(lo).toBeCloseTo(0.2321, 3);
+    expect(hi).toBeCloseTo(0.7086, 3);
+    expect(wilson(0, 13)[1]).toBeCloseTo(0.2281, 3);
+    expect(signTestP(6, 0)).toBeCloseTo(0.03125, 6);
+    expect(signTestP(5, 1)).toBeCloseTo(0.21875, 6);
+    expect(signTestP(0, 0)).toBe(1);
+  });
+
+  it("gives the same bootstrap interval on every run, and one that holds the estimate", () => {
+    const xs = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
+    const a = bootstrapCI([xs], ([s]) => median(s)), b = bootstrapCI([xs], ([s]) => median(s));
+    expect(a).toEqual(b);
+    expect(a![0]).toBeLessThanOrEqual(median(xs)!);
+    expect(a![1]).toBeGreaterThanOrEqual(median(xs)!);
+  });
+
+  it("states how sure every finding is, and how that was worked out", () => {
+    const file = JSON.parse(readFileSync("src/data/findings.json", "utf8")) as { findings: Finding[] };
+    for (const f of file.findings) {
+      expect(f.uncertainty.text.length, f.id).toBeGreaterThan(40);
+      expect(f.uncertainty.method.length, f.id).toBeGreaterThan(20);
+    }
+    const f1 = file.findings.find((f) => f.id === "F1")!;
+    expect(f1.numbers.groupsIntervalBelowZero as number).toBeLessThanOrEqual(f1.numbers.groupsFallingOxygenMoreFuelLeft as number);
+    expect(file.findings.find((f) => f.id === "F3")!.uncertainty.text).toMatch(/sign test/);
   });
 });

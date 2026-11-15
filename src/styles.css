@@ -1000,3 +1000,5 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 .tour-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 @media (prefers-reduced-motion: reduce) { .tour-spot { transition: none; } }
 .tile, #scenario { scroll-margin-top: 72px; }
+.finding-sure { font-size: 13px; color: var(--ink-2); background: var(--sunken); border-left: 3px solid var(--navy-2); padding: 6px 10px; margin: 8px 0; }
+.finding-sure .muted { font-size: 12px; }
