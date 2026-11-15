@@ -20,7 +20,7 @@ where the evidence runs out.
   checked against NASA's own text.
 - **See the gaps** - a gap map of every NASA test run and plain statements of what the evidence
   cannot tell you.
-- **Read the measured findings** - six results computed by code from NASA's own test rows (for
+- **Read the measured findings** - seven results computed by code from NASA's own test rows (for
   example: in Saffire-II, the ground test burned further than the same sample did in orbit in 5 of
   8 cases). Each shows its rows, method, limits and what it does not claim.
 - **Browse the Fire Test Atlas** - every NASA test row (2,009 from 22 PSI tables, plus Saffire

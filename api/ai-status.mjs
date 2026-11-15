@@ -15689,6 +15689,207 @@ var findings_default = {
           ]
         ]
       }
+    },
+    {
+      id: "F7",
+      title: "Almost every small burn raised carbon monoxide",
+      claim: "Carbon monoxide rose in 117 of 118 BASS-II glovebox burns with readings before and after (99%). The median burn added 45 ppm, one in ten added 413 ppm or more, and the largest 575 ppm; 41 burns (35%) added 100 ppm or more, and 4 more pushed CO off the sensor's scale.",
+      numbers: {
+        burns: 118,
+        rose: 117,
+        rosePct: 99,
+        roseCi: "95\u2013100%",
+        medianRisePpm: 45,
+        medianCi: "31 to 66",
+        p90RisePpm: 413,
+        maxRisePpm: 575,
+        atLeast100: 41,
+        atLeast100Pct: 35,
+        offScale: 4,
+        medianStartPpm: 7,
+        maxStartPpm: 660
+      },
+      n: 118,
+      rows: [
+        "PSI-25-0:r2",
+        "PSI-25-0:r4",
+        "PSI-25-0:r5",
+        "PSI-25-0:r6",
+        "PSI-25-0:r7",
+        "PSI-25-0:r8",
+        "PSI-25-0:r9",
+        "PSI-25-0:r10",
+        "PSI-25-0:r11",
+        "PSI-25-0:r12",
+        "PSI-25-0:r13",
+        "PSI-25-0:r14",
+        "PSI-25-0:r16",
+        "PSI-25-0:r17",
+        "PSI-25-0:r18",
+        "PSI-25-0:r19",
+        "PSI-25-0:r20",
+        "PSI-25-0:r21",
+        "PSI-25-0:r22",
+        "PSI-25-0:r23",
+        "PSI-25-0:r24",
+        "PSI-25-0:r25",
+        "PSI-25-0:r27",
+        "PSI-25-0:r28",
+        "PSI-25-0:r29",
+        "PSI-25-0:r30",
+        "PSI-25-0:r31",
+        "PSI-25-0:r33",
+        "PSI-25-0:r34",
+        "PSI-25-0:r35",
+        "PSI-25-0:r36",
+        "PSI-25-0:r37",
+        "PSI-25-0:r38",
+        "PSI-25-0:r39",
+        "PSI-25-0:r40",
+        "PSI-25-0:r41",
+        "PSI-25-0:r42",
+        "PSI-25-0:r43",
+        "PSI-25-0:r44",
+        "PSI-25-0:r45",
+        "PSI-25-0:r46",
+        "PSI-25-0:r47",
+        "PSI-25-0:r48",
+        "PSI-25-0:r49",
+        "PSI-25-0:r50",
+        "PSI-25-0:r51",
+        "PSI-25-0:r53",
+        "PSI-25-0:r54",
+        "PSI-25-0:r55",
+        "PSI-25-0:r56",
+        "PSI-25-0:r57",
+        "PSI-25-0:r58",
+        "PSI-25-0:r59",
+        "PSI-25-0:r60",
+        "PSI-25-0:r61",
+        "PSI-25-0:r63",
+        "PSI-25-0:r65",
+        "PSI-25-0:r66",
+        "PSI-25-0:r67",
+        "PSI-25-0:r68",
+        "PSI-25-0:r69",
+        "PSI-25-0:r70",
+        "PSI-25-0:r71",
+        "PSI-25-0:r72",
+        "PSI-25-0:r73",
+        "PSI-25-0:r74",
+        "PSI-25-0:r75",
+        "PSI-25-0:r76",
+        "PSI-25-0:r77",
+        "PSI-25-0:r78",
+        "PSI-25-0:r79",
+        "PSI-25-0:r80",
+        "PSI-25-0:r81",
+        "PSI-25-0:r82",
+        "PSI-25-0:r83",
+        "PSI-25-0:r84",
+        "PSI-25-0:r85",
+        "PSI-25-0:r86",
+        "PSI-25-0:r87",
+        "PSI-25-0:r88",
+        "PSI-25-0:r89",
+        "PSI-25-0:r90",
+        "PSI-25-0:r91",
+        "PSI-25-0:r92",
+        "PSI-25-0:r93",
+        "PSI-25-0:r94",
+        "PSI-25-0:r95",
+        "PSI-25-0:r96",
+        "PSI-25-0:r99",
+        "PSI-25-0:r100",
+        "PSI-25-0:r101",
+        "PSI-25-0:r102",
+        "PSI-25-0:r103",
+        "PSI-25-0:r104",
+        "PSI-25-0:r105",
+        "PSI-25-0:r106",
+        "PSI-25-0:r107",
+        "PSI-25-0:r108",
+        "PSI-25-0:r109",
+        "PSI-25-0:r110",
+        "PSI-25-0:r111",
+        "PSI-25-0:r112",
+        "PSI-25-0:r113",
+        "PSI-25-0:r114",
+        "PSI-25-0:r115",
+        "PSI-25-0:r116",
+        "PSI-25-0:r117",
+        "PSI-25-0:r118",
+        "PSI-25-0:r119",
+        "PSI-25-0:r120",
+        "PSI-25-0:r121",
+        "PSI-25-0:r122",
+        "PSI-25-0:r123",
+        "PSI-25-0:r124",
+        "PSI-25-0:r125",
+        "PSI-25-0:r126",
+        "PSI-25-0:r127",
+        "PSI-25-0:r130",
+        "PSI-25-0:r32",
+        "PSI-25-0:r52",
+        "PSI-25-0:r62",
+        "PSI-25-0:r64"
+      ],
+      excluded: [
+        {
+          reason: "final O\u2082 implausible (a likely transcription slip), so the row's gas readings are not trusted",
+          count: 5
+        },
+        {
+          reason: "CO not recorded before or after the burn",
+          count: 2
+        }
+      ],
+      method: `1. Take every BASS-II burn. 2. Subtract NASA's "Initial CO (ppm)" from "Final CO (ppm)". 3. Report how many burns rose, the median, the 90th percentile and the largest rise, and how many reached 100 ppm. Readings NASA marks as off the scale are counted separately, never given a number.`,
+      uncertainty: {
+        text: "Share of burns where CO rose: 95% interval 95\u2013100%. Median rise: 95% bootstrap interval 31 to 66 ppm. Off-scale burns are left out of the median, so it is if anything an underestimate.",
+        method: "Wilson score interval for the share; percentile bootstrap (2000 seeded resamples) for the median."
+      },
+      confounders: [
+        "The glovebox air was not always refreshed between burns: starting CO ranged up to 660 ppm (median 7 ppm), so some burns ran in air that already held CO.",
+        "Burns differ in material, sample size, length, airflow and oxygen (F4 splits them by material).",
+        "A glovebox holds far less air than a cabin, so the same fire would raise cabin CO much less; and NASA's headers say nothing about calibrating the CO sensor."
+      ],
+      notClaimed: "Not a detector setting, an alarm threshold or a toxicity rating, and it does not compare CO with smoke detection. It shows that these small burns produced CO a gas sensor could register, in a glovebox.",
+      investigations: [
+        "bass-ii"
+      ],
+      table: {
+        columns: [
+          "CO rise in one burn (ppm)",
+          "Burns"
+        ],
+        rows: [
+          [
+            "fell or no change (\u2264 0)",
+            1
+          ],
+          [
+            "1\u20139",
+            11
+          ],
+          [
+            "10\u201399",
+            65
+          ],
+          [
+            "100\u2013299",
+            20
+          ],
+          [
+            "300 or more",
+            21
+          ],
+          [
+            "off the sensor's scale",
+            4
+          ]
+        ]
+      }
     }
   ]
 };

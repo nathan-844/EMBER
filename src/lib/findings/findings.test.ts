@@ -125,6 +125,18 @@ describe("headline numbers, rechecked from NASA's raw cells", () => {
     expect(byId("F4").numbers).toMatchObject({ slabCoMedianPpm: 335, fabricCoMedianPpm: 20 });
   });
 
+  it("F7: CO rise per BASS-II burn, from the CO columns", () => {
+    const rows = rawTable("PSI-25-0").filter((c) => Math.abs(Number(c("Calibrated  initial O2 % by vol ")) - Number(c("Calibrated final O2 % by vol"))) <= 5 || !c("Calibrated final O2 % by vol").trim());
+    const rises = rows
+      .map((c) => [c("Initial CO (ppm)"), c("Final CO (ppm)")].map((s) => s.trim()))
+      .filter(([a, b]) => /^-?\d+(\.\d+)?$/.test(a) && /^-?\d+(\.\d+)?$/.test(b))
+      .map(([a, b]) => Number(b) - Number(a));
+    expect(rises.filter((v) => v > 0).length).toBe(byId("F7").numbers.rose);
+    expect(median(rises)).toBe(byId("F7").numbers.medianRisePpm);
+    expect(Math.max(...rises)).toBe(byId("F7").numbers.maxRisePpm);
+    expect(byId("F7").numbers).toMatchObject({ burns: 118, rose: 117, medianRisePpm: 45, maxRisePpm: 575, offScale: 4 });
+  });
+
   it("F5: cool flames in CFI-G, from the \"Cool flame?\" column", () => {
     const rows = rawTable("PSI-159-0");
     const cool = rows.filter((c) => /^yes/i.test(c("Cool flame?").trim()));

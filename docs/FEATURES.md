@@ -162,7 +162,7 @@ and 16 quirks (footnotes inside the test table, identical rows, RAMPED flows). E
 cells exactly as NASA wrote them and what EMBER does. Nothing in NASA's files is changed. The
 tables were not compared with their source papers.
 
-**Measured findings** (*Findings* page). Six findings computed by code from atlas rows, each with a "How sure" line computed from the same rows (seeded bootstrap intervals for F1 and F4, Wilson intervals for F2 and F5, an exact sign test for F3; F6 is a count and says it has no interval):
+**Measured findings** (*Findings* page). Seven findings computed by code from atlas rows, each with a "How sure" line computed from the same rows (seeded bootstrap intervals for F1 and F4, Wilson intervals for F2 and F5, an exact sign test for F3, Wilson and bootstrap intervals for F7; F6 is a count and says it has no interval):
 
 | | Finding | Tests |
 |---|---|---|
@@ -172,6 +172,7 @@ tables were not compared with their source papers.
 | F4 | BASS-II: PMMA slab burns raised CO about 17 times more than SIBAL fabric | 118 |
 | F5 | CFI-G: all 7 cool flames at n-butane, 2 bar and about 39% O2 | 179 |
 | F6 | Only 2 solid tests reach the exploration atmosphere; both burned | 145 |
+| F7 | BASS-II: CO rose in 117 of 118 burns, median 45 ppm, largest 575 ppm (detection) | 118 |
 
 Each finding shows a chart, a table view, its method, what else differs between the tests, the
 rows left out and why, what it does not claim, and every cited NASA row. The sentence is generated

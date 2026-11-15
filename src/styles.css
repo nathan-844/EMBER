@@ -1002,3 +1002,4 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 .tile, #scenario { scroll-margin-top: 72px; }
 .finding-sure { font-size: 13px; color: var(--ink-2); background: var(--sunken); border-left: 3px solid var(--navy-2); padding: 6px 10px; margin: 8px 0; }
 .finding-sure .muted { font-size: 12px; }
+@media (min-width: 901px) { .land-findings li:last-child:nth-child(3n + 1) { grid-column: 1 / -1; } }
