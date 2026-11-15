@@ -8,6 +8,8 @@ import { Tile, TileDialog } from "../components/Bento";
 import { CoverageChart } from "../components/CoverageChart";
 import { EarthPanel } from "../components/EarthPanel";
 import { EquipmentPanel } from "../components/EquipmentPanel";
+import { DesignQuestions } from "../components/DesignQuestions";
+import { designQuestionsFor } from "../data/design-questions";
 import { GravityIllustration } from "../components/GravityIllustration";
 import { GuidedTour, LAB_TOUR } from "../components/GuidedTour";
 import { PartialGravityPanel, partialGravityCount } from "../components/PartialGravityPanel";
@@ -43,7 +45,7 @@ const TABLE_COUNT = manifest.tables.length;
 const RANKED_TABLES = new Set(INVESTIGATIONS.flatMap((i) => Object.values(i.conditions).filter((r) => r?.source === "psi-table").map((r) => r!.table))).size;
 const TABLE_ROWS = manifest.tables.reduce((n, t) => n + t.rows, 0);
 
-type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "near" | "tables" | "ai" | "equipment" | "earth" | "partial";
+type TileId = "answer" | "ranked" | "gap" | "limits" | "robust" | "conditions" | "coverage" | "near" | "tables" | "ai" | "equipment" | "earth" | "partial" | "design";
 
 const VERDICT_TEXT = { accepted: "all claims passed the check", partial: "some claims rejected", rejected: "answer rejected" } as const;
 
@@ -116,6 +118,8 @@ export function ScenarioLab() {
   const o2Covered = ranked.filter((r) => r.conditions.find((c) => c.key === "oxygenPct")?.status === "match").length;
   const equipLinks = equipment.reduce((n, g) => n + g.links.length, 0);
   const pgCount = partialGravityCount(scenario);
+  const design = useMemo(() => designQuestionsFor(scenario), [scenario]);
+  const designApplies = design.filter((x) => x.applies);
   const equipForQuestion = equipment.filter((g) => g.forQuestion).reduce((n, g) => n + g.links.length, 0);
 
   return (
@@ -235,6 +239,14 @@ export function ScenarioLab() {
               </Stat>
             </Tile>
 
+            <Tile {...tile("design")} size="2x2" eyebrow="For designers · NASA evidence" title="Questions to ask of your design">
+              <p className="tile-stat">{designApplies.length}<small> of {design.length}</small></p>
+              <p className="tile-text">questions apply directly to your scenario, each backed by checked NASA evidence:</p>
+              <ol className="mini-dq">
+                {(designApplies.length ? designApplies : design).slice(0, 3).map(({ q }) => <li key={q.id}>{q.question}</li>)}
+              </ol>
+            </Tile>
+
             <Tile {...tile("partial")} size="2x1" eyebrow="Moon and Mars · NASA reports" title="Partial-gravity results">
               {pgCount ? (
                 <Stat value={pgCount}>published NASA statements about burning at {scenario.gravityG! >= 0.27 ? "Mars" : "lunar"} gravity, which PSI does not hold yet. Quoted word for word from NASA technical reports.</Stat>
@@ -291,6 +303,9 @@ export function ScenarioLab() {
       </TileDialog>
       <TileDialog {...dialog("partial")} title="Partial gravity: what NASA has reported" lede="Lunar and Mars gravity results from NASA technical reports, quoted word for word and checked against each PDF.">
         <PartialGravityPanel scenario={scenario} />
+      </TileDialog>
+      <TileDialog {...dialog("design")} title="Questions to ask of your design" lede="Design questions raised by NASA's evidence. Questions, not rules: open each to see the evidence behind it.">
+        <DesignQuestions scenario={scenario} />
       </TileDialog>
       <TileDialog {...dialog("earth")} title="Fire safety on Earth">
         <EarthPanel />

@@ -1,6 +1,12 @@
 import { CONDITION_LABELS, type RankedInvestigation } from "./ranking";
 import type { Limitation } from "./limitations";
 import { ppo2Sentence, ppo2VsEarth, type Scenario } from "./scenario";
+import { EQUIPMENT_LINKS } from "../data/applications";
+import { designQuestionsFor, type DesignEvidence } from "../data/design-questions";
+import { NTRS_QUOTES } from "../data/ntrs-evidence";
+
+const evidenceRef = (e: DesignEvidence) =>
+  e.kind === "ntrs" ? `NTRS ${NTRS_QUOTES.find((q) => q.id === e.quote)!.source}` : e.kind === "psi" ? `NASA ${EQUIPMENT_LINKS.find((l) => l.id === e.link)!.quote.accession}` : `EMBER finding ${e.id}`;
 
 const fmt = (v: number | null, unit: string) => (v == null ? "unspecified" : `${v} ${unit}`);
 
@@ -37,6 +43,12 @@ export function buildBrief(scenario: Scenario, ranked: RankedInvestigation[], li
     "## What this evidence cannot establish",
     "",
     ...limits.map((l) => `- ${l.text}`),
+    "",
+    "## Questions to ask of your design",
+    "",
+    "EMBER's questions, not rules; each is backed by checked NASA evidence (see the app for the quotes).",
+    "",
+    ...designQuestionsFor(scenario).filter((x) => x.applies).map(({ q }) => `- ${q.question} ${q.why} (${q.evidence.map(evidenceRef).join("; ")})`),
     "",
     "## Sources",
     "",

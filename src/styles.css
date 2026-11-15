@@ -847,7 +847,7 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 .zone-head .viz-track { min-height: 18px; }
 .viz-axis .viz-track span.zone-label { position: absolute; font-family: var(--font); bottom: 0; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--ink-2); transform: translateX(-100%); padding-right: 6px; }
 .seg-bar { display: flex; gap: 2px; height: 28px; }
-.seg { display: flex; align-items: center; padding-left: 8px; min-width: 6px; border-radius: 4px; color: #fff; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; cursor: default; }
+.seg { display: flex; align-items: center; padding-left: 8px; min-width: 6px; border-radius: 4px; color: #000; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; cursor: default; }
 .seg.s3 { color: #0b0b0b; }
 .seg:hover, .seg:focus-visible { filter: brightness(1.1); outline: 2px solid var(--ink); outline-offset: 1px; }
 .viz-tip { position: absolute; transform: translate(-50%, calc(-100% - 8px)); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 6px 9px; box-shadow: 0 4px 14px rgb(0 0 0 / 0.14); pointer-events: none; z-index: 5; display: grid; gap: 1px; white-space: nowrap; font-size: 12px; }
@@ -1003,3 +1003,17 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 .finding-sure { font-size: 13px; color: var(--ink-2); background: var(--sunken); border-left: 3px solid var(--navy-2); padding: 6px 10px; margin: 8px 0; }
 .finding-sure .muted { font-size: 12px; }
 @media (min-width: 901px) { .land-findings li:last-child:nth-child(3n + 1) { grid-column: 1 / -1; } }
+
+/* Design questions */
+.dq-list { list-style: none; margin: 12px 0 0; padding: 0; }
+.dq-list > li { border-top: 1px solid var(--border); padding: 10px 0; }
+.dq-list > li.applies .dq-q { font-weight: 600; }
+.dq-list summary { cursor: pointer; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; list-style: none; }
+.dq-list summary::-webkit-details-marker { display: none; }
+.dq-q { font-size: 14px; color: var(--ink); }
+.dq-q::before { content: "▸ "; color: var(--muted); }
+.dq-list details[open] .dq-q::before { content: "▾ "; }
+.dq-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.finding-quote { font-style: normal; }
+.mini-dq { margin: 4px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); }
+.mini-dq li { margin: 4px 0; }

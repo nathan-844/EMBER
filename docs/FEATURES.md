@@ -206,6 +206,16 @@ The tidy CSV export gives every filled cell with:
 re-analyse flight data (SPICE, BASS, SAME, FLEX and cool-flame data: PSI-60, 62, 115, 117 and 142).
 The explorer lists them under the investigation they build on.
 
+## Questions to ask of your design
+
+A "For designers" tile lists ten questions a habitat designer could ask of their own design (for
+example: does your fire response count on switching off the ventilation; is your material list cleared
+only by the 1-g screening test; does your detection plan sense carbon monoxide). They are EMBER's
+questions, not rules. Each opens to the NASA evidence behind it: NTRS quotes checked against the PDF,
+PSI quotes checked against the record, or a measured finding. The questions that apply to your
+scenario (by oxygen, gravity or safety question) come first, and also go into the evidence brief. A test
+runs every question through the same safety-conclusion check the AI faces.
+
 ## NASA photos
 
 Ten public-domain photos from the NASA Image and Video Library show the studies' flames and hardware
