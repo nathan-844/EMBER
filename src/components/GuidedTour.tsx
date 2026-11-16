@@ -10,7 +10,7 @@ export interface TourStep {
 
 export const LAB_TOUR: TourStep[] = [
   {
-    target: "#scenario",
+    target: "#habitat",
     title: "Describe your habitat",
     body: "Pick a preset, such as NASA's 8.2 psia / 34% O₂ exploration atmosphere, or set oxygen, pressure, gravity, airflow and fuel yourself. Leave anything you don't know blank: it earns no points rather than a guess.",
   },

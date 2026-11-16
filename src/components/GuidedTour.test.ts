@@ -10,6 +10,7 @@ describe("guided tour", () => {
       const tile = s.target.match(/^\[aria-labelledby="(\w+)-tile"\]$/)?.[1];
       if (tile === "ask") expect(lab).toContain('aria-labelledby="ask-tile"');
       else if (tile) expect(lab, s.title).toContain(`tile("${tile}")`);
+      else if (s.target === "#habitat") expect(lab).toContain('id="habitat"');
       else if (s.target === "#scenario") expect(readFileSync("src/components/ScenarioPanel.tsx", "utf8")).toContain('id="scenario"');
       else expect(lab, s.title).toContain('href="#credibility"');
     }

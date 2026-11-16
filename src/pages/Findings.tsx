@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { FindingChart, FindingTable, IS_TABLE_FORM } from "../components/findings/FindingCharts";
 import { RowsPanel } from "../components/findings/RowsPanel";
 import { DownloadIcon } from "../components/icons";
+import { Rail } from "../components/Workspace";
 import atlasCsvUrl from "../data/atlas/atlas.csv?url";
 import rawFindings from "../data/findings.json";
 import { COUNTS } from "../lib/snapshot";
@@ -12,6 +13,33 @@ const FILE = rawFindings as unknown as FindingsFile;
 const CITED = new Set(FILE.findings.flatMap((f) => f.rows)).size;
 const nameOf = atlasSourceName;
 const REPO = "https://github.com/nathan-844/EMBER/tree/main/src/lib/findings";
+
+type Num = Record<string, number | string>;
+/** The one number each finding turns on, read from its computed numbers so the card cannot drift from the claim. */
+const HEADLINE: Record<string, (n: Num) => { value: string; unit: string; sub: string }> = {
+  F1: (n) => ({ value: `${n.groupsFallingOxygenMoreFuelLeft}`, unit: `of ${n.groups} groups`, sub: `Median flame went out at ${n.refLowRatio} of the droplet at ${n.refLowO2}% O₂, against ${n.refHighRatio} at ${n.refHighO2}%.` }),
+  F2: (n) => ({ value: `${n.wentOut}`, unit: `of ${n.runs} went out`, sub: `At ${n.o2Levels}% O₂ and about 10 psia. In air at 1 atm, ${n.airWentOut} of ${n.airRuns} did.` }),
+  F3: (n) => ({ value: `${n.earthFurther}`, unit: `of ${n.samples} samples`, sub: `${n.same} burned the same. None burned further in orbit.` }),
+  F4: (n) => ({ value: `${n.ratio}×`, unit: "more CO", sub: `Median per burn: PMMA slab ${n.slabCoMedianPpm} ppm, SIBAL fabric ${n.fabricCoMedianPpm} ppm.` }),
+  F5: (n) => ({ value: `${n.coolFlames}`, unit: `of ${n.runs} runs`, sub: `All with ${n.fuel} at ${n.pressureBar} bar and ${n.o2Min}–${n.o2Max}% O₂.` }),
+  F6: (n) => ({ value: `${n.psiHighestO2}`, unit: "% O₂", sub: `NASA’s stored solid tests stop here. ${n.inZone} Saffire VI samples go higher; ${n.inZoneBurned === n.inZone ? "both" : n.inZoneBurned} burned.` }),
+  F7: (n) => ({ value: `${n.rose}`, unit: `of ${n.burns} burns`, sub: `The median burn added ${n.medianRisePpm} ppm. One in ten added ${n.p90RisePpm} ppm or more.` }),
+  F8: (n) => ({ value: `${n.medianRatio}×`, unit: "larger", sub: `Median diameter ${n.medianFreshUm} to ${n.medianAgedUm} µm. It grew in ${n.grew} of ${n.pairs} runs.` }),
+};
+const TONE: Record<string, string> = { F6: "accent", F8: "dark" };
+
+function FindingTile({ f }: { f: Finding }) {
+  const h = HEADLINE[f.id]?.(f.numbers as unknown as Num);
+  return (
+    <a className={`f-tile${TONE[f.id] ? ` f-tile-${TONE[f.id]}` : ""}`} href={`#findings/${f.id}`}>
+      <span className="f-tile-meta"><span>{f.investigations.map(nameOf).join(", ")} · {f.n.toLocaleString("en-US")} {f.unit ?? "tests"}</span><span className="f-tile-id">{f.id}</span></span>
+      {h && <span className="big-num">{h.value}<span>{h.unit}</span></span>}
+      <strong className="f-tile-title">{f.title}</strong>
+      {h && <span className="f-tile-sub">{h.sub}</span>}
+      <span className="f-tile-link">Rows and method ↓</span>
+    </a>
+  );
+}
 
 function FindingCard({ f }: { f: Finding }) {
   return (
@@ -73,8 +101,22 @@ function useScrollToFinding() {
 export function Findings() {
   useScrollToFinding();
   return (
-    <main className="page findings-page">
-      <header className="land-hero findings-hero">
+    <main className="findings-page">
+      <Rail>
+        <section className="rail-card" aria-labelledby="check-h">
+          <p className="rail-eyebrow">Computed by code, not AI</p>
+          <h2 className="rail-title" id="check-h">Check it yourself</h2>
+          <p className="small">Every finding reruns from a ZIP with Node alone. No server, no network, no AI key.</p>
+          <dl className="side-stats">
+            <div><dt>{FILE.findings.length}</dt><dd>Findings</dd></div>
+            <div><dt>{CITED.toLocaleString("en-US")}</dt><dd>NASA rows cited</dd></div>
+          </dl>
+          <a className="pill pill-dark" href="#research">Reproduce all {FILE.findings.length}</a>
+          <a className="pill pill-soft" href={atlasCsvUrl} download={`ember-fire-test-atlas-${COUNTS.snapshot.id}.csv`}><DownloadIcon /> Atlas (CSV)</a>
+          <p className="rail-note">No combustion expert has reviewed these findings.</p>
+        </section>
+      </Rail>
+      <header className="stage findings-hero">
         <p className="eyebrow accent">Measured findings · computed, not written</p>
         <h1>Eight things NASA’s own measurements show. <span>Every number traced to its row.</span></h1>
         <p className="land-lede">
@@ -89,6 +131,11 @@ export function Findings() {
         </dl>
       </header>
 
+      <div className="f-tiles">
+        {FILE.findings.map((f) => <FindingTile key={f.id} f={f} />)}
+      </div>
+
+      <h2 className="list-head">Each finding in full</h2>
       <div className="findings-list">
         {FILE.findings.map((f) => <FindingCard key={f.id} f={f} />)}
       </div>
