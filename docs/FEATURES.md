@@ -343,7 +343,18 @@ A **verification scoreboard** lists every check with its count and total: tests,
 for word, NTRS quotes found in their PDFs, PSI record links, recorded AI claims whose verdict
 reproduces, run-table hashes and the hand-checked Saffire values. It says how each is run (re-run on
 every report, recorded by a sync run, or by hand). The 60-case analysis benchmark is one of the
-re-run checks. The AI answer-accuracy benchmark is listed as not run, because it needs a live key.
+re-run checks.
+
+**AI answer accuracy.** 30 questions were written with the answer each should give before any
+answer was generated (`src/lib/ai-benchmark/questions.ts`): 10 that a measured finding answers, 8
+that a NASA record answers, 6 that state something false, and 6 the evidence cannot answer or
+EMBER must not (a safety verdict, an off-topic question, an instruction to ignore its rules). Each
+was asked twice through the live pipeline (`npm run benchmark:ai`, needs a key). Of 60 answers, 57
+were correct, 3 partly right (right direction, missing the number asked for) and none wrong; no
+answer shown stated a safety verdict. The page lists every answer that was not right. The grades
+are an AI assistant's reading of each summary, not an expert's, and the questions were written by
+the same team. The first run showed the claim checker hiding six correct refusals as "safety
+verdicts"; the checker was corrected and those three questions asked again.
 
 ## Where the data comes from
 
@@ -390,6 +401,7 @@ fails if a quote is edited without running it again.
 | `npm run build` | Type-check and build for production |
 | `npm run typecheck` | Type-check only |
 | `npm run benchmark` | Run the 60-case analysis benchmark (`-- FILE` also writes the results as JSON) |
+| `npm run benchmark:ai` | Ask the 30 fixed AI questions twice through the live pipeline (needs a key); `npx tsx scripts/benchmark-ai-summary.ts` rebuilds the table the Credibility page shows |
 | `npm run sync:psi` | Refresh the NASA PSI record snapshot (needs access to psi.nasa.gov) |
 | `npm run sync:tables` | Download the PSI experimental tables (`-- --from DIR` imports an earlier download, hash-checked) |
 | `npm run data:normalize` | Rebuild condition ranges from the stored tables |

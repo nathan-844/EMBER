@@ -16,7 +16,7 @@ export function AppShell({ route, onNavigate, recordCount, children }: Props) {
   const nav = useRef<HTMLElement>(null);
   useEffect(() => {
     const el = nav.current, current = el?.querySelector<HTMLElement>('[aria-current="page"]');
-    if (el && current) el.scrollLeft = Math.max(0, current.offsetLeft - el.offsetLeft - (el.clientWidth - current.offsetWidth) / 2);
+    if (el) el.scrollLeft = current ? Math.max(0, current.offsetLeft - el.offsetLeft - (el.clientWidth - current.offsetWidth) / 2) : 0;
   }, [route]);
   return (
     <>
@@ -33,14 +33,11 @@ export function AppShell({ route, onNavigate, recordCount, children }: Props) {
           <button aria-current={route === "findings" ? "page" : undefined} onClick={() => onNavigate("findings")}>
             <ChartIcon /> Findings
           </button>
-          <button aria-current={route === "compare" ? "page" : undefined} onClick={() => onNavigate("compare")}>
-            <ChartIcon /> Compare
-          </button>
-          <button aria-current={route === "research" ? "page" : undefined} onClick={() => onNavigate("research")}>
-            <ChartIcon /> Workbench
-          </button>
           <button aria-current={route === "mission" ? "page" : undefined} onClick={() => onNavigate("mission")}>
             <SlidersIcon /> Mission
+          </button>
+          <button aria-current={route === "research" || route === "compare" ? "page" : undefined} onClick={() => onNavigate("research")}>
+            <ChartIcon /> Compare
           </button>
           <button aria-current={route === "data" ? "page" : undefined} onClick={() => onNavigate("data")}>
             <TableIcon /> Data

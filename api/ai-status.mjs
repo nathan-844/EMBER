@@ -13511,7 +13511,7 @@ var recorded_analyses_default = {
       ask: "What does this evidence mean for fire detection or suppression equipment?"
     }
   },
-  recheckedOn: "2026-11-15"
+  recheckedOn: "2026-11-16"
 };
 
 // src/lib/recorded.ts
@@ -18246,8 +18246,16 @@ var SAFETY_CONCLUSION = [
   /\b(?:non-?flammable|nonflammable|fire-?proof|flame-?proof|fire-?safe|inherently safe|completely safe|perfectly safe|guaranteed?|certif(?:y|ied|ies))\b/i,
   /\b(?:is|are|will be|would be)\s+safe\b/i
 ];
+var CLAUSE = "(?:(?!\\b(?:so|therefore|thus|hence|but|and)\\b)[^.,;:])*";
+var NOT_A_CONCLUSION = [
+  new RegExp("\\b(?:cannot|can ?not|can't|does not|do not|doesn't|don't|is unable to|are unable to|unable to|not possible to)\\s+(?:determine|establish|say|tell|assess|conclude|evaluate|confirm|show|prove|certify|state|judge)\\s+(?:if|whether|that)\\b" + CLAUSE, "gi"),
+  new RegExp("\\b(?:does not|do not|doesn't|don't|cannot|can ?not)\\s+support\\s+(?:the\\s+|a\\s+|any\\s+)?(?:claim|premise|idea|assumption|statement|conclusion)\\b" + CLAUSE, "gi"),
+  new RegExp("\\bno evidence\\s+(?:that|whether)\\b" + CLAUSE, "gi"),
+  /\b(?:does not|do not|did not|doesn't)\s+burn\s+(?:real|actual)\s+(?:material\s+|solid\s+)?samples?\b/gi
+];
 function safetyConclusion(text) {
-  return SAFETY_CONCLUSION.some((re) => re.test(text));
+  const asserted = NOT_A_CONCLUSION.reduce((t, re) => t.replace(re, " "), text);
+  return SAFETY_CONCLUSION.some((re) => re.test(asserted));
 }
 var NEEDS_NASA = /* @__PURE__ */ new Set(["Reported finding", "Measured data", "Comparison", "Equipment implication"]);
 function checkAnswer(answer, pkg) {

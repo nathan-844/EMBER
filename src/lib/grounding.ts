@@ -132,8 +132,24 @@ const SAFETY_CONCLUSION = [
   /\b(?:is|are|will be|would be)\s+safe\b/i,
 ];
 
+/**
+ * Wording that names a safety conclusion only to decline or deny it: "cannot determine whether the
+ * habitat is safe", "does not support the claim that solids do not burn", and the description of an
+ * apparatus that "does not burn real material samples". Each is removed, up to the end of its
+ * clause, before the conclusions above are looked for, so anything asserted after it (", so it is
+ * safe") is still caught. Found by the AI benchmark: these phrasings hid correct refusals.
+ */
+const CLAUSE = "(?:(?!\\b(?:so|therefore|thus|hence|but|and)\\b)[^.,;:])*";
+const NOT_A_CONCLUSION = [
+  new RegExp("\\b(?:cannot|can ?not|can't|does not|do not|doesn't|don't|is unable to|are unable to|unable to|not possible to)\\s+(?:determine|establish|say|tell|assess|conclude|evaluate|confirm|show|prove|certify|state|judge)\\s+(?:if|whether|that)\\b" + CLAUSE, "gi"),
+  new RegExp("\\b(?:does not|do not|doesn't|don't|cannot|can ?not)\\s+support\\s+(?:the\\s+|a\\s+|any\\s+)?(?:claim|premise|idea|assumption|statement|conclusion)\\b" + CLAUSE, "gi"),
+  new RegExp("\\bno evidence\\s+(?:that|whether)\\b" + CLAUSE, "gi"),
+  /\b(?:does not|do not|did not|doesn't)\s+burn\s+(?:real|actual)\s+(?:material\s+|solid\s+)?samples?\b/gi,
+];
+
 export function safetyConclusion(text: string): boolean {
-  return SAFETY_CONCLUSION.some((re) => re.test(text));
+  const asserted = NOT_A_CONCLUSION.reduce((t, re) => t.replace(re, " "), text);
+  return SAFETY_CONCLUSION.some((re) => re.test(asserted));
 }
 
 /** Kinds that report what NASA found or measured: they must quote NASA's own text. */

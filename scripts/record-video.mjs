@@ -10,7 +10,7 @@
 // Needs Playwright with Chromium (local or global install) and ffmpeg with libass.
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const require = createRequire(import.meta.url);
@@ -31,6 +31,10 @@ const out = resolve(arg("out", "media"));
 const raw = join(out, "raw");
 mkdirSync(raw, { recursive: true });
 
+// Counts quoted in the captions come from the same generated files the app shows.
+const COUNTS = JSON.parse(readFileSync("src/data/counts.json", "utf8"));
+const AI = JSON.parse(readFileSync("src/data/ai-benchmark-summary.json", "utf8"));
+const WORDS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
 const W = 1280, H = 720;
 const browser = await chromium.launch();
 
@@ -94,7 +98,7 @@ await page.addStyleTag({ content: "html{scroll-behavior:smooth}" });
 const start = (Date.now() - t0) / 1000;
 
 mark("A Moon base may breathe 30% oxygen at 10.2 psi. Does NASA’s fire data cover it?");
-await wait(3000);
+await wait(2700);
 
 mark("EMBER ranks 20 NASA investigations against your habitat and says what each one covers");
 await page.selectOption("#env", "iss");
@@ -116,9 +120,9 @@ const go = async (hash, selector) => {
   await wait(350);
 };
 
-mark("Six findings computed from NASA’s own rows: on the ground, Saffire-II samples burned further than in orbit");
+mark(`${WORDS[COUNTS.findings.count]} findings computed from NASA’s own rows: on the ground, Saffire-II samples burned further than in orbit`);
 await go("#findings/F3", "#F3 .pairs");
-await wait(3300);
+await wait(2900);
 
 mark("Every number is one click from the cells NASA wrote");
 await page.locator("#F3 details", { hasText: "NASA rows" }).locator("summary").click();
@@ -126,13 +130,13 @@ await page.waitForSelector("#F3 .cited-list li");
 await page.locator("#F3 .cited-list").scrollIntoViewIfNeeded();
 await wait(2500);
 
-mark("We read every cell of NASA’s 21 tables and documented 37 data-quality issues");
+mark(`We read every cell of NASA’s ${COUNTS.audit.tablesChecked} tables and documented ${COUNTS.audit.issues} data-quality issues`);
 await go("#data/audit", ".atlas-table tbody tr");
 await page.evaluate(() => document.getElementById("audit").scrollIntoView());
-await wait(3200);
+await wait(2700);
 
 await go("#lab", ".tile-headline");
-mark("Gemini writes the analysis; EMBER checks every quote and number against its source");
+mark(`Gemini answers; EMBER checks every quote and number. ${AI.correct} of ${AI.answers} graded answers correct`);
 await page.getByRole("button", { name: /recorded analysis of this scenario/ }).click();
 await page.waitForSelector(".tile-dialog[open] .verdict");
 await wait(1900);
@@ -140,10 +144,10 @@ await page.locator(".tile-dialog[open] .tile-dialog-body").evaluate((el) => el.s
 await wait(1700);
 await closeDialog(page);
 
-mark("It shows what the research informs: detection, suppression, ventilation");
-await openTile(page, "equipment");
-await wait(2400);
-await closeDialog(page);
+mark("Move a material from the ISS to the Moon and see which NASA tests still apply");
+await go("#mission", ".mission-compare");
+await page.evaluate(() => document.querySelector(".mission-result").scrollIntoView());
+await wait(2900);
 
 mark("Open NASA data, measured findings, checked AI, honest limits");
 await page.setContent(`<!doctype html><html><body style="margin:0;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;background:#121A24;color:#F5F2EB;font-family:'Segoe UI',Arial,sans-serif">

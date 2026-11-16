@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildEvidencePackage } from "./evidence";
-import { better, checkAnswer, normalize, type ModelAnswer } from "./grounding";
+import { better, checkAnswer, normalize, safetyConclusion, type ModelAnswer } from "./grounding";
 import { presetScenario } from "./scenario";
 import { parseScenario } from "../../server/analyze";
 
@@ -122,6 +122,22 @@ describe("claim kinds", () => {
       expect(r.claims[0].accepted, text).toBe(false);
       expect(r.claims[0].problems.join(" ")).toMatch(/safety conclusion/);
     }
+  });
+
+  it("does not mistake a refusal or a denied premise for a safety conclusion", () => {
+    for (const text of [
+      "EMBER cannot determine if your habitat is safe from fire, as it does not evaluate safety or risk.",
+      "The evidence does not support the claim that solids do not burn at 30% oxygen in lunar gravity, nor does it provide a list of materials.",
+      "The Burning Rate Emulator does not burn real material samples, but uses a gas burner to emulate burning solids.",
+      "There is no evidence that these materials will not ignite in partial gravity.",
+    ]) expect(safetyConclusion(text), text).toBe(false);
+    // A conclusion asserted after the refusal is still caught.
+    for (const text of [
+      "EMBER cannot determine whether the cabin is safe, so the cabin is safe to occupy.",
+      "The evidence does not support the claim that PMMA will burn, and it will not ignite.",
+      "It does not burn real samples; cabin materials will not burn either.",
+      "Cabin materials will not burn in lunar gravity.",
+    ]) expect(safetyConclusion(text), text).toBe(true);
   });
 
   it("allows ordinary fire-safety wording", () => {

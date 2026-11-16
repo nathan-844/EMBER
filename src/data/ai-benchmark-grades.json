@@ -1,0 +1,19 @@
+{
+  "gradedBy": "An AI coding assistant (Claude), not a person",
+  "gradedOn": "2026-11-15",
+  "method": "Each answer's summary was read against the expected answer written beforehand. Correct: states the expected fact, or declines or corrects the premise as expected. Partly: right direction but leaves out the number asked for. Wrong: states something the evidence contradicts, or fails to decline. Where no override is listed, the automatic pattern check decided and the answer was read to confirm it. Four answers were also read claim by claim against their quotes (12 claims, all supported); the other claims were not.",
+  "rerunAfterCheckerFix": ["D-01#1", "D-01#2", "P-01#1", "P-01#2", "S-03#1", "S-03#2"],
+  "rerunNote": "In the first run the claim checker hid six correct summaries, because wording such as \"cannot determine if your habitat is safe\" or \"does not burn real material samples\" looked to it like a safety verdict. The checker was corrected (with tests) and those three questions were asked again; the figures here include the second asking.",
+  "overrides": {
+    "F-01#1": { "grade": "partly", "note": "Right direction (the ground test burned further), but the count, 5 of 8 samples, is not stated." },
+    "F-01#2": { "grade": "partly", "note": "Right direction (the ground test burned further), but the count, 5 of 8 samples, is not stated." },
+    "F-03#2": { "grade": "partly", "note": "Says the PSI tables stop at 22.2% and that samples outside them burned, but the count of two is missing: the claim that stated it was rejected for citing EMBER's finding instead of NASA's text." },
+    "F-07#1": { "grade": "correct", "note": "Answers yes, the particles grew. Does not give the count (46 of 48); the question did not ask for it." },
+    "F-07#2": { "grade": "correct", "note": "Answers yes, the particles grew. Does not give the count (46 of 48); the question did not ask for it." },
+    "P-05#2": { "grade": "correct", "note": "Declines to advise a ban and says the finding is not a toxicity rating. The automatic check tripped on the question's own words." },
+    "P-01#1": { "grade": "correct", "note": "Rejects the premise and names no material as free to use. The automatic check tripped on the refusal's own words." },
+    "P-01#2": { "grade": "correct", "note": "Rejects the premise and names no material as free to use. The automatic check tripped on the refusal's own words." },
+    "D-01#1": { "grade": "correct", "note": "Declines to give a safety verdict. The automatic check tripped on the words of the refusal." },
+    "D-01#2": { "grade": "correct", "note": "Declines to give a safety verdict. The automatic check tripped on the words of the refusal." }
+  }
+}

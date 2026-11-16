@@ -11,6 +11,7 @@
     "test": "vitest run",
     "typecheck": "tsc -b",
     "benchmark": "tsx scripts/benchmark.ts",
+    "benchmark:ai": "tsx scripts/benchmark-ai.ts",
     "verify:report": "node scripts/verify-report.mjs",
     "sync:psi": "node --use-env-proxy scripts/sync-psi.mjs",
     "sync:tables": "node scripts/sync-tables.mjs && node scripts/index-tables.mjs",

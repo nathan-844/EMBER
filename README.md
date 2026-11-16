@@ -40,7 +40,7 @@ where the evidence runs out.
 - **Explore the raw data** - the NASA run tables behind each investigation, with CSV export for
   modelling.
 - **Check the credibility** - a self-assessment against NASA's model-credibility standard, backed by
-  the test suite.
+  the test suite, and a score for the AI: 57 of 60 graded answers correct, with the rest listed.
 
 ## How it stays honest
 
@@ -49,6 +49,8 @@ where the evidence runs out.
 - The AI is treated as an untrusted author. A claim is shown only if every quote appears word for word
   in the source it cites and every number can be traced. Claims that state a safety conclusion are
   rejected.
+- The AI is scored: 30 fixed questions, each asked twice live and read against an answer written
+  beforehand. The grading was done by an AI assistant, not an expert, and says so.
 - Findings are computed by code, never written by a model. Each sentence is generated from the
   computed numbers, and tests recheck every headline number against NASA's raw cells.
 - Nothing in NASA's files is corrected. Problems become flags and audit entries, and the raw cell

@@ -3,6 +3,7 @@ import { PSI_SNAPSHOT } from "../data/psi";
 import rawReport from "../data/verify-report.json";
 import tableManifest from "../data/table-manifest.json";
 import rawAudit from "../data/atlas/audit.json";
+import AI from "../data/ai-benchmark-summary.json";
 import type { AuditFile } from "../lib/atlas/audit";
 
 const AUDIT = rawAudit as unknown as AuditFile;
@@ -72,11 +73,11 @@ function Scoreboard() {
                 <td className="small">{r.method}</td>
               </tr>
             ))}
-            <tr className="not-run">
-              <td>AI answer accuracy benchmark</td>
-              <td className="num"><span className="badge badge-warn">Not run</span></td>
-              <td className="small muted">Needs a live Gemini key</td>
-              <td className="small">Would score live answers to fixed questions against hand-written expected findings. The checks above confirm each claim's quotes and numbers come from its sources; they do not grade whether the reasoning is right. The analysis benchmark above has no model in it; its cases are listed on the <a href="#research-benchmark">Workbench page</a>.</td>
+            <tr>
+              <td>AI answers graded against expected answers</td>
+              <td className="num"><span className={`badge ${AI.correct === AI.answers ? "badge-ok" : "badge-warn"}`}>{AI.correct}/{AI.answers}</span></td>
+              <td className="small muted">Live run, recorded {AI.recordedOn}</td>
+              <td className="small">{AI.questions} fixed questions, each asked twice through the live pipeline, then read against an answer written beforehand. Graded by an AI assistant, not a person. <a href="#ai-score">See every answer that was not right</a>.</td>
             </tr>
           </tbody>
         </table>
@@ -86,6 +87,59 @@ function Scoreboard() {
         These results belong to data snapshot <code>{report.dataSnapshot?.id ?? "not recorded"}</code>
         {report.code ? <> and source tree <code>{report.code.sourceTreeSha256.slice(0, 12)}</code> (built on commit <code>{report.code.parentCommit.slice(0, 7)}</code>)</> : null}.
         They show that the software does what its tests specify. They are not a review of NASA’s measurements or of the scientific reading of them.
+      </p>
+    </section>
+  );
+}
+
+const KIND_LABEL: Record<string, string> = { finding: "A measured finding answers it", source: "A NASA record or table answers it", premise: "The question states something false", decline: "The evidence cannot answer it" };
+
+/** The live AI benchmark: what was asked, how the answers were graded, and every answer that was not right. */
+function AiScore() {
+  const pct = (n: number) => `${Math.round((n / AI.answers) * 100)}%`;
+  return (
+    <section className="card scoreboard section-gap" id="ai-score" aria-labelledby="ai-score-title">
+      <div className="board-head">
+        <div>
+          <p className="eyebrow">AI answer accuracy · live run recorded {AI.recordedOn}</p>
+          <h2 className="h3-size" id="ai-score-title">How often is the AI right?</h2>
+        </div>
+        <p className="board-total"><strong>{AI.correct}</strong> of {AI.answers} answers correct ({pct(AI.correct)})</p>
+      </div>
+      <p className="small">
+        {AI.questions} questions were written with the answer each should give before any answer was generated, then each was asked twice through the same
+        pipeline this site uses ({AI.models.join(", ")}). {AI.partly} answers were partly right (right direction, missing the number asked for) and {AI.wrong} were wrong.
+        Both runs of a question got the same grade for {AI.consistentQuestions} of {AI.questions} questions. No answer shown to a visitor stated a safety verdict
+        ({AI.safetyVerdictsShown} of {AI.answers}). A typical answer took {AI.medianSeconds} s; the slowest {AI.slowestSeconds} s.
+      </p>
+      <div className="table-wrap">
+        <table className="board">
+          <thead><tr><th>Kind of question</th><th>Correct</th><th>Partly</th><th>Wrong</th></tr></thead>
+          <tbody>
+            {Object.entries(AI.byKind).map(([k, v]) => (
+              <tr key={k}><td>{KIND_LABEL[k]}</td><td className="num">{v.correct}/{v.answers}</td><td className="num">{v.partly}</td><td className="num">{v.wrong}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {AI.notRight.length > 0 && (
+        <details className="ai-misses">
+          <summary>Every answer that was not simply right ({AI.notRight.length})</summary>
+          <ul>
+            {AI.notRight.map((a) => (
+              <li key={a.key}>
+                <p><span className={`badge ${a.grade === "partly" ? "badge-warn" : "badge-bad"}`}>{a.grade === "partly" ? "Partly right" : "Wrong"}</span> <strong>{a.ask}</strong></p>
+                <p className="small"><span className="muted">Expected:</span> {a.expected}</p>
+                <p className="small"><span className="muted">Answered:</span> {a.summary || "No answer."}</p>
+                {a.note && <p className="small"><span className="muted">Why:</span> {a.note}</p>}
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+      <p className="small muted">
+        Limits: the grades are an AI assistant’s reading, not an expert’s, and the questions were written by the same team. {AI.method}
+        {AI.rerunNote && <> {AI.rerunNote}</>} Re-run with <code>npm run benchmark:ai</code>.
       </p>
     </section>
   );
@@ -151,6 +205,7 @@ export function Credibility() {
       </div>
 
       <Scoreboard />
+      <AiScore />
 
       <section className="card verify section-gap">
         <div>

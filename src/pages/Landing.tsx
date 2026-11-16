@@ -60,6 +60,36 @@ export function Landing() {
         </dl>
       </header>
 
+      <section className="land-section" aria-labelledby="land-path">
+        <p className="eyebrow">Start here · one minute</p>
+        <h2 id="land-path">From the ISS to the Moon, in four steps.</h2>
+        <ol className="land-path">
+          <li><a href="#lab" className="card"><span className="land-step">1</span><strong>Set a Moon habitat</strong><span className="muted">Pick the lunar preset and see which of 20 NASA investigations apply, and why.</span></a></li>
+          <li><a href="#findings/F6" className="card"><span className="land-step">2</span><strong>See where the tests stop</strong><span className="muted">NASA’s archived solid-material tests end {gap} points of oxygen short of it.</span></a></li>
+          <li><a href="#mission" className="card"><span className="land-step">3</span><strong>Move a material from A to B</strong><span className="muted">Which tests of a cabin panel still apply when the air changes from ISS to lunar?</span></a></li>
+          <li><a href="#credibility" className="card"><span className="land-step">4</span><strong>Check our work</strong><span className="muted">Every test, source check and AI score, with the failures listed.</span></a></li>
+        </ol>
+      </section>
+
+      <section className="land-section" aria-labelledby="land-brief">
+        <p className="eyebrow">The challenge</p>
+        <h2 id="land-brief">NASA asked for a dashboard that summarizes, ranks and interprets its fire data.</h2>
+        <div className="land-grid three">
+          <a href="#findings" className="card">
+            <h3>Summarizes</h3>
+            <p>{FINDINGS.findings.length} findings computed from NASA’s own rows, and all {COUNTS.rows.total.toLocaleString("en-US")} records in one searchable table with each value traced to its cell.</p>
+          </a>
+          <a href="#lab" className="card">
+            <h3>Ranks</h3>
+            <p>20 investigations scored against your habitat’s oxygen, pressure, gravity, airflow and fuel. Every score opens to show its reasons.</p>
+          </a>
+          <a href="#lab" className="card">
+            <h3>Interprets</h3>
+            <p>An AI answers your question from NASA’s text. A claim is shown only if its quotes and numbers are found in the source; the rest are shown as rejected.</p>
+          </a>
+        </div>
+      </section>
+
       <section className="card land-section" aria-labelledby="land-finding">
         <p className="eyebrow">The finding</p>
         <h2 id="land-finding">NASA’s archived solid-material tests stop {gap} points short of a Moon-base atmosphere.</h2>
