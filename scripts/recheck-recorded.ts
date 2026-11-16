@@ -17,7 +17,7 @@ const byKey = new Map<string, Scenario>(
     return [scenarioKey(s), s] as const;
   })),
 );
-const today = new Date().toISOString().slice(0, 10);
+const today = new Date().toLocaleDateString("en-CA"); // local date, not UTC
 const removed: string[] = [];
 let marked = 0;
 

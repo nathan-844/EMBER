@@ -23,9 +23,11 @@ type Props = {
   onChange: (next: Scenario) => void;
   onSaveBaseline: () => void;
   hasBaseline: boolean;
+  /** Leave out the environment picker and safety-question switch when the page shows its own. */
+  embedded?: boolean;
 };
 
-export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline }: Props) {
+export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline, embedded = false }: Props) {
   const set = <K extends keyof Scenario>(key: K, value: Scenario[K]) =>
     onChange({ ...scenario, [key]: value, ...(key in SLIDER_KEYS ? { environment: "custom" } : {}) });
   const preset = PRESETS.find((p) => p.id === scenario.environment);
@@ -37,10 +39,12 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
         <button className="icon-btn" title="Reset to lunar habitat" aria-label="Reset to lunar habitat" onClick={() => onChange(presetScenario("lunar-habitat"))}>↺</button>
       </div>
 
-      <label className="field-label" htmlFor="env">Environment</label>
-      <select id="env" value={scenario.environment} onChange={(e) => onChange(presetScenario(e.target.value as EnvironmentId, scenario))}>
-        {PRESETS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
-      </select>
+      {!embedded && <>
+        <label className="field-label" htmlFor="env">Environment</label>
+        <select id="env" value={scenario.environment} onChange={(e) => onChange(presetScenario(e.target.value as EnvironmentId, scenario))}>
+          {PRESETS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
+        </select>
+      </>}
       <p className="hint">
         {preset?.note}{" "}
         {preset?.source
@@ -48,12 +52,14 @@ export function ScenarioPanel({ scenario, onChange, onSaveBaseline, hasBaseline 
           : "Illustrative presets; edit to match your design."}
       </p>
 
-      <span className="field-label" id="q-label">Safety question</span>
-      <div className="segmented" role="group" aria-label="Safety question">
-        {QUESTIONS.map((q) => (
-          <button key={q.id} aria-pressed={scenario.question === q.id} onClick={() => set("question", q.id)}>{q.label}</button>
-        ))}
-      </div>
+      {!embedded && <>
+        <span className="field-label" id="q-label">Safety question</span>
+        <div className="segmented" role="group" aria-label="Safety question">
+          {QUESTIONS.map((q) => (
+            <button key={q.id} aria-pressed={scenario.question === q.id} onClick={() => set("question", q.id)}>{q.label}</button>
+          ))}
+        </div>
+      </>}
 
       <p className="panel-group">Cabin conditions <span>leave any blank if unknown</span></p>
       {SLIDERS.map((s) => {

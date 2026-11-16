@@ -1,8 +1,8 @@
 {
  "version": "counts-v1",
  "snapshot": {
-  "id": "3942bb12dee7",
-  "sha256": "3942bb12dee72693dd611ae22399bc732390fc09b10b621aaed2dc3e5f356d2b",
+  "id": "83a903e4bf3b",
+  "sha256": "83a903e4bf3b5a2e5ac3077dfbc754e1fa847918e5686a6a27f4fbf8ca37f825",
   "files": [
    "src/data/table-manifest.json",
    "src/data/atlas/atlas.json",

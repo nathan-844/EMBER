@@ -1,0 +1,274 @@
+/* ==========================================================================
+   Polish layer, loaded last. Apple-style finish on top of the existing layout:
+   system type with tight headings, a frosted sticky top bar, soft depth, and
+   motion that eases out like a spring. Nothing here changes what is shown.
+   Every animation is switched off under prefers-reduced-motion.
+   ========================================================================== */
+
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", system-ui, sans-serif;
+  --bg: #f0f0f2;
+  --surface: #f5f5f7;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);      /* fast start, long soft landing */
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 8px rgb(0 0 0 / 0.04);
+  --shadow-2: 0 2px 6px rgb(0 0 0 / 0.05), 0 12px 32px rgb(0 0 0 / 0.08);
+}
+
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; font-feature-settings: "cv11", "ss01"; }
+::selection { background: var(--accent-soft); color: var(--ink); }
+h1, h2, h3, .stage-headline, .land-hero h1, .findings-hero h1, .big-num, .brand-name { font-family: var(--font-display); }
+h1, .stage-headline, .land-hero h1, .findings-hero h1 { letter-spacing: -0.035em; font-weight: 600; }
+h2 { letter-spacing: -0.022em; }
+.stage-headline span, .land-hero h1 span, .findings-hero h1 span { color: #86868b; }
+.big-num, .land-stats dt, .side-stats dt { font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+
+/* ---------- Frosted top bar that stays put ---------- */
+.top-bar {
+  position: sticky; top: 10px; z-index: 30;
+  background: rgb(245 245 247 / 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.04), var(--shadow-1);
+}
+.ws-side { top: 96px; }
+.top-nav button, .rail-nav button, .stage .segmented button, .tabbar button {
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease), transform 0.2s var(--ease);
+}
+.top-nav button:active, .stage .segmented button:active, .tabbar button:active { transform: scale(0.96); }
+
+/* ---------- Depth: white cards float, grey cards sit ---------- */
+.frame { box-shadow: 0 1px 0 rgb(0 0 0 / 0.03), 0 24px 60px -24px rgb(0 0 0 / 0.12); }
+.stage-note, .stage-actions, .chat-card { box-shadow: var(--shadow-1); }
+
+/* ---------- Buttons and links: a gentle press ---------- */
+.pill, .btn, .round-btn, .ask-chip, .text-link {
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.2s var(--ease), opacity 0.3s var(--ease);
+}
+.pill:active, .btn:active:not(:disabled), .round-btn:active, .ask-chip:active:not(:disabled) { transform: scale(0.97); }
+.pill-accent:hover, .pill-dark:hover { box-shadow: 0 6px 18px -6px rgb(0 0 0 / 0.25); }
+
+/* ---------- Clickable rows and tiles lift on hover ---------- */
+.more-list button, .f-tile, .rail-pill, .land-steps li, .finding {
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), background-color 0.3s var(--ease);
+}
+:root .more-list button:hover, :root .f-tile:hover.f-tile, :root .rail-pill:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.more-chev { transition: transform 0.35s var(--ease); }
+.more-list button:hover .more-chev { transform: translateX(3px); }
+
+/* ---------- Charts move instead of jumping when the scenario changes ---------- */
+.o2-span, .o2-gap-pill { transition: left 0.7s var(--ease), width 0.7s var(--ease), background-color 0.4s var(--ease), color 0.4s var(--ease); }
+.o2-line, .o2-flag { transition: left 0.7s var(--ease); }
+.o2-line { transform-origin: top; }
+.pill-bar, .score-fill { transition: width 0.7s var(--ease), background-color 0.4s var(--ease); }
+
+/* ---------- Inputs ---------- */
+input[type="text"], input[type="number"], select, textarea { transition: box-shadow 0.25s var(--ease), background-color 0.25s var(--ease); }
+input[type="text"]:focus-visible, input[type="number"]:focus-visible, select:focus-visible { outline: none; box-shadow: 0 0 0 4px rgb(255 138 92 / 0.28); }
+input[type="range"] { accent-color: var(--ink); }
+
+/* ---------- Dialogs: blurred backdrop, soft spring in ---------- */
+.tile-dialog::backdrop { background: rgb(0 0 0 / 0.28); -webkit-backdrop-filter: blur(10px) saturate(140%); backdrop-filter: blur(10px) saturate(140%); }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  /* A new page fades up into place. */
+  .ws-centre > main, .landing { animation: page-in 0.6s var(--ease) both; }
+  @keyframes page-in { from { opacity: 0; transform: translateY(10px); } }
+
+  /* Headlines arrive the way Apple's do: up, out of a slight blur. */
+  .stage-headline, .land-hero h1, .findings-hero h1, .ws-centre > main > section:first-child h1 {
+    animation: rise 0.9s var(--ease) 0.05s both;
+  }
+  .stage-sub, .land-lede, .land-actions { animation: rise 0.9s var(--ease) 0.18s both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); filter: blur(8px); } }
+
+  /* The oxygen chart draws itself: each lane grows from its left edge, then the gap and the habitat line land. */
+  .o2-span { animation: grow-x 1s var(--ease) both; transform-origin: left center; }
+  .o2-lane:nth-child(1) .o2-span { animation-delay: 0.25s; }
+  .o2-lane:nth-child(2) .o2-span { animation-delay: 0.35s; }
+  .o2-lane:nth-child(3) .o2-span { animation-delay: 0.45s; }
+  .o2-gap-pill { animation: pop-in 0.6s var(--ease-spring) 0.95s both; }
+  .o2-line { animation: drop-in 0.7s var(--ease) 0.7s both; }
+  .o2-flag { animation: flag-in 0.7s var(--ease-spring) 0.8s both; }
+  .pill-bars li .score-fill { animation: grow-x 0.9s var(--ease) both; transform-origin: left center; }
+  .pill-bars li:nth-child(1) .score-fill { animation-delay: 0.3s; }
+  .pill-bars li:nth-child(2) .score-fill { animation-delay: 0.38s; }
+  .pill-bars li:nth-child(3) .score-fill { animation-delay: 0.46s; }
+  @keyframes grow-x { from { transform: scaleX(0.04); opacity: 0; } 40% { opacity: 1; } }
+  @keyframes pop-in { from { opacity: 0; transform: scale(0.6); } }
+  @keyframes drop-in { from { opacity: 0; transform: scaleY(0); transform-origin: top; } }
+  @keyframes flag-in { from { opacity: 0; transform: translate(-50%, 8px) scale(0.9); } }
+
+  /* Sections further down fade up as they scroll into view (classes set by src/lib/reveal.ts). */
+  html.motion .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: var(--reveal-delay, 0s); }
+  html.motion .reveal.is-in { opacity: 1; transform: none; }
+  /* Once revealed, hand transitions back so hover lift and tilt feel immediate. */
+  html.motion .reveal.is-in:is(.f-tile, .land-steps li, .land-stats > div, .more-list) { transition: opacity 0.8s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease), background-color 0.3s var(--ease); }
+
+  .tile-dialog[open] { animation: dialog-in 0.45s var(--ease) both; }
+  @keyframes dialog-in { from { opacity: 0; transform: translateY(16px) scale(0.97); } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+@media (max-width: 900px) {
+  .top-bar { top: 6px; }
+}
+
+/* ==========================================================================
+   Mouse-reactive light and tilt (classes and variables set by src/lib/pointer.ts)
+   ========================================================================== */
+.pointer-fx .is-lit {
+  --glow: rgb(255 255 255 / 0.85);
+  background-image: radial-gradient(circle 260px at var(--mx, -999px) var(--my, -999px), var(--glow), transparent 70%);
+}
+/* White surfaces glow warm instead of white. */
+.pointer-fx :is(.stage-note, .stage-actions, .chat-card, .more-list button, .land-steps li, .tile-dialog-inner).is-lit { --glow: rgb(255 138 92 / 0.10); }
+.pointer-fx .f-tile-accent.is-lit { --glow: rgb(255 255 255 / 0.35); }
+.pointer-fx :is(.f-tile-dark, .panel-dark).is-lit { --glow: rgb(255 255 255 / 0.10); }
+.pointer-fx .top-bar.is-lit { --glow: rgb(255 255 255 / 0.9); }
+
+:root.pointer-fx .is-tilting.is-tilting {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-3px);
+  transition: transform 0.12s ease-out, box-shadow 0.45s var(--ease);
+  box-shadow: var(--shadow-2);
+  will-change: transform;
+}
+
+/* ==========================================================================
+   Liquid glass: translucent layers with a bright top edge, a soft inner shade
+   at the bottom and a blurred, saturated view of what sits behind.
+   ========================================================================== */
+:root {
+  --glass-edge: inset 0 1px 0 rgb(255 255 255 / 0.95), inset 0 -1px 0 rgb(0 0 0 / 0.05);
+  --glass-orange: linear-gradient(180deg, #ffb294 0%, #ff8a5c 55%, #ff7d4d 100%);
+  --glass-orange-shade: inset 0 1px 1px rgb(255 255 255 / 0.75), inset 0 -3px 6px rgb(184 67 26 / 0.22), 0 6px 16px -6px rgb(255 120 70 / 0.65);
+  --glass-dark: linear-gradient(180deg, #3a3a40 0%, #18181b 60%, #111113 100%);
+  --glass-dark-shade: inset 0 1px 0 rgb(255 255 255 / 0.22), inset 0 -2px 4px rgb(0 0 0 / 0.35), 0 6px 16px -6px rgb(0 0 0 / 0.45);
+}
+
+/* The top bar: frosted glass with a sheen across its upper half. */
+.top-bar {
+  background-color: rgb(255 255 255 / 0.55);
+  -webkit-backdrop-filter: blur(28px) saturate(200%); backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgb(255 255 255 / 0.75);
+  box-shadow: var(--glass-edge), 0 10px 30px -12px rgb(0 0 0 / 0.18);
+  overflow: hidden;
+}
+.top-bar::before {
+  content: ""; position: absolute; inset: 0 0 50% 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0));
+}
+.top-bar > * { position: relative; }
+
+/* Orange and dark controls become liquid glass drops. */
+.pill-accent, .stage .segmented button[aria-pressed="true"], .rail-pill.on, .nav-glass {
+  background: var(--glass-orange) !important; box-shadow: var(--glass-orange-shade); color: var(--ink);
+}
+.pill-dark, .chat-card .ask-row .btn-primary, .brand-mark {
+  background: var(--glass-dark); box-shadow: var(--glass-dark-shade);
+}
+.pill-soft, .tile-close, .round-btn {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.9), rgb(240 240 243 / 0.75)) !important;
+  box-shadow: var(--glass-edge), 0 2px 8px -2px rgb(0 0 0 / 0.12);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.pill-accent:hover { filter: brightness(1.04) saturate(1.05); }
+
+/* The safety-question switch sits in a glass track. */
+.stage .segmented {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.7), rgb(236 236 240 / 0.6)); padding: 4px;
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.06), inset 0 -1px 0 rgb(255 255 255 / 0.9);
+  border-radius: 26px;
+}
+
+/* The habitat flag and the gap pill on the oxygen chart catch the light too. */
+.o2-flag { background: var(--glass-dark); box-shadow: var(--glass-dark-shade); }
+.o2-gap-pill { background: var(--glass-orange); box-shadow: var(--glass-orange-shade); }
+.o2-span.mine { background: var(--glass-dark); box-shadow: var(--glass-dark-shade); }
+.pill-bar.lead { background: var(--glass-orange); box-shadow: var(--glass-orange-shade); }
+
+/* Ask EMBER's header is a pane of tinted glass. */
+.chat-head { background: linear-gradient(180deg, rgb(255 231 220 / 0.95), rgb(255 231 220 / 0.6)); box-shadow: inset 0 -1px 0 rgb(255 138 92 / 0.18), inset 0 1px 0 rgb(255 255 255 / 0.8); }
+.chat-avatar { background: var(--glass-orange); box-shadow: var(--glass-orange-shade); }
+
+/* Dialogs: a glass sheet over the blurred page. */
+.tile-dialog { background: rgb(255 255 255 / 0.86); -webkit-backdrop-filter: blur(30px) saturate(180%); backdrop-filter: blur(30px) saturate(180%); box-shadow: var(--glass-edge), 0 30px 80px -20px rgb(0 0 0 / 0.35); }
+
+/* The phone tab bar: dark glass. */
+@media (max-width: 900px) {
+  .tabbar { background: rgb(17 17 19 / 0.72); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 10px 30px rgb(0 0 0 / 0.3); }
+  .tabbar button[aria-current="page"] { background: var(--glass-orange); box-shadow: var(--glass-orange-shade); }
+}
+
+/* ==========================================================================
+   Top navigation: one glass pill that slides to whatever you point at
+   (positioned by src/components/TopBar.tsx) and returns to the current page.
+   ========================================================================== */
+.top-nav { position: relative; }
+.top-nav button { position: relative; z-index: 1; background: none !important; }
+.top-nav button[aria-current="page"] { font-weight: 600; }
+.nav-glass {
+  position: absolute; top: 0; height: 44px; border-radius: 22px; z-index: 0; pointer-events: none;
+  transition: left 0.5s var(--ease-spring), width 0.5s var(--ease-spring), opacity 0.3s var(--ease), background 0.3s var(--ease);
+}
+.nav-glass.is-hover:not(.is-current) {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.95), rgb(235 235 240 / 0.8)) !important;
+  box-shadow: var(--glass-edge), 0 4px 12px -4px rgb(0 0 0 / 0.15);
+}
+@media (prefers-reduced-motion: reduce) { .nav-glass { transition: none; } }
+
+/* ==========================================================================
+   Calm layout for the app pages (not the homepage): one layer instead of three,
+   and room to breathe. The page is white; content sits straight on it in soft
+   grey cards, with no white frame around everything.
+   ========================================================================== */
+:root { --gap: 24px; }
+body:has(.frame:not(.frame-home)) { --bg: #ffffff; background: #ffffff; }
+.frame:not(.frame-home) {
+  background: transparent; box-shadow: none; border-radius: 0;
+  padding: 0; margin: 16px auto 40px; width: calc(100% - 48px);
+  gap: var(--gap);
+}
+.frame:not(.frame-home) :is(.ws-rail, .ws-side, .ws-centre, .ws-centre > main, .explore, .ws-rail-slot) { gap: var(--gap); }
+.frame:not(.frame-home) :is(.rail-card, .panel-soft) { padding: 26px; }
+.stage { padding: 22px; gap: 28px; }
+.ws-foot { padding-top: 24px; border-top: 1px solid var(--border); margin-top: 8px; }
+.frame:not(.frame-home) > .top-bar { margin-bottom: 8px; box-shadow: var(--glass-edge), 0 0 0 1px rgb(0 0 0 / 0.05), 0 10px 30px -14px rgb(0 0 0 / 0.18); }
+
+@media (max-width: 900px) {
+  :root { --gap: 14px; }
+  .frame:not(.frame-home) { width: calc(100% - 20px); margin: 8px auto 24px; }
+}
+
+/* Homepage steps: the page each step opens, as a small label above its title. */
+.step-grid .step-page { font-style: normal; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-text); margin-top: 4px; }
+
+/* Findings: the question each result answers, above its number and title. */
+.f-tile-q, .finding-q { font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: var(--accent-text); line-height: 1.35; }
+.f-tile-accent .f-tile-q { color: var(--ink); }
+.f-tile-dark .f-tile-q { color: #ffb294; }
+.finding-q { margin: 0 0 -4px; font-size: 14px; }
+.finding-why { margin: 0; padding: 10px 14px; border-radius: 14px; background: var(--surface); font-size: 14.5px; }
+
+/* Findings: a quiet cue under the tiles that the full results continue below. */
+.scroll-cue {
+  align-self: center; display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+  margin: 8px auto 0; padding: 8px 16px; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 14px; color: var(--muted); transition: color 0.3s var(--ease);
+}
+.scroll-cue:hover { color: var(--ink); }
+.scroll-cue-arrow {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--surface); color: var(--ink); font-size: 16px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 2px 8px -2px rgb(0 0 0 / 0.12);
+}
+#results-full { scroll-margin-top: 96px; }
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-cue-arrow { animation: cue-bob 2.4s var(--ease) infinite; }
+  @keyframes cue-bob { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(5px); } }
+}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import recorded from "../data/recorded-analyses.json";
-import { analysisKey, ASK_MAX, AWAITING_RECORDING, cleanAsk, scenarioKey, SUGGESTED_ASKS } from "./recorded";
+import { analysisKey, ASK_MAX, AWAITING_ASK_RECORDING, AWAITING_RECORDING, cleanAsk, scenarioKey, SUGGESTED_ASKS } from "./recorded";
 import { PRESETS, presetScenario } from "./scenario";
 
 const entries = Object.entries((recorded as { entries: Record<string, any> }).entries);
@@ -51,7 +51,19 @@ describe("recorded analyses", () => {
     const stored = new Set(entries.map(([k]) => k));
     for (const p of PRESETS.filter((p) => p.id !== "custom" && !AWAITING_RECORDING.includes(p.id))) {
       const s = presetScenario(p.id);
-      for (const a of [null, ...SUGGESTED_ASKS]) expect(stored.has(analysisKey(s, a)), `${p.id} ${a ?? "(whole scenario)"}`).toBe(true);
+      for (const a of [null, ...SUGGESTED_ASKS]) {
+        const awaiting = AWAITING_ASK_RECORDING.some((x) => x.preset === p.id && x.question === s.question && x.ask === a);
+        if (!awaiting) expect(stored.has(analysisKey(s, a)), `${p.id} ${a ?? "(whole scenario)"}`).toBe(true);
+      }
+    }
+  });
+
+  it("only list single answers as awaiting recording while they are missing", () => {
+    const stored = new Set(entries.map(([k]) => k));
+    for (const x of AWAITING_ASK_RECORDING) {
+      expect(SUGGESTED_ASKS).toContain(x.ask);
+      const s = { ...presetScenario(x.preset as Parameters<typeof presetScenario>[0]), question: x.question };
+      expect(stored.has(analysisKey(s, x.ask)), `${x.preset} "${x.ask}" is recorded now; remove it from AWAITING_ASK_RECORDING`).toBe(false);
     }
   });
 

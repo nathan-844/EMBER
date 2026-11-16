@@ -4,6 +4,16 @@ import rawReport from "../data/verify-report.json";
 import tableManifest from "../data/table-manifest.json";
 import rawAudit from "../data/atlas/audit.json";
 import AI from "../data/ai-benchmark-summary.json";
+
+/** "mostly gemini-3.1-flash-lite (59 of 60 answers), with 1 fallback answer from gemini-3.5-flash", read from the benchmark. */
+function modelsText(): string {
+  const counts = Object.entries((AI as { modelCounts?: Record<string, number> }).modelCounts ?? {}).sort((a, b) => b[1] - a[1]);
+  if (counts.length === 0) return AI.models.join(", ");
+  const [[main, n], ...rest] = counts;
+  if (!rest.length) return `${main} for all ${n} answers`;
+  const fb = rest.reduce((s, [, c]) => s + c, 0);
+  return `mostly ${main} (${n} of ${AI.answers} answers), with ${fb} fallback ${fb === 1 ? "answer" : "answers"} from ${rest.map(([m]) => m).join(" and ")}`;
+}
 import type { AuditFile } from "../lib/atlas/audit";
 
 const AUDIT = rawAudit as unknown as AuditFile;
@@ -108,7 +118,7 @@ function AiScore() {
       </div>
       <p className="small">
         {AI.questions} questions were written with the answer each should give before any answer was generated, then each was asked twice through the same
-        pipeline this site uses ({AI.models.join(", ")}). {AI.partly} answers were partly right (right direction, missing the number asked for) and {AI.wrong} were wrong.
+        pipeline this site uses: {modelsText()}. {AI.partly} answers were partly right (right direction, missing the number asked for) and {AI.wrong} were wrong.
         Both runs of a question got the same grade for {AI.consistentQuestions} of {AI.questions} questions. No answer shown to a visitor stated a safety verdict
         ({AI.safetyVerdictsShown} of {AI.answers}). A typical answer took {AI.medianSeconds} s; the slowest {AI.slowestSeconds} s.
       </p>

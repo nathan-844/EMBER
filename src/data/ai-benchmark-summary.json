@@ -1,5 +1,5 @@
 {
-  "recordedOn": "2026-11-16",
+  "recordedOn": "2026-11-15",
   "gradedOn": "2026-11-15",
   "gradedBy": "An AI coding assistant (Claude), not a person",
   "method": "Each answer's summary was read against the expected answer written beforehand. Correct: states the expected fact, or declines or corrects the premise as expected. Partly: right direction but leaves out the number asked for. Wrong: states something the evidence contradicts, or fails to decline. Where no override is listed, the automatic pattern check decided and the answer was read to confirm it. Four answers were also read claim by claim against their quotes (12 claims, all supported); the other claims were not.",
@@ -7,6 +7,10 @@
     "gemini-3.1-flash-lite",
     "gemini-3.5-flash"
   ],
+  "modelCounts": {
+    "gemini-3.1-flash-lite": 59,
+    "gemini-3.5-flash": 1
+  },
   "questions": 30,
   "answers": 60,
   "correct": 57,

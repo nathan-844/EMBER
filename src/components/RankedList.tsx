@@ -135,8 +135,8 @@ export function RankedList({ ranked, scenario, showRobustness = true }: { ranked
         <summary><span>How the score works</span><span className="disclose" aria-hidden /></summary>
       <p className="small muted">
         Scores separate the safety question (25 points) from condition matching (75 points: 15 per condition inside a range measured in a NASA table,
-        10 inside a curated estimate, two thirds of that when just outside; equal scores list NASA-measured data first). When you set a fuel type, studies of that fuel are listed first and other
-        fuels follow as analogue evidence; ranks and ties count within each group. Scores do not estimate fire probability, confidence or safety;
+        10 inside a curated estimate, two thirds of that when just outside; equal scores list NASA-measured data first). When you set a fuel type, studies of that fuel are listed first, then burners built to
+        emulate it, then other fuels, both as analogue evidence; ties count within each group. Scores do not estimate fire probability, confidence or safety;
         unknown fields earn no points. Under each score, the rank range shows the best and worst rank when every point weight is moved
         up or down 20% (all 128 combinations), so you can see which places depend on the weights EMBER chose.
       </p>
@@ -148,6 +148,13 @@ export function RankedList({ ranked, scenario, showRobustness = true }: { ranked
         <ol className="rank-list">
           {visible.map((r, i) => (
             <Fragment key={r.investigation.id}>
+              {r.group === "emulator" && visible[i - 1]?.group !== "emulator" && (
+                <li className="group-sep" aria-label="Emulators">
+                  <strong>Emulators: analogue evidence.</strong> These burners use another fuel built to imitate{" "}
+                  {scenario.fuel === "solid" ? "solid materials" : scenario.fuel === "liquid" ? "liquid fuel" : "gas"}. They are listed after every real
+                  study of your fuel, whatever their score.
+                </li>
+              )}
               {r.group === "other" && visible[i - 1]?.group !== "other" && (
                 <li className="group-sep" aria-label="Analogue evidence">
                   <strong>Other fuels: analogue evidence.</strong> These studies burned {otherFuelWords(scenario)}, not{" "}

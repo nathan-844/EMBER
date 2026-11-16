@@ -50,14 +50,14 @@ export const PRESETS: EnvironmentPreset[] = [
   },
   {
     id: "lunar-exploration",
-    label: "Exploration 8.2 psia / 34% O₂",
+    label: "Moon base, NASA plan (34% O₂)",
     note: "NASA's exploration atmosphere for EVA-heavy lunar missions, at lunar gravity.",
     values: { oxygenPct: 34, pressurePsi: 8.2, gravityG: 0.166, airflowMs: 0.05 },
     source: { ntrsId: "20150021491", quote: "eaw-8-2-34", label: "NASA exploration atmosphere evidence report" },
   },
   {
     id: "artemis-surface-habitat",
-    label: "Artemis habitat 10.2 / 26.5%",
+    label: "Artemis habitat (26.5% O₂)",
     note: "Nominal atmosphere assumed for the Artemis Surface Habitat, at lunar gravity.",
     values: { oxygenPct: 26.5, pressurePsi: 10.2, gravityG: 0.166, airflowMs: 0.05 },
     source: { ntrsId: "20220000245", quote: "artemis-sh", label: "Artemis Deep Space Habitation paper" },
@@ -65,7 +65,7 @@ export const PRESETS: EnvironmentPreset[] = [
   {
     id: "lunar-rover",
     label: "Pressurized rover",
-    note: "Assumed to share the lunar exploration atmosphere.",
+    note: "Assumed to share the lunar habitat atmosphere.",
     values: { oxygenPct: 30, pressurePsi: 10.2, gravityG: 0.166, airflowMs: 0.1 },
   },
   {
@@ -77,7 +77,7 @@ export const PRESETS: EnvironmentPreset[] = [
   {
     id: "spacesuit",
     label: "Spacesuit",
-    note: "100% oxygen at 4.3 psi.",
+    note: "100% oxygen at 4.3 psi, at lunar gravity.",
     values: { oxygenPct: 100, pressurePsi: 4.3, gravityG: 0.166, airflowMs: 0 },
   },
   {

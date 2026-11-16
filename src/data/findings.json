@@ -495,7 +495,7 @@
   },
   {
    "id": "F3",
-   "title": "Earth's test burned further than orbit, sample for sample",
+   "title": "Earth's test never burned less than orbit",
    "claim": "In 5 of 8 Saffire-II samples the 1-g ground test burned further than the same material did in orbit, 3 burned the same, and none burned further in orbit. 3 of the 4 silicone samples spread a flame on the ground but not in orbit (about 21.5–22.1% O₂, 20 cm/s air flow in orbit).",
    "numbers": {
     "samples": 8,
@@ -1157,7 +1157,7 @@
   },
   {
    "id": "F6",
-   "title": "Almost no solid has burned in exploration air",
+   "title": "Almost no solid has been tested in exploration air",
    "claim": "Of 402 solid-material tests, 145 record the oxygen level and only 5 the pressure. Solid tests in NASA's PSI tables stop at 22.2% O₂; 4 samples from the Saffire IV–VI paper go higher, and 2 of them reach the challenge's exploration atmosphere (SIBAL cotton-fiberglass fabric at 31% and 7.85 psia; PMMA at 30.3% and 7.92 psia). Both burned.",
    "numbers": {
     "solidTests": 402,

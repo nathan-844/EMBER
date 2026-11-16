@@ -38,7 +38,7 @@ export function f6SolidsAtHighOxygen(rows: AtlasRow[]): Finding {
   }
   return {
     id: "F6",
-    title: "Almost no solid has burned in exploration air",
+    title: "Almost no solid has been tested in exploration air",
     claim:
       `Of ${solids.length} solid-material tests, ${withO2.length} record the oxygen level and only ${withP.length} the pressure. Solid tests in NASA's PSI tables stop at ${psiMax}% O₂; ` +
       `${above.length} samples from the Saffire IV–VI paper go higher, and ${inZone.length} of them reach the challenge's exploration atmosphere (${numbers.inZoneList}). ${numbers.inZoneBurned === inZone.length ? (inZone.length === 2 ? "Both" : "All") : numbers.inZoneBurned} burned.`,

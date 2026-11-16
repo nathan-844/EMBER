@@ -48,10 +48,12 @@ export const NEAR_FRACTION = 2 / 3;
 export const CURATED_FRACTION = 2 / 3;
 
 /**
- * Fuel group. With a fuel type set, studies of that fuel ("same") are listed before studies of
- * other or no fuel ("other"), which are analogue evidence. With no fuel set, all are "all".
+ * Fuel group. With a fuel type set, studies of that fuel ("same") are listed first, then burners
+ * built to emulate it ("emulator", such as BRE's gas burner for solids), then studies of other or
+ * no fuel ("other"). Emulators and other fuels are analogue evidence, so neither outranks a real
+ * study of the fuel. With no fuel set, all are "all".
  */
-export type FuelGroup = "same" | "other" | "all";
+export type FuelGroup = "same" | "emulator" | "other" | "all";
 
 export interface ConditionResult {
   key: ConditionKey;
@@ -145,13 +147,13 @@ export function scoreInvestigation(inv: Investigation, scenario: Scenario, w: We
 
 type Scored = Omit<RankedInvestigation, "rank" | "tied">;
 
-const GROUP_ORDER: Record<FuelGroup, number> = { same: 0, all: 0, other: 1 };
+const GROUP_ORDER: Record<FuelGroup, number> = { same: 0, all: 0, emulator: 1, other: 2 };
 
 function fuelGroup(r: Omit<Scored, "group">, scenario: Scenario): FuelGroup {
   if (scenario.fuel == null) return "all";
   const fuel = r.conditions.find((c) => c.key === "fuel")?.status;
-  // An emulator of the scenario's fuel is listed with that fuel's studies, labelled as an emulator.
-  return fuel === "match" || fuel === "near" ? "same" : "other";
+  // An emulator of the scenario's fuel is listed after real studies of that fuel and before other fuels.
+  return fuel === "match" ? "same" : fuel === "near" ? "emulator" : "other";
 }
 
 /** Conditions inside or just outside a range read from a NASA run table. */
@@ -176,7 +178,7 @@ function tieBreak(a: Scored, b: Scored): number {
  * Rank investigations for a scenario.
  *
  * Fuel type is a grouping, not just points: with a fuel set, every study of that fuel is listed
- * before any study of another fuel, whatever their scores. A droplet or gas-flame study at the
+ * first, then emulators of it, then studies of other fuels, whatever their scores. A droplet or gas-flame study at the
  * right oxygen is analogue evidence for a solid-material fire, not a better match than a
  * solid-material study at the wrong oxygen. (This extends the earlier rule that equal scores share
  * a rank only with the same fuel match.) Within a group, equal scores share a rank.

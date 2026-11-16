@@ -56,34 +56,16 @@ export function Landing() {
 
       <section className="panel-soft land-steps" aria-labelledby="steps-h">
         <div className="section-head">
-          <h2 id="steps-h">From the ISS to the Moon, in four steps</h2>
+          <h2 id="steps-h">Try EMBER in four steps</h2>
           <span className="muted">About one minute</span>
         </div>
         <ol className="step-grid">
-          <li><a href="#lab"><span className="step-dot on">1</span><strong>Set a Moon habitat</strong><span>Pick the lunar preset and see which of {INVESTIGATION_COUNT} NASA investigations apply, and why.</span></a></li>
-          <li><a href="#findings"><span className="step-dot">2</span><strong>See where the tests stop</strong><span>NASA’s archived solid-material tests end {gap} points of oxygen short of it.</span></a></li>
-          <li><a href="#mission"><span className="step-dot">3</span><strong>Move a material from A to B</strong><span>Which tests of a cabin panel still apply when the air changes from the ISS to a Moon base?</span></a></li>
-          <li><a href="#credibility"><span className="step-dot">4</span><strong>Check our work</strong><span>Every test, source check and AI score, with the failures listed.</span></a></li>
+          <li><a href="#lab"><span className="step-dot on">1</span><em className="step-page">Explore</em><strong>Set your habitat</strong><span>Set oxygen, pressure, gravity and airflow, and see which of {INVESTIGATION_COUNT} NASA investigations apply. For a Moon base, PSI’s solid-material tests stop {gap} points of oxygen short.</span></a></li>
+          <li><a href="#findings"><span className="step-dot">2</span><em className="step-page">Findings</em><strong>Read what the tests show</strong><span>{FINDINGS.findings.length} results computed by code from NASA’s own test rows, each with its rows, method and limits.</span></a></li>
+          <li><a href="#mission"><span className="step-dot">3</span><em className="step-page">Analyze</em><strong>Check a material</strong><span>Pick a cabin material and see whether its NASA fire tests, mostly run in ISS air, apply in your habitat’s air.</span></a></li>
+          <li><a href="#data"><span className="step-dot">4</span><em className="step-page">Data · Credibility</em><strong>Check the evidence</strong><span>Browse all {COUNTS.rows.total.toLocaleString("en-US")} NASA records and the {AUDIT.totals.issues} data issues, and see every check EMBER runs.</span></a></li>
         </ol>
       </section>
-
-      <div className="three-up">
-        <a className="panel-soft brief-card" href="#findings">
-          <span className="muted">The challenge asked for a dashboard that</span>
-          <h3>Summarizes</h3>
-          <p>{FINDINGS.findings.length} findings computed from NASA’s own rows, and all {COUNTS.rows.total.toLocaleString("en-US")} records in one searchable table with each value traced to its cell.</p>
-        </a>
-        <a className="panel-soft brief-card" href="#lab">
-          <span className="muted">and</span>
-          <h3>Ranks</h3>
-          <p>{INVESTIGATION_COUNT} investigations scored against your habitat’s oxygen, pressure, gravity, airflow and fuel. Every score opens to show its reasons.</p>
-        </a>
-        <a className="panel-soft brief-card" href="#lab">
-          <span className="muted">and</span>
-          <h3>Interprets</h3>
-          <p>An AI answers from NASA’s text. A claim is shown only if its quotes and numbers are found in the source; the rest are shown as rejected.</p>
-        </a>
-      </div>
 
       <section className="panel-soft land-photos-card" aria-labelledby="land-photos">
         <div className="section-head">

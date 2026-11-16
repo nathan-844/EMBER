@@ -48,9 +48,9 @@ page. Arrow keys move between steps and Esc closes it; on a phone the card sits 
   as much as a match inside an estimate.
 - Unknown ranges earn nothing. Equal scores list NASA-measured data first.
 - With a fuel type set, fuel groups the list rather than just adding points: every study of that fuel
-  is listed first and other fuels follow as labelled analogue evidence, because a droplet or gas-flame
-  study at the right oxygen is not evidence about how solid cabin materials burn. Ranks and ties count
-  within each group.
+  is listed first, then burners built to emulate it (BRE), then other fuels, the last two as labelled
+  analogue evidence, because a gas-flame or droplet study at the right oxygen is not evidence about
+  how solid cabin materials burn. Ties count within each group.
 - Every score can be expanded to see why.
 
 Oxygen, pressure and airflow ranges for 14 profiles are read from 14 of the 23 stored NASA PSI
@@ -108,8 +108,10 @@ changed are removed so they can be re-recorded.
 
 - **BRE as a solid emulator** - NASA built BRE to emulate burning solids, and it is the only PSI data
   at NASA's candidate exploration atmospheres (its PSI-20 objectives name 10.2 psia at 26.5% O₂ and
-  8.2 psia at 34%). For a solid-fuel scenario it earns two thirds of the fuel points and is listed with
-  the solid studies, labelled as an emulator, so it leads the Moon-habitat and rover cases.
+  8.2 psia at 34%). For a solid-fuel scenario it earns two thirds of the fuel points but is listed in
+  its own "emulator" group, after every real solid-material study and before other fuels, and is
+  labelled as an emulator wherever ranks show. A gas burner is analogue evidence, so it never outranks
+  a real solid study: the Moon-habitat and rover cases now lead with BASS-II.
 - **Inverse-flame burner oxygen** - CFI-G (PSI-159) and Flame Design (PSI-10) fed up to 85% O₂
   through the burner. That is the burner stream, not the surrounding atmosphere, so it appears in the
   profile caveats, limitations and gap map but is never ranked on.
@@ -349,7 +351,8 @@ re-run checks.
 answer was generated (`src/lib/ai-benchmark/questions.ts`): 10 that a measured finding answers, 8
 that a NASA record answers, 6 that state something false, and 6 the evidence cannot answer or
 EMBER must not (a safety verdict, an off-topic question, an instruction to ignore its rules). Each
-was asked twice through the live pipeline (`npm run benchmark:ai`, needs a key). Of 60 answers, 57
+was asked twice through the live pipeline (`npm run benchmark:ai`, needs a key); 59 answers came from
+`gemini-3.1-flash-lite` and 1 from the fallback `gemini-3.5-flash`. Of 60 answers, 57
 were correct, 3 partly right (right direction, missing the number asked for) and none wrong; no
 answer shown stated a safety verdict. The page lists every answer that was not right. The grades
 are an AI assistant's reading of each summary, not an expert's, and the questions were written by
@@ -420,7 +423,7 @@ fails if a quote is edited without running it again.
 ```bash
 npm run build
 npm run preview:demo
-npm run video:record        # media/ember-demo-30s.mp4 (+ .srt) and media/shot-*.png
+npm run video:record        # media/ember-demo-30s.mp4, ember-demo-poster.jpg and media/shot-*.png (captions drawn on the page)
 ```
 
 Needs Playwright with Chromium and ffmpeg with libass.

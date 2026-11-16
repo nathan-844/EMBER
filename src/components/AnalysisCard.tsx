@@ -17,7 +17,11 @@ export function AskForm({ analysis, onSubmit, compact = false }: { analysis: Ana
     void analysis.run(ask ?? null);
   };
   const typedOk = live && text.trim().length >= 3;
-  const chips = !status || live ? SUGGESTED_ASKS : SUGGESTED_ASKS.filter((q) => canRun(q));
+  const allChips = !status || live ? SUGGESTED_ASKS : SUGGESTED_ASKS.filter((q) => canRun(q));
+  // The compact (rail) form shows one suggestion and folds the rest behind a toggle.
+  const [showAll, setShowAll] = useState(false);
+  const chips = compact && !showAll ? allChips.slice(0, 2) : allChips;
+  const hidden = allChips.length - chips.length;
 
   return (
     <div className={`ask${compact ? " ask-compact" : ""}`}>
@@ -38,13 +42,18 @@ export function AskForm({ analysis, onSubmit, compact = false }: { analysis: Ana
         </button>
       </form>
       {/* Without a live model only suggestions with a recorded answer are offered; while connecting all show, disabled. */}
-      {chips.length > 0 ? (
+      {allChips.length > 0 ? (
         <div className="ask-chips" role="group" aria-label="Suggested questions">
           {chips.map((q) => (
             <button key={q} type="button" className="ask-chip" onClick={() => go(q)} disabled={busy || !canRun(q)}>
               {q}
             </button>
           ))}
+          {compact && allChips.length > 1 && (
+            <button type="button" className="text-link ask-more" aria-expanded={showAll} onClick={() => setShowAll((v) => !v)}>
+              {showAll ? "Fewer suggestions" : `${hidden} more suggested question${hidden === 1 ? "" : "s"}`}
+            </button>
+          )}
         </div>
       ) : (
         <p className="small muted">Suggested questions replay recorded answers on the unedited presets.</p>

@@ -67,10 +67,12 @@ describe("rank stability under ±20% weights", () => {
 
   it("finds ranks that hold and ranks that move", () => {
     const lunar = rankStability(presetScenario("lunar-habitat"));
-    expect(lunar.get("acme-bre")).toMatchObject({ min: 1, max: 1 });
+    expect(lunar.get("bass-ii")).toMatchObject({ min: 1, max: 1 });
+    // BRE, an emulator, stays below every real solid study whatever the weights.
+    expect(lunar.get("acme-bre")!.min).toBeGreaterThan(lunar.get("bass-ii")!.max);
     const iss = rankStability(presetScenario("iss"));
     expect(iss.get("bass-ii")).toMatchObject({ min: 1, max: 1 });
-    expect(iss.get("acme-bre")!.max).toBeGreaterThan(iss.get("acme-bre")!.min);
+    expect(iss.get("bass")!.max).toBeGreaterThan(iss.get("bass")!.min);
   });
 
   it("widens or keeps the range as the swing grows, and is a single rank with no swing", () => {

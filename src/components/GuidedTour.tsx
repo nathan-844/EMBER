@@ -25,7 +25,7 @@ export const LAB_TOUR: TourStep[] = [
     body: "Every investigation scored against your inputs out of 100. Open it to see why each scored what it did, its rank range if the scoring weights move ±20%, its NASA PSI record and a NASA photo.",
   },
   {
-    target: '[aria-labelledby="gap-tile"]',
+    target: "#gap-map",
     title: "Where NASA tested",
     body: "Every row of NASA's run tables, oxygen against pressure, with your scenario marked. The empty space around it is the gap.",
   },
@@ -47,7 +47,7 @@ export const LAB_TOUR: TourStep[] = [
   {
     target: 'a[href="#credibility"]',
     title: "How far to trust it",
-    body: "The Credibility page lists every check EMBER runs, with totals, and what is still not established. Click a box on the dashboard any time for the full detail.",
+    body: "The Credibility page lists every check EMBER runs, with totals, and what is still not established. Open any row in “More about this habitat” for the full detail.",
   },
 ];
 

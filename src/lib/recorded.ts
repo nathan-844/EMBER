@@ -22,6 +22,17 @@ export const SUGGESTED_ASKS = [
 export const AWAITING_RECORDING: readonly string[] = ["lunar-exploration", "artemis-surface-habitat"];
 
 /**
+ * Single suggested answers removed by npm run recheck:recorded because they discussed a ranking
+ * that has since changed (BRE, a gas burner emulating solids, no longer outranks real solid
+ * studies). Without a recording the app hides that suggestion. Re-record with a live key, then
+ * remove the entry; a test fails once an entry here is recorded again.
+ */
+export const AWAITING_ASK_RECORDING: readonly { preset: string; question: "prevention" | "detection" | "suppression"; ask: string }[] = [
+  { preset: "lunar-habitat", question: "prevention", ask: "Why is the top match ranked first, and what does it not cover?" },
+  { preset: "lunar-rover", question: "prevention", ask: "Why is the top match ranked first, and what does it not cover?" },
+];
+
+/**
  * Tidy a typed question: drop control characters, collapse whitespace, trim.
  * Returns null when there is no question and undefined when the input is not acceptable.
  */

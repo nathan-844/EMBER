@@ -50,7 +50,8 @@ where the evidence runs out.
   in the source it cites and every number can be traced. Claims that state a safety conclusion are
   rejected.
 - The AI is scored: 30 fixed questions, each asked twice live and read against an answer written
-  beforehand. The grading was done by an AI assistant, not an expert, and says so.
+  beforehand. 59 of the 60 answers came from `gemini-3.1-flash-lite` and one from the fallback
+  `gemini-3.5-flash`. The grading was done by an AI assistant, not an expert, and says so.
 - Findings are computed by code, never written by a model. Each sentence is generated from the
   computed numbers, and tests recheck every headline number against NASA's raw cells.
 - Nothing in NASA's files is corrected. Problems become flags and audit entries, and the raw cell

@@ -1,16 +1,13 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { PSI_SNAPSHOT } from "../data/psi";
-import rawFindings from "../data/findings.json";
-import { ChartIcon, FlameIcon, ShieldIcon, SlidersIcon, TableIcon } from "./icons";
+import { TopBar } from "./TopBar";
 import type { Route } from "./AppShell";
-
-const FINDING_COUNT = (rawFindings as { findings: unknown[] }).findings.length;
 
 type Slots = { rail: HTMLElement | null; side: HTMLElement | null };
 const SlotContext = createContext<Slots>({ rail: null, side: null });
 
-/** Puts its children in the left rail, under the navigation. */
+/** Puts its children in the left rail. */
 export function Rail({ children }: { children: ReactNode }) {
   const { rail } = useContext(SlotContext);
   return rail ? createPortal(children, rail) : null;
@@ -22,22 +19,16 @@ export function Side({ children }: { children: ReactNode }) {
   return side ? createPortal(children, side) : null;
 }
 
-const AnalyzeIcon = () => (
-  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 7h7M4 17h7M17 4v6M14 7h6M14 17h6" />
-  </svg>
-);
-
-const NAV: { route: Route; label: string; icon: ReactNode; also?: Route[] }[] = [
-  { route: "lab", label: "Explore", icon: <SlidersIcon /> },
-  { route: "findings", label: "Findings", icon: <ChartIcon /> },
-  { route: "mission", label: "Analyze", icon: <AnalyzeIcon />, also: ["compare", "research"] },
-  { route: "data", label: "Data", icon: <TableIcon /> },
-  { route: "credibility", label: "How we know", icon: <ShieldIcon /> },
+const NAV: { route: Route; label: string; also?: Route[] }[] = [
+  { route: "lab", label: "Explore" },
+  { route: "findings", label: "Findings" },
+  { route: "mission", label: "Analyze", also: ["compare", "research"] },
+  { route: "data", label: "Data" },
+  { route: "credibility", label: "Credibility" },
 ];
 
 const TOOLS: { route: Route; label: string; hint: string }[] = [
-  { route: "mission", label: "Change the air", hint: "Which tests still apply from A to B" },
+  { route: "mission", label: "Check a material", hint: "Do its fire tests apply in your habitat’s air?" },
   { route: "compare", label: "Compare two materials", hint: "BASS-II carbon monoxide" },
   { route: "research", label: "Comparison workbench", hint: "Your own comparison, checked" },
 ];
@@ -45,7 +36,7 @@ const TOOLS: { route: Route; label: string; hint: string }[] = [
 type Props = { route: Route; onNavigate: (route: Route) => void; recordCount: number; children: ReactNode };
 
 /**
- * Every page except the landing page: a left rail with the navigation, one large central panel,
+ * Every page except the landing page: the top bar, a left rail for page controls, one large central panel,
  * and an optional column on the right. Pages fill the rail and the right column with <Rail> and <Side>.
  */
 export function Workspace({ route, onNavigate, recordCount, children }: Props) {
@@ -56,27 +47,8 @@ export function Workspace({ route, onNavigate, recordCount, children }: Props) {
   return (
     <SlotContext.Provider value={{ rail, side }}>
       <div className="frame">
+        <TopBar route={route} onNavigate={onNavigate} />
         <aside className="ws-rail">
-          <div className="rail-card rail-nav-card">
-            <a className="brand" href="#home" aria-label="EMBER home" onClick={() => onNavigate("home")}>
-              <span className="brand-mark"><FlameIcon size={18} /></span>
-              <span className="brand-name">EMBER</span>
-            </a>
-            <nav className="rail-nav" aria-label="Main">
-              {NAV.map((n) => {
-                const on = route === n.route || n.also?.includes(route);
-                return (
-                  <button key={n.route} type="button" aria-current={on ? "page" : undefined} onClick={() => onNavigate(n.route)}>
-                    {n.icon}
-                    <span>{n.label}</span>
-                    {n.route === "findings" && !on && <span className="rail-count">{FINDING_COUNT}</span>}
-                    {on && <span className="rail-chev" aria-hidden="true">›</span>}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-
           {analyze && (
             <div className="rail-card">
               <p className="rail-eyebrow">Three ways to analyze</p>
@@ -89,21 +61,20 @@ export function Workspace({ route, onNavigate, recordCount, children }: Props) {
                   </button>
                 ))}
               </div>
-              <p className="rail-note">Counts are test rows, not independent experiments. How much evidence exists says nothing about whether a material is safe.</p>
             </div>
           )}
 
           <div className="ws-rail-slot" ref={setRail} />
-
-          <p className="rail-foot">
-            <a className="status-dot" href="https://psi.nasa.gov/physci/repo/" target="_blank" rel="noreferrer" title="Records stored from the NASA PSI repository">NASA PSI · synced {PSI_SNAPSHOT.fetchedOn}</a>
-            <span>Research prototype · {recordCount} NASA investigations. Not a NASA product.</span>
-          </p>
         </aside>
 
         <div className="ws-centre">{children}</div>
 
         <aside className="ws-side" ref={setSide} />
+
+        <footer className="ws-foot">
+          <a className="status-dot" href="https://psi.nasa.gov/physci/repo/" target="_blank" rel="noreferrer" title="Records stored from the NASA PSI repository">NASA PSI · synced {PSI_SNAPSHOT.fetchedOn}</a>
+          <span>Research prototype · {recordCount} NASA investigations. Not a NASA product.</span>
+        </footer>
       </div>
 
       <nav className="tabbar" aria-label="Main, short">

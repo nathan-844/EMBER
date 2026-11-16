@@ -1247,15 +1247,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 70,
-          relevance: "direct",
-          matched: 3,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -1289,6 +1280,15 @@ var recorded_analyses_default = {
           total: 70,
           relevance: "direct",
           matched: 4,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 70,
+          relevance: "direct",
+          matched: 3,
           specified: 5
         }
       ]
@@ -1764,18 +1764,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -1784,7 +1775,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -1793,7 +1784,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -1802,7 +1793,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -1811,10 +1802,19 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ]
@@ -2275,18 +2275,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -2295,7 +2286,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -2304,7 +2295,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -2313,7 +2304,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -2322,10 +2313,19 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ]
@@ -2778,15 +2778,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -2820,6 +2811,15 @@ var recorded_analyses_default = {
           total: 60,
           relevance: "direct",
           matched: 3,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ]
@@ -3272,18 +3272,9 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 3,
-          total: 45,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -3292,7 +3283,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -3301,8 +3292,17 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
+          relevance: "direct",
+          matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 45,
           relevance: "direct",
           matched: 1,
           specified: 5
@@ -3774,15 +3774,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 70,
-          relevance: "direct",
-          matched: 3,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -3816,6 +3807,15 @@ var recorded_analyses_default = {
           total: 70,
           relevance: "direct",
           matched: 4,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 70,
+          relevance: "direct",
+          matched: 3,
           specified: 5
         }
       ],
@@ -3950,15 +3950,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 70,
-          relevance: "direct",
-          matched: 3,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -3992,6 +3983,15 @@ var recorded_analyses_default = {
           total: 70,
           relevance: "direct",
           matched: 4,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 70,
+          relevance: "direct",
+          matched: 3,
           specified: 5
         }
       ],
@@ -4116,15 +4116,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 70,
-          relevance: "direct",
-          matched: 3,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -4158,6 +4149,15 @@ var recorded_analyses_default = {
           total: 70,
           relevance: "direct",
           matched: 4,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 70,
+          relevance: "direct",
+          matched: 3,
           specified: 5
         }
       ],
@@ -4265,18 +4265,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -4285,7 +4276,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -4294,7 +4285,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -4303,7 +4294,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -4312,10 +4303,19 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -4436,18 +4436,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -4456,7 +4447,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -4465,7 +4456,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -4474,7 +4465,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -4483,10 +4474,19 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -4620,15 +4620,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -4662,6 +4653,15 @@ var recorded_analyses_default = {
           total: 60,
           relevance: "direct",
           matched: 3,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -4796,15 +4796,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -4838,6 +4829,15 @@ var recorded_analyses_default = {
           total: 60,
           relevance: "direct",
           matched: 3,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -4978,15 +4978,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -5020,6 +5011,15 @@ var recorded_analyses_default = {
           total: 60,
           relevance: "direct",
           matched: 3,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -5145,15 +5145,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -5187,6 +5178,15 @@ var recorded_analyses_default = {
           total: 60,
           relevance: "direct",
           matched: 3,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -5321,18 +5321,9 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 3,
-          total: 45,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5341,7 +5332,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5350,8 +5341,17 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
+          relevance: "direct",
+          matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 45,
           relevance: "direct",
           matched: 1,
           specified: 5
@@ -5482,18 +5482,9 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 3,
-          total: 45,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5502,7 +5493,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5511,8 +5502,17 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
+          relevance: "direct",
+          matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 45,
           relevance: "direct",
           matched: 1,
           specified: 5
@@ -5653,18 +5653,9 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 3,
-          total: 45,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5673,7 +5664,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5682,8 +5673,17 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
+          relevance: "direct",
+          matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 45,
           relevance: "direct",
           matched: 1,
           specified: 5
@@ -5818,18 +5818,9 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 3,
-          total: 45,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5838,7 +5829,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -5847,8 +5838,17 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
+          relevance: "direct",
+          matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 45,
           relevance: "direct",
           matched: 1,
           specified: 5
@@ -5991,15 +5991,6 @@ var recorded_analyses_default = {
           specified: 5
         },
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 2,
-          total: 70,
-          relevance: "direct",
-          matched: 3,
-          specified: 5
-        },
-        {
           id: "saffire-i",
           name: "Saffire-I",
           rank: 2,
@@ -6033,6 +6024,15 @@ var recorded_analyses_default = {
           total: 70,
           relevance: "direct",
           matched: 4,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 70,
+          relevance: "direct",
+          matched: 3,
           specified: 5
         }
       ],
@@ -6143,18 +6143,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6163,7 +6154,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6172,7 +6163,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6181,7 +6172,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6190,10 +6181,19 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -6317,18 +6317,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6337,7 +6328,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6346,7 +6337,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6355,7 +6346,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6364,10 +6355,19 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
@@ -6496,18 +6496,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6516,7 +6507,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6525,7 +6516,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6534,7 +6525,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6543,174 +6534,23 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
       ask: "Which gaps in the evidence matter most for this scenario?"
-    },
-    '["lunar-habitat","prevention",30,10.2,0.166,0.05,"solid",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?': {
-      model: "gemini-3.1-flash-lite",
-      generatedAt: "2026-11-15T04:17:29.583Z",
-      ms: 24704,
-      attempts: 1,
-      tried: [
-        {
-          model: "gemini-3.1-flash-lite",
-          status: 200
-        }
-      ],
-      report: {
-        verdict: "accepted",
-        summary: {
-          text: "The Burning Rate Emulator (BRE) is ranked first because it matches the oxygen and pressure conditions of your scenario, whereas other investigations only match airflow or fuel type. The BRE investigation does not cover solid material samples, lunar-gravity conditions, or the specific airflow velocity of your scenario.",
-          accepted: true,
-          problems: []
-        },
-        claims: [
-          {
-            kind: "Interpretation",
-            text: "The BRE investigation is ranked first because it matches the oxygen and pressure conditions specified in the scenario.",
-            implication: "The ranking reflects the proximity of the investigation's test parameters to the scenario's environment, though it does not imply the investigation covers all variables.",
-            citations: [
-              {
-                source: "acme-bre:ranking",
-                label: "BRE ranking result",
-                origin: "ember",
-                excerpt: "BRE (Burning Rate Emulator) is ranked 1 with 60 of 100 points: question 25 (direct), conditions 35. 2 of 5 specified conditions match. Oxygen: match; Pressure: match; Gravity: outside; Airflow: outside; Fuel type: near."
-              }
-            ],
-            accepted: true,
-            problems: []
-          },
-          {
-            kind: "Research gap",
-            text: "The BRE investigation uses a gaseous fuel emulator rather than solid material samples.",
-            implication: "Results from this investigation may not capture the complex pyrolysis and charring behavior of actual solid materials.",
-            citations: [
-              {
-                source: "acme-bre:caveats",
-                label: "BRE caveats (EMBER)",
-                origin: "ember",
-                excerpt: "Gaseous emulator of solid burning, not a real material sample."
-              }
-            ],
-            accepted: true,
-            problems: []
-          },
-          {
-            kind: "Research gap",
-            text: "There is no combustion data available in the PSI records for partial-gravity environments like the 0.166 g specified in the scenario.",
-            implication: "The influence of lunar gravity on flame spread and extinction remains unmeasured in these investigations.",
-            citations: [
-              {
-                source: "limitation:partial-gravity",
-                label: "EMBER limitation",
-                origin: "ember",
-                excerpt: "PSI holds no partial-gravity combustion data yet."
-              }
-            ],
-            accepted: true,
-            problems: []
-          },
-          {
-            kind: "Measured data",
-            text: "The BRE investigation conducted tests at oxygen concentrations of 21%, 26.5%, 34%, and 40%.",
-            implication: "While these concentrations bracket the 30% oxygen level in the scenario, the data is derived from gaseous fuel burners.",
-            citations: [
-              {
-                source: "acme-bre:row2",
-                label: "BRE \xB7 NASA PSI-20-0 row 2",
-                origin: "nasa",
-                excerpt: "Oxygen Conc (percent): 21; 26.5; 40"
-              },
-              {
-                source: "acme-bre:row3",
-                label: "BRE \xB7 NASA PSI-20-0 row 3",
-                origin: "nasa",
-                excerpt: "Oxygen Conc (percent): 26.5; 34"
-              }
-            ],
-            accepted: true,
-            problems: []
-          }
-        ],
-        openQuestions: [
-          "How does the 0.166 g lunar gravity environment affect flame spread compared to the 0 g microgravity data?",
-          "What are the specific ignition and flame spread characteristics of the actual solid material used in the habitat?",
-          "How does the 0.05 m/s airflow interact with the flame at 30% oxygen and 10.2 psia?"
-        ],
-        receipt: {
-          claims: 4,
-          acceptedClaims: 4,
-          excerpts: 5,
-          nasaExcerpts: 2,
-          derivedExcerpts: 0,
-          emberExcerpts: 3,
-          userExcerpts: 0,
-          tableRowExcerpts: 2
-        }
-      },
-      ranked: [
-        {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
-          id: "bass-ii",
-          name: "BASS-II",
-          rank: 2,
-          total: 50,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
-          id: "bass",
-          name: "BASS",
-          rank: 2,
-          total: 50,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
-          id: "saffire-i",
-          name: "Saffire-I",
-          rank: 4,
-          total: 40,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
-          id: "saffire-ii",
-          name: "Saffire-II",
-          rank: 4,
-          total: 40,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
-          id: "saffire-iii",
-          name: "Saffire-III",
-          rank: 4,
-          total: 40,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        }
-      ],
-      ask: "Why is the top match ranked first, and what does it not cover?"
     },
     '["lunar-habitat","prevention",30,10.2,0.166,0.05,"solid",null,null,null,true]|ask:what has nasa measured closest to my oxygen and pressure?': {
       model: "gemini-3.1-flash-lite",
@@ -6801,18 +6641,9 @@ var recorded_analyses_default = {
       },
       ranked: [
         {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
           id: "bass-ii",
           name: "BASS-II",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6821,7 +6652,7 @@ var recorded_analyses_default = {
         {
           id: "bass",
           name: "BASS",
-          rank: 2,
+          rank: 1,
           total: 50,
           relevance: "direct",
           matched: 2,
@@ -6830,7 +6661,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-i",
           name: "Saffire-I",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6839,7 +6670,7 @@ var recorded_analyses_default = {
         {
           id: "saffire-ii",
           name: "Saffire-II",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
@@ -6848,177 +6679,23 @@ var recorded_analyses_default = {
         {
           id: "saffire-iii",
           name: "Saffire-III",
-          rank: 4,
+          rank: 3,
           total: 40,
           relevance: "direct",
           matched: 1,
+          specified: 5
+        },
+        {
+          id: "acme-bre",
+          name: "BRE",
+          rank: 6,
+          total: 60,
+          relevance: "direct",
+          matched: 2,
           specified: 5
         }
       ],
       ask: "What has NASA measured closest to my oxygen and pressure?"
-    },
-    '["lunar-rover","prevention",30,10.2,0.166,0.1,"solid",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?': {
-      model: "gemini-3.5-flash",
-      generatedAt: "2026-11-15T04:18:21.202Z",
-      ms: 26458,
-      attempts: 1,
-      tried: [
-        {
-          model: "gemini-3.1-flash-lite",
-          status: 503
-        },
-        {
-          model: "gemini-3.5-flash",
-          status: 200
-        }
-      ],
-      report: {
-        verdict: "accepted",
-        summary: {
-          text: "BRE is ranked first because its tested oxygen and pressure conditions match the scenario, but it does not cover solid fuel samples, forced airflow, or lunar gravity.",
-          accepted: true,
-          problems: []
-        },
-        claims: [
-          {
-            kind: "Interpretation",
-            text: "BRE receives the top ranking because its test oxygen and pressure parameters match the scenario, satisfying 2 of 5 specified conditions for a total score of 60 of 100 points.",
-            implication: "Engineers can look to BRE for atmospheric condition matches while recognizing its differences in gravity, airflow, and fuel form.",
-            citations: [
-              {
-                source: "acme-bre:ranking",
-                label: "BRE ranking result",
-                origin: "ember",
-                excerpt: "BRE (Burning Rate Emulator) is ranked 1 with 60 of 100 points: question 25 (direct), conditions 35. 2 of 5 specified conditions match. Oxygen: match; Pressure: match; Gravity: outside; Airflow: outside; Fuel type: near."
-              }
-            ],
-            accepted: true,
-            problems: []
-          },
-          {
-            kind: "Research gap",
-            text: "BRE uses a gaseous emulator of solid burning rather than testing actual solid fuel material samples, and the repository holds no partial-gravity combustion data.",
-            implication: "Because BRE relies on gaseous emulation in microgravity, its dataset does not resolve solid material behavior in 0.166 g lunar gravity.",
-            citations: [
-              {
-                source: "acme-bre:caveats",
-                label: "BRE caveats (EMBER)",
-                origin: "ember",
-                excerpt: "Gaseous emulator of solid burning, not a real material sample."
-              },
-              {
-                source: "limitation:partial-gravity",
-                label: "EMBER limitation",
-                origin: "ember",
-                excerpt: "PSI holds no partial-gravity combustion data yet."
-              }
-            ],
-            accepted: true,
-            problems: []
-          },
-          {
-            kind: "Measured data",
-            text: "In run table records using a 25 mm burner size with 100% C2H4 fuel across oxygen concentrations of 21, 26.5, and 40 percent, 10 flames ignited.",
-            implication: "These gas burner measurements provide microgravity ignition observations but do not reflect solid material burning in 0.166 g.",
-            citations: [
-              {
-                source: "acme-bre:row2",
-                label: "BRE \xB7 NASA PSI-20-0 row 2",
-                origin: "nasa",
-                excerpt: "Burner Size (mm): 25; Fuel Bottle: 100% C2H4; Oxygen Conc (percent): 21; 26.5; 40; Flames Ignited: 10"
-              }
-            ],
-            accepted: true,
-            problems: []
-          },
-          {
-            kind: "Reported finding",
-            text: "NASA states that the BRE flight program seeks to establish burning conditions in a quiescent microgravity ambient.",
-            implication: "Because the investigation targets still atmospheres, it does not evaluate forced airflow environments such as 0.1 m/s (10 cm/s).",
-            citations: [
-              {
-                source: "acme-bre:objectives",
-                label: "PSI-20 objectives (NASA PSI)",
-                origin: "nasa",
-                excerpt: "The BRE flight program seeks to establish the burning conditions in a quiescent microgravity ambient in terms of material properties."
-              }
-            ],
-            accepted: true,
-            problems: []
-          }
-        ],
-        openQuestions: [
-          "How do actual solid materials burn in 0.166 g lunar gravity compared to microgravity gas emulators?",
-          "What flame spread and extinction behaviors occur for solid fuels exposed to a 0.1 m/s forced flow at 30 vol % oxygen?"
-        ],
-        receipt: {
-          claims: 4,
-          acceptedClaims: 4,
-          excerpts: 5,
-          nasaExcerpts: 2,
-          derivedExcerpts: 0,
-          emberExcerpts: 3,
-          userExcerpts: 0,
-          tableRowExcerpts: 1
-        }
-      },
-      ranked: [
-        {
-          id: "acme-bre",
-          name: "BRE",
-          rank: 1,
-          total: 60,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
-          id: "bass-ii",
-          name: "BASS-II",
-          rank: 2,
-          total: 50,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
-          id: "bass",
-          name: "BASS",
-          rank: 2,
-          total: 50,
-          relevance: "direct",
-          matched: 2,
-          specified: 5
-        },
-        {
-          id: "saffire-i",
-          name: "Saffire-I",
-          rank: 4,
-          total: 40,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
-          id: "saffire-ii",
-          name: "Saffire-II",
-          rank: 4,
-          total: 40,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        },
-        {
-          id: "saffire-iii",
-          name: "Saffire-III",
-          rank: 4,
-          total: 40,
-          relevance: "direct",
-          matched: 1,
-          specified: 5
-        }
-      ],
-      ask: "Why is the top match ranked first, and what does it not cover?"
     },
     '["iss","detection",21,14.7,0,0.1,"solid",null,null,null,true]|ask:why is the top match ranked first, and what does it not cover?': {
       model: "gemini-3.1-flash-lite",
@@ -13511,7 +13188,7 @@ var recorded_analyses_default = {
       ask: "What does this evidence mean for fire detection or suppression equipment?"
     }
   },
-  recheckedOn: "2026-11-16"
+  recheckedOn: "2026-11-15"
 };
 
 // src/lib/recorded.ts
@@ -14732,7 +14409,7 @@ var findings_default = {
     },
     {
       id: "F3",
-      title: "Earth's test burned further than orbit, sample for sample",
+      title: "Earth's test never burned less than orbit",
       claim: "In 5 of 8 Saffire-II samples the 1-g ground test burned further than the same material did in orbit, 3 burned the same, and none burned further in orbit. 3 of the 4 silicone samples spread a flame on the ground but not in orbit (about 21.5\u201322.1% O\u2082, 20 cm/s air flow in orbit).",
       numbers: {
         samples: 8,
@@ -15394,7 +15071,7 @@ var findings_default = {
     },
     {
       id: "F6",
-      title: "Almost no solid has burned in exploration air",
+      title: "Almost no solid has been tested in exploration air",
       claim: "Of 402 solid-material tests, 145 record the oxygen level and only 5 the pressure. Solid tests in NASA's PSI tables stop at 22.2% O\u2082; 4 samples from the Saffire IV\u2013VI paper go higher, and 2 of them reach the challenge's exploration atmosphere (SIBAL cotton-fiberglass fabric at 31% and 7.85 psia; PMMA at 30.3% and 7.92 psia). Both burned.",
       numbers: {
         solidTests: 402,
@@ -17847,11 +17524,11 @@ function scoreInvestigation(inv, scenario, w = DEFAULT_WEIGHTS) {
     unknownCount: conditions.filter((c) => c.status === "unknown").length
   };
 }
-var GROUP_ORDER = { same: 0, all: 0, other: 1 };
+var GROUP_ORDER = { same: 0, all: 0, emulator: 1, other: 2 };
 function fuelGroup(r, scenario) {
   if (scenario.fuel == null) return "all";
   const fuel = r.conditions.find((c) => c.key === "fuel")?.status;
-  return fuel === "match" || fuel === "near" ? "same" : "other";
+  return fuel === "match" ? "same" : fuel === "near" ? "emulator" : "other";
 }
 var measured = (r) => r.conditions.filter((c) => (c.status === "match" || c.status === "near") && c.range?.source === "psi-table").length;
 function tieBreak(a, b) {
@@ -17921,14 +17598,14 @@ var PRESETS = [
   },
   {
     id: "lunar-exploration",
-    label: "Exploration 8.2 psia / 34% O\u2082",
+    label: "Moon base, NASA plan (34% O\u2082)",
     note: "NASA's exploration atmosphere for EVA-heavy lunar missions, at lunar gravity.",
     values: { oxygenPct: 34, pressurePsi: 8.2, gravityG: 0.166, airflowMs: 0.05 },
     source: { ntrsId: "20150021491", quote: "eaw-8-2-34", label: "NASA exploration atmosphere evidence report" }
   },
   {
     id: "artemis-surface-habitat",
-    label: "Artemis habitat 10.2 / 26.5%",
+    label: "Artemis habitat (26.5% O\u2082)",
     note: "Nominal atmosphere assumed for the Artemis Surface Habitat, at lunar gravity.",
     values: { oxygenPct: 26.5, pressurePsi: 10.2, gravityG: 0.166, airflowMs: 0.05 },
     source: { ntrsId: "20220000245", quote: "artemis-sh", label: "Artemis Deep Space Habitation paper" }
@@ -17936,7 +17613,7 @@ var PRESETS = [
   {
     id: "lunar-rover",
     label: "Pressurized rover",
-    note: "Assumed to share the lunar exploration atmosphere.",
+    note: "Assumed to share the lunar habitat atmosphere.",
     values: { oxygenPct: 30, pressurePsi: 10.2, gravityG: 0.166, airflowMs: 0.1 }
   },
   {
@@ -17948,7 +17625,7 @@ var PRESETS = [
   {
     id: "spacesuit",
     label: "Spacesuit",
-    note: "100% oxygen at 4.3 psi.",
+    note: "100% oxygen at 4.3 psi, at lunar gravity.",
     values: { oxygenPct: 100, pressurePsi: 4.3, gravityG: 0.166, airflowMs: 0 }
   },
   {

@@ -54,7 +54,11 @@ for (const q of QUESTIONS) for (let run = 1; run <= runs; run++) {
     };
   }
   store.results = [...store.results.filter((x) => !(x.id === q.id && x.run === run)), rec].sort((a, b) => a.id.localeCompare(b.id) || a.run - b.run);
-  store.recordedOn = new Date().toISOString().slice(0, 10);
+  // The local calendar date (YYYY-MM-DD), not UTC: an evening run must not be stamped tomorrow.
+  store.recordedOn = new Date().toLocaleDateString("en-CA");
+  // Record what actually ran: the models that answered and the runs per question, not the configured chain.
+  store.models = [...new Set(store.results.map((x) => x.model).filter((m): m is string => !!m))];
+  store.runsPerQuestion = Math.max(...store.results.map((x) => x.run));
   writeFileSync(path, JSON.stringify(store, null, 2) + "\n");
   console.log(`${q.id} run ${run}: ${rec.status === "error" ? "ERROR " + rec.error : `${rec.verdict} · auto ${rec.auto!.pass ? "pass" : "FAIL"} · ${rec.claims!.filter((c) => c.accepted).length}/${rec.claims!.length} claims · ${rec.model} · ${(rec.ms! / 1000).toFixed(1)}s`}`);
 }

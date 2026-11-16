@@ -64,7 +64,7 @@ for (const { s, ask } of jobs) {
   const r = out.report.receipt;
   log.push(`${label}: ${out.report.verdict} · ${r.acceptedClaims}/${r.claims} claims · NASA ${r.nasaExcerpts} (rows ${r.tableRowExcerpts}) EMBER ${r.emberExcerpts} · ${out.model} · ${out.attempts} attempt(s) · ${(out.ms / 1000).toFixed(0)} s`);
   console.log(log.at(-1));
-  store.recordedOn = new Date().toISOString().slice(0, 10);
+  store.recordedOn = new Date().toLocaleDateString("en-CA"); // local date, not UTC
   writeFileSync(path, JSON.stringify(store, null, 2) + "\n");
 }
 console.log(`\n${Object.keys(store.entries).length} recorded analyses in ${path}`);

@@ -50,7 +50,7 @@ export function f3EarthVsOrbit(rows: AtlasRow[]): Finding {
   const sampleNo = (r: AtlasRow) => String(r.measures.sample?.v ?? r.id.replace(/^.*:r/, "row "));
   return {
     id: "F3",
-    title: "Earth's test burned further than orbit, sample for sample",
+    title: "Earth's test never burned less than orbit",
     claim:
       `In ${numbers.earthFurther} of ${numbers.samples} Saffire-II samples the 1-g ground test burned further than the same material did in orbit, ${numbers.same} burned the same, and none burned further in orbit. ` +
       `${numbers.siliconeEarthFurther} of the ${numbers.siliconeSamples} silicone samples spread a flame on the ground but not in orbit (about ${numbers.o2Min}–${numbers.o2Max}% O₂, ${numbers.flowCms} cm/s air flow in orbit).`,

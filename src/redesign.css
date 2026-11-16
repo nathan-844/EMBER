@@ -20,6 +20,12 @@ body::before { background: var(--bg); }
   max-width: 1600px; width: calc(100% - 48px); margin: 24px auto; padding: 18px; background: var(--paper); border-radius: 40px;
 }
 .frame:has(> .ws-side:empty) { grid-template-columns: 270px minmax(0, 1fr); }
+/* The top bar and footer span every column; a page with nothing in the rail gives its column to the centre. */
+.frame > .top-bar, .frame > .ws-foot { grid-column: 1 / -1; }
+.ws-rail:not(:has(.rail-card)) { display: none; }
+.frame:not(:has(> .ws-rail .rail-card)):has(> .ws-side:empty) { grid-template-columns: minmax(0, 1fr); }
+.ws-foot { padding: 4px 12px 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; font-size: 13px; color: var(--muted); }
+.top-nav button[aria-current="page"] { background: var(--accent); font-weight: 600; }
 .ws-side:empty { display: none; }
 .ws-centre { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
 .ws-centre > main { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
@@ -138,6 +144,39 @@ body::before { background: var(--bg); }
 .stage-note p { margin: 0; }
 .stage-note-title { font-size: 21px; line-height: 1.2; font-weight: 500; }
 .icon-grid { background: var(--paper); border-radius: 24px; padding: 12px; display: grid; grid-template-columns: repeat(2, 48px); gap: 8px; }
+.stage-caption { margin: -12px 0 0; padding: 0 14px; }
+/* Same white box as the note beside it, stretched to its height. */
+.stage-foot:has(.stage-actions) { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+.stage-foot:has(.stage-actions) .stage-note { max-width: none; }
+@media (max-width: 600px) { .stage-foot:has(.stage-actions) { grid-template-columns: 1fr; } }
+.stage-actions { background: var(--paper); border-radius: 24px; padding: 22px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; }
+.stage-actions .text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; }
+/* Ask EMBER: a white panel with an orange outline so it stands out from the grey cards,
+   suggested questions as a list, and the question box at the bottom. */
+.chat-card { background: var(--paper); border: 1.5px solid var(--accent); border-radius: 28px; display: flex; flex-direction: column; overflow: hidden; }
+.chat-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px; background: var(--accent-soft); }
+.chat-head h2 { margin: 0; font-size: 20px; font-weight: 600; }
+.chat-head p { margin: 2px 0 0; font-size: 13px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
+.chat-avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--ink); display: grid; place-items: center; }
+.chat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
+.chat-body { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.chat-lede { margin: 0; font-size: 14px; line-height: 1.45; color: var(--muted); }
+.chat-hint { margin: 4px 0 -4px; font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.chat-card .ask { gap: 12px; }
+.chat-card .ask-row { order: 3; display: flex; flex-direction: row; gap: 8px; padding: 6px; border-radius: 30px; background: var(--surface); margin-top: 6px; }
+.chat-card .ask-row input { flex: 1; min-width: 0; border: 0; background: var(--paper); border-radius: 24px; min-height: 46px; padding: 0 16px; }
+.chat-card .ask-row .btn { border-radius: 24px; min-height: 46px; padding: 0 20px; }
+.chat-card .ask-chips { order: 1; display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+.chat-card .ask-chip { text-align: left; background: var(--surface) !important; border-radius: 16px !important; padding: 10px 14px !important; font-size: 14px; font-weight: 500; line-height: 1.35; }
+.chat-card .ask-chip:hover:not(:disabled) { background: var(--accent-soft) !important; }
+.chat-card .ask-more { align-self: flex-start; font-size: 13.5px; }
+.chat-card .ask-whole { order: 2; align-self: flex-start; font-size: 13.5px; }
+.chat-card > .pill-block { margin: 0 18px 18px; }
+
+/* Ask EMBER sits at the top of the right column on Explore; the column scrolls with the page so a long answer list is never cut off. */
+.ws-side:has(.side-ask) { position: static; }
+.more-toggle { align-self: flex-start; padding: 0 8px; }
+.rail-ask .ask-chips .ask-more { min-height: 32px; text-align: left; padding: 0 8px; }
 .stage .baseline-diff, .stage .card { margin: 0 14px; background: var(--paper); }
 
 /* Oxygen lanes: one rounded track per fuel type, the habitat as a dashed line, the gap as an orange pill. */
@@ -319,6 +358,8 @@ table th { letter-spacing: 0.02em !important; text-transform: none !important; }
 .tabbar { display: none; }
 @media (max-width: 1280px) {
   .frame, .frame:has(> .ws-side:empty) { grid-template-columns: 250px minmax(0, 1fr); }
+  .frame:not(:has(> .ws-rail .rail-card)) { grid-template-columns: minmax(0, 1fr); }
+  .frame:not(:has(> .ws-rail .rail-card)) > .ws-side { grid-column: 1; }
   .ws-side { grid-column: 2; position: static; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
   .ws-side:empty { display: none; }
   .ws-side > * { min-width: 0; }
@@ -336,7 +377,10 @@ table th { letter-spacing: 0.02em !important; text-transform: none !important; }
   .ws-centre > main.page { padding: 18px; }
   .landing .land-hero { padding: 24px; }
   .big-num { font-size: 64px; }
-  .frame-home .top-nav { display: none; }
+  .top-nav { display: none; }
+  .top-bar { justify-content: space-between; }
+  .ws-foot { padding-bottom: 4px; order: 3; }
+  .frame > .top-bar { order: -1; }
   body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
   .frame-home + .tabbar, body:has(.frame-home) { padding-bottom: 0; }
   .tabbar {
@@ -362,3 +406,13 @@ table th { letter-spacing: 0.02em !important; text-transform: none !important; }
 
 .ws-centre > main.page { max-width: none; }
 .mission-fields select { text-overflow: clip; padding: 0 8px !important; }
+
+/* Closest studies: the bar is the score out of 100, unpadded; the name and score sit above it. */
+.pill-bars li { height: auto; background: none; border-radius: 0; display: flex; flex-direction: column; gap: 6px; }
+.score-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-weight: 600; font-size: 14.5px; }
+.score-row .pill-bar-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
+.score-row .pill-bar-score { width: auto; height: auto; background: none; font-variant-numeric: tabular-nums; }
+.score-tag { font-style: normal; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); }
+.score-track { display: block; height: 10px; border-radius: 5px; background: var(--tint); overflow: hidden; }
+.score-fill { display: block; height: 100%; border-radius: 5px; background: var(--ink-2); }
+.pill-bars li.lead .score-fill { background: var(--glass-orange, var(--accent)); }

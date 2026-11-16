@@ -28,6 +28,8 @@ const kinds = ["finding", "source", "premise", "decline"] as const;
 const summary = {
   recordedOn: raw.recordedOn, gradedOn: grades.gradedOn, gradedBy: grades.gradedBy, method: grades.method,
   models: [...new Set(answers.map((a) => a.model).filter(Boolean))],
+  // How many answers each model gave: the first model answers unless it fails, then the next in the chain.
+  modelCounts: Object.fromEntries([...new Set(answers.map((a) => a.model).filter(Boolean))].map((m) => [m, answers.filter((a) => a.model === m).length])),
   questions: QUESTIONS.length, answers: answers.length,
   correct: n((a) => a.grade === "correct"), partly: n((a) => a.grade === "partly"), wrong: n((a) => a.grade === "wrong"),
   byKind: Object.fromEntries(kinds.map((k) => [k, { answers: n((a) => a.kind === k), correct: n((a) => a.kind === k && a.grade === "correct"), partly: n((a) => a.kind === k && a.grade === "partly"), wrong: n((a) => a.kind === k && a.grade === "wrong") }])),

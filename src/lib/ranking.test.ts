@@ -62,8 +62,10 @@ describe("ranking", () => {
     expect(rankLabel(ranked[0])).toBe("T01");
   });
 
-  it("lists every same-fuel study first, then sorts by descending total within each group", () => {
+  it("lists same-fuel studies, then emulators, then other fuels, sorting by descending total within each group", () => {
     const ranked = rankInvestigations(lunar);
+    const order = { same: 0, all: 0, emulator: 1, other: 2 } as const;
+    for (let i = 1; i < ranked.length; i++) expect(order[ranked[i - 1].group]).toBeLessThanOrEqual(order[ranked[i].group]);
     const firstOther = ranked.findIndex((r) => r.group === "other");
     expect(firstOther).toBeGreaterThan(0);
     expect(ranked.slice(firstOther).every((r) => r.group === "other")).toBe(true);
@@ -92,22 +94,34 @@ describe("ranking", () => {
     expect(measured.conditions.find((c) => c.key === "airflowMs")!.points).toBe(15);
   });
 
-  it("leads with a solid-fuel study or a declared solid emulator for a lunar prevention scenario", () => {
+  it("leads with a real solid-material study for a lunar prevention scenario", () => {
     const top = rankInvestigations(lunar)[0].investigation;
-    expect(top.fuelTypes.includes("solid") || top.emulates === "solid").toBe(true);
+    expect(top.fuelTypes).toContain("solid");
+    expect(top.emulates).toBeUndefined();
     expect(top.questions).toContain("prevention");
   });
 
-  it("ranks BRE, the only PSI data at the 30% / 10.2 psia exploration atmosphere, first for the Moon habitat", () => {
-    const r = rankInvestigations(presetScenario("lunar-habitat"));
-    expect(r[0].investigation.id).toBe("acme-bre");
-    expect(r[0].conditions.find((c) => c.key === "fuel")!.status).toBe("near");
-    expect(r[0].group).toBe("same");
+  it("lists BRE, a gas burner emulating solids, after every real solid study and before other fuels", () => {
+    for (const id of ["lunar-habitat", "lunar-exploration", "artemis-surface-habitat", "lunar-rover"] as const) {
+      const r = rankInvestigations(presetScenario(id));
+      const bre = r.findIndex((x) => x.investigation.id === "acme-bre");
+      expect(r[0].investigation.fuelTypes, id).toContain("solid");
+      expect(r[0].group, id).toBe("same");
+      expect(r[bre].group, id).toBe("emulator");
+      expect(r.slice(0, bre).every((x) => x.group === "same"), id).toBe(true);
+      expect(r.slice(bre + 1).every((x) => x.group !== "same"), id).toBe(true);
+    }
   });
 
-  it("gives different leads for cabin air, the Moon habitat and a 100% O2 spacesuit", () => {
-    const lead = (id: Parameters<typeof presetScenario>[0]) => rankInvestigations(presetScenario(id))[0].investigation.id;
-    expect(new Set([lead("iss"), lead("lunar-habitat"), lead("spacesuit")]).size).toBeGreaterThan(1);
+  it("still leads with BASS-II for ISS and Mars cabin air", () => {
+    expect(rankInvestigations(presetScenario("iss"))[0].investigation.id).toBe("bass-ii");
+    expect(rankInvestigations(presetScenario("mars-habitat"))[0].investigation.id).toBe("bass-ii");
+  });
+
+  it("scores the lead lower once the air leaves what NASA tested (cabin air against the Moon habitat and a 100% O2 spacesuit)", () => {
+    const lead = (id: Parameters<typeof presetScenario>[0]) => rankInvestigations(presetScenario(id))[0].total;
+    expect(lead("lunar-habitat")).toBeLessThan(lead("iss"));
+    expect(lead("spacesuit")).toBeLessThan(lead("iss"));
   });
 
   it("detection questions surface SAME and SAME-R", () => {
@@ -122,7 +136,7 @@ describe("ranking", () => {
 
   it("never ranks a different fuel type as tied with the leader (lunar habitat, solid fuel)", () => {
     const ranked = rankInvestigations(presetScenario("lunar-habitat"));
-    for (const r of ranked.filter((x) => x.rank === 1)) expect(r.investigation.fuelTypes.includes("solid") || r.investigation.emulates === "solid").toBe(true);
+    for (const r of ranked.filter((x) => x.rank === 1)) expect(r.investigation.fuelTypes).toContain("solid");
     expect(ranked.find((r) => r.investigation.id === "flex-2")!.rank).toBeGreaterThan(1);
   });
 });

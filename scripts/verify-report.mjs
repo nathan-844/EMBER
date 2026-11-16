@@ -61,7 +61,7 @@ try {
 const counts = JSON.parse(readFileSync("src/data/counts.json", "utf8"));
 
 const report = {
-  recordedAt: new Date().toISOString().slice(0, 10),
+  recordedAt: new Date().toLocaleDateString("en-CA"), // local date, not UTC
   node: process.version,
   code,
   dataSnapshot: { id: counts.snapshot.id, sha256: counts.snapshot.sha256 },
