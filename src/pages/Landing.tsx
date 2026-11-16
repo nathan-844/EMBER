@@ -39,45 +39,44 @@ export function Landing() {
   const gap = +(MOON_O2 - SOLID.max).toFixed(1);
   return (
     <main className="page landing">
-      <header className="land-hero">
-        <p className="eyebrow accent">NASA Space Apps 2026 · Flame in Freefall</p>
-        <h1>A Moon base may breathe {MOON_O2}% oxygen. <span>Does NASA’s fire data cover it?</span></h1>
-        <p className="land-lede">
-          EMBER reads every row of NASA’s microgravity fire tests into one traceable table, computes what the measurements show, ranks the
-          experiments against your crew habitat, and checks every AI-written claim against NASA’s own text.
-        </p>
-        <div className="land-actions">
-          <a className="btn btn-primary land-cta" href="#lab">Launch EMBER →</a>
-          <a className="btn land-btn" href="/ember-demo-30s.mp4" target="_blank" rel="noreferrer">Watch the 30-second demo</a>
-          <a className="btn land-btn" href="#tour">Take the 1-minute tour</a>
-          <a className="btn land-btn" href="#findings">See the findings</a>
-          <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Source on GitHub</a>
+      <div className="land-hero-grid">
+        <header className="land-hero">
+          <p className="eyebrow accent">NASA Space Apps 2026 · Flame in Freefall</p>
+          <h1>A Moon base may breathe {MOON_O2}% oxygen. <span>Does NASA’s fire data cover it?</span></h1>
+          <p className="land-lede">
+            Fire is one of the few dangers that can end a space mission in minutes, and richer air makes things burn more easily. EMBER reads
+            every row of NASA’s microgravity fire tests, shows which ones apply to a habitat you describe, and says plainly where the testing stops.
+          </p>
+          <div className="land-actions">
+            <a className="btn btn-primary land-cta" href="#lab">See the answer →</a>
+            <a className="btn land-btn" href="#tour">Take the 1-minute tour</a>
+            <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Source on GitHub</a>
+          </div>
+        </header>
+        <div className="land-hero-side">
+          <div className="land-video-card">
+            <video className="land-video" controls preload="none" poster="/ember-demo-poster.jpg" aria-label="30-second demo of EMBER, with captions burned in and no sound">
+              <source src="/ember-demo-30s.mp4" type="video/mp4" />
+            </video>
+            <p>EMBER in 30 seconds. Recorded from the running app; captions are part of the picture and there is no sound.</p>
+          </div>
         </div>
-        <dl className="land-stats">
-          <div><dt>{COUNTS.rows.psi.toLocaleString("en-US")}</dt><dd>NASA source rows from {COUNTS.sources.psiTables} PSI tables ({COUNTS.observations.testRows.toLocaleString("en-US")} of them tests), every value traced to the cell it came from</dd></div>
-          <div><dt>{FINDINGS.findings.length}</dt><dd>measured findings computed from those rows by code, with no AI in the loop</dd></div>
-          <div><dt>{AUDIT.totals.issues}</dt><dd>data-quality issues found and documented in {AUDIT.totals.tablesAffected} of NASA’s {AUDIT.totals.tablesChecked} tables</dd></div>
-        </dl>
-      </header>
+      </div>
+      <dl className="land-stats">
+        <div><dt>{COUNTS.rows.psi.toLocaleString("en-US")}</dt><dd>NASA source rows from {COUNTS.sources.psiTables} PSI tables ({COUNTS.observations.testRows.toLocaleString("en-US")} of them tests), every value traced to the cell it came from</dd></div>
+        <div><dt>{FINDINGS.findings.length}</dt><dd>measured findings computed from those rows by code, with no AI in the loop</dd></div>
+        <div><dt>{AUDIT.totals.issues}</dt><dd>data-quality issues found and documented in {AUDIT.totals.tablesAffected} of NASA’s {AUDIT.totals.tablesChecked} tables</dd></div>
+      </dl>
 
       <section className="land-section" aria-labelledby="land-path">
-        <p className="eyebrow">Start here · one minute</p>
-        <h2 id="land-path">From the ISS to the Moon, in four steps.</h2>
+        <p className="eyebrow">The story in five steps · about two minutes</p>
+        <h2 id="land-path">From the question to the proof.</h2>
         <ol className="land-path">
-          <li><a href="#lab" className="card"><span className="land-step">1</span><strong>Set a Moon habitat</strong><span className="muted">Pick the lunar preset and see which of 20 NASA investigations apply, and why.</span></a></li>
-          <li><a href="#findings/F6" className="card"><span className="land-step">2</span><strong>See where the tests stop</strong><span className="muted">NASA’s archived solid-material tests end {gap} points of oxygen short of it.</span></a></li>
-          <li><a href="#mission" className="card"><span className="land-step">3</span><strong>Move a material from A to B</strong><span className="muted">Which tests of a cabin panel still apply when the air changes from ISS to lunar?</span></a></li>
-          <li><a href="#credibility" className="card"><span className="land-step">4</span><strong>Check our work</strong><span className="muted">Every test, source check and AI score, with the failures listed.</span></a></li>
+          <li><a href="#lab" className="card"><span className="land-step">2</span><strong>The answer</strong><span className="muted">Pick the lunar habitat and see which of 20 NASA investigations apply. Solid-material tests end {gap} points of oxygen short of it.</span></a></li>
+          <li><a href="#findings" className="card"><span className="land-step">3</span><strong>What NASA measured</strong><span className="muted">Eight results computed from NASA’s own rows, such as how much carbon monoxide a small burn adds to the air.</span></a></li>
+          <li><a href="#mission" className="card"><span className="land-step">4</span><strong>Move to the Moon</strong><span className="muted">Which tests of a cabin panel still apply when the air changes from the Space Station to a lunar base?</span></a></li>
+          <li><a href="#credibility" className="card"><span className="land-step">5</span><strong>Check our work</strong><span className="muted">Every test, source check and AI score, with the failures listed.</span></a></li>
         </ol>
-      </section>
-
-      <section className="land-section" aria-labelledby="land-demo">
-        <p className="eyebrow">See it run</p>
-        <h2 id="land-demo">EMBER in 30 seconds.</h2>
-        <video className="land-video" controls preload="none" poster="/ember-demo-poster.jpg" aria-label="30-second demo of EMBER, with captions burned in and no sound">
-          <source src="/ember-demo-30s.mp4" type="video/mp4" />
-        </video>
-        <p className="land-note">Recorded from the running app. Captions are part of the picture; there is no sound.</p>
       </section>
 
       <section className="land-section" aria-labelledby="land-brief">

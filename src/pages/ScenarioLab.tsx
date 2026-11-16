@@ -25,7 +25,9 @@ import { buildBrief, buildCsv, downloadText } from "../lib/brief";
 import { compareRankings } from "../lib/compare";
 import { equipmentGroups, upcomingFor } from "../lib/equipment";
 import { DownloadIcon } from "../components/icons";
-import { leadInsight, scenarioLimitations } from "../lib/limitations";
+import { leadInsight, oxygenGapForFuel, scenarioLimitations } from "../lib/limitations";
+
+const FUEL_PLAIN = { solid: "solid-material", liquid: "fuel-droplet", gas: "gas-flame" } as const;
 import { rankInvestigations } from "../lib/ranking";
 import { probeRobustness } from "../lib/robustness";
 import { DEFAULT_SCENARIO, gravityRegime, PRESETS, ppo2VsEarth, type Scenario } from "../lib/scenario";
@@ -108,6 +110,10 @@ export function ScenarioLab() {
   const tile = (id: TileId) => ({ id, onOpen: () => setOpen(id) });
   const dialog = (id: TileId) => ({ open: open === id, onClose: () => setOpen((cur) => (cur === id ? null : cur)) });
 
+  // Lead with the result in plain words when the scenario sits above every test of its fuel type.
+  const o2Gap = useMemo(() => oxygenGapForFuel(scenario), [scenario]);
+  const plain = o2Gap && o2Gap.sameFuel[0].conditions.oxygenPct?.source === "psi-table" ? { lead: `NASA’s ${FUEL_PLAIN[o2Gap.fuel]} tests stop at ${o2Gap.maxForFuel}% oxygen.`, you: `Your habitat is at ${scenario.oxygenPct}%.` } : null;
+
   const ppo2 = ppo2VsEarth(scenario);
   const [gTitle] = GRAVITY_TEXT[gravityRegime(scenario.gravityG)];
   // The oxygen gap already leads the answer tile; show a different limit here.
@@ -153,7 +159,8 @@ export function ScenarioLab() {
             <Tile {...tile("answer")} size="2x2" tone="answer" eyebrow="The short answer" title={insight ? "What the evidence says" : "No matching research"}>
               {insight ? (
                 <>
-                  <p className="tile-headline">{insight.title}</p>
+                  <p className="tile-headline">{plain ? <>{plain.lead} <em>{plain.you}</em></> : insight.title}</p>
+                  {plain && <p className="tile-text">Closest study: {insight.title}.</p>}
                   {insight.keyFinding && <p className="tile-clamp tile-text"><strong>Key finding:</strong> {insight.keyFinding}</p>}
                   <p className="tile-tags">
                     <span className={`badge ${insight.fullCoverage ? "badge-ok" : "badge-warn"}`}>
