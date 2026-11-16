@@ -7,7 +7,7 @@ You describe a crew environment (oxygen, pressure, gravity, airflow, fuel) and E
 NASA's microgravity combustion experiments (BASS, Saffire, FLEX, ACME, SAME, …) apply to it, and
 where the evidence runs out.
 
-**Live demo: https://ember-fire-safety.vercel.app**
+**Live demo: [https://ember-fire-safety.vercel.app](https://ember-sigma-topaz.vercel.app/#home)**
 
 ## What you can do
 
