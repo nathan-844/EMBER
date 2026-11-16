@@ -84,30 +84,30 @@ export default function Compare() {
     <header className="land-hero findings-hero">
       <p className="eyebrow accent">Compare · BASS-II · exploratory analysis</p>
       <h1>Ask the data. <span>Take the calculation with you.</span></h1>
-      <p className="land-lede">Compare measured changes in glovebox carbon monoxide for PMMA slabs and SIBAL fabric. Change the oxygen window or review policy, inspect every exclusion, and reproduce the result offline.</p>
-      <p className="muted">Data snapshot {spec.dataset} · {spec.reviewVersion} · final CO − initial CO, in ppm</p>
+      <p className="land-lede">How much carbon monoxide did a burning PMMA slab add to the BASS-II glovebox, compared with SIBAL fabric? Change which tests count, see every test that was left out and why, and rerun the numbers yourself.</p>
+      <p className="muted">Data snapshot {spec.dataset} · {spec.reviewVersion} · carbon monoxide after the burn minus before, in ppm</p>
       <p><a href="#research">Explore Saffire, FLEX and smoke-ageing comparisons</a></p>
     </header>
     <section className="card compare-section" aria-labelledby="controls-title">
-      <h2 id="controls-title">1. Define the comparison</h2>
+      <h2 id="controls-title">1. Choose what to compare</h2>
       <div className="compare-controls">
-        <label>Cohort A<select value={spec.a} onChange={(e) => update({ a: e.target.value as Group })}>{GROUPS.map((g) => <option key={g}>{g}</option>)}</select></label>
-        <label>Cohort B<select value={spec.b} onChange={(e) => update({ b: e.target.value as Group })}>{GROUPS.map((g) => <option key={g}>{g}</option>)}</select></label>
-        <label>Minimum starting O₂ (vol%)<input type="number" min="0" max="100" step="0.1" value={Number.isNaN(spec.oxygen[0]) ? "" : spec.oxygen[0]} onChange={(e) => update({ oxygen: [e.target.valueAsNumber, spec.oxygen[1]] })} /></label>
-        <label>Maximum starting O₂ (vol%)<input type="number" min="0" max="100" step="0.1" value={Number.isNaN(spec.oxygen[1]) ? "" : spec.oxygen[1]} onChange={(e) => update({ oxygen: [spec.oxygen[0], e.target.valueAsNumber] })} /></label>
-        <label>Source policy<select value={spec.sourceMode} onChange={(e) => update({ sourceMode: e.target.value as AnalysisSpec["sourceMode"] })}><option value="reviewed">Source-reconciled pairs</option><option value="raw">Raw numeric pairs</option></select></label>
+        <label>Group A<select value={spec.a} onChange={(e) => update({ a: e.target.value as Group })}>{GROUPS.map((g) => <option key={g}>{g}</option>)}</select></label>
+        <label>Group B<select value={spec.b} onChange={(e) => update({ b: e.target.value as Group })}>{GROUPS.map((g) => <option key={g}>{g}</option>)}</select></label>
+        <label>Lowest starting oxygen · %<input type="number" min="0" max="100" step="0.1" value={Number.isNaN(spec.oxygen[0]) ? "" : spec.oxygen[0]} onChange={(e) => update({ oxygen: [e.target.valueAsNumber, spec.oxygen[1]] })} /></label>
+        <label>Highest starting oxygen · %<input type="number" min="0" max="100" step="0.1" value={Number.isNaN(spec.oxygen[1]) ? "" : spec.oxygen[1]} onChange={(e) => update({ oxygen: [spec.oxygen[0], e.target.valueAsNumber] })} /></label>
+        <label>Which tests count<select value={spec.sourceMode} onChange={(e) => update({ sourceMode: e.target.value as AnalysisSpec["sourceMode"] })}><option value="reviewed">Only tests that match NASA’s report</option><option value="raw">Every test with two CO readings</option></select></label>
         <label className="compare-check"><input type="checkbox" checked={spec.excludeQuestionable} onChange={(e) => update({ excludeQuestionable: e.target.checked })} />Exclude negative CO readings</label>
       </div>
-      <p className="muted">Both policies retain only exact CO pairs and exclude implausible final oxygen. Reconciled mode also excludes unresolved source matches. This slice uses stated materials; an inferred-material toggle would not change it.</p>
+      <p className="muted">Both settings keep only tests with a carbon monoxide reading before and after the burn, and drop tests whose final oxygen reading is implausible. The stricter setting also drops tests whose material could not be matched to NASA’s report.</p>
       <button className="btn" onClick={() => update(DEFAULT_SPEC)}>Reset comparison</button>
     </section>
     <section className="card compare-section" aria-labelledby="result-title">
-      <h2 id="result-title">2. Inspect the result</h2>
+      <h2 id="result-title">2. The result</h2>
       <div aria-live="polite">
         {result.messages.map((m) => <p className="compare-warning" key={m}>{m}</p>)}
-        <p><strong>{result.a.n} A + {result.b.n} B numeric observations used</strong> / {result.candidates} candidates · {result.excluded.length} excluded · {result.censored} censored in the candidate slice. Independent session count: unknown.</p>
-        {result.difference !== null && <p className="compare-estimate">{number(result.difference)} <span>ppm median difference (A − B)</span></p>}
-        {result.interval && <p>Exploratory 95% bootstrap interval: <strong>{span(result.interval)} ppm</strong>. {result.successfulReplicates} / {spec.replicates} replicates; seed {spec.seed}. Assumes independent observations; session dependence may make this too narrow.</p>}
+        <p><strong>{result.a.n} tests in group A and {result.b.n} in group B were used</strong>, out of {result.candidates}. {result.excluded.length} were left out; {result.censored} of the {result.candidates} have a reading that went off the sensor’s scale. How many separate sessions the tests came from is not known.</p>
+        {result.difference !== null && <p className="compare-estimate">{number(result.difference)} <span>ppm: group A’s typical rise minus group B’s (medians)</span></p>}
+        {result.interval && <p>Likely range: <strong>{span(result.interval)} ppm</strong> (a 95% interval from {result.successfulReplicates.toLocaleString("en-US")} random resamples of the tests; seed {spec.seed}). It treats every test as independent, so tests that shared a session may make it too narrow.</p>}
         <p className="compare-warning">This is an observed concentration change under different test conditions. It does not establish that one material is intrinsically more toxic or predict a cabin fire.</p>
       </div>
       <div className="compare-table-wrap"><table><caption>Sample support and condition imbalance</caption><thead><tr><th>Quantity</th><th>A · {spec.a}</th><th>B · {spec.b}</th></tr></thead><tbody>
@@ -121,13 +121,13 @@ export default function Compare() {
       <Distribution result={result} spec={spec} />
     </section>
     <section className="card compare-section" aria-labelledby="sensitivity-title">
-      <h2 id="sensitivity-title">3. Challenge the conclusion</h2>
+      <h2 id="sensitivity-title">3. Does it hold under stricter rules?</h2>
       <p>Each row recomputes the same comparison under a named policy. The common-oxygen policy narrows both cohorts to the overlap of the raw eligible ranges. A disappearing estimate means insufficient evidence.</p>
       <div className="compare-table-wrap"><table><caption>Data-quality sensitivity · difference in ppm</caption><thead><tr><th>Policy</th><th>A / B used</th><th>Excluded</th><th>A − B median</th><th>95% interval</th><th>Direction</th></tr></thead><tbody>{policies.map(({ label, result: r }) => <tr key={label}><th>{label}</th><td>{r.a.n} / {r.b.n}</td><td>{r.excluded.length}</td><td>{number(r.difference)}</td><td>{span(r.interval)}</td><td>{r.difference === null ? "Insufficient" : r.difference > 0 ? "A > B" : r.difference < 0 ? "A < B" : "Equal"}</td></tr>)}</tbody></table></div>
       <details className="compare-details"><summary>Assumptions and uncertainty limits</summary><ul>{LIMITATIONS.map((s) => <li key={s}>{s}</li>)}</ul></details>
     </section>
     <section className="card compare-section" aria-labelledby="sources-title">
-      <h2 id="sources-title">4. Audit the source trail</h2>
+      <h2 id="sources-title">4. Where every number came from</h2>
       <p><strong>{OBSERVATIONS.filter((o) => o.review.matched).length} / {OBSERVATIONS.length} candidate rows have matching gas-cell crosswalks</strong> (four cells per row). This is a Codex check against rendered NASA report tables, with no independent human or scientific sign-off. It does not validate the whole BASS-II dataset.</p>
       <p><a href={SOURCE_MANIFEST.summary.url} target="_blank" rel="noreferrer">NASA BASS-II summary report</a> · Tables A.4 and A.6, printed pp. 108–109 and 112–113. <a href={SOURCE_MANIFEST.psi.url} target="_blank" rel="noreferrer">PSI-25 dataset</a> · <a href={`https://doi.org/${SOURCE_MANIFEST.psi.doi}`} target="_blank" rel="noreferrer">Dataset DOI</a>.</p>
       <p><a href={SOURCE_MANIFEST.sensors.url + "#page=4"} target="_blank" rel="noreferrer">Published sensor context</a>: {SOURCE_MANIFEST.sensors.context}</p>
@@ -140,7 +140,7 @@ export default function Compare() {
       </details>
     </section>
     <section className="card compare-section" aria-labelledby="export-title">
-      <h2 id="export-title">5. Reproduce it anywhere</h2>
+      <h2 id="export-title">5. Rerun it yourself</h2>
       <p>Download the exact specification, raw cells, included/excluded rows, source crosswalk, sensitivity results and a standalone Node runner with SHA-256 integrity checks. No server, API key or package install needed.</p>
       <div className="land-actions"><button className="btn btn-primary" disabled={busy || result.status === "blocked"} onClick={download}>{busy ? "Preparing package…" : "Download analysis (.zip)"}</button><button className="btn" disabled={result.status === "blocked"} onClick={share}>Copy analysis link</button></div>
       <p>Unzip and run <code>node reproduce.mjs</code> with Node.js 22+. The runner reconstructs the observations from raw cells and checks the complete unrounded result.</p>

@@ -777,6 +777,7 @@ html:has(.tile-dialog[open]) { overflow: hidden; }
 .land-path a:hover { border-color: var(--navy-2); }
 .land-path strong { font-size: 15px; line-height: 1.3; }
 .land-path .muted { font-size: 12.5px; line-height: 1.5; }
+.land-video { display: block; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin-top: 16px; border: 1px solid var(--border); border-radius: var(--radius); background: #000; }
 .land-step { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800; font-size: 13px; }
 @media (max-width: 900px) { .land-path { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .land-path { grid-template-columns: 1fr; } }

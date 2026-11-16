@@ -48,9 +48,9 @@ export function Landing() {
         </p>
         <div className="land-actions">
           <a className="btn btn-primary land-cta" href="#lab">Launch EMBER →</a>
+          <a className="btn land-btn" href="/ember-demo-30s.mp4" target="_blank" rel="noreferrer">Watch the 30-second demo</a>
           <a className="btn land-btn" href="#tour">Take the 1-minute tour</a>
           <a className="btn land-btn" href="#findings">See the findings</a>
-          <a className="btn land-btn" href="#data">Browse the data</a>
           <a className="btn land-btn" href={REPO} target="_blank" rel="noreferrer">Source on GitHub</a>
         </div>
         <dl className="land-stats">
@@ -69,6 +69,15 @@ export function Landing() {
           <li><a href="#mission" className="card"><span className="land-step">3</span><strong>Move a material from A to B</strong><span className="muted">Which tests of a cabin panel still apply when the air changes from ISS to lunar?</span></a></li>
           <li><a href="#credibility" className="card"><span className="land-step">4</span><strong>Check our work</strong><span className="muted">Every test, source check and AI score, with the failures listed.</span></a></li>
         </ol>
+      </section>
+
+      <section className="land-section" aria-labelledby="land-demo">
+        <p className="eyebrow">See it run</p>
+        <h2 id="land-demo">EMBER in 30 seconds.</h2>
+        <video className="land-video" controls preload="none" poster="/ember-demo-poster.jpg" aria-label="30-second demo of EMBER, with captions burned in and no sound">
+          <source src="/ember-demo-30s.mp4" type="video/mp4" />
+        </video>
+        <p className="land-note">Recorded from the running app. Captions are part of the picture; there is no sound.</p>
       </section>
 
       <section className="land-section" aria-labelledby="land-brief">

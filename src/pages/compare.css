@@ -9,6 +9,7 @@
 .compare-controls option { background: var(--surface); color: var(--ink); }
 .compare-controls .compare-check { flex-direction: row; align-items: center; }
 .compare-check input { width: auto; }
+.compare-plain { font-size: 17px; line-height: 1.5; max-width: 760px; margin: 0 0 4px; }
 .compare-estimate { font-size: clamp(28px, 5vw, 48px); font-weight: 650; color: var(--accent-text); margin: 20px 0 0; }
 .compare-estimate span { font-size: 17px; font-weight: 400; }
 .compare-warning { border-left: 3px solid var(--accent); padding: 10px 16px; background: var(--accent-soft); }
